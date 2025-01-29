@@ -2,9 +2,8 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{ts,tsx,mdx}", // ✅ Ensures Tailwind scans App Router files
+    "./src/components/**/*.{ts,tsx,mdx}", // ✅ Scans reusable components
   ],
   theme: {
     extend: {
@@ -15,4 +14,5 @@ export default {
     },
   },
   plugins: [],
+  mode: "jit", // ✅ Ensure JIT mode is enabled
 } satisfies Config;

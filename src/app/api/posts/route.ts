@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
 
-export async function GET() {
+export async function getPosts() {
   try {
     const response = await fetch("https://cms.a11ypros.com/wp-json/wp/v2/posts", {
 		cache: 'no-store',
