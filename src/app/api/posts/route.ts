@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch(`${process.env.CMS_URL}/posts`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/posts`, {
 		cache: 'no-store',
 		headers: {
-		  Authorization: `${process.env.WP_AUTH}`
+		  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`
 		},
 	  });
 

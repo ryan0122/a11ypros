@@ -6,7 +6,7 @@ interface Post {
   const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
   
   async function getPosts(): Promise<Post[]> {
-	const res = await fetch(`${process.env.CMS_URL}/posts`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/posts`, {
 	  cache: "no-store", // Ensure fresh data
 	  headers: {
 		Authorization: authHeader,

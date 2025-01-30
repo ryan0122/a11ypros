@@ -16,7 +16,7 @@ export default function Nav() {
 
   useEffect(() => {
     async function fetchPages() {
-      const res = await fetch(`${process.env.CMS_URL}/pages`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages`);
       if (res.ok) {
         const data = await res.json();
         setPages(data);

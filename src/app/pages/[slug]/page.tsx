@@ -1,25 +1,26 @@
-import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
+import { notFound } from "next/navigation";
 
-// Keep both params and searchParams in the type to match Next.js expectations
-type PageProps = {
-  params: Promise<{ slug: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+interface Params {
+  slug: string;
 }
 
+const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
+
 async function getPageData(slug: string) {
-  if (!process.env.CMS_URL) {
+  if (!process.env.NEXT_PUBLIC_CMS_URL) {
     console.error("❌ ERROR: `CMS_URL` is not defined in `.env.local`");
     return null;
   }
 
-  const apiUrl = `${process.env.CMS_URL}/pages?slug=${slug}`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}`;
+  console.log("📡 Fetching WordPress page from:", apiUrl);
 
   try {
     const res = await fetch(apiUrl, {
-      cache: "no-store",
+      cache: "no-store", // Ensure fresh data
       headers: {
-        Authorization: `${process.env.WP_AUTH}`,
+        Authorization: authHeader,
       },
     });
 
@@ -38,21 +39,15 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function Page({ params }: PageProps) {
-  console.log("📝 Rendering Page with params:", params);
+export default async function Page({ params }: { params: Params }) {
+  const { slug } = params; // ✅ Destructure `params` properly
+  console.log("📝 Rendering Page for:", slug);
 
-  const resolvedParams = await params;
-
-  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
-    console.error("❌ ERROR: Invalid params object", resolvedParams);
-    notFound();
-  }
-
-  const page = await getPageData(resolvedParams.slug);
+  const page = await getPageData(slug);
 
   if (!page) {
-    console.warn("⚠️ No page found for:", resolvedParams.slug);
-    notFound();
+    console.warn("⚠️ No page found for:", slug);
+    notFound(); // Triggers 404 page
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
