@@ -5,8 +5,6 @@ interface Params {
   slug: string;
 }
 
-const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
-
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
     console.error("❌ ERROR: `CMS_URL` is not defined in `.env.local`");
@@ -14,13 +12,12 @@ async function getPageData(slug: string) {
   }
 
   const apiUrl = `${process.env.CMS_URL}/pages?slug=${slug}`;
-  console.log("📡 Fetching WordPress page from:", apiUrl);
 
   try {
     const res = await fetch(apiUrl, {
       cache: "no-store", // Ensure fresh data
       headers: {
-        Authorization: authHeader,
+        Authorization: `${process.env.WP_AUTH}`,
       },
     });
 

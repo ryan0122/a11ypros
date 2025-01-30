@@ -16,7 +16,7 @@ export default function Nav() {
 
   useEffect(() => {
     async function fetchPages() {
-      const res = await fetch("https://cms.a11ypros.com/wp-json/wp/v2/pages");
+      const res = await fetch(`${process.env.CMS_URL}/pages`);
       if (res.ok) {
         const data = await res.json();
         setPages(data);

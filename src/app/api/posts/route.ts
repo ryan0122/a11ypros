@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
 
-
-const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
-
 export async function getPosts() {
   try {
-    const response = await fetch("https://cms.a11ypros.com/wp-json/wp/v2/posts", {
+    const response = await fetch(`${process.env.CMS_URL}/posts`, {
 		cache: 'no-store',
 		headers: {
-		  Authorization: authHeader,
+		  Authorization: `${process.env.WP_AUTH}`
 		},
 	  });
 
