@@ -2,9 +2,7 @@ import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
 interface PageProps {
-  params: {
-    slug: string;
-  };
+  params: Record<string, string>; // ✅ Fix Type to be more flexible
 }
 
 async function getPageData(slug: string) {
@@ -39,13 +37,17 @@ async function getPageData(slug: string) {
 }
 
 export default async function Page({ params }: PageProps) {
-  const { slug } = params;
-  console.log("📝 Rendering Page for:", slug);
+  if (!params || typeof params.slug !== "string") {
+    console.error("❌ ERROR: Invalid `params` object", params);
+    notFound();
+  }
 
-  const page = await getPageData(slug);
+  console.log("📝 Rendering Page for:", params.slug);
+
+  const page = await getPageData(params.slug);
 
   if (!page) {
-    console.warn("⚠️ No page found for:", slug);
+    console.warn("⚠️ No page found for:", params.slug);
     notFound();
   }
 
