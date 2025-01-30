@@ -36,14 +36,14 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Ensure `params` is never inferred as a Promise
-export default async function Page({ params }: { params: Awaited<PageProps["params"]> }) {
+// ✅ Use Next.js-specific types and ensure `params` is not a Promise
+export default async function Page({ params }: { params: { slug: string } }) {
+  console.log("📝 Rendering Page for:", params.slug);
+
   if (!params || typeof params.slug !== "string") {
     console.error("❌ ERROR: Invalid `params` object", params);
     notFound();
   }
-
-  console.log("📝 Rendering Page for:", params.slug);
 
   const page = await getPageData(params.slug);
 
