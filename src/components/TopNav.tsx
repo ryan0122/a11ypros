@@ -15,8 +15,21 @@ interface PageWithChildren extends Page {
   children: PageWithChildren[];
 }
 
+interface StaticLink {
+  id: string;
+  slug: string;
+  title: string;
+}
+
+const predefinedOrder = ["", "about-us", "services", "contact-us", "articles"];
+
+const staticLinks: StaticLink[] = [
+  { id: "home", slug: "", title: "Home" },
+  { id: "blog", slug: "blog", title: "Articles" }
+];
+
 export default function TopNav() {
-  const [pages, setPages] = useState<PageWithChildren[]>([]);
+  const [pages, setPages] = useState<(PageWithChildren | StaticLink)[]>([]);
   const [expandedMenuId, setExpandedMenuId] = useState<number | null>(null);
   const pathname = usePathname();
 
@@ -38,77 +51,81 @@ export default function TopNav() {
               }))
           }));
 
-        setPages(pagesWithChildren);
+        const mergedPages: (PageWithChildren | StaticLink)[] = [...staticLinks, ...pagesWithChildren];
+
+        const sortedPages = mergedPages.sort((a, b) => {
+          const indexA = predefinedOrder.indexOf(a.slug);
+          const indexB = predefinedOrder.indexOf(b.slug);
+          return (indexA === -1 ? predefinedOrder.length : indexA) - (indexB === -1 ? predefinedOrder.length : indexB);
+        });
+
+        setPages(sortedPages);
       }
     }
     fetchPages();
   }, []);
 
-  // Close menu when pathname changes (page navigation)
   useEffect(() => {
     setExpandedMenuId(null);
   }, [pathname]);
 
   const toggleMenu = (pageId: number) => {
-    // If clicking the same menu, close it
-    // If clicking a different menu, close the previous and open the new one
-    setExpandedMenuId(prevId => prevId === pageId ? null : pageId);
+    setExpandedMenuId((prevId) => (prevId === pageId ? null : pageId));
   };
 
-  const renderPageLink = (page: PageWithChildren) => {
-    const isActive = pathname === `/pages/${page.slug}`;
-    const isExpanded = expandedMenuId === page.id;
-    
+  const renderPageLink = (page: PageWithChildren | StaticLink) => {
+    const pagePath = `/${page.slug}`;
+    const isActive = pathname === pagePath;
+    const isExpanded = "children" in page && expandedMenuId === page.id;
+
     return (
       <li key={page.id} className="relative">
         <div className="flex items-center gap-1">
-          <Link 
-            href={`/pages/${page.slug}`}
-            className={isActive ? "active" : ""}
-          >
-            {page.title.rendered}
+          <Link href={pagePath} className={isActive ? "active" : ""}>
+            {typeof page.title === "object" ? page.title.rendered : page.title}
           </Link>
-          
-          {page.children.length > 0 && (
+          {"children" in page && page.children.length > 0 && (
             <button
               type="button"
               className="nav-plus p-1 hover:bg-gray-100 rounded-full"
               aria-expanded={isExpanded}
-              aria-label={`${page.title.rendered} sub menu`}
+              aria-label={`$ {typeof page.title === "object" ? page.title.rendered : page.title} sub menu`}
               onClick={() => toggleMenu(page.id)}
             >
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 16 16" 
-                className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
                 aria-hidden="true"
               >
-                <path 
-                  d="M2 5L8 11L14 5" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
+                <path
+                  d="M2 5L8 11L14 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   fill="none"
                 />
               </svg>
             </button>
           )}
         </div>
-        
-        {page.children.length > 0 && isExpanded && (
+        {"children" in page && page.children.length > 0 && isExpanded && (
           <ul className="menu sub-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
-            {page.children.map(childPage => (
-              <li key={childPage.id} className="px-4 py-2 hover:bg-gray-100">
-                <Link 
-                  href={`/pages/${childPage.slug}`}
-                  className={`text-black ${pathname === `/pages/${childPage.slug}` ? "active" : ""}`}
-                >
-                  {childPage.title.rendered}
-                </Link>
-              </li>
-            ))}
+            {page.children.map((childPage) => {
+              const childPath = `/${childPage.slug}`;
+              return (
+                <li key={childPage.id} className="px-4 py-2 hover:bg-gray-100">
+                  <Link
+                    href={childPath}
+                    className={`text-black ${pathname === childPath ? "active" : ""}`}
+                  >
+                    {childPage.title.rendered}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
       </li>
@@ -118,9 +135,6 @@ export default function TopNav() {
   return (
     <nav>
       <ul className="flex flex-row gap-6">
-        <li className={pathname === "/" ? "active" : ""}>
-          <Link href="/">Home</Link>
-        </li>
         {pages.map(renderPageLink)}
       </ul>
     </nav>

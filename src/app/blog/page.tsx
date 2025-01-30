@@ -2,15 +2,12 @@ interface Post {
 	id: number;
 	title: { rendered: string };
   }
-
-  const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
   
   async function getPosts(): Promise<Post[]> {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/posts`, {
+    
 	  cache: "no-store", // Ensure fresh data
-	  headers: {
-		Authorization: authHeader,
-	  },
+	  
 	});
   
 	if (!res.ok) {
