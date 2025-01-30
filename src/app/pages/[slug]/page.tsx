@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
-// ✅ Explicitly cast `params` to ensure it's treated as an object
-interface PageProps {
-  params: { slug: string } | Promise<{ slug: string }>;
-}
+// ✅ Explicitly force `params` to be an object
+type PageProps = Awaited<{ params: { slug: string } }>;
 
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
@@ -37,23 +35,19 @@ async function getPageData(slug: string) {
   }
 }
 
+// ✅ Ensure `params` is always a plain object
 export default async function Page({ params }: PageProps) {
-  console.log("📝 Raw params before fix:", params);
+  console.log("📝 Rendering Page with params:", params);
 
-  // ✅ Ensure `params` is always an object, not a Promise
-  const fixedParams = (await params) as { slug: string };
-
-  console.log("📝 Fixed params after casting:", fixedParams);
-
-  if (!fixedParams || typeof fixedParams.slug !== "string") {
-    console.error("❌ ERROR: Invalid params object", fixedParams);
+  if (!params || typeof params.slug !== "string") {
+    console.error("❌ ERROR: Invalid params object", params);
     notFound();
   }
 
-  const page = await getPageData(fixedParams.slug);
+  const page = await getPageData(params.slug);
 
   if (!page) {
-    console.warn("⚠️ No page found for:", fixedParams.slug);
+    console.warn("⚠️ No page found for:", params.slug);
     notFound();
   }
 
