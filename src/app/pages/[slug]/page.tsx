@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
-import { FC } from "react";
 
-// ✅ Ensure PageProps is correctly typed
+// ✅ Force TypeScript to recognize `params` as a plain object (not a Promise)
 interface PageProps {
-  params: { slug: string };
+  params: Awaited<{ slug: string }>;
 }
 
-// ✅ Ensure `getPageData` is async
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
     console.error("❌ ERROR: `CMS_URL` is not defined in `.env.local`");
@@ -39,8 +37,8 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Explicitly define `params` as a non-Promise object
-const Page: FC<PageProps> = async ({ params }) => {
+// ✅ Explicitly define `params` to prevent Netlify from treating it as a Promise
+export default async function Page({ params }: PageProps) {
   if (!params || typeof params.slug !== "string") {
     console.error("❌ ERROR: Invalid `params` object", params);
     notFound();
@@ -48,7 +46,6 @@ const Page: FC<PageProps> = async ({ params }) => {
 
   console.log("📝 Rendering Page for:", params.slug);
 
-  // ✅ Ensure `params.slug` is never a Promise
   const page = await getPageData(params.slug);
 
   if (!page) {
@@ -57,6 +54,4 @@ const Page: FC<PageProps> = async ({ params }) => {
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
-};
-
-export default Page;
+}
