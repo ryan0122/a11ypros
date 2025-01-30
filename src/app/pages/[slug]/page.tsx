@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
-// ✅ Force TypeScript to recognize `params` as a plain object (not a Promise)
+// ✅ Explicitly cast `params` to ensure it's treated as an object
 interface PageProps {
-  params: Awaited<{ slug: string }>;
+  params: { slug: string } | Promise<{ slug: string }>;
 }
 
 async function getPageData(slug: string) {
@@ -37,19 +37,23 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Explicitly define `params` to prevent Netlify from treating it as a Promise
 export default async function Page({ params }: PageProps) {
-  if (!params || typeof params.slug !== "string") {
-    console.error("❌ ERROR: Invalid `params` object", params);
+  console.log("📝 Raw params before fix:", params);
+
+  // ✅ Ensure `params` is always an object, not a Promise
+  const fixedParams = (await params) as { slug: string };
+
+  console.log("📝 Fixed params after casting:", fixedParams);
+
+  if (!fixedParams || typeof fixedParams.slug !== "string") {
+    console.error("❌ ERROR: Invalid params object", fixedParams);
     notFound();
   }
 
-  console.log("📝 Rendering Page for:", params.slug);
-
-  const page = await getPageData(params.slug);
+  const page = await getPageData(fixedParams.slug);
 
   if (!page) {
-    console.warn("⚠️ No page found for:", params.slug);
+    console.warn("⚠️ No page found for:", fixedParams.slug);
     notFound();
   }
 
