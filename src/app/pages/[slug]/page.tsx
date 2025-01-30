@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
+import { NextPage } from "next";
 
 interface PageProps {
-  params: Record<string, string>; // ✅ Fix Type to be more flexible
+  params: { slug: string };
 }
 
 async function getPageData(slug: string) {
@@ -36,7 +37,8 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function Page({ params }: PageProps) {
+// ✅ Explicitly Define Next.js Page Type
+const Page: NextPage<PageProps> = async ({ params }) => {
   if (!params || typeof params.slug !== "string") {
     console.error("❌ ERROR: Invalid `params` object", params);
     notFound();
@@ -52,4 +54,6 @@ export default async function Page({ params }: PageProps) {
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
-}
+};
+
+export default Page;
