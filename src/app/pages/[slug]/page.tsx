@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
-// To this:
-type PageProps = {
-	params: { slug: string }
+// Use the Next.js-specific page props type
+interface PageProps {
+  params: {
+    slug: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
@@ -37,7 +40,6 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Ensure `params` is always a plain object
 export default async function Page({ params }: PageProps) {
   console.log("📝 Rendering Page with params:", params);
 
