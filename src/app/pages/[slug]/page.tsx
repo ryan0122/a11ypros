@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
+import { FC } from "react";
 
+// ✅ Ensure PageProps is correctly typed
 interface PageProps {
   params: { slug: string };
 }
@@ -37,16 +39,16 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Ensure `Page` is async since it calls `await getPageData()`
-export default async function Page({ params }: PageProps) {
-  console.log("📝 Rendering Page for:", params.slug);
-
+// ✅ Explicitly define `params` as a non-Promise object
+const Page: FC<PageProps> = async ({ params }) => {
   if (!params || typeof params.slug !== "string") {
     console.error("❌ ERROR: Invalid `params` object", params);
     notFound();
   }
 
-  // ✅ Use `await` since `getPageData` is async
+  console.log("📝 Rendering Page for:", params.slug);
+
+  // ✅ Ensure `params.slug` is never a Promise
   const page = await getPageData(params.slug);
 
   if (!page) {
@@ -55,4 +57,6 @@ export default async function Page({ params }: PageProps) {
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
-}
+};
+
+export default Page;
