@@ -1,11 +1,11 @@
-import PageTemplate from "@/components/PageTemplate";
 import { notFound } from "next/navigation";
+import PageTemplate from "@/components/PageTemplate";
 
-interface Params {
-  slug: string;
+// Keep both params and searchParams in the type to match Next.js expectations
+type PageProps = {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
-
-const authHeader = "Basic YTExeXByb2NtczpOQlZPIHRkOFogSHlxTyBoVmYzIHVtVEEgZkhjUg==";
 
 async function getPageData(slug: string) {
   if (!process.env.NEXT_PUBLIC_CMS_URL) {
@@ -14,13 +14,12 @@ async function getPageData(slug: string) {
   }
 
   const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}`;
-  console.log("📡 Fetching WordPress page from:", apiUrl);
 
   try {
     const res = await fetch(apiUrl, {
-      cache: "no-store", // Ensure fresh data
+      cache: "no-store",
       headers: {
-        Authorization: authHeader,
+        Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
       },
     });
 
@@ -39,15 +38,21 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function Page({ params }: { params: Params }) {
-  const { slug } = params; // ✅ Destructure `params` properly
-  console.log("📝 Rendering Page for:", slug);
+export default async function Page({ params }: PageProps) {
+  console.log("📝 Rendering Page with params:", params);
 
-  const page = await getPageData(slug);
+  const resolvedParams = await params;
+
+  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
+    console.error("❌ ERROR: Invalid params object", resolvedParams);
+    notFound();
+  }
+
+  const page = await getPageData(resolvedParams.slug);
 
   if (!page) {
-    console.warn("⚠️ No page found for:", slug);
-    notFound(); // Triggers 404 page
+    console.warn("⚠️ No page found for:", resolvedParams.slug);
+    notFound();
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
