@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function getPosts() {
+export async function GET() {
   try {
     const response = await fetch(`${process.env.CMS_URL}/posts`, {
 		cache: 'no-store',
