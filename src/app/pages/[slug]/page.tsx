@@ -1,8 +1,10 @@
-import PageTemplate from "@/components/PageTemplate";
 import { notFound } from "next/navigation";
+import PageTemplate from "@/components/PageTemplate";
 
-interface Params {
-  slug: string;
+interface PageProps {
+  params: {
+    slug: string;
+  };
 }
 
 async function getPageData(slug: string) {
@@ -15,7 +17,7 @@ async function getPageData(slug: string) {
 
   try {
     const res = await fetch(apiUrl, {
-      cache: "no-store", // Ensure fresh data
+      cache: "no-store",
       headers: {
         Authorization: `${process.env.WP_AUTH}`,
       },
@@ -36,15 +38,15 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function Page({ params }: { params: Params }) {
-  const { slug } = params; // ✅ Destructure `params` properly
+export default async function Page({ params }: PageProps) {
+  const { slug } = params;
   console.log("📝 Rendering Page for:", slug);
 
   const page = await getPageData(slug);
 
   if (!page) {
     console.warn("⚠️ No page found for:", slug);
-    notFound(); // Triggers 404 page
+    notFound();
   }
 
   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
