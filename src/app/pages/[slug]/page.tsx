@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
-// ✅ Explicitly force `params` to be an object
-type PageProps = Awaited<{ params: { slug: string } }>;
+// To this:
+type PageProps = {
+	params: { slug: string }
+  };
 
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
