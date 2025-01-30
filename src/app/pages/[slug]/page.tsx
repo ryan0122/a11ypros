@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 
-// Use a more specific type that matches Next.js's expectations
+// Update both params and searchParams to be Promises
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 async function getPageData(slug: string) {
@@ -38,11 +38,12 @@ async function getPageData(slug: string) {
   }
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   console.log("📝 Rendering Page with params:", params);
 
-  // Await the params since they're now a Promise
+  // Await both params and searchParams
   const resolvedParams = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
   if (!resolvedParams || typeof resolvedParams.slug !== "string") {
     console.error("❌ ERROR: Invalid params object", resolvedParams);
