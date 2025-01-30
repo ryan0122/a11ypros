@@ -21,7 +21,7 @@ interface StaticLink {
   title: string;
 }
 
-const predefinedOrder = ["", "about-us", "services", "contact-us", "articles"];
+const predefinedOrder = ["", "about-us", "services", "articles"];
 
 const staticLinks: StaticLink[] = [
   { id: "home", slug: "", title: "Home" },
