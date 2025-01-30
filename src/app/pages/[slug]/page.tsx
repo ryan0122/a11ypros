@@ -5,6 +5,7 @@ interface PageProps {
   params: { slug: string };
 }
 
+// ✅ Ensure `getPageData` is async
 async function getPageData(slug: string) {
   if (!process.env.CMS_URL) {
     console.error("❌ ERROR: `CMS_URL` is not defined in `.env.local`");
@@ -36,8 +37,8 @@ async function getPageData(slug: string) {
   }
 }
 
-// ✅ Use Next.js-specific types and ensure `params` is not a Promise
-export default async function Page({ params }: { params: { slug: string } }) {
+// ✅ Ensure `Page` is async since it calls `await getPageData()`
+export default async function Page({ params }: PageProps) {
   console.log("📝 Rendering Page for:", params.slug);
 
   if (!params || typeof params.slug !== "string") {
@@ -45,6 +46,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+  // ✅ Use `await` since `getPageData` is async
   const page = await getPageData(params.slug);
 
   if (!page) {
