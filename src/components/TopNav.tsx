@@ -21,10 +21,9 @@ interface StaticLink {
   title: string;
 }
 
-const predefinedOrder = ["", "about-us", "services", "articles"];
+const predefinedOrder = ["about-us", "services", "articles"];
 
 const staticLinks: StaticLink[] = [
-  { id: "home", slug: "", title: "Home" },
   { id: "blog", slug: "blog", title: "Articles" }
 ];
 
@@ -133,8 +132,8 @@ export default function TopNav() {
   };
 
   return (
-    <nav>
-      <ul className="flex flex-row gap-6">
+    <nav className="w-1/2">
+      <ul className="flex flex-row justify-between items-center">
         {pages.map(renderPageLink)}
       </ul>
     </nav>
