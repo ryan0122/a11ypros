@@ -4,16 +4,25 @@ import type { Metadata } from "next";
 
 // Keep both params and searchParams in the type to match Next.js expectations
 type PageProps = {
-  params: Promise<{ slug: string }>;  // ✅ Fix: Mark it as a Promise
+  params: Promise<{ slug: string }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params; // Ensure it's fully resolved before using
+
+  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
+    return {
+      title: "Page Not Found - A11Y Pros",
+      description: "The page you are looking for does not exist.",
+    };
+  }
+
   const [page, seoData] = await Promise.all([
-    getPageData(params.slug),
-    getPageMetaData(params.slug),
+    getPageData(resolvedParams.slug),
+    getPageMetaData(resolvedParams.slug),
   ]);
 
   if (!page) {
@@ -30,17 +39,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: page.title.rendered,
       description: seoData?.description,
       url: `${process.env.NEXT_PUBLIC_URL}/${page.slug}`,
-      // images: seoData?.og_image ? [{ url: seoData.og_image }] : [],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title:  page.title.rendered,
+      title: page.title.rendered,
       description: seoData?.description,
-      // images: seoData?.twitter_image ? [{ url: seoData.twitter_image }] : [],
     },
   };
 }
+
 
 // 🛠 Fetch metadata from the separate SEO API
 async function getPageMetaData(slug: string) {
