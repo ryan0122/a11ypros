@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 
 // Keep both params and searchParams in the type to match Next.js expectations
 type PageProps = {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string }>;  // ✅ Fix: Mark it as a Promise
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
 
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -108,17 +109,17 @@ async function getPageData(slug: string) {
 
 // 🛠 Render Page
 export default async function Page({ params }: PageProps) {
-  console.log("📝 Rendering Page with params:", params);
+  const resolvedParams = await params; // ✅ Await params
 
-  const page = await getPageData(params.slug);
-
-  if (!params || typeof params.slug !== "string") {
-    console.error("❌ ERROR: Invalid params object", params);
+  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
+    console.error("❌ ERROR: Invalid params object", resolvedParams);
     notFound();
   }
 
+  const page = await getPageData(resolvedParams.slug);
+
   if (!page) {
-    console.warn("⚠️ No page found for:", params.slug);
+    console.warn("⚠️ No page found for:", resolvedParams.slug);
     notFound();
   }
 
