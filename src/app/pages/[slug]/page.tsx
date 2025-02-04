@@ -75,8 +75,6 @@ async function getPageMetaData(slug: string) {
   }
 }
 
-
-// 🛠 Fetch page data from WordPress (including Rank Math SEO fields)
 async function getPageData(slug: string) {
   if (!process.env.NEXT_PUBLIC_CMS_URL) {
     console.error("❌ ERROR: `NEXT_PUBLIC_CMS_URL` is not defined in `.env.local`");
@@ -113,6 +111,11 @@ export default async function Page({ params }: PageProps) {
   console.log("📝 Rendering Page with params:", params);
 
   const page = await getPageData(params.slug);
+
+  if (!params || typeof params.slug !== "string") {
+    console.error("❌ ERROR: Invalid params object", params);
+    notFound();
+  }
 
   if (!page) {
     console.warn("⚠️ No page found for:", params.slug);
