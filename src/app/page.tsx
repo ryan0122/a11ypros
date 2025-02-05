@@ -1,12 +1,45 @@
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>ADA, A11Y & Section 508 WCAG Web Accessibility Compliance Consultants</h1>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-       
-      </footer>
-    </div>
-  );
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import HomeTemplate from "@/components/HomeTemplate";
+import { getPageData, getPageMetaData } from "@/app/api/pages/dataApi";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [page, seoData] = await Promise.all([
+    getPageData("home"), // Fetch the WordPress "Home" page content
+    getPageMetaData("home"), // Fetch SEO metadata
+  ]);
+
+  if (!page) {
+    return {
+      title: "Page Not Found - A11Y Pros",
+      description: "The page you are looking for does not exist.",
+    };
+  }
+
+  return {
+    title: page.title.rendered,
+    description: seoData?.description || "A11Y Pros provides trusted accessibility services.",
+    openGraph: {
+      title: page.title.rendered,
+      description: seoData?.description,
+      url: process.env.NEXT_PUBLIC_URL,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title.rendered,
+      description: seoData?.description,
+    },
+  };
+}
+
+export default async function HomePage() {
+  const page = await getPageData("home"); // Get WordPress "Home" page content
+
+  if (!page) {
+    console.warn("⚠️ Home page not found");
+    notFound();
+  }
+
+  return <HomeTemplate title={page.title.rendered} content={page.content.rendered} />;
 }

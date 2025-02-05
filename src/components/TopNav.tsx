@@ -89,6 +89,8 @@ export default function TopNav() {
       customTitles[page.slug] ||
       (typeof page.title === "object" ? page.title.rendered : page.title);
 
+    if (page.slug === "home") return null;
+
     return (
       <li key={page.id} className="relative">
         <div className="flex items-center gap-1">
