@@ -1,51 +1,67 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
+import type { Metadata } from "next";
+import { getPageData, getPageMetaData } from "@/app/api/pages/dataApi";
 
 // Keep both params and searchParams in the type to match Next.js expectations
 type PageProps = {
   params: Promise<{ slug: string }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
-async function getPageData(slug: string) {
-  if (!process.env.NEXT_PUBLIC_CMS_URL) {
-    console.error("❌ ERROR: `CMS_URL` is not defined in `.env.local`");
-    return null;
+
+// 🛠 Fetch Metadata for SEO
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params; // Ensure it's fully resolved before using
+
+  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
+    return {
+      title: "Page Not Found - A11Y Pros",
+      description: "The page you are looking for does not exist.",
+    };
   }
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}`;
+  const [page, seoData] = await Promise.all([
+    getPageData(resolvedParams.slug),
+    getPageMetaData(resolvedParams.slug),
+  ]);
 
-  try {
-    const res = await fetch(apiUrl, {
-      cache: "no-store",
-      headers: {
-        Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-      },
-    });
-
-    if (!res.ok) {
-      console.error(`❌ ERROR: Failed to fetch page (Status ${res.status})`);
-      return null;
-    }
-
-    const pages = await res.json();
-    console.log("✅ API Response:", pages);
-
-    return pages.length > 0 ? pages[0] : null;
-  } catch (error) {
-    console.error("❌ ERROR: Fetch request failed", error);
-    return null;
+  if (!page) {
+    return {
+      title: "Page Not Found - A11Y Pros",
+      description: "The page you are looking for does not exist.",
+    };
   }
+
+  return {
+    title: `${page.title.rendered} - A11Y Pros`,
+    description: seoData?.description || "A11Y Pros provides trusted accessibility services.",
+    openGraph: {
+      title: page.title.rendered,
+      description: seoData?.description,
+      url: `${process.env.NEXT_PUBLIC_URL}/${page.slug}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title.rendered,
+      description: seoData?.description,
+    },
+  };
 }
 
+// 🛠 Render Page
 export default async function Page({ params }: PageProps) {
-  console.log("📝 Rendering Page with params:", params);
-
-  const resolvedParams = await params;
+  
+  const resolvedParams = await params; // ✅ Await params
 
   if (!resolvedParams || typeof resolvedParams.slug !== "string") {
     console.error("❌ ERROR: Invalid params object", resolvedParams);
     notFound();
+  }
+
+  if (resolvedParams.slug === "home") {
+    notFound(); // Prevents conflicts with the homepage
   }
 
   const page = await getPageData(resolvedParams.slug);

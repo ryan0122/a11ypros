@@ -21,10 +21,16 @@ interface StaticLink {
   title: string;
 }
 
-const predefinedOrder = ["", "about-us", "services", "articles"];
+// Define custom titles
+const customTitles: Record<string, string> = {
+  "about-us": "Who We Are",
+  "services": "Services",
+  "contact": "Contact"
+};
+
+const predefinedOrder = ["about-us", "services", "articles"];
 
 const staticLinks: StaticLink[] = [
-  { id: "home", slug: "", title: "Home" },
   { id: "blog", slug: "blog", title: "Articles" }
 ];
 
@@ -78,18 +84,25 @@ export default function TopNav() {
     const isActive = pathname === pagePath;
     const isExpanded = "children" in page && expandedMenuId === page.id;
 
+    // Use custom title if available, otherwise default to WordPress title
+    const menuTitle =
+      customTitles[page.slug] ||
+      (typeof page.title === "object" ? page.title.rendered : page.title);
+
+    if (page.slug === "home") return null;
+
     return (
       <li key={page.id} className="relative">
         <div className="flex items-center gap-1">
           <Link href={pagePath} className={isActive ? "active" : ""}>
-            {typeof page.title === "object" ? page.title.rendered : page.title}
+            {menuTitle}
           </Link>
           {"children" in page && page.children.length > 0 && (
             <button
               type="button"
               className="nav-plus p-1 hover:bg-gray-100 rounded-full"
               aria-expanded={isExpanded}
-              aria-label={`$ {typeof page.title === "object" ? page.title.rendered : page.title} sub menu`}
+              aria-label={`${menuTitle} sub menu`}
               onClick={() => toggleMenu(page.id)}
             >
               <svg
@@ -115,13 +128,15 @@ export default function TopNav() {
           <ul className="menu sub-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
             {page.children.map((childPage) => {
               const childPath = `/${childPage.slug}`;
+              const childTitle =
+                customTitles[childPage.slug] || childPage.title.rendered;
               return (
                 <li key={childPage.id} className="px-4 py-2 hover:bg-gray-100">
                   <Link
                     href={childPath}
                     className={`text-black ${pathname === childPath ? "active" : ""}`}
                   >
-                    {childPage.title.rendered}
+                    {childTitle}
                   </Link>
                 </li>
               );
@@ -133,8 +148,8 @@ export default function TopNav() {
   };
 
   return (
-    <nav>
-      <ul className="flex flex-row gap-6">
+    <nav className="w-1/2">
+      <ul className="flex flex-row justify-between items-center">
         {pages.map(renderPageLink)}
       </ul>
     </nav>
