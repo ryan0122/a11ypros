@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useRef } from "react";
+import { InputHTMLAttributes, useId, useRef } from "react";
 import { createId } from "@/utils/createId";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,10 +10,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = ({ className = "", errorText, id, label, type = "text", ...props }: InputProps) => {
 
-  const inputId = id || useRef(createId()).current;
+  const inputIdRef = useRef(useId());
+  const inputId = id || inputIdRef.current;
   const errorId = useRef(createId()).current;
 
-  return (
+  return (  
 	<div className={`${className} mb-5 flex flex-col`}>
 		<label htmlFor={inputId} className="block mb-2">
 			{label}

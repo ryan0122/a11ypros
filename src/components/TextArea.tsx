@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useRef } from "react";
+import { InputHTMLAttributes, useId, useRef } from "react";
 import { createId } from "@/utils/createId";
 
 interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
@@ -10,8 +10,9 @@ interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
 
 const TextArea = ({ className = "", errorText, id, label, ...props }: InputProps) => {
 
-const inputId = id || useRef(createId()).current;
-const errorId = useRef(createId()).current;
+	const inputIdRef = useRef(useId());
+	const inputId = id || inputIdRef.current;
+	const errorId = useRef(createId()).current;
 
   return (
 	<div className={`${className} mb-5 flex flex-col`}>
