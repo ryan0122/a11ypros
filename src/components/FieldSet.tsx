@@ -1,5 +1,4 @@
-import { FieldsetHTMLAttributes, ReactNode, useRef } from "react";
-import { createId } from "@/utils/createId";
+import { FieldsetHTMLAttributes, ReactNode, useId, useRef } from "react";
 
 interface FieldsetProps extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
   className?: string;
@@ -9,7 +8,7 @@ interface FieldsetProps extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
 
 const FieldSet = ({ children, className = "", legend, ...props }: FieldsetProps) => {
   const styles = `py-2 ${className}`;
-  const fieldSetId = useRef(createId()).current;
+  const fieldSetId = useRef(useId()).current;
 
 
   return (

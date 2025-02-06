@@ -1,5 +1,4 @@
 import { InputHTMLAttributes, useId, useRef } from "react";
-import { createId } from "@/utils/createId";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -12,7 +11,7 @@ const Input = ({ className = "", errorText, id, label, type = "text", ...props }
 
   const inputIdRef = useRef(useId());
   const inputId = id || inputIdRef.current;
-  const errorId = useRef(createId()).current;
+  const errorId = useRef(useId()).current;
 
   return (  
 	<div className={`${className} mb-5 flex flex-col`}>
