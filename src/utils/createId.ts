@@ -1,5 +1,9 @@
+'use client';
+
+import { useId } from 'react';
+
 // Generates a random string for id's etc.
 
 export function createId() {
-	return Math.random().toString(36).slice(2);
+  return useId();
 }

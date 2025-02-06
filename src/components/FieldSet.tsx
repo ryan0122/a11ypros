@@ -7,17 +7,17 @@ interface FieldsetProps extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
   children: ReactNode;
 }
 
-const Fieldset = ({ children, className = "", legend, ...props }: FieldsetProps) => {
+const FieldSet = ({ children, className = "", legend, ...props }: FieldsetProps) => {
   const styles = `py-2 ${className}`;
   const fieldSetId = useRef(createId()).current;
 
 
   return (
     <fieldset id={fieldSetId} className={styles} {...props}>
-		<legend>{legend}</legend>
+		<legend className="text-center">{legend}</legend>
       	{children}
     </fieldset>
   );
 };
 
-export default Fieldset;
+export default FieldSet;

@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = ({ children, href, className = "", type = "button", ...props }: ButtonProps) => {
-  const styles = `py-2 ${className}`;
+  const styles = `py-2 focus-visible:outline-2 focus-visible:outline-offset-2 ${className}`;
 
   if (href) {
     return (
