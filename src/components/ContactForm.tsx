@@ -52,6 +52,10 @@ const ContactForm: React.FC = () => {
 		const req = await fetch(process.env.NEXT_PUBLIC_CONTACT_URL as string, reqOptions);
 		const res = await req.json();
 
+		if(!res) return //SHOW ERROR MESSAGING HERE;
+
+		// SHOW SUCCESS MESSAGING HERE
+
 		console.log('response', res);
 	};
 
