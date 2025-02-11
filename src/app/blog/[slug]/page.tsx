@@ -8,11 +8,12 @@ interface Post {
 }
 
 interface PageProps {
-	params: { slug: string };
+	params: { slug: string } | Promise<{ slug: string }>;
   }
 
 export default async function BlogPost({ params }: PageProps) {
-  const post: Post | null = await getPostBySlug(params.slug);
+	const resolvedParams = await Promise.resolve(params);
+	const post: Post | null = await getPostBySlug(resolvedParams.slug);
 
   if (!post) {
     return notFound();
