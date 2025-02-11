@@ -7,11 +7,11 @@ interface Post {
   content: { rendered: string };
 }
 
-interface BlogPostProps {
+interface PageProps {
 	params: { slug: string };
   }
 
-export default async function BlogPost({ params }: BlogPostProps) {
+export default async function BlogPost({ params }: PageProps) {
   const post: Post | null = await getPostBySlug(params.slug);
 
   if (!post) {
@@ -19,9 +19,9 @@ export default async function BlogPost({ params }: BlogPostProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
+    <div className="max-w-4xl mx-auto p-8" suppressHydrationWarning>
       <h1 className="text-3xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-      <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+      <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: post.content.rendered }} suppressHydrationWarning/>
     </div>
   );
 }
