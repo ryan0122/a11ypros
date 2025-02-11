@@ -7,7 +7,11 @@ interface Post {
   content: { rendered: string };
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+interface BlogPostProps {
+	params: { slug: string };
+  }
+
+export default async function BlogPost({ params }: BlogPostProps) {
   const post: Post | null = await getPostBySlug(params.slug);
 
   if (!post) {
