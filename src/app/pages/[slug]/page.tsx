@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 import type { Metadata } from "next";
-import { getPageData, getPageMetaData } from "@/app/api/pages/dataApi";
+import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 
 // Keep both params and searchParams in the type to match Next.js expectations
 type PageProps = {

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import HomeTemplate from "@/components/HomeTemplate";
-import { getPageData, getPageMetaData } from "@/app/api/pages/dataApi";
+import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -1,5 +1,5 @@
 "use client";
-
+import he from "he";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -129,7 +129,7 @@ export default function TopNav() {
             {page.children.map((childPage) => {
               const childPath = `/${childPage.slug}`;
               const childTitle =
-                customTitles[childPage.slug] || childPage.title.rendered;
+                customTitles[childPage.slug] || he.decode(childPage.title.rendered);
               return (
                 <li key={childPage.id} className="px-4 py-2 hover:bg-gray-100">
                   <Link
