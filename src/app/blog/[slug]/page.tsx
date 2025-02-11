@@ -7,9 +7,12 @@ interface Post {
   content: { rendered: string };
 }
 
-interface PageProps {
-	params: Promise<{ slug: string }> | { slug: string };
-   }
+// Keep both params and searchParams in the type to match Next.js expectations
+type PageProps = {
+	params: Promise<{ slug: string }>;
+	searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  };
+  
 
 export default async function BlogPost({ params }: PageProps) {
 	const resolvedParams = 'then' in params ? await params : params;
