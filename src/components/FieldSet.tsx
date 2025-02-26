@@ -2,18 +2,19 @@ import { FieldsetHTMLAttributes, ReactNode, useId, useRef } from "react";
 
 interface FieldsetProps extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
   className?: string;
+  legendClassName?: string;
   legend: string;
   children: ReactNode;
 }
 
-const FieldSet = ({ children, className = "", legend, ...props }: FieldsetProps) => {
+const FieldSet = ({ children, className = "", legend, legendClassName, ...props }: FieldsetProps) => {
   const styles = `py-2 ${className}`;
   const fieldSetId = useRef(useId()).current;
 
 
   return (
     <fieldset id={fieldSetId} className={styles} {...props}>
-		<legend className="text-center">{legend}</legend>
+		<legend className={legendClassName}>{legend}</legend>
       	{children}
     </fieldset>
   );

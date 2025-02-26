@@ -94,34 +94,36 @@ export default function TopNav() {
     return (
       <li key={page.id} className="relative">
         <div className="flex items-center gap-1">
-          <Link href={pagePath} className={isActive ? "active" : ""}>
+          <Link href={pagePath} className={`text-white uppercase ${isActive ? "active" : ""}`}>
             {menuTitle}
           </Link>
           {"children" in page && page.children.length > 0 && (
             <button
-              type="button"
-              className="nav-plus p-1 hover:bg-gray-100 rounded-full"
-              aria-expanded={isExpanded}
-              aria-label={`${menuTitle} sub menu`}
-              onClick={() => toggleMenu(page.id)}
+            type="button"
+            className="nav-plus p-1 hover:bg-white rounded-full group"
+            aria-expanded={isExpanded}
+            aria-label={`${menuTitle} sub menu`}
+            onClick={() => toggleMenu(page.id)}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
+              aria-hidden="true"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              >
-                <path
-                  d="M2 5L8 11L14 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </svg>
-            </button>
+              <path
+                d="M2 5L8 11L14 5"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+                className="transition-colors group-hover:stroke-black"
+              />
+            </svg>
+          </button>
+          
           )}
         </div>
         {"children" in page && page.children.length > 0 && isExpanded && (
@@ -134,7 +136,7 @@ export default function TopNav() {
                 <li key={childPage.id} className="px-4 py-2 hover:bg-gray-100">
                   <Link
                     href={childPath}
-                    className={`text-black ${pathname === childPath ? "active" : ""}`}
+                    className={`uppercase ${pathname === childPath ? "active" : ""}`}
                   >
                     {childTitle}
                   </Link>
@@ -148,7 +150,7 @@ export default function TopNav() {
   };
 
   return (
-    <nav className="w-1/2">
+    <nav className="w-1/2 hidden md:block">
       <ul className="flex flex-row justify-between items-center">
         {pages.map(renderPageLink)}
       </ul>

@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Header() {
 	return (
-		<div className="header flex flex-row items-center justify-evenly w-full">
+		<div className="header flex flex-row items-center justify-evenly w-full bg-gray-800 py-3">
 			<div className="logo">
-				<Link href="/">A11y <strong>Pros</strong></Link>
+				<Link className="text-white" href="/">A11y <strong>Pros</strong></Link>
 			</div>
 			<TopNav/>
 		</div>

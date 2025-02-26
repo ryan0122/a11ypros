@@ -62,40 +62,43 @@ const ContactForm: React.FC = () => {
 	return (
 		<div className='mx-auto max-w-2xl'>
 			<form onSubmit={handleSubmit} noValidate>
-			<div className="grid grid-cols-1 gap-x-8 gap-y-6">
-				<FieldSet legend="Contact Us for a free initial consultation">
-					<div>
-						<Input
-							autoComplete="name"
-							errorText={errors['contact-name']} 
-							id='name'
-							label='Name' 
-							name='contact-name'  
-							required  
-						/>
+				<div className="grid grid-cols-1 gap-x-8 gap-y-6">
+					<FieldSet legend="Contact us for a free initial consultation" legendClassName='text-2xl font-bold text-center uppercase border-b-2 border-t-2 border-white py-4 w-full mb-8'>
+						<div>
+							<Input
+								autoComplete="name"
+								className='text-xl'
+								errorText={errors['contact-name']} 
+								id='name'
+								label='Name' 
+								name='contact-name'  
+								required  
+							/>
+						</div>
+						<div>
+							<Input 
+								className='text-xl'
+								errorText={errors['contact-email']}
+								label='Email' 
+								name='contact-email' 
+								id='email' 
+								type="email"
+								required 
+								autoComplete="email" 
+							/>
+						</div>
+						<div>
+							<TextArea
+								className='text-xl' 
+								errorText={errors['contact-message']}
+								label='Message' 
+								name='contact-message' 
+								id='message' 
+								required 
+							/>
+						</div>
+						<Button className='rounded-md border-2 text-xl font-bold text-gray-800 uppercase bg-white w-full text-center hover:bg-gray-800 hover:text-white hover:outline hover:outline-2 hover:outline-white border-gray-800 focus-visible:outline-white' type="submit">Submit</Button>				</FieldSet>
 					</div>
-					<div>
-						<Input 
-							errorText={errors['contact-email']}
-							label='Email' 
-							name='contact-email' 
-							id='email' 
-							type="email"
-							required 
-							autoComplete="email" 
-						/>
-					</div>
-					<div>
-						<TextArea 
-							errorText={errors['contact-message']}
-							label='Message' 
-							name='contact-message' 
-							id='message' 
-							required 
-						/>
-					</div>
-					<Button className='bg-white text-black w-full text-center hover:bg-black hover:text-white hover:outline hover:outline-2 hover:outline-white' type="submit">Submit</Button>				</FieldSet>
-				</div>
 			</form>
 		</div>
 	);
