@@ -23,7 +23,7 @@ export default async function BlogPost({ params }: PageProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8" suppressHydrationWarning>
+    <div className="blog max-w-4xl mx-auto p-8" suppressHydrationWarning>
       <h1 className="text-3xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
       <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: post.content.rendered }} suppressHydrationWarning/>
     </div>
