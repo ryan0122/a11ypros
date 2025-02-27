@@ -11,8 +11,8 @@ export default async function Blog() {
 	  
 	  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 		{posts.map((post) => (
-		  <li key={post.id} className="border-b pb-4">
-			<h2 className="text-2xl font-semibold">
+		  <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
+			<h2 className="text-2xl font-semibold mb-4">
 			  <a
 				href={`/blog/${post.slug}`}
 				className="text-blue-600 hover:underline"
@@ -20,7 +20,7 @@ export default async function Blog() {
 			  />
 			</h2>
 			<p
-			  className="text-gray-700 mt-2"
+			  className="text-gray-700 mb-4"
 			  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
 			/>
 			<a
