@@ -6,10 +6,10 @@ export default function Footer() {
 
 	return (
 		<>
-			<section className="p-8 bg-white">
+			<section className="footer-form p-8">
 				<ContactForm />
 			</section>
-			<footer className="bottom-footer flex flex-row items-center justify-evenly w-full py-2">
+			<footer className="bottom-footer flex flex-row items-center justify-evenly w-full">
 				<p>&copy; {currentYear} A11Y Pros</p>
 				<nav aria-label="Footer navigation" className="">
 		            <ul className="inline-flex flex-row justify-between items-center">

@@ -63,7 +63,7 @@ const ContactForm: React.FC = () => {
 		<div className='mx-auto max-w-2xl'>
 			<form onSubmit={handleSubmit} noValidate>
 				<div className="grid grid-cols-1 gap-x-8 gap-y-6">
-					<FieldSet legend="Contact us for a free initial consultation" legendClassName='text-2xl font-bold text-center uppercase border-b-2 border-t-2 border-white py-4 w-full mb-8'>
+					<FieldSet legend="Contact Us for a Free Initial Consultation" legendClassName='text-3xl font-bold text-center py-4 w-full mb-6'>
 						<div>
 							<Input
 								autoComplete="name"
