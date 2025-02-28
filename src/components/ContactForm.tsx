@@ -97,8 +97,12 @@ const ContactForm: React.FC = () => {
 								required 
 							/>
 						</div>
-						<Button className='rounded-md border-2 text-xl font-bold text-gray-800 uppercase bg-white w-full text-center hover:bg-gray-800 hover:text-white hover:outline hover:outline-2 hover:outline-white border-gray-800 focus-visible:outline-white' type="submit">Submit</Button>				</FieldSet>
-					</div>
+						<Button 
+							className='rounded-md border-2 border-[#0f866c] text-xl font-bold text-white uppercase bg-[#0f866c] w-full text-center hover:bg-gray-800 hover:text-white hover:outline hover:outline-2 hover:outline-white  focus-visible:outline-white' type="submit">
+								Submit
+						</Button>				
+					</FieldSet>
+				</div>
 			</form>
 		</div>
 	);

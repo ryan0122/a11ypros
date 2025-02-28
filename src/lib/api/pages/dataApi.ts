@@ -4,7 +4,7 @@ export async function getPageData(slug: string) {
 	  return null;
 	}
   
-	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content`;
+	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent`;
   
 	try {
 	  const res = await fetch(apiUrl, {
@@ -20,9 +20,25 @@ export async function getPageData(slug: string) {
 	  }
   
 	  const pages = await res.json();
-	  console.log("✅ WordPress API Response:", pages);
+	  if (!pages.length) return null;
   
-	  return pages.length > 0 ? pages[0] : null;
+	  const page = pages[0];
+  
+	  let parentSlug = null;
+	  if (page.parent) {
+		const parentRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages/${page.parent}?_fields=slug`, {
+		  headers: {
+			Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
+		  },
+		});
+  
+		if (parentRes.ok) {
+		  const parentData = await parentRes.json();
+		  parentSlug = parentData.slug;
+		}
+	  }
+  
+	  return { ...page, parentSlug };
 	} catch (error) {
 	  console.error("❌ ERROR: Fetch request to WordPress API failed", error);
 	  return null;

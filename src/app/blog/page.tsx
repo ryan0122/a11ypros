@@ -15,7 +15,6 @@ export default async function Blog() {
 			<h2 className="text-2xl font-semibold mb-4">
 			  <a
 				href={`/blog/${post.slug}`}
-				className="text-blue-600 hover:underline"
 				dangerouslySetInnerHTML={{ __html: post.title.rendered }}
 			  />
 			</h2>
@@ -25,7 +24,7 @@ export default async function Blog() {
 			/>
 			<a
 			  href={`/blog/${post.slug}`}
-			  className="inline-block mt-2 text-blue-500 hover:text-blue-700"
+			  className="inline-block mt-2"
 			>
 			  Read More →
 			</a>

@@ -1,0 +1,19 @@
+.header {
+	background: $bg-dark;
+}
+
+.header a {
+	color: #fff;
+	text-transform: uppercase;
+
+	&:hover, &.active {
+		color: $accent-color;
+	}
+	&.active {
+		font-weight: bold;
+	}
+}
+
+.header .sub-menu a {
+	color: $primary-color;
+}

@@ -31,7 +31,7 @@ export default async function HomeTemplate({ title, content }: { title: string; 
 			<ul className="list-none mt-4">
 	          {posts.map((post: Post) => (
 	            <li key={post.id} className="mt-2">
-	              <a href={`/blog/${post.slug}`} className="text-blue-600 hover:underline">
+	              <a href={`/blog/${post.slug}`}>
 	                <span dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
 	              </a>
 	            </li>

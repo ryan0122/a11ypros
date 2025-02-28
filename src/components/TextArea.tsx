@@ -21,10 +21,10 @@ const TextArea = ({ className = "", errorText, id, label, ...props }: InputProps
   return (
 	<div className={`${className} mb-5 flex flex-col`}>
 		<label htmlFor={inputId} className="block mb-2">
-			{label} {props.required && <span className="text-red-500">*</span>}
+			{label} {props.required && <span className="text-[#da3940]">*</span>}
 		</label>
 		<textarea id={inputId} className={inputClasses} {...props}/>
-		{errorText && <span className="mt-2 text-red-500" id={errorId}>{errorText}</span>}
+		{errorText && <span className="mt-2 text-[#da3940]" id={errorId}>{errorText}</span>}
 	</div>
   )
 };
