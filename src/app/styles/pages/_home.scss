@@ -1,4 +1,6 @@
+@use "../base/variables" as vars;
+
 .home-hero {
-	background: $bg-dark;
+	background: vars.$bg-dark;
 	color: #fff;
 }

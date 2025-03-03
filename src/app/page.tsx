@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import HomeTemplate from "@/components/HomeTemplate";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
+import he from "he";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,17 +18,20 @@ export async function generateMetadata(): Promise<Metadata> {
     };
   }
 
+   // Decode HTML entities in the title
+   const decodedTitle = he.decode(page.title.rendered);
+
   return {
-    title: page.title.rendered,
+    title: `${decodedTitle} - A11Y Pros`,
     description: seoData?.description || "A11Y Pros provides trusted accessibility services.",
     openGraph: {
-      title: page.title.rendered,
+      title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
       url: process.env.NEXT_PUBLIC_URL,
     },
     twitter: {
       card: "summary_large_image",
-      title: page.title.rendered,
+      title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
     },
   };

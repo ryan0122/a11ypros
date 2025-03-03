@@ -1,5 +1,7 @@
+@use "../base/variables" as vars;
+
 .header {
-	background: $bg-dark;
+  background: vars.$bg-dark; 
 }
 
 .header a {
@@ -9,7 +11,7 @@
 	font-size: 1rem;
 
 	&:hover, &.active {
-		color: $accent-color;
+		color: vars.$accent-color;
 	}
 	&.active {
 		font-weight: bold;
@@ -17,5 +19,5 @@
 }
 
 .header .sub-menu a {
-	color: $primary-color;
+	color: vars.$primary-color;
 }

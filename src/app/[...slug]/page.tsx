@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import PageTemplate from "@/components/PageTemplate";
 import type { Metadata } from "next";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
+import he from "he";
 
 // Keep both params and searchParams in the type to match Next.js expectations
 // type PageProps = {
@@ -11,19 +12,25 @@ import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 
 
 // 🛠 Fetch Metadata for SEO
+// 🛠 Fetch Metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params; // Ensure it's fully resolved before using
 
-  if (!resolvedParams || typeof resolvedParams.slug !== "string") {
+  if (!resolvedParams || !Array.isArray(resolvedParams.slug) || resolvedParams.slug.length === 0) {
     return {
       title: "Page Not Found - A11Y Pros",
       description: "The page you are looking for does not exist.",
     };
   }
 
+  // Extract parent and child slugs
+  const [parentSlug, childSlug] = resolvedParams.slug;
+  const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug; // Construct the full slug path
+
+  // Fetch the correct page and metadata based on fullSlug
   const [page, seoData] = await Promise.all([
-    getPageData(resolvedParams.slug),
-    getPageMetaData(resolvedParams.slug),
+    getPageData(childSlug),
+    getPageMetaData(childSlug),
   ]);
 
   if (!page) {
@@ -33,18 +40,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  // Decode HTML entities in the title
+  const decodedTitle = he.decode(page.title.rendered);
+
   return {
-    title: `${page.title.rendered} - A11Y Pros`,
+    title: `${decodedTitle} - A11Y Pros`,
     description: seoData?.description || "A11Y Pros provides trusted accessibility services.",
     openGraph: {
-      title: page.title.rendered,
+      title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
-      url: `${process.env.NEXT_PUBLIC_URL}/${page.parentSlug ? `${page.parentSlug}/` : ''}${page.slug}`,
+      url: `${process.env.NEXT_PUBLIC_URL}/${fullSlug}`,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: page.title.rendered,
+      title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
     },
   };

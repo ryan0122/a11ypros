@@ -1,10 +1,12 @@
+@use "../base/variables" as vars;
+
 .footer-form {
 	background: #fff;
-	border-top: 2px $border-light solid;
+	border-top: 2px vars.$border-light solid;
 }
 
 .bottom-footer {
-	background: $bg-dark;
+	background: vars.$bg-dark;
 	color: white;
 	padding-block: 2rem;
 }
