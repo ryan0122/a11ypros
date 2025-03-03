@@ -1,6 +1,6 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 
-export default async function HomeTemplate({ title, content }: { title: string; content: string }) {
+export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
 
 	return (
