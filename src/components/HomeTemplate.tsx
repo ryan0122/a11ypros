@@ -18,7 +18,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		      <div className="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
 		    </div>
   		</div>
-		<main id="mainContent" className="max-w-7xl mx-auto py-10 px-10">
+		<main id="mainContent" className="max-w-7xl mx-auto py-10 px-10 text-center">
       		<section className="content" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
 		<section className="items-center text-center max-w-7xl mx-auto py-20 px-10">
