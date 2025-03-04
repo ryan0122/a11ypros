@@ -1,7 +1,11 @@
+h1, h2, h3, p{
+	margin-block-start: 1.2rem;
+}
+
+
 h2 {
 	font-size: 1.5rem;
 	font-weight: 600;
-	margin-bottom: 1rem;
   }
 
 h2.page-heading {
@@ -10,6 +14,17 @@ h2.page-heading {
 	margin-block-end: 2rem;
 }
   
-p {
-	margin-block: .5rem;
+h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
 }
+
+article {
+	ul {
+		list-style: inherit;
+	}
+	ul li {
+		margin-inline-start: 2rem;;
+	}
+}
+

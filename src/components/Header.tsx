@@ -22,8 +22,8 @@ export default function Header() {
 			        </a>
 			        <button type="button" className="-m-2.5 rounded-md p-2.5 text-gray-700">
 			          <span className="sr-only">Close menu</span>
-			          <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-			            <path strokeLinecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+			          <svg className="size-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+			            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 			          </svg>
 			        </button>
 			      </div>
