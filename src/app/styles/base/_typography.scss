@@ -1,4 +1,4 @@
-h1, h2, h3, p{
+h1, h2, h3, h4, p{
 	margin-block-start: 1.2rem;
 }
 
@@ -17,6 +17,16 @@ h2.page-heading {
 h3 {
 	font-size: 1.25rem;
 	font-weight: 600;
+}
+
+h4 {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+ul.wp-block-list {
+	list-style: inherit;
+	margin-inline-start: 2rem;;
 }
 
 article {
