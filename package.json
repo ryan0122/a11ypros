@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "he": "^1.2.0",
     "next": "15.1.6",
