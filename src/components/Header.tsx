@@ -5,9 +5,9 @@ import LogoHorizontal from "@/components/LogoHorizontal";
 
 export default function Header() {
 	return (
-		<div className="header flex flex-row items-center justify-evenly w-full py-3 sticky top-0 z-10">
-			<div className="logo">
-				<Link className="text-white hover:text-[#d4e300]" href="/"><LogoHorizontal/></Link>
+		<div className="header flex flex-row items-center justify-evenly w-full py-5 sticky top-0 z-10">
+			<div className="logo flex items-center">
+				<Link href="/" className="no-underline hover:no-underline"><LogoHorizontal/></Link>
 			</div>
 			<TopNav/>
 			{/* Mobile navigation */}

@@ -8,7 +8,8 @@
 	color: #fff;
 	text-transform: capitalize;
 	font-weight: 600;
-	font-size: 1rem;
+	font-size: 1.1rem;
+	letter-spacing: .75px;
 
 	&:hover, &.active {
 		color: vars.$accent-color;
@@ -16,6 +17,10 @@
 	&.active {
 		font-weight: bold;
 	}
+}
+
+.header > li {
+	top: 2px;
 }
 
 .header .sub-menu a {

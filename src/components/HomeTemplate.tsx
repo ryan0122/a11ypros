@@ -4,7 +4,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
 
 	return (
-	  <div className="font-[family-name:var(--font-geist-sans)]">
+	  <div className="font-[family-name:var(--font-inter)]">
 		<div className="home-hero isolate px-6 pt-14 lg:px-8 mx-auto w-full">
 		    <div className="py-32 sm:py-48 lg:py-56">
 		      <header className="text-center">
