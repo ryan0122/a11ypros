@@ -1,25 +1,26 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
+import A11yCollabIcon from "@/components/icons/IconA11yCollab"
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
 
 	return (
 	  <div className="font-[family-name:var(--font-inter)]">
-		<div className="home-hero isolate px-6 pt-14 lg:px-8 mx-auto w-full">
-		    <div className="py-32 sm:py-48 lg:py-56">
+		<div className="home-hero isolate px-6 py-14 lg:px-8 mx-auto w-full">
+		    <div className="">
 		      <header className="text-center">
+				<div className="flex justify-center items-center mx-auto">
+					<A11yCollabIcon aria-hidden="true"/>
+				</div>
 		        <h1 className="tracking-tight text-balance text-3xl md:text-5xl">
 				ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
 				</h1>
 		        <p className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">The premier providers of web accessibility services.</p>
 		      </header>
 		    </div>
-		    <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-		      <div className="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
-		    </div>
   		</div>
-		<main id="mainContent" className="max-w-7xl mx-auto py-10 px-10 text-center">
-      		<section className="content" dangerouslySetInnerHTML={{ __html: content }} />
+		<main id="mainContent" className=" py-10 px-10 text-center home-content w-full isolate ">
+      		<section className="content max-w-7xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
 		<section className="items-center text-center max-w-7xl mx-auto py-20 px-10">
 			<h2 className="page-heading">Latest News and Articles</h2>
