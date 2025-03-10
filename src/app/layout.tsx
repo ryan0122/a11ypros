@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${inter.variable}  antialiased h-full`}
+        className={`${inter.variable} antialiased h-full`}
       >
         <div className="min-h-full">
         <Header/>

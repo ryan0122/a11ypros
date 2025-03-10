@@ -21,6 +21,11 @@ interface StaticLink {
   title: string;
 }
 
+interface TopNavProps {
+  isMobile?: boolean;
+  onLinkClick?: () => void; // Add this prop to handle menu closing
+}
+
 // Define custom titles
 const customTitles: Record<string, string> = {
   "about-us": "Who We Are",
@@ -34,7 +39,7 @@ const staticLinks: StaticLink[] = [
   { id: "blog", slug: "blog", title: "Articles" }
 ];
 
-export default function TopNav() {
+export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
   const [pages, setPages] = useState<(PageWithChildren | StaticLink)[]>([]);
   const [expandedMenuId, setExpandedMenuId] = useState<number | null>(null);
   const pathname = usePathname();
@@ -79,12 +84,23 @@ export default function TopNav() {
     setExpandedMenuId((prevId) => (prevId === pageId ? null : pageId));
   };
 
+  // Handle link clicks to close menu if needed
+  const handleLinkClick = () => {
+    // Close any expanded menus
+    setExpandedMenuId(null);
+    
+    // Call the onLinkClick callback if provided
+    if (onLinkClick) {
+      onLinkClick();
+    }
+  };
+
   const renderPageLink = (page: PageWithChildren | StaticLink) => {
     const getFullPath = (page: PageWithChildren, parentSlug?: string) => {
       return parentSlug ? `/${parentSlug}/${page.slug}` : `/${page.slug}`;
     };
   
-    const pagePath = getFullPath(page as PageWithChildren);
+    const pagePath = 'slug' in page ? `/${page.slug}` : '/';
     const isActive = pathname === pagePath;
     const isExpanded = "children" in page && expandedMenuId === page.id;
   
@@ -96,15 +112,19 @@ export default function TopNav() {
     if (page.slug === "home") return null;
   
     return (
-      <li key={page.id} className="relative">
-        <div className="flex items-center gap-1">
-          <Link href={pagePath} className={`${isActive ? "active" : ""}`}>
-            {menuTitle}
+      <li key={page.id} className={`relative ${isMobile ? 'py-3' : ''}`}>
+        <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
+          <Link 
+            href={pagePath} 
+            className={`${isActive ? "active" : ""} ${isMobile ? 'text-lg font-medium' : ''}`}
+            onClick={handleLinkClick}
+          >
+            {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
           </Link>
           {"children" in page && page.children.length > 0 && (
             <button
               type="button"
-              className="nav-plus p-1 hover:bg-white rounded-full group"
+              className={`nav-plus p-1 hover:bg-gray-100 rounded-full ${isMobile ? 'ml-2' : ''}`}
               aria-expanded={isExpanded}
               aria-label={`${menuTitle} sub menu`}
               onClick={() => toggleMenu(page.id)}
@@ -118,7 +138,7 @@ export default function TopNav() {
               >
                 <path
                   d="M2 5L8 11L14 5"
-                  stroke="white"
+                  stroke={isMobile ? "black" : "white"}
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -130,16 +150,20 @@ export default function TopNav() {
           )}
         </div>
         {"children" in page && page.children.length > 0 && isExpanded && (
-          <ul className="menu sub-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2">
+          <ul className={`menu sub-menu ${isMobile 
+            ? 'mt-2 ml-4 border-l-2 border-gray-200 pl-4' 
+            : 'absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2'}`}
+          >
             {page.children.map((childPage) => {
               const childPath = getFullPath(childPage, page.slug);
               const childTitle =
                 customTitles[childPage.slug] || he.decode(childPage.title.rendered);
               return (
-                <li key={childPage.id} className="px-4 py-2">
+                <li key={childPage.id} className={isMobile ? "py-2" : "px-4 py-2"}>
                   <Link
                     href={childPath}
-                    className={`uppercase ${pathname === childPath ? "active" : ""}`}
+                    className={`${isMobile ? '' : 'uppercase'} ${pathname === childPath ? "active" : ""}`}
+                    onClick={handleLinkClick}
                   >
                     {childTitle}
                   </Link>
@@ -153,8 +177,11 @@ export default function TopNav() {
   };
   
   return (
-    <nav className="w-1/2 hidden md:block">
-      <ul className="flex flex-row justify-between items-center">
+    <nav className={isMobile ? "w-full block" : "w-full hidden md:block"}>
+      <ul className={isMobile 
+        ? "flex flex-col space-y-1" 
+        : "flex flex-row justify-between items-center gap-16"
+      }>
         {pages.map(renderPageLink)}
       </ul>
     </nav>

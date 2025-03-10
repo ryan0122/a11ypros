@@ -6,7 +6,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 
 	return (
 	  <div className="font-[family-name:var(--font-inter)]">
-		<div className="home-hero isolate px-6 py-14 lg:px-8 mx-auto w-full">
+		<div className="home-hero isolate px-6 py-14 lg:px-8 mx-auto w-full pt-0 sm:pt-14">
 		    <div className="">
 		      <header className="text-center">
 				<div className="flex justify-center items-center mx-auto">
@@ -15,7 +15,6 @@ export default async function HomeTemplate({ content }: { title: string; content
 		        <h1 className="tracking-tight text-balance text-3xl md:text-5xl">
 				ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
 				</h1>
-		        <p className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">The premier providers of web accessibility services.</p>
 		      </header>
 		    </div>
   		</div>

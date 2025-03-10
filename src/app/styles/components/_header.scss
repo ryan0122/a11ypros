@@ -26,3 +26,11 @@
 .header .sub-menu a {
 	color: vars.$primary-color;
 }
+
+#mobileMenu .mobile-menu-container {
+	background: vars.$bg-light;
+}
+
+#mobileMenu .mobile-menu-container a {
+	color: vars.$bg-dark;
+}
