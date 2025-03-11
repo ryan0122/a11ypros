@@ -49,9 +49,10 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages?per_page=100`);
       if (res.ok) {
         const data: Page[] = await res.json();
+        const excludedPages = ["privacy-policy", "accessibility-statement"];
         
         const pagesWithChildren: PageWithChildren[] = data
-          .filter(page => page.parent === 0)
+          .filter(page => page.parent === 0 && !excludedPages.includes(page.slug))
           .map(page => ({
             ...page,
             children: data

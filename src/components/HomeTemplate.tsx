@@ -1,5 +1,6 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 import A11yCollabIcon from "@/components/icons/IconA11yCollab"
+import ServiceAuditIcon from "./icons/IconServiceAudit";
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
@@ -18,9 +19,26 @@ export default async function HomeTemplate({ content }: { title: string; content
 		      </header>
 		    </div>
   		</div>
-		<main id="mainContent" className=" py-10 px-10 text-center home-content w-full isolate ">
+		<main id="mainContent" className="home-content py-10 px-10 text-center w-full isolate ">
       		<section className="content max-w-7xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
+		<section className="w-full mx-auto bg-white">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+				<div>
+					<h2 className="page-heading text-center">WCAG Compliance Auditing</h2>
+					<ServiceAuditIcon/>
+				</div>
+				<div>
+					<h2 className="page-heading text-center">Website Remediation</h2>
+				</div>
+				<div>
+					<h2 className="page-heading text-center">VPAT & ACR Authoring</h2>
+				</div>
+				<div>
+					<h2 className="page-heading text-center">Web Accessibility Consulting</h2>
+				</div>
+			</div>
+		</section>
 		<section className="items-center text-center max-w-7xl mx-auto py-20 px-10">
 			<h2 className="page-heading">Accessibility Articles</h2>
 			{/* render blog posts here */}
