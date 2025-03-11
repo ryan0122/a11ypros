@@ -23,6 +23,10 @@
 	top: 2px;
 }
 
+.header .nav-plus:hover svg path, .header .nav-plus:focus svg path {
+	stroke: vars.$bg-dark !important;
+}
+
 .header .sub-menu a {
 	color: vars.$primary-color;
 }

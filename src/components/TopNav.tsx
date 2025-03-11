@@ -124,7 +124,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
           {"children" in page && page.children.length > 0 && (
             <button
               type="button"
-              className={`nav-plus p-1 hover:bg-gray-100 rounded-full ${isMobile ? 'ml-2' : ''}`}
+              className={`nav-plus p-1 hover:bg-[#d4e300] focus:bg-[#d4e300] rounded-full ml-2`}
               aria-expanded={isExpanded}
               aria-label={`${menuTitle} sub menu`}
               onClick={() => toggleMenu(page.id)}
@@ -143,7 +143,6 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   fill="none"
-                  className="transition-colors group-hover:stroke-black"
                 />
               </svg>
             </button>
