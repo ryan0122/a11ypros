@@ -4,14 +4,6 @@ import type { Metadata } from "next";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
 
-// Keep both params and searchParams in the type to match Next.js expectations
-// type PageProps = {
-//   params: Promise<{ slug: string }>;
-//   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-// };
-
-
-// 🛠 Fetch Metadata for SEO
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params; // Ensure it's fully resolved before using
@@ -101,5 +93,5 @@ export default async function Page({ params }: PageProps) {
      notFound();
    }
  
-   return <PageTemplate title={page.title.rendered} content={page.content.rendered} />;
+   return <PageTemplate title={page.title.rendered} content={page.content.rendered} featuredImage={page.featuredImage} />;
 }

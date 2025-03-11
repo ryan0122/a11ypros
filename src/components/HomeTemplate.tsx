@@ -22,7 +22,7 @@ export default async function HomeTemplate({ content }: { title: string; content
       		<section className="content max-w-7xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
 		<section className="items-center text-center max-w-7xl mx-auto py-20 px-10">
-			<h2 className="page-heading">Latest News and Articles</h2>
+			<h2 className="page-heading">Accessibility Articles</h2>
 			{/* render blog posts here */}
 			<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 	          {posts.map((post: Post) => (
