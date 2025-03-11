@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <div className="header flex items-center w-full py-5 px-6 sticky top-0 z-10">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
-      <div className="flex flex-1 justify-start lg:justify-center items-center gap-6">
+      <div className="flex lg:flex-1 justify-start lg:justify-center items-center gap-6">
         <Link href="/" className="no-underline hover:no-underline lg:pr-20">
           <LogoHorizontal />
         </Link>
