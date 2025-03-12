@@ -1,10 +1,10 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 import Link from "next/link";
-import A11yCollabIcon from "@/components/icons/IconA11yCollab"
-import ServiceAuditIcon from "./icons/IconServiceAudit";
-import ServiceRemediationIcon from "./icons/IconServiceRemediation";
-import ServiceReportIcon from "./icons/IconServiceReport";
-import ServiceConsultingIcon from "./icons/IconServiceConsulting";
+import IconA11yCollab from "@/components/icons/IconA11yCollab"
+import IconServiceAudit from "./icons/IconServiceAudit";
+import IconServiceRemediation from "./icons/IconServiceRemediation";
+import IconServiceReport from "./icons/IconServiceReport";
+import IconServiceConsulting from "./icons/IconServiceConsulting";
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
@@ -15,7 +15,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		    <div className="">
 		      <header className="text-center">
 				<div className="flex justify-center items-center mx-auto">
-					<A11yCollabIcon aria-hidden="true"/>
+					<IconA11yCollab aria-hidden="true"/>
 				</div>
 		        <h1 className="tracking-tight text-balance text-3xl md:text-5xl">
 				ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
@@ -32,7 +32,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
-		        <ServiceAuditIcon/>
+		        <IconServiceAudit/>
 		      </div>
 		    </div>
 		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
@@ -54,7 +54,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		    </div>
 		    <div className="w-full order-2 sm:w-2/5 text-center">
 		      <div className="w-3/5 mx-auto">
-		        <ServiceRemediationIcon />
+		        <IconServiceRemediation />
 		      </div>
 		    </div>
 		  </div>
@@ -64,7 +64,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
-		        <ServiceReportIcon/>
+		        <IconServiceReport/>
 		      </div>
 		    </div>
 		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
@@ -86,7 +86,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		    </div>
 		    <div className="w-full order-2 sm:w-2/5 text-center">
 		      <div className="w-3/5 mx-auto">
-		        <ServiceConsultingIcon />
+		        <IconServiceConsulting />
 		      </div>
 		    </div>
 		  </div>

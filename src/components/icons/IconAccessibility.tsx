@@ -1,6 +1,6 @@
 import React from "react";
 
-const AccessibilityIcon = ({ color = "white", size = 20 }: { color?: string; size?: number }) => (
+const IconAccessibility = ({ color = "white", size = 20 }: { color?: string; size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 122.88 122.88"
@@ -16,4 +16,4 @@ const AccessibilityIcon = ({ color = "white", size = 20 }: { color?: string; siz
   </svg>
 );
 
-export default AccessibilityIcon;
+export default IconAccessibility;

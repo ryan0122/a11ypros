@@ -11,7 +11,7 @@
 	font-size: 1.1rem;
 	letter-spacing: .75px;
 
-	&:hover, &.active {
+	&:hover, &.active, &.parent-active {
 		color: vars.$accent-color;
 	}
 	&.active {
@@ -29,6 +29,10 @@
 
 .header .sub-menu a {
 	color: vars.$primary-color;
+}
+
+.header .sub-menu a.active {
+	text-decoration: underline;
 }
 
 #mobileMenu .mobile-menu-container {

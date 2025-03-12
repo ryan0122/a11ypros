@@ -1,6 +1,6 @@
 import React from "react";
 
-const A11yCollabIcon = ({ width = 1058, height = 434}) => (
+const IconA11yCollab = ({ width = 1058, height = 434}) => (
 	<svg
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 1058 434.7"
@@ -53,4 +53,4 @@ const A11yCollabIcon = ({ width = 1058, height = 434}) => (
     </svg>
 );
 
-export default A11yCollabIcon;
+export default IconA11yCollab;

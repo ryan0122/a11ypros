@@ -1,6 +1,6 @@
 import React from "react";
 
-const ServiceConsultingIcon = ({width = 787, height = 453}: {height?: number, width?: number }) => (
+const IconServiceConsulting = ({width = 787, height = 453}: {height?: number, width?: number }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -172,4 +172,4 @@ const ServiceConsultingIcon = ({width = 787, height = 453}: {height?: number, wi
 <path className="ssst8" d="M520.5,73.1V64c-5,0-9,4-9,9c0,5,4,9,9,9c4.9,0,9-4,9-8.9H520.5z"/>
 </svg>);
 
-export default ServiceConsultingIcon;
+export default IconServiceConsulting;

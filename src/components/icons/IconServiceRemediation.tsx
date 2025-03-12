@@ -1,6 +1,6 @@
 import React from "react";
 
-const ServiceRemediationIcon = ({width = 876.3, height = 661.5}: {height?: number, width?: number }) => (
+const IconServiceRemediation = ({width = 876.3, height = 661.5}: {height?: number, width?: number }) => (
 	<svg
 	    xmlns="http://www.w3.org/2000/svg"
 	    xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -143,4 +143,4 @@ const ServiceRemediationIcon = ({width = 876.3, height = 661.5}: {height?: numbe
 </svg>
 );
 
-export default ServiceRemediationIcon;
+export default IconServiceRemediation;

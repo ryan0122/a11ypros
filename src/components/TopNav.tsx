@@ -28,7 +28,6 @@ interface TopNavProps {
 
 // Define custom titles
 const customTitles: Record<string, string> = {
-  "about-us": "Who We Are",
   "services": "Services",
   "contact": "Contact"
 };
@@ -96,13 +95,24 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     }
   };
 
+  // Check if any child page is active
+  const isChildActive = (page: PageWithChildren) => {
+    if (!("children" in page)) return false;
+    
+    return page.children.some(childPage => {
+      const childPath = `/${page.slug}/${childPage.slug}`;
+      return pathname === childPath;
+    });
+  };
+
   const renderPageLink = (page: PageWithChildren | StaticLink) => {
     const getFullPath = (page: PageWithChildren, parentSlug?: string) => {
       return parentSlug ? `/${parentSlug}/${page.slug}` : `/${page.slug}`;
     };
   
     const pagePath = 'slug' in page ? `/${page.slug}` : '/';
-    const isActive = pathname === pagePath;
+    const isPageActive = pathname === pagePath;
+    const hasActiveChild = "children" in page && isChildActive(page);
     const isExpanded = "children" in page && expandedMenuId === page.id;
   
     // Use custom title if available, otherwise default to WordPress title
@@ -117,7 +127,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link 
             href={pagePath} 
-            className={`${isActive ? "active" : ""} ${isMobile ? 'text-lg font-medium' : ''}`}
+            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''}`}
             onClick={handleLinkClick}
           >
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
@@ -125,7 +135,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
           {"children" in page && page.children.length > 0 && (
             <button
               type="button"
-              className={`nav-plus p-1 hover:bg-[#d4e300] focus:bg-[#d4e300] rounded-full ml-2`}
+              className={`nav-plus p-1 hover:bg-[#d4e300] focus:bg-[#d4e300] rounded-full ml-2 ${hasActiveChild ? "child-menu-active" : ""}`}
               aria-expanded={isExpanded}
               aria-label={`${menuTitle} sub menu`}
               onClick={() => toggleMenu(page.id)}
@@ -152,17 +162,19 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         {"children" in page && page.children.length > 0 && isExpanded && (
           <ul className={`menu sub-menu ${isMobile 
             ? 'mt-2 ml-4 border-l-2 border-gray-200 pl-4' 
-            : 'absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2'}`}
+            : 'absolute left-0 mt-2 min-w-80 bg-white shadow-lg rounded-md py-2'}`}
           >
             {page.children.map((childPage) => {
               const childPath = getFullPath(childPage, page.slug);
               const childTitle =
                 customTitles[childPage.slug] || he.decode(childPage.title.rendered);
+              const isChildActive = pathname === childPath;
+              
               return (
                 <li key={childPage.id} className={isMobile ? "py-2" : "px-4 py-2"}>
                   <Link
                     href={childPath}
-                    className={`${isMobile ? '' : 'uppercase'} ${pathname === childPath ? "active" : ""}`}
+                    className={`${isMobile ? '' : 'uppercase'} ${isChildActive ? "active" : ""}`}
                     onClick={handleLinkClick}
                   >
                     {childTitle}

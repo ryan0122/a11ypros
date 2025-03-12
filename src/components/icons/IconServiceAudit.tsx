@@ -1,6 +1,6 @@
 import React from "react";
 
-const ServiceAuditIcon = ({width = 830, height = 685}: {height?: number, width?: number }) => (
+const IconServiceAudit = ({width = 830, height = 685}: {height?: number, width?: number }) => (
 
 
 <svg
@@ -159,4 +159,4 @@ const ServiceAuditIcon = ({width = 830, height = 685}: {height?: number, width?:
 </svg>
 );
 
-export default ServiceAuditIcon;
+export default IconServiceAudit;
