@@ -1,4 +1,5 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
+import Link from "next/link";
 import A11yCollabIcon from "@/components/icons/IconA11yCollab"
 import ServiceAuditIcon from "./icons/IconServiceAudit";
 import ServiceRemediationIcon from "./icons/IconServiceRemediation";
@@ -32,7 +33,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 				</div>
 				<div className="w-full sm:pl-40">
 					<h2 className="page-heading text-center sm:text-left">
-						<a href="/services/wcag-compliance-auditing">WCAG Compliance Auditing</a>
+						<Link href="/services/wcag-compliance-auditing">WCAG Compliance Auditing</Link>
 					</h2>
 					<p className="text-center sm:text-left text-xl">Our web accessibility specialists help ensure your digital properties comply with legal requirements in the U.S. and internationally by aligning with the latest Web Content Accessibility Guidelines (WCAG).</p>
 				</div>
@@ -40,7 +41,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
 				<div className="w-full sm:pr-40">
 					<h2 className="page-heading">
-						<a href="/services/website-remediation">Website Remediation</a>
+						<Link href="/services/website-remediation">Website Remediation</Link>
 					</h2>
 					<p className="text-xl">A11Y Pros specializes in web accessibility remediation, helping businesses achieve ADA and WCAG compliance to meet U.S. and international accessibility standards. Our three-step process includes a comprehensive audit, code remediation, and final verification to ensure your website is fully accessible for all users.</p>
 				</div>
@@ -54,7 +55,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 				</div>
 				<div className="w-full sm:pl-40">
 					<h2 className="page-heading text-center sm:text-left">
-						<a href="/services/vpat-acr-authoring">VPAT & ACR Authoring</a>
+						<Link href="/services/vpat-acr-authoring">VPAT & ACR Authoring</Link>
 					</h2>
 					<p className="text-center sm:text-left text-xl">We provide VPAT reporting to assess the accessibility of websites, SaaS platforms, web and mobile apps, and digital content. Our expert team creates Accessibility Conformance Reports (ACR) to help you demonstrate WCAG and ADA compliance, ensuring transparency and accessibility for all users.</p>
 				</div>
@@ -62,7 +63,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
 				<div className="w-full sm:pr-40">
 					<h2 className="page-heading">
-						<a href="/services/web-accessibility-consulting">Web Accessibility Consulting</a>
+						<Link href="/services/web-accessibility-consulting">Web Accessibility Consulting</Link>
 					</h2>
 					<p className="text-xl"> 
 					Our web accessibility experts ensure your digital platforms meet U.S. and international legal standards by adhering to the latest Web Content Accessibility Guidelines (WCAG). With a practical, solutions-driven approach, our ADA compliance consultants help your team navigate accessibility challenges and maintain full compliance.</p>
