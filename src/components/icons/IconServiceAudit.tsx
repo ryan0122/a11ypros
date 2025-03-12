@@ -9,8 +9,6 @@ const ServiceAuditIcon = ({width = 830, height = 685}: {height?: number, width?:
     x="0px"
     y="0px"
     viewBox={`0 0 ${width} ${height}`}
-	width={width}
-	height={height}
   >
 <style type="text/css">
 {`

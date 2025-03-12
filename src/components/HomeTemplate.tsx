@@ -1,6 +1,9 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 import A11yCollabIcon from "@/components/icons/IconA11yCollab"
 import ServiceAuditIcon from "./icons/IconServiceAudit";
+import ServiceRemediationIcon from "./icons/IconServiceRemediation";
+import ServiceReportIcon from "./icons/IconServiceReport";
+import ServiceConsultingIcon from "./icons/IconServiceConsulting";
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
@@ -23,19 +26,41 @@ export default async function HomeTemplate({ content }: { title: string; content
       		<section className="content max-w-7xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
 		<section className="w-full mx-auto bg-white">
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
-				<div>
-					<h2 className="page-heading text-center">WCAG Compliance Auditing</h2>
+			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
+				<div className="text-center sm:text-left  w-3/5 mx-auto sm:mx-0">
 					<ServiceAuditIcon/>
 				</div>
-				<div>
-					<h2 className="page-heading text-center">Website Remediation</h2>
+				<div className="w-full sm:pl-40">
+					<h2 className="page-heading text-center sm:text-left">WCAG Compliance Auditing</h2>
+					<p className="text-center sm:text-left text-xl">Our web accessibility specialists help ensure your digital properties comply with legal requirements in the U.S. and internationally by aligning with the latest Web Content Accessibility Guidelines (WCAG).</p>
 				</div>
-				<div>
-					<h2 className="page-heading text-center">VPAT & ACR Authoring</h2>
+			</div>
+			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
+				<div className="w-full sm:pr-40">
+					<h2 className="page-heading">Website Remediation</h2>
+					<p className="text-xl">A11Y Pros specializes in web accessibility remediation, helping businesses achieve ADA and WCAG compliance to meet U.S. and international accessibility standards. Our three-step process includes a comprehensive audit, code remediation, and final verification to ensure your website is fully accessible for all users.</p>
 				</div>
-				<div>
-					<h2 className="page-heading text-center">Web Accessibility Consulting</h2>
+				<div className="text-center w-3/5 mx-auto">
+					<ServiceRemediationIcon />
+				</div>
+			</div>
+			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
+				<div className="text-center sm:text-left  w-3/5 mx-auto sm:mx-0">
+					<ServiceReportIcon/>
+				</div>
+				<div className="w-full sm:pl-40">
+					<h2 className="page-heading text-center sm:text-left">VPAT & ACR Authoring</h2>
+					<p className="text-center sm:text-left text-xl">We provide VPAT reporting to assess the accessibility of websites, SaaS platforms, web and mobile apps, and digital content. Our expert team creates Accessibility Conformance Reports (ACR) to help you demonstrate WCAG and ADA compliance, ensuring transparency and accessibility for all users.</p>
+				</div>
+			</div>
+			<div className="flex flex-col sm:flex-row items-center sm:items-start py-20 max-w-7xl mx-auto">
+				<div className="w-full sm:pr-40">
+					<h2 className="page-heading">Web Accessibility Consulting</h2>
+					<p className="text-xl"> 
+					Our web accessibility experts ensure your digital platforms meet U.S. and international legal standards by adhering to the latest Web Content Accessibility Guidelines (WCAG). With a practical, solutions-driven approach, our ADA compliance consultants help your team navigate accessibility challenges and maintain full compliance.</p>
+				</div>
+				<div className="text-center w-3/5 mx-auto">
+					<ServiceConsultingIcon />
 				</div>
 			</div>
 		</section>
