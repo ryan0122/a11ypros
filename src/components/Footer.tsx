@@ -1,14 +1,22 @@
+'use client';
+
 import ContactForm from "./ContactForm";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname(); // Get the current route
+  const doNotDisplay = pathname === "/contact-us" || pathname === "/contact-us-thank-you"; 
 
   return (
     <>
-      <section className="footer-form p-8">
-        <ContactForm />
-      </section>
+     {/* Conditionally render the contact form */}
+     {!doNotDisplay && (
+        <section className="footer-form p-8">
+          <ContactForm />
+        </section>
+      )}
       <footer className="bottom-footer flex flex-col md:flex-row items-center justify-center md:justify-evenly w-full gap-4 p-4">
         <nav aria-label="Footer navigation" className="order-1 md:order-2 w-full md:w-auto">
           <ul className="flex flex-col md:flex-row items-center md:items-center justify-center gap-4 md:gap-0">

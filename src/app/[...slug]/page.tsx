@@ -93,5 +93,5 @@ export default async function Page({ params }: PageProps) {
      notFound();
    }
  
-   return <PageTemplate title={page.title.rendered} content={page.content.rendered} featuredImage={page.featuredImage} />;
+   return <PageTemplate slug={page.slug} title={page.title.rendered} content={page.content.rendered} featuredImage={page.featuredImage} />;
 }

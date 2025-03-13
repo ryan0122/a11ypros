@@ -24,7 +24,7 @@ const Input = ({ className = "", errorText, id, label, type = "text", ...props }
 			{label} {props.required && <span className="text-[#da3940]">*</span>}
 		</label>
 		<input {...props} id={inputId} type={type} className={inputClasses} aria-describedby={errorText ? errorId : undefined}/>
-		{errorText && <span className="mt-2 text-[#da3940]"  id={errorId}>{errorText}</span>}
+		{errorText && <span className="mt-2 text-[#da3940]" id={errorId}>{errorText}</span>}
 	</div>
   )
 };

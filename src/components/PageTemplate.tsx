@@ -1,8 +1,11 @@
 import Image from 'next/image';
+import Services from './Services';
+import ContactForm from './ContactForm';
 
 interface PageProps {
   title: string;
   content: string;
+  slug: string;
   featuredImage?: {
     source_url: string;
     alt_text: string;
@@ -10,7 +13,7 @@ interface PageProps {
   };
 }
 
-export default function PageTemplate({ title, content, featuredImage }: PageProps) {
+export default function PageTemplate({ title, content, featuredImage, slug }: PageProps) {
   return (
     <>
       <div className="page-container max-w-7xl mx-auto p-8 font-[family-name:var(--font-inter)]">
@@ -29,7 +32,12 @@ export default function PageTemplate({ title, content, featuredImage }: PageProp
           </div>
          )}
         <div dangerouslySetInnerHTML={{ __html: content }} />
+       
       </div>
+      {/* show services on overview page */}
+      {slug === 'services' && <Services />}
+      {/* show contact form */}
+      {slug === 'contact-us' &&  <ContactForm isMainContactForm/>}
     </>
   );
 }
