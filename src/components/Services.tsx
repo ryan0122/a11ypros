@@ -8,7 +8,7 @@ const Services = () => (
 	
 	<section className="w-full mx-auto bg-white">
 		  {/* WCAG Compliance Auditing */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-7xl mx-auto">
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
@@ -24,7 +24,7 @@ const Services = () => (
 		  </div>
 
 		  {/* Website Remediation */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-7xl mx-auto">
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
 		      <h2 className="page-heading text-center sm:text-left">
@@ -40,7 +40,7 @@ const Services = () => (
 		  </div>
 
 		  {/* VPAT & ACR Authoring */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start  py-10 sm:py-20 max-w-7xl mx-auto">
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start  py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
@@ -56,7 +56,7 @@ const Services = () => (
 		  </div>
 
 		  {/* Web Accessibility Consulting */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-7xl mx-auto">
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
 		      <h2 className="page-heading text-center sm:text-left">
