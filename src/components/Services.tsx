@@ -3,10 +3,14 @@ import IconServiceAudit from './icons/IconServiceAudit';
 import IconServiceRemediation from './icons/IconServiceRemediation';
 import IconServiceReport from './icons/IconServiceReport';
 import IconServiceConsulting from './icons/IconServiceConsulting';
+interface ServicesProps {
+	showHeading?: boolean;
+}
 
-const Services = () => (	
+const Services = ({ showHeading }: ServicesProps) => (
 	
-	<section className="w-full mx-auto bg-white">
+	<section className="w-full mx-auto bg-white pt-10">
+		{showHeading && <h2 className="text-center text-5xl my-14">Web Accessibility Compliance Services</h2>}
 		  {/* WCAG Compliance Auditing */}
 		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* For mobile: text first, then image */}

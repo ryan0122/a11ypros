@@ -22,9 +22,8 @@ export default async function HomeTemplate({ content }: { title: string; content
 		<main id="mainContent" className="home-content py-10 px-10 text-center w-full isolate ">
       		<section className="content max-w-6xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
-		<Services />
-		 
-		<section className="items-center text-center max-w-6xl mx-auto py-20 px-10">
+		<Services showHeading/>
+		<section className="items-center text-center max-w-6xl mx-auto pt-10 pb-20 px-10">
 			<h2 className="page-heading">Accessibility Articles</h2>
 			{/* render blog posts here */}
 			<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

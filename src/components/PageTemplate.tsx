@@ -35,7 +35,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
        
       </div>
       {/* show services on overview page */}
-      {slug === 'services' && <Services />}
+      {slug === 'services' && <Services showHeading={false}/>}
       {/* show contact form */}
       {slug === 'contact-us' &&  <ContactForm isMainContactForm/>}
     </>
