@@ -2,7 +2,7 @@
 
 import TopNav from "./TopNav";
 import Link from "next/link";
-import LogoHorizontal from "@/components/LogoHorizontal";
+import IconLogo from "./icons/IconLogo";
 import MobileNav from "@/components/MobileNav";
 import { useState } from "react";
 
@@ -13,8 +13,9 @@ export default function Header() {
     <div className="header flex items-center w-full py-5 px-6 sticky top-0 z-10">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
       <div className="flex lg:flex-1 justify-start lg:justify-center items-center gap-6">
-        <Link href="/" className="no-underline hover:no-underline lg:pr-20">
-          <LogoHorizontal />
+        <Link href="/" className="logo no-underline hover:no-underline lg:pr-14 w-36 sm:w-60">
+          <IconLogo />
+          <span className="sr-only">Home</span>
         </Link>
         <div className="hidden lg:flex">
           <TopNav />
