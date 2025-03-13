@@ -1,4 +1,5 @@
-import {Inter } from "next/font/google";
+import {Inter} from "next/font/google";
+import Script from "next/script"; 
 import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -13,6 +14,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+        {/* Google Analytics */}
+        <Script 
+          strategy="afterInteractive" 
+          src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"
+        />
+        <Script 
+          id="google-analytics" 
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-W8QRH1S6R6');
+            `,
+          }}
+        />
       <body
         className={`${inter.variable} antialiased h-full`}
       >
