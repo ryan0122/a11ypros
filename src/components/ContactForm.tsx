@@ -84,7 +84,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 				<div className="grid grid-cols-1 gap-x-8 gap-y-6">
 					<FieldSet legend="Contact Us for a Free Initial Consultation" legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-bold text-center py-4 w-full mb-3`}>
 						<p className='mb-2'><span className="text-[#da3940]">*</span> indicates required field</p>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-y-6">
 							<div>
 								<Input
 									autoComplete="given-name"
