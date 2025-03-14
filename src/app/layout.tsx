@@ -1,4 +1,5 @@
 import {Inter} from "next/font/google";
+import Head from "next/head";
 import Script from "next/script"; 
 import "./styles/globals.css";
 import Header from "@/components/Header";
@@ -14,6 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+      <Head>
         {/* Google Analytics */}
         <Script 
           strategy="beforeInteractive" 
@@ -31,6 +33,7 @@ export default function RootLayout({
             `,
           }}
         />
+      </Head>
       <body
         className={`${inter.variable} antialiased h-full`}
       >

@@ -13,7 +13,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 				<div className="flex justify-center items-center mx-auto">
 					<IconA11yCollab aria-hidden="true"/>
 				</div>
-		        <h1 className="tracking-tight text-balance text-3xl md:text-5xl">
+		        <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl">
 				ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
 				</h1>
 		      </header>

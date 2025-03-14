@@ -3,6 +3,7 @@ import IconServiceAudit from './icons/IconServiceAudit';
 import IconServiceRemediation from './icons/IconServiceRemediation';
 import IconServiceReport from './icons/IconServiceReport';
 import IconServiceConsulting from './icons/IconServiceConsulting';
+import IconServicePDF from './icons/IconServicePDF';
 interface ServicesProps {
 	showHeading?: boolean;
 }
@@ -74,6 +75,25 @@ const Services = ({ showHeading }: ServicesProps) => (
 		      </div>
 		    </div>
 		  </div>
+
+		  {/* PDF Remediation */}
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start  py-10 sm:py-20 max-w-6xl mx-auto">
+		    {/* For mobile: text first, then image */}
+		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
+		      <div className="w-4/5 mx-auto sm:mx-0">
+		        <IconServicePDF/>
+		      </div>
+		    </div>
+		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
+		      <h2 className="page-heading text-center sm:text-left">
+		        <Link href="/services/pdf-remediation">PDF Remediation</Link>
+		      </h2>
+		      <p className="text-center sm:text-left text-xl">
+			  Make your PDFs as accessible as your website. Our PDF remediation services ensure your documents meet compliance standards, making them easy to read, navigate, and interact with for all users, including those with disabilities. No matter your industry, accessible PDFs help everyone access important information with ease.
+				</p>
+		    </div>
+		  </div>
+
 		</section>
 );
 
