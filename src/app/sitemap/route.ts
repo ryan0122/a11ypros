@@ -3,6 +3,19 @@ import { NextResponse } from "next/server";
 const BASE_URL = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || "https://cms.a11ypros.com";
 
+// Define TypeScript Interfaces for WordPress API response
+interface WordPressPost {
+  id: number;
+  slug: string;
+  link: string;
+}
+
+interface WordPressPage {
+  id: number;
+  slug: string;
+  link: string;
+}
+
 async function fetchWordPressPages() {
   try {
     console.log("Fetching WordPress content...");
@@ -18,15 +31,15 @@ async function fetchWordPressPages() {
       );
     }
 
-    const posts = await postsRes.json();
-    const pages = await pagesRes.json();
+    const posts: WordPressPost[] = await postsRes.json();
+    const pages: WordPressPage[] = await pagesRes.json();
 
     console.log("Fetched posts:", posts.length);
     console.log("Fetched pages:", pages.length);
 
     return [
-      ...posts.map((post: any) => `${BASE_URL}/blog/${post.slug}`),
-      ...pages.map((page: any) => `${BASE_URL}/${page.slug}`),
+      ...posts.map((post) => `${BASE_URL}/blog/${post.slug}`),
+      ...pages.map((page) => `${BASE_URL}/${page.slug}`),
     ];
   } catch (error) {
     console.error("🚨 Error fetching WordPress content:", error);
