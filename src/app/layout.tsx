@@ -16,12 +16,12 @@ export default function RootLayout({
     <html lang="en" className="h-full">
         {/* Google Analytics */}
         <Script 
-          strategy="afterInteractive" 
+          strategy="beforeInteractive" 
           src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"
         />
         <Script 
           id="google-analytics" 
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
