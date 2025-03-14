@@ -66,6 +66,11 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
+  // Prevent sitemap.xml from being treated as a page
+  if (resolvedParams?.slug?.join("/") === "sitemap.xml") {
+    return notFound();
+  }
+
   console.log("Slug Array from Next.js params:", resolvedParams?.slug);
 
   const slugArray = resolvedParams.slug[0] === "pages" ? resolvedParams.slug.slice(1) : resolvedParams.slug;

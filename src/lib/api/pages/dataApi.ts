@@ -65,7 +65,7 @@ export async function getPageData(slug: string) {
   export async function getPageMetaData(slug: string) {
 	if (!process.env.NEXT_PUBLIC_SEO_URL) return null;
 	
-	const apiUrl = `${process.env.NEXT_PUBLIC_SEO_URL}${process.env.NEXT_PUBLIC_URL}${slug}`;
+	const apiUrl = `${process.env.NEXT_PUBLIC_SEO_URL}${process.env.NEXT_PUBLIC_URL}/${slug}`;
 	
 	try {
 	  const res = await fetch(apiUrl, { cache: "no-store" });
