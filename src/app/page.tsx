@@ -34,6 +34,9 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
     },
+    other: {
+      "google-site-verification": "zXaNJtIUuGJQnnRMA6KHOYuCMgK0IP-E8Q_XbfTJ7hs",
+    },
   };
 }
 
