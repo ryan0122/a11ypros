@@ -15,8 +15,14 @@ interface Post {
   slug?: string;
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post: Post | null = await getPostBySlug(params.slug);
+// Define PageProps
+type PageProps = {
+  params: Promise<{ slug: string }>; // Await this
+};
+
+export default async function BlogPost({ params }: PageProps ) {
+  const resolvedParams = await params; // ✅ Await params before using
+  const post: Post | null = await getPostBySlug(resolvedParams?.slug);
 
   if (!post) {
     return notFound(); // Handles missing posts at the server level
@@ -24,7 +30,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   // ✅ Construct the post URL on the server
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const postUrl = `${siteUrl}/posts/${params.slug}`;
+  const postUrl = `${siteUrl}/posts/${resolvedParams.slug}`;
 
   return (
     <main id="main-content">
