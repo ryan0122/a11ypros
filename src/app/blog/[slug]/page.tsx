@@ -15,14 +15,14 @@ interface Post {
   slug?: string;
 }
 
-// Define PageProps
+// ✅ Ensure params is unwrapped correctly
 type PageProps = {
-  params: { slug: string };
+  params: Awaited<{ slug: string }>;
 };
 
-// ✅ Now a **Server Component**
 export default async function BlogPost({ params }: PageProps) {
-  const post: Post | null = await getPostBySlug(params.slug);
+  const { slug } = params;
+  const post: Post | null = await getPostBySlug(slug);
 
   if (!post) {
     return notFound(); // Handles missing posts at the server level
@@ -30,7 +30,7 @@ export default async function BlogPost({ params }: PageProps) {
 
   // ✅ Construct the post URL on the server
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const postUrl = `${siteUrl}/posts/${params.slug}`;
+  const postUrl = `${siteUrl}/posts/${slug}`;
 
   return (
     <main id="main-content">
