@@ -1,27 +1,25 @@
-import {Inter} from "next/font/google";
-import Script from "next/script"; 
+import { Inter } from "next/font/google";
+import Head from "next/head";
 import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./styles/main.scss";
 
-const inter = Inter({ variable: "--font-inter",subsets: ["latin"], weight: ["400", "600", "700"] });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full">
-        {/* Google Analytics */}
-        <Script 
-          strategy="beforeInteractive" 
-          src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"
-        />
-        <Script 
-          id="google-analytics" 
-          strategy="beforeInteractive"
+      <Head>
+        {/* eslint-disable-next-line */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -30,14 +28,13 @@ export default function RootLayout({
               gtag('config', 'G-W8QRH1S6R6');
             `,
           }}
-        />
-      <body
-        className={`${inter.variable} antialiased h-full`}
-      >
+        ></script>
+      </Head>
+      <body className={`${inter.variable} antialiased h-full`}>
         <div className="min-h-full">
-        <Header/>
+          <Header />
           {children}
-        <Footer />
+          <Footer />
         </div>
       </body>
     </html>
