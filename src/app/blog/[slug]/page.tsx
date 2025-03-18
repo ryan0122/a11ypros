@@ -29,7 +29,7 @@ export default async function BlogPost({ params }: PageProps ) {
   }
 
   // ✅ Construct the post URL on the server
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
   const postUrl = `${siteUrl}/posts/${resolvedParams.slug}`;
 
   return (
