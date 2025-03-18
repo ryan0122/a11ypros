@@ -57,6 +57,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""),
       images: post.featured_image_url ? [post.featured_image_url] : undefined,
     },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_URL}/${postUrl}`,
+    },
   };
 }
 

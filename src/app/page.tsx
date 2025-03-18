@@ -21,6 +21,9 @@ export async function generateMetadata(): Promise<Metadata> {
    // Decode HTML entities in the title
    const decodedTitle = he.decode(page.title.rendered);
 
+   // Define the canonical URL (Ensure `NEXT_PUBLIC_URL` is set correctly)
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_URL || "https://a11ypros.com"}/`;
+
   return {
     title: `${decodedTitle} - A11Y Pros`,
     description: seoData?.description || "A11Y Pros provides trusted accessibility services.",
@@ -33,6 +36,9 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
+    },
+    alternates: {
+      canonical: canonicalUrl, 
     },
     other: {
       "google-site-verification": "zXaNJtIUuGJQnnRMA6KHOYuCMgK0IP-E8Q_XbfTJ7hs",

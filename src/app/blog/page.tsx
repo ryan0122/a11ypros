@@ -1,4 +1,36 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
+import type { Metadata } from "next";
+
+const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
+
+export async function generateMetadata(): Promise<Metadata> {
+	return {
+	  title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+	  description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
+	  alternates: {
+		canonical: `${siteUrl}/blog`, // ✅ Add canonical URL
+	  },
+	  openGraph: {
+		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
+		url: `${siteUrl}/blog`,
+		type: "website",
+		images: [
+		  {
+			url: `${siteUrl}/blog-og-image.jpg`, // ✅ Replace with a relevant image
+			width: 1200,
+			height: 630,
+		  },
+		],
+	  },
+	  twitter: {
+		card: "summary_large_image",
+		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
+		images: [`${siteUrl}/blog-og-image.jpg`],
+	  },
+	};
+  }
 
 export default async function Blog() {
   const posts: Post[] = await getPosts(); // ✅ Fetches data on the server before rendering

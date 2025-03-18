@@ -49,6 +49,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
     },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_URL}/${fullSlug}`,
+    },
   };
 }
 
