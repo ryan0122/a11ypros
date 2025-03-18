@@ -31,6 +31,13 @@ export default function RootLayout({
         ></script>
       </Head>
       <body className={`${inter.variable} antialiased h-full`}>
+         {/* Skip to Content Link */}
+         <a
+          href="#main-content"
+          className="skip-link"
+        >
+          Skip to main content
+        </a>
         <div className="min-h-full">
           <Header />
           {children}

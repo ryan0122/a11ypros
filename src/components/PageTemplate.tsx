@@ -15,7 +15,7 @@ interface PageProps {
 
 export default function PageTemplate({ title, content, featuredImage, slug }: PageProps) {
   return (
-    <>
+    <main id="main-content">
       <div className="page-container max-w-6xl mx-auto p-8 font-[family-name:var(--font-inter)]">
       
         <h1 className="text-4xl font-semibold mb-6 text-center" dangerouslySetInnerHTML={{ __html: title }} />
@@ -38,6 +38,6 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
       {slug === 'services' && <Services showHeading={false}/>}
       {/* show contact form */}
       {slug === 'contact-us' &&  <ContactForm isMainContactForm/>}
-    </>
+    </main>
   );
 }

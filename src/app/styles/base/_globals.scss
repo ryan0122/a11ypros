@@ -1,3 +1,5 @@
+@use "./variables" as vars;
+
 a {
 	color: #0F866C;
 }
@@ -10,4 +12,20 @@ a:hover {
 .has-text-align-center {
 	text-align: center;
 }
+
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 10px;
+	background: vars.$primary-color;
+	color: white;
+	padding: 8px 12px;
+	z-index: 100;
+	border-radius: 4px;
+	transition: top 0.3s;
+  }
+  
+  .skip-link:focus {
+	top: 10px; /* Moves the link into view when focused */
+  }
   
