@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/api/posts/dataApi";
 import Image from "next/image";
-import  SharePost from "@/components/SharePost";
+import SharePost from "@/components/SharePost";
 
 // Define Post interface
 interface Post {
@@ -15,22 +15,20 @@ interface Post {
   slug?: string;
 }
 
-// ✅ Ensure params is unwrapped correctly
-type PageProps = {
-  params: Awaited<{ slug: string }>;
-};
-
-export default async function BlogPost({ params }: PageProps) {
-  const { slug } = params;
-  const post: Post | null = await getPostBySlug(slug);
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const post: Post | null = await getPostBySlug(params.slug);
 
   if (!post) {
     return notFound(); // Handles missing posts at the server level
   }
 
-  // ✅ Construct the post URL on the server
+  // Construct the post URL on the server
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const postUrl = `${siteUrl}/posts/${slug}`;
+  const postUrl = `${siteUrl}/posts/${params.slug}`;
 
   return (
     <main id="main-content">
