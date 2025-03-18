@@ -8,14 +8,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL("/sitemap", req.url));
   }
 
-  if (pathname === "/robots.txt") {
-    return NextResponse.rewrite(new URL("/robots", req.url));
-  }
-
   return NextResponse.next();
 }
 
 // Apply middleware to both /sitemap.xml and /robots.txt
 export const config = {
-  matcher: ["/sitemap.xml", "/robots.txt"],
+  matcher: ["/sitemap.xml"],
 };
