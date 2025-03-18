@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getPostBySlug } from "@/lib/api/posts/dataApi";
 import Image from "next/image";
-import  SharePost from "@/components/SharePost";
+import SharePost from "@/components/SharePost";
+import he from "he";
 
 // Define Post interface
 interface Post {
@@ -19,6 +21,44 @@ interface Post {
 type PageProps = {
   params: Promise<{ slug: string }>; // Await this
 };
+
+// ✅ Generate metadata for SEO and social sharing
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params; // ✅ Await params before using
+  const post = await getPostBySlug(resolvedParams.slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found - A11Y Pros",
+      description: "This blog post does not exist or has been removed.",
+    };
+  }
+
+  // Decode HTML entities in the title
+  const decodedTitle = he.decode(post.title.rendered);
+  
+  // Site URL for canonical links
+  const siteUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+  const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`;
+
+  return {
+    title: `${decodedTitle} - A11Y Pros`,
+    description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""), // Extract a short text snippet
+    openGraph: {
+      title: `${decodedTitle} - A11Y Pros`,
+      description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""),
+      url: postUrl,
+      type: "article",
+      images: post.featured_image_url ? [{ url: post.featured_image_url, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${decodedTitle} - A11Y Pros`,
+      description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""),
+      images: post.featured_image_url ? [post.featured_image_url] : undefined,
+    },
+  };
+}
 
 export default async function BlogPost({ params }: PageProps ) {
   const resolvedParams = await params; // ✅ Await params before using
