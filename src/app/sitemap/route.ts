@@ -14,6 +14,7 @@ interface WordPressPage {
   id: number;
   slug: string;
   link: string;
+  parent: number; // Parent page ID
 }
 
 async function fetchWordPressPages() {
@@ -22,7 +23,7 @@ async function fetchWordPressPages() {
 
     const [postsRes, pagesRes] = await Promise.all([
       fetch(`${CMS_URL}/posts?per_page=100`),
-      fetch(`${CMS_URL}/pages?per_page=100`),
+      fetch(`${CMS_URL}/pages?per_page=100&_fields=id,slug,parent`),
     ]);
 
     if (!postsRes.ok || !pagesRes.ok) {
@@ -37,9 +38,24 @@ async function fetchWordPressPages() {
     console.log("Fetched posts:", posts.length);
     console.log("Fetched pages:", pages.length);
 
+    const pageMap = new Map<number, WordPressPage>();
+    pages.forEach((page) => pageMap.set(page.id, page));
+
+    function getFullPagePath(page: WordPressPage): string {
+      let path = page.slug;
+      let currentPage = page;
+
+      while (currentPage.parent && pageMap.has(currentPage.parent)) {
+        currentPage = pageMap.get(currentPage.parent)!;
+        path = `${currentPage.slug}/${path}`;
+      }
+
+      return `${BASE_URL}/${path}`;
+    }
+
     return [
       ...posts.map((post) => `${BASE_URL}/blog/${post.slug}`),
-      ...pages.map((page) => `${BASE_URL}/${page.slug}`),
+      ...pages.map(getFullPagePath),
     ];
   } catch (error) {
     console.error("🚨 Error fetching WordPress content:", error);
