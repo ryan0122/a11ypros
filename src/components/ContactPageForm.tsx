@@ -1,4 +1,5 @@
 import ContactForm from "./ContactForm"; 
+import Image from "next/image";
  
  const ContactPageForm = () => { 
 	 return (
@@ -8,7 +9,7 @@ import ContactForm from "./ContactForm";
 	   <h2 className="my-10">Reach out to ensure your website meets accessibility standards.</h2>
 		 <div className="flex items-start gap-3 mb-10">
 		   {/* Icon */}
-		   <img src="/email_icon.svg" alt="USA Address" className="w-8 h-8" />
+		   <Image src="/email_icon.svg" alt="USA Address" className="w-8 h-8" />
 		   <div className="flex flex-col">
 			 <p className="font-semibold mt-0">Email:</p>
 			 <p className="mt-0">
@@ -21,7 +22,7 @@ import ContactForm from "./ContactForm";
 
 		  <div className="flex items-start gap-3 mt-4">
 		   {/* Icon */}
-		   <img src="/location_icon.svg" alt="USA Address" className="w-8 h-8 mt-1" />
+		   <Image src="/location_icon.svg" alt="USA Address" className="w-8 h-8 mt-1" />
 
 		   {/* Address */}
 		   <address className="not-italic">
