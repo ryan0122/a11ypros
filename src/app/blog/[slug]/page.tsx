@@ -115,7 +115,7 @@ export default async function BlogPost({ params }: PageProps ) {
                   alt={`Featured image for ${post.title.rendered}`}
                   width={600}
                   height={350}
-                  className="w-full h-auto rounded-lg"
+                  className="w-3/5 h-auto mx-auto"
                   priority
                 />
               </div>
