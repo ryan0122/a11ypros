@@ -9,7 +9,7 @@ import Image from "next/image";
 	   <h2 className="my-10">Reach out to ensure your website meets accessibility standards.</h2>
 		 <div className="flex items-start gap-3 mb-10">
 		   {/* Icon */}
-		   <Image src="/email_icon.svg" alt="USA Address" className="w-8 h-8" />
+		   <Image src="/email_icon.svg" alt="USA Address" className="w-8 h-8" width={100} height={100}/>
 		   <div className="flex flex-col">
 			 <p className="font-semibold mt-0">Email:</p>
 			 <p className="mt-0">
@@ -22,7 +22,7 @@ import Image from "next/image";
 
 		  <div className="flex items-start gap-3 mt-4">
 		   {/* Icon */}
-		   <Image src="/location_icon.svg" alt="USA Address" className="w-8 h-8 mt-1" />
+		   <Image src="/location_icon.svg" alt="USA Address" className="w-8 h-8 mt-1" width={100} height={100}/>
 
 		   {/* Address */}
 		   <address className="not-italic">
