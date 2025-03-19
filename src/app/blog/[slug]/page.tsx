@@ -79,6 +79,9 @@ export default async function BlogPost({ params }: PageProps ) {
     return notFound(); // Handles missing posts at the server level
   }
 
+   // ✅ Ensure `post.content.rendered` is defined
+   const postContent = post.content?.rendered || "<p>No content available.</p>";
+
   // ✅ Construct the post URL on the server
   const siteUrl = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
   const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`;
@@ -118,7 +121,7 @@ export default async function BlogPost({ params }: PageProps ) {
               </div>
             )}
 
-            <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: post.content.rendered }} suppressHydrationWarning />
+            <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: postContent }} suppressHydrationWarning />
           </div>
         </div>
       </div>
