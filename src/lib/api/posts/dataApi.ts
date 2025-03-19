@@ -28,7 +28,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
  */
 export async function getPosts(): Promise<Post[]> {
   const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&_fields=id,slug,title,excerpt,date,author,featured_media,_embedded`,
+    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true`,
     { cache: "no-store" }
   );
 
@@ -93,7 +93,7 @@ export async function getPosts(): Promise<Post[]> {
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed=true&_fields=id,slug,title,excerpt,content,date,author,featured_media,_embedded`
+    `${CMS_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed=true`
   );
 
   if (!res.ok) {
