@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const [page, seoData] = await Promise.all([
     getPageData(childSlug),
-    getPageMetaData(childSlug),
+    getPageMetaData(fullSlug),
   ]);
 
   if (!page) {
@@ -75,7 +75,11 @@ export default async function Page({ params }: PageProps) {
   const slugArray = resolvedParams.slug[0] === "pages" ? resolvedParams.slug.slice(1) : resolvedParams.slug;
   const slug = slugArray[slugArray.length - 1];
 
-  const page = await getPageData(slug);
+  const [page, seoData] = await Promise.all([
+    getPageData(slug),
+    getPageMetaData(slug),
+  ]);
+
   if (!page) {
     console.warn("⚠️ No page found for:", slug);
     notFound();
@@ -95,10 +99,10 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       {/* ✅ Inject JSON-LD Schema from RankMath */}
-      {page.rankMathSchema && (
+     {seoData?.rankMathSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: page.rankMathSchema }}
+          dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
         />
       )}
 
