@@ -166,7 +166,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
             </div>
 
             {/* ✅ Invisible reCAPTCHA - Runs AFTER validation passes */}
-			{/* @ts-ignore */}
+			{/* @ts-expect-error */}
             <ReCAPTCHA
               ref={recaptchaRef}
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} // Replace with your site key
