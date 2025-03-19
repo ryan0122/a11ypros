@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Services from './Services';
-import ContactForm from './ContactForm';
+import ContactPageForm from './ContactPageForm';
 
 interface PageProps {
   title: string;
@@ -36,8 +36,6 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
       </div>
       {/* show services on overview page */}
       {slug === 'services' && <Services showHeading={false}/>}
-      {/* show contact form */}
-      {slug === 'contact-us' &&  <ContactForm isMainContactForm/>}
     </main>
   );
 }
