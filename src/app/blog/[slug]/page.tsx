@@ -15,6 +15,7 @@ interface Post {
   featured_media: number;
   featured_image_url?: string;
   slug?: string;
+  rankMathSchema?: string;
 }
 
 // Define PageProps
@@ -114,6 +115,10 @@ export default async function BlogPost({ params }: PageProps ) {
           </div>
         </div>
       </div>
+      {/* ✅ Inject RankMath JSON-LD Schema */}
+      {post.rankMathSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: post.rankMathSchema }} />
+      )}
     </main>
   );
 }

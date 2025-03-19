@@ -1,3 +1,4 @@
+import extractJsonLD from "@/utils/extractJsonLD";
 export interface Post {
 	id: number;
 	title: { rendered: string };
@@ -8,108 +9,137 @@ export interface Post {
 	author_name?: string;
 	featured_media: number;
 	featured_image_url?: string;
+	content?: { rendered: string };
+	rankMathMeta?: string; // ✅ Store RankMath meta tags
+	rankMathSchema?: string; // ✅ Store RankMath JSON-LD Schema
 	_embedded?: {
-	  "wp:featuredmedia"?: {
-		source_url: string;
-	  }[];
-	  author?: {
-		name: string;
-	  }[];
+	  "wp:featuredmedia"?: { source_url: string }[];
+	  author?: { name: string }[];
 	};
   }
   
-
-export async function getPosts(): Promise<Post[]> {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/posts?_embed=true`, {
-		cache: "no-store", // Ensure fresh data
-	});
-
+  const CMS_URL = "https://cms.a11ypros.com";
+  const SITE_URL = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
+  
+  /**
+   * ✅ Fetch all blog posts with RankMath metadata
+   */
+  export async function getPosts(): Promise<Post[]> {
+	const res = await fetch(
+	  `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&_fields=id,slug,title,excerpt,date,author,featured_media,_embedded`,
+	  { cache: "no-store" }
+	);
+  
 	if (!res.ok) {
-		throw new Error("Failed to fetch posts");
+	  throw new Error("Failed to fetch posts");
 	}
-
+  
 	const posts = await res.json();
-	
-	// Process each post to extract featured image and author name
-	return posts.map((post: Post) => {
-		let featured_image_url = null;
-		const author_name = "Unknown Author";
-		
-		// Extract featured image URL
-		if (post._embedded && 
-			post._embedded['wp:featuredmedia'] && 
-			post._embedded['wp:featuredmedia'][0] &&
-			post._embedded['wp:featuredmedia'][0].source_url) {
-			featured_image_url = post._embedded['wp:featuredmedia'][0].source_url;
-		}
-		
-		return {
-			id: post.id,
-			title: post.title,
-			excerpt: post.excerpt,
-			slug: post.slug,
-			date: post.date,
-			author: post.author,
-			author_name: author_name,
-			featured_media: post.featured_media,
-			featured_image_url: featured_image_url
-		};
-	});
-}
-
-export async function getPostBySlug(slug: string) {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/posts?slug=${slug}&_embed=true`);
-	if (!res.ok) {
-		return null;
-	}
-
-	const posts = await res.json();
-	if (!posts.length) return null;
-
-	const post = posts[0];
-
-	// Extract featured image URL if it exists
-	let featured_image_url = null;
-	if (post._embedded && 
-		post._embedded['wp:featuredmedia'] && 
-		post._embedded['wp:featuredmedia'][0] &&
-		post._embedded['wp:featuredmedia'][0].source_url) {
-		featured_image_url = post._embedded['wp:featuredmedia'][0].source_url;
-	}
-
-	// Since the embedded author is returning an error, let's use a separate API call
-	// but with error handling
-	let author_name = "Unknown Author";
-	try {
-		const authorRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/users/${post.author}`);
-		
-		if (authorRes.ok) {
+  
+	return await Promise.all(
+	  posts.map(async (post: Post) => {
+		const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
+		let author_name = "Unknown Author";
+  
+		// ✅ Fetch author name
+		try {
+		  const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
+		  if (authorRes.ok) {
 			const authorData = await authorRes.json();
 			author_name = authorData.name || "Unknown Author";
-		} else {
-			// Try querying a public endpoint that might work
-			const authorRes2 = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/users/${post.author}`);
-			
-			if (authorRes2.ok) {
-				const authorData = await authorRes2.json();
-				author_name = authorData.name || "Unknown Author";
-			}
+		  }
+		} catch (error) {
+		  console.error("Error fetching author:", error);
 		}
-	} catch (error) {
-		console.log("Error fetching author:", error);
-		author_name = "Unknown Author";
+  
+		// ✅ Fetch RankMath metadata
+		let rankMathMeta = "";
+		let rankMathSchema = "";
+		try {
+		  const rankMathRes = await fetch(`${CMS_URL}/wp-json/rankmath/v1/getHead?url=${SITE_URL}/blog/${post.slug}`);
+		  if (rankMathRes.ok) {
+			const rankMathData = await rankMathRes.json();
+			rankMathMeta = rankMathData.head || "";
+			rankMathSchema = extractJsonLD(rankMathMeta);
+		  }
+		} catch (error) {
+		  console.error("Error fetching RankMath metadata:", error);
+		}
+  
+		return {
+		  id: post.id,
+		  title: post.title,
+		  excerpt: post.excerpt,
+		  slug: post.slug,
+		  date: post.date,
+		  author: post.author,
+		  author_name,
+		  featured_media: post.featured_media,
+		  featured_image_url,
+		  rankMathMeta,
+		  rankMathSchema,
+		};
+	  })
+	);
+  }
+  
+  /**
+   * ✅ Fetch a single blog post by slug with RankMath metadata
+   */
+  export async function getPostBySlug(slug: string): Promise<Post | null> {
+	const res = await fetch(
+	  `${CMS_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed=true&_fields=id,slug,title,excerpt,content,date,author,featured_media,_embedded`
+	);
+  
+	if (!res.ok) {
+	  return null;
 	}
-
+  
+	const posts = await res.json();
+	if (!posts.length) return null;
+  
+	const post = posts[0];
+  
+	const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
+	let author_name = "Unknown Author";
+  
+	// ✅ Fetch author name
+	try {
+	  const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
+	  if (authorRes.ok) {
+		const authorData = await authorRes.json();
+		author_name = authorData.name || "Unknown Author";
+	  }
+	} catch (error) {
+	  console.error("Error fetching author:", error);
+	}
+  
+	// ✅ Fetch RankMath metadata
+	let rankMathMeta = "";
+	let rankMathSchema = "";
+	try {
+	  const rankMathRes = await fetch(`${CMS_URL}/wp-json/rankmath/v1/getHead?url=${SITE_URL}/blog/${slug}`);
+	  if (rankMathRes.ok) {
+		const rankMathData = await rankMathRes.json();
+		rankMathMeta = rankMathData.head || "";
+		rankMathSchema = extractJsonLD(rankMathMeta);
+	  }
+	} catch (error) {
+	  console.error("Error fetching RankMath metadata:", error);
+	}
+  
 	return {
-		id: post.id,
-		title: post.title,
-		excerpt: post.excerpt,
-		slug: post.slug,
-		date: post.date,
-		author: post.author,
-		author_name: author_name,
-		content: post.content,
-		featured_media: post.featured_media,
-		featured_image_url: featured_image_url
+	  id: post.id,
+	  title: post.title,
+	  excerpt: post.excerpt,
+	  slug: post.slug,
+	  date: post.date,
+	  author: post.author,
+	  author_name,
+	  content: post.content,
+	  featured_media: post.featured_media,
+	  featured_image_url,
+	  rankMathMeta,
+	  rankMathSchema,
 	};
-}
+  }
