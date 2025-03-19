@@ -6,17 +6,24 @@ import SharePost from "@/components/SharePost";
 import he from "he";
 
 // Define Post interface
-interface Post {
-  id: number;
-  title: { rendered: string };
-  content: { rendered: string };
-  date: string;
-  author_name: string;
-  featured_media: number;
-  featured_image_url?: string;
-  slug?: string;
-  rankMathSchema?: string;
-}
+export interface Post {
+	id: number;
+	title: { rendered: string };
+	excerpt: { rendered: string };
+	slug: string;
+	date: string;
+	author: number;
+	author_name?: string;
+	featured_media: number;
+	featured_image_url?: string;
+	content?: { rendered: string };
+	rankMathMeta?: string; // ✅ Store RankMath meta tags
+	rankMathSchema?: string; // ✅ Store RankMath JSON-LD Schema
+	_embedded?: {
+	  "wp:featuredmedia"?: { source_url: string }[];
+	  author?: { name: string }[];
+	};
+  }
 
 // Define PageProps
 type PageProps = {
@@ -44,10 +51,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${decodedTitle} - A11Y Pros`,
-    description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""), // Extract a short text snippet
+    description: post.seoDescription,
     openGraph: {
       title: `${decodedTitle} - A11Y Pros`,
-      description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""),
+      description: post.seoDescription,
       url: postUrl,
       type: "article",
       images: post.featured_image_url ? [{ url: post.featured_image_url, width: 1200, height: 630 }] : undefined,
@@ -55,11 +62,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: `${decodedTitle} - A11Y Pros`,
-      description: post.content.rendered.substring(0, 150).replace(/<\/?[^>]+(>|$)/g, ""),
+      description: post.seoDescription,
       images: post.featured_image_url ? [post.featured_image_url] : undefined,
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_URL}/${postUrl}`,
+      canonical: `${postUrl}`,
     },
   };
 }

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import TopNav from "@/components/TopNav";
-import LogoHorizontal from "@/components/LogoHorizontal";
+import IconLogo from "./icons/IconLogo";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -93,8 +93,8 @@ export default function MobileNav({ isOpen, setMobileMenuOpen }: MobileNavProps)
       <div className="fixed inset-0 bg-black bg-opacity-25" />
       <div className="mobile-menu-container fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
         <div className="flex items-center justify-between">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <LogoHorizontal color="#0F866C"/>
+          <Link href="/" className="logo -m-1.5 p-1.5 w-40 sm:w-60">
+            <IconLogo color="#001d2f"/>
             <span className="sr-only">A11Y Pros</span>
           </Link>
           <button
