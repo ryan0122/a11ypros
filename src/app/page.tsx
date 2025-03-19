@@ -47,12 +47,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const page = await getPageData("home"); // Get WordPress "Home" page content
+  const [page, seoData] = await Promise.all([
+    getPageData('home'),
+    getPageMetaData('home'),
+  ]);
 
   if (!page) {
     console.warn("⚠️ Home page not found");
     notFound();
   }
 
-  return <HomeTemplate title={page.title.rendered} content={page.content.rendered} />;
+  return (
+    <>
+     {/* ✅ Inject JSON-LD Schema from RankMath */}
+     {seoData?.rankMathSchema && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
+      />
+    )}
+     <HomeTemplate title={page.title.rendered} content={page.content.rendered} />
+     </>
+  );
 }

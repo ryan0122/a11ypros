@@ -98,7 +98,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <>
-      {/* ✅ Inject JSON-LD Schema from RankMath */}
+    {/* ✅ Inject JSON-LD Schema from RankMath */}
      {seoData?.rankMathSchema && (
         <script
           type="application/ld+json"
