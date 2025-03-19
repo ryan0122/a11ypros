@@ -1,5 +1,10 @@
 import extractJsonLD from "@/utils/extractJsonLD";
 
+interface FAQItem {
+	faq_question: string;
+	faq_answer: string;
+  }
+
 export async function getPageData(slug: string) {
 	if (!process.env.NEXT_PUBLIC_CMS_URL) {
 	  console.error("❌ ERROR: `NEXT_PUBLIC_CMS_URL` is not defined in `.env.local`");
@@ -57,11 +62,12 @@ export async function getPageData(slug: string) {
 		}
 	  }
 
-	  let faqs = [];
-	  if (page.acf?.['faq-acf-repeater']) {
-		faqs = page.acf['faq-acf-repeater'].map((faq) => ({
-		  question: faq['faq_question'],
-		  answer: faq['faq_answer'],
+	  let faqs: { question: string; answer: string }[] = [];
+
+	  if (Array.isArray(page.acf?.['faq-acf-repeater'])) {
+		faqs = (page.acf['faq-acf-repeater'] as FAQItem[]).map((faq) => ({
+		  question: faq.faq_question,
+		  answer: faq.faq_answer,
 		}));
 	  }
 	  
