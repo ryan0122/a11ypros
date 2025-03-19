@@ -46,18 +46,18 @@ export default async function Blog() {
 		{posts.map((post) => (
 		  <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
 			{/* ✅ Featured Image */}
-							  {post.featured_image_url && (
-								  <div className="mb-4">
-									<Image
-									  src={post.featured_image_url}
-									  alt={`Featured image for ${post.title.rendered}`}
-									  className="w-full h-48"
-									  loading="lazy"
-									  width={100}
-									  height={100}
-									/>
-								  </div>
-						)}
+				  {post.featured_image_url && (
+					  <div className="mb-4">
+						<Image
+						  src={post.featured_image_url}
+						  alt={`Featured image for ${post.title.rendered}`}
+						  className="w-full h-48"
+						  loading="lazy"
+						  width={100}
+						  height={100}
+						/>
+					  </div>
+			)}
 			<h2 className="text-2xl font-semibold mb-4">
 			  <a
 				href={`/blog/${post.slug}`}

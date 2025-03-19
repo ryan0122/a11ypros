@@ -74,10 +74,12 @@ export default async function Page({ params }: PageProps) {
 
   const slugArray = resolvedParams.slug[0] === "pages" ? resolvedParams.slug.slice(1) : resolvedParams.slug;
   const slug = slugArray[slugArray.length - 1];
-
+  const [parentSlug, childSlug] = resolvedParams.slug;
+  const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug;
+  
   const [page, seoData] = await Promise.all([
-    getPageData(slug),
-    getPageMetaData(slug),
+    getPageData(childSlug),
+    getPageMetaData(fullSlug),
   ]);
 
   if (!page) {
