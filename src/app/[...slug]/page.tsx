@@ -3,6 +3,7 @@ import PageTemplate from "@/components/PageTemplate";
 import type { Metadata } from "next";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
+import FAQAccordion from "@/components/FaqAccordion";
 
 type PageProps = {
   params: Promise<{ slug: string[] }>; // Await this
@@ -70,13 +71,11 @@ export default async function Page({ params }: PageProps) {
     return notFound();
   }
 
-  console.log("Slug Array from Next.js params:", resolvedParams?.slug);
-
   const slugArray = resolvedParams.slug[0] === "pages" ? resolvedParams.slug.slice(1) : resolvedParams.slug;
   const slug = slugArray[slugArray.length - 1];
   const [parentSlug, childSlug] = resolvedParams.slug;
   const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug;
-  
+
   const [page, seoData] = await Promise.all([
     getPageData(childSlug),
     getPageMetaData(fullSlug),
@@ -86,8 +85,6 @@ export default async function Page({ params }: PageProps) {
     console.warn("⚠️ No page found for:", slug);
     notFound();
   }
-
-  console.log("Fetched Page Data:", page);
 
   const expectedPath = page.parentSlug ? [page.parentSlug, page.slug] : [page.slug];
 
@@ -115,6 +112,9 @@ export default async function Page({ params }: PageProps) {
         content={page.content.rendered}
         featuredImage={page.featuredImage}
       />
+
+      {/* ✅ Render FAQ Accordion */}
+      {page.faqs.length > 0 && <FAQAccordion title={`${he.decode(page.title.rendered)} FAQs`} faqs={page.faqs} />}
     </>
   );
 }

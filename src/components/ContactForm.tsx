@@ -174,15 +174,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
           </FieldSet>
         </div>
-		  {/* Invisible reCAPTCHA - Runs AFTER validation passes */}
-				{/* @ts-expect-error  ReCAPTCHA is a class component, and TypeScript has issues with JSX inference */}
-	            <ReCAPTCHA
-				  tabIndex={-1}
-	              ref={recaptchaRef}
-	              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} // Replace with your site key
-	              size="invisible"
-	              onChange={onReCAPTCHAVerify} // Runs only when verification is successful
-	            />
+		    {/* Invisible reCAPTCHA - Runs AFTER validation passes */}
+			{/* @ts-expect-error  ReCAPTCHA is a class component, and TypeScript has issues with JSX inference */}
+			<ReCAPTCHA
+			  tabIndex={-1}
+			  ref={recaptchaRef}
+			  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} // Replace with your site key
+			  size="invisible"
+			  onChange={onReCAPTCHAVerify} // Runs only when verification is successful
+			/>
       </form>
     </div>
   );

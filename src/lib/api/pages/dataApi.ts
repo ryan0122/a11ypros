@@ -1,10 +1,12 @@
+import extractJsonLD from "@/utils/extractJsonLD";
+
 export async function getPageData(slug: string) {
 	if (!process.env.NEXT_PUBLIC_CMS_URL) {
 	  console.error("❌ ERROR: `NEXT_PUBLIC_CMS_URL` is not defined in `.env.local`");
 	  return null;
 	}
 	
-	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent,featured_media`;
+	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent,featured_media,acf`;
 	
 	try {
 	  const res = await fetch(apiUrl, {
@@ -54,52 +56,62 @@ export async function getPageData(slug: string) {
 		  parentSlug = parentData.slug;
 		}
 	  }
+
+	  let faqs = [];
+	  if (page.acf?.['faq-acf-repeater']) {
+		faqs = page.acf['faq-acf-repeater'].map((faq) => ({
+		  question: faq['faq_question'],
+		  answer: faq['faq_answer'],
+		}));
+	  }
 	  
-	  return { ...page, parentSlug, featuredImage };
+	  return { ...page, parentSlug, featuredImage, faqs };
 	} catch (error) {
 	  console.error("❌ ERROR: Fetch request to WordPress API failed", error);
 	  return null;
 	}
   }
   
-  import extractJsonLD from "@/utils/extractJsonLD";
 
   export async function getPageMetaData(slug: string) {
 	if (!process.env.NEXT_PUBLIC_SEO_URL || !process.env.NEXT_PUBLIC_CMS_URL) return null;
-	
+  
 	const seoApiUrl = `${process.env.NEXT_PUBLIC_SEO_URL}https://cms.a11ypros.com/${slug}`;
-	
+  
 	try {
-	  // ✅ Fetch description from existing SEO API
-	  const seoRes = await fetch(seoApiUrl, { cache: "no-store" });
+	  // ✅ Fetch RankMath metadata & SEO data in a single request
+	  const res = await fetch(seoApiUrl, {
+		cache: "no-store",
+		method: "GET",
+		headers: {
+		  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
+		  "Cache-Control": "no-cache",
+		},
+	  });
+  
+	  if (!res.ok) {
+		console.error("❌ ERROR: Failed to fetch RankMath metadata:", res.status);
+		return null;
+	  }
+  
+	  const data = await res.json();
+  
+	  // ✅ Extract description from meta tags
 	  let seoDescription = "";
-	
-	  if (seoRes.ok) {
-		const seoData = await seoRes.json();
-		const descriptionMatch = seoData.head.match(/<meta name="description" content="(.*?)"\s*\/?>/i);
-		seoDescription = descriptionMatch ? descriptionMatch[1] : "";
+	  const descriptionMatch = data.head?.match(/<meta name="description" content="(.*?)"\s*\/?>/i);
+	  if (descriptionMatch) {
+		seoDescription = descriptionMatch[1];
 	  }
-	
-	  // ✅ Fetch RankMath metadata - Use the correct Rank Math API endpoint
-	  const rankMathApiUrl = `${seoApiUrl}`;
-	  const rankMathRes = await fetch(rankMathApiUrl);
-	  let rankMathMeta = "";
-	  let rankMathSchema = "";
-	
-	  if (rankMathRes.ok) {
-		const rankMathData = await rankMathRes.json();
-		
-		// Extract description from Rank Math data
-		if (rankMathData.head) {
-		  rankMathMeta = rankMathData.head;
-		  rankMathSchema = extractJsonLD(rankMathMeta);
-		}
-	  }
-	
-	  return { description: seoDescription, rankMathMeta, rankMathSchema };
+  
+	  // ✅ Extract JSON-LD & FAQs from RankMath
+	  const rankMathMeta = data.head || "";
+	  const rankMathSchema = extractJsonLD(rankMathMeta);
+  
+	  return { description: seoDescription, rankMathMeta, rankMathSchema};
 	} catch (error) {
-	  console.error("❌ ERROR: Fetch request to SEO API, RankMath, or WordPress failed", error);
+	  console.error("❌ ERROR: Fetch request to RankMath API failed:", error);
 	  return null;
 	}
   }
+  
   
