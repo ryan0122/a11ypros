@@ -165,15 +165,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
               />
             </div>
 
-	            {/* Invisible reCAPTCHA - Runs AFTER validation passes */}
-				{/* @ts-expect-error  ReCAPTCHA is a class component, and TypeScript has issues with JSX inference */}
-	            <ReCAPTCHA
-	              ref={recaptchaRef}
-	              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} // Replace with your site key
-	              size="invisible"
-	              onChange={onReCAPTCHAVerify} // Runs only when verification is successful
-	            />
-
               {/* Submit Button */}
               <Button 
                 className="w-full rounded-md border-2 border-[#0f866c] text-xl font-bold text-white uppercase bg-[#0f866c] px-6 py-3 text-center hover:bg-gray-800 hover:text-white hover:outline hover:outline-2 hover:outline-white focus-visible:outline-white" 
@@ -183,6 +174,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
           </FieldSet>
         </div>
+		  {/* Invisible reCAPTCHA - Runs AFTER validation passes */}
+				{/* @ts-expect-error  ReCAPTCHA is a class component, and TypeScript has issues with JSX inference */}
+	            <ReCAPTCHA
+				  tabIndex={-1}
+	              ref={recaptchaRef}
+	              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string} // Replace with your site key
+	              size="invisible"
+	              onChange={onReCAPTCHAVerify} // Runs only when verification is successful
+	            />
       </form>
     </div>
   );
