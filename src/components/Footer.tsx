@@ -30,21 +30,26 @@ export default function Footer() {
           {pathname === '/contact-us' ? <ContactPageForm /> : <ContactForm />}
          </section>
        )}
-      <footer className="bottom-footer flex flex-col md:flex-row items-center justify-center md:justify-evenly w-full gap-4 p-4">
-        <div className="max-w-6xl mx-auto w-full flex justify-between">
-        <nav aria-label="Footer navigation" className="order-1 md:order-2 w-full md:w-auto">
-          <ul className="flex flex-col md:flex-row items-center md:items-center justify-center gap-4 md:gap-0">
-            <li className="md:pr-2 md:mr-3">
-              <Link href="/privacy-policy" className="text-white hover:text-[#d4e300]">Privacy Policy</Link>        
-            </li>
-            <li>        
-              <Link href="/accessibility-statement" className="text-white hover:text-[#d4e300]">Accessibility Statement</Link>        
-            </li>
-          </ul>
-        </nav>
-        	<p className="order-2 md:order-1 text-center md:text-left mt-0">&copy; {currentYear} A11Y Pros</p>
-      </div>
+      <footer className="bottom-footer flex flex-col items-center md:flex-row md:justify-evenly w-full gap-4 p-4">
+        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center md:justify-between text-center md:text-left">
+          
+          {/* Navigation Menu */}
+          <nav aria-label="Footer navigation" className="w-full md:w-auto">
+            <ul className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+              <li>
+                <Link href="/privacy-policy" className="text-white hover:text-[#d4e300]">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/accessibility-statement" className="text-white hover:text-[#d4e300]">Accessibility Statement</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Copyright Text - Moves Below Nav on Mobile */}
+          <p className="mt-4 md:mt-0">&copy; {currentYear} A11Y Pros</p>
+        </div>
       </footer>
+
     </>
   );
 };
