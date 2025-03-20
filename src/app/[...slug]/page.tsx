@@ -6,20 +6,22 @@ import he from "he";
 import FAQAccordion from "@/components/FaqAccordion";
 
 type PageProps = {
-  params: { slug: string[] }; // No Promise here
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string[] }>; // Await this
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  if (!params || !Array.isArray(params.slug) || params.slug.length === 0) {
+  const resolvedParams = await params;
+
+  if (!resolvedParams || !Array.isArray(resolvedParams.slug) || resolvedParams.slug.length === 0) {
     return {
       title: "Page Not Found - A11Y Pros",
       description: "The page you are looking for does not exist.",
     };
   }
 
-  const [parentSlug, childSlug] = params.slug;
+  const [parentSlug, childSlug] = resolvedParams.slug;
   const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug;
 
   const [page, seoData] = await Promise.all([
@@ -58,18 +60,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // 🛠 Render Page
 export default async function Page({ params }: PageProps) {
-  const resolvedParams = await params; // Await the promise
+  const resolvedParams = await params;
 
   if (!resolvedParams?.slug) {
     console.error("❌ ERROR: Missing slug param");
     notFound();
   }
 
-  if (resolvedParams.slug.join("/") === "sitemap.xml") {
+  if (resolvedParams?.slug?.join("/") === "sitemap.xml") {
     return notFound();
   }
 
-  // Use resolvedParams instead of params
   const slugArray = resolvedParams.slug[0] === "pages" ? resolvedParams.slug.slice(1) : resolvedParams.slug;
   const slug = slugArray[slugArray.length - 1];
   const [parentSlug, childSlug] = resolvedParams.slug;
@@ -96,13 +97,15 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <>
-      {seoData?.rankMathSchema && (
+    {/* ✅ Inject JSON-LD Schema from RankMath */}
+     {seoData?.rankMathSchema && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
         />
       )}
 
+      {/* ✅ Render Page Content */}
       <PageTemplate
         slug={page.slug}
         title={page.title.rendered}
@@ -110,9 +113,8 @@ export default async function Page({ params }: PageProps) {
         featuredImage={page.featuredImage}
       />
 
-      {page.faqs.length > 0 && (
-        <FAQAccordion title={`${he.decode(page.title.rendered)} FAQs`} faqs={page.faqs} />
-      )}
+      {/* ✅ Render FAQ Accordion */}
+      {page.faqs.length > 0 && <FAQAccordion title={`${he.decode(page.title.rendered)} FAQs`} faqs={page.faqs} />}
     </>
   );
 }
