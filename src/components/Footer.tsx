@@ -21,7 +21,7 @@ export default function Footer() {
       }
     }, []);
 
-  const doNotDisplay = ["/contact-us-thank-you"].includes(pathname) || is404 || pathname === "";
+  const doNotDisplay = ["/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
 
   return (
     <>
