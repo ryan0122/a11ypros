@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./styles/main.scss";
+import Loader from "@/components/Loader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,8 +39,10 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        
         <div className="min-h-full">
           <Header />
+          <Loader/>
           {children}
           <Footer />
         </div>

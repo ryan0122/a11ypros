@@ -29,3 +29,40 @@ a:hover {
 	top: 10px; /* Moves the link into view when focused */
   }
   
+
+  .loading-overlay {
+	position: fixed;
+	top: 6.2vh;
+	left: 0;
+	width: 100vw;
+	height: 98vh;
+	background: #f9f8f2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+  }
+
+  @media (max-width: 640px) {
+	.loading-overlay {
+	  top: 8vh; /* Change this value as needed for mobile */
+	}
+  }
+  
+  .loading-overlay .spinner {
+	width: 100px;
+	height: 100px;
+	border: 5px solid #0F866C33;
+	border-top: 5px solid #0F866C;
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+  }
+  
+  @keyframes spin {
+	from {
+	  transform: rotate(0deg);
+	}
+	to {
+	  transform: rotate(360deg);
+	}
+  }
