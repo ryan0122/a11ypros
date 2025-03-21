@@ -13,7 +13,7 @@ export default function Header() {
     <div className="header flex items-center w-full py-5 px-6 sticky top-0 z-10">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
       <div className="flex lg:flex-1 gap-10 max-w-6xl mx-auto justify-between">
-        <Link href="/" className="logo no-underline hover:no-underline lg:pr-14 w-36 sm:w-60">
+        <Link href="/" className="logo no-underline hover:no-underline lg:mr-14 w-36 sm:w-56">
           <IconLogo />
           <span className="sr-only">Home</span>
         </Link>

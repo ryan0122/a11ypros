@@ -1,5 +1,6 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 import Services from "./Services";
+import Compliances from "./Compliances";
 import IconA11yCollab from "@/components/icons/IconA11yCollab"
 import Image from "next/image";
 import Link from "next/link";
@@ -16,14 +17,15 @@ export default async function HomeTemplate({ content }: { title: string; content
 					<IconA11yCollab aria-hidden="true"/>
 				</div>
 		        <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl">
-				ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
+					ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
 				</h1>
 		      </header>
 		    </div>
   		</div>
 		<main id="mainContent" className="home-content py-10 px-10 text-center w-full isolate ">
-      		<section className="content max-w-6xl mx-auto" dangerouslySetInnerHTML={{ __html: content }} />
+      		<section className="content max-w-6xl mx-auto text-xl" dangerouslySetInnerHTML={{ __html: content }} />
 		</main>
+		<Compliances showHeading={true}/>
 		<Services showHeading/>
 		<section className="items-center text-center max-w-6xl mx-auto pt-10 pb-20 px-10">
 			<h2 className="page-heading">Accessibility Articles</h2>
