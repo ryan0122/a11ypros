@@ -24,39 +24,39 @@ const Heading = ({
 				</p>
 			</div>
 			<div className="compliance-grid">
-				<Link href="/compliance/wcag" className="bg-[#0F866C]">
+				<Link href="/compliance/web-content-accessibility-guidelines" className="bg-[#0F866C]">
 					<div className="compliance-block">
 						<Heading showHeading={showHeading}>WCAG</Heading>
 						<p className="p-0 m-0">Web Content Accessibility Guidelines</p>
 					</div>
 				</Link>
-				<Link href="/compliance/ada" className="bg-[#DA3940]">
+				<Link href="/compliance/the-americans-with-disabilities-act" className="bg-[#DA3940]">
 					<div className="compliance-block">
 						<Heading showHeading={showHeading}>ADA</Heading>
 						<p>Americans With Disabilities Act</p>
 					</div>
 				</Link>
-				<Link href="/compliance/ada" className=" bg-[#872E0F]">
+				<Link href="/compliance/section-508" className=" bg-[#872E0F]">
 				<div className="compliance-block">
 					<Heading showHeading={showHeading}>Section 508</Heading>
 					<p>US Rehabilitation Act</p>
 				</div>
 				</Link>
-				<Link href="/compliance/ada" className=" bg-[#87830F]">
+				<Link href="/compliance/voluntary-product-accessibility-templates" className=" bg-[#87830F]">
 				<div className="compliance-block">
 					<Heading showHeading={showHeading}>VPAT</Heading>
 					<p>Voluntary Product Accessibility Template</p>
 				</div>
 				</Link>
-				<Link href="/compliance/ada" className="bg-[#0F7987]">
+				<Link href="/compliance/aoda" className="bg-[#0F7987]">
 				<div className="compliance-block">
 					<Heading showHeading={showHeading}>AODA</Heading>
 					<p>Accessibility for Ontarians with Disabilities Act</p>
 				</div>
 				</Link>
-				<Link href="/compliance/ada" className="bg-[#0F5387]">
+				<Link href="/compliance/en-301-549" className="bg-[#0F5387]">
 				<div className="compliance-block">
-					<Heading showHeading={showHeading}>EN 301 5449</Heading>
+					<Heading showHeading={showHeading}>EN 301 549</Heading>
 					<p>European Standard for Digital Accessibility</p>
 				</div>
 				</Link>
