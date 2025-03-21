@@ -1,0 +1,27 @@
+.wp-block-columns {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem; // default column gap
+	margin-bottom: 2rem;
+  
+	&.is-layout-flex {
+	  // Optional override if WordPress layout class exists
+	  display: flex;
+	}
+  
+	// Responsive stack for small screens
+	@media (max-width: 768px) {
+	  flex-direction: column;
+	}
+  }
+  
+  .wp-block-column {
+	flex: 1 1 0;
+	min-width: 0;
+  
+	&.is-layout-flow {
+	  display: flex;
+	  flex-direction: column;
+	}
+ 
+  }
