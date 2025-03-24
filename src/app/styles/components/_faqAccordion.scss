@@ -34,6 +34,10 @@
 		  transition: transform 0.3s ease-in-out;
 		}
 	  }
+
+	  &[open] {
+		background-color: #fff;
+	  }
   
 	  &[open] summary::before {
 		transform: rotate(90deg);

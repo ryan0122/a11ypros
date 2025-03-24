@@ -10,7 +10,7 @@ export default function NotFound() {
       </div>
         
       <p className="text-2xl my-10">Sorry, the page you are looking for does not exist.</p>
-      <Link className="text-2xl rounded-md border-2 border-[#0f866c] py-2 px-4 mt-8 inline-block font-semibold" href="/">Return to Home</Link>
+      <Link className="text-2xl rounded-md border-2 border-[#0E8168] py-2 px-4 mt-8 inline-block font-semibold" href="/">Return to Home</Link>
     </div>
   );
 }

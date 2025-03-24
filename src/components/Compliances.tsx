@@ -24,7 +24,7 @@ const Heading = ({
 				</p>
 			</div>
 			<div className="compliance-grid">
-				<Link href="/compliance/web-content-accessibility-guidelines" className="bg-[#0F866C]">
+				<Link href="/compliance/web-content-accessibility-guidelines" className="bg-[#0E8168]">
 					<div className="compliance-block">
 						<Heading showHeading={showHeading}>WCAG</Heading>
 						<p className="p-0 m-0">Web Content Accessibility Guidelines</p>

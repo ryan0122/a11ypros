@@ -167,7 +167,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
               {/* Submit Button */}
               <Button 
-                className="w-full rounded-md border-2 border-[#0f866c] text-xl font-bold text-white uppercase bg-[#0f866c] px-6 py-3 text-center hover:bg-[#001d2f] hover:border-[#001d2f] hover:text-white" 
+                className="w-full rounded-md border-2 border-[#0E8168] text-xl font-bold text-white uppercase bg-[#0E8168] px-6 py-3 text-center hover:bg-[#001d2f] hover:border-[#001d2f] hover:text-white" 
                 type="submit">
                   Submit
               </Button>
