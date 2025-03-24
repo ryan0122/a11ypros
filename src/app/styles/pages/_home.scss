@@ -8,6 +8,11 @@
 .home-content {
 	background: vars.$bg-dark;
 	color:  #fff;
+	h2.wp-block-heading {
+		font-size: 2.25rem;
+		line-height: 1.25;
+		margin-block-end: 2rem;
+	}
 }
 
 .compliance-container {
@@ -81,4 +86,11 @@
 		font-weight: bold;
 		font-size: 2rem;
 	}
+  }
+
+  .articles-list li:focus-within, .articles-list li:hover {
+	outline: none; // Remove default outline
+	box-shadow:
+	  0 0 0 2px #ffffff,   // Inner white outline
+	  0 0 0 4px #001d2f;   // Outer dark blue outline
   }

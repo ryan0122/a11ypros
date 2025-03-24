@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 
 interface Page {
   id: number;
+  menu_order: number;
+  parent: number;
   slug: string;
   title: { rendered: string };
-  parent: number;
 }
 
 interface PageWithChildren extends Page {
@@ -29,7 +30,8 @@ interface TopNavProps {
 // Define custom titles
 const customTitles: Record<string, string> = {
   "services": "Services",
-  "contact": "Contact"
+  "contact": "Contact",
+  "compliance": "Compliance",
 };
 
 const predefinedOrder = ["about-us", "services", "articles"];
@@ -48,7 +50,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages?per_page=100`);
       if (res.ok) {
         const data: Page[] = await res.json();
-        const excludedPages = ["privacy-policy", "accessibility-statement", "contact-us-thank-you", "compliance"];
+        const excludedPages = ["privacy-policy", "accessibility-statement", "contact-us-thank-you"];
         
         const pagesWithChildren: PageWithChildren[] = data
           .filter(page => page.parent === 0 && !excludedPages.includes(page.slug))
@@ -56,6 +58,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
             ...page,
             children: data
               .filter(childPage => childPage.parent === page.id)
+              .sort((a, b) => a.menu_order - b.menu_order) // Sort child pages
               .map(childPage => ({
                 ...childPage,
                 children: []

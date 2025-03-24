@@ -17,7 +17,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 					<IconA11yCollab aria-hidden="true"/>
 				</div>
 		        <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl">
-					ADA & Section 508 WCAG <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
+					WCAG, ADA & Section 508  <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
 				</h1>
 		      </header>
 		    </div>
@@ -30,7 +30,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 		<section className="items-center text-center max-w-6xl mx-auto pt-10 pb-20 px-10">
 			<h2 className="page-heading">Accessibility Articles</h2>
 			{/* render blog posts here */}
-			<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<ul className="articles-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 	          {posts.map((post: Post) => (
 	            <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
 	              <Link href={`/blog/${post.slug}`}>
