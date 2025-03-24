@@ -42,10 +42,10 @@ const Heading = ({
 					<p>US Rehabilitation Act</p>
 				</div>
 				</Link>
-				<Link href="/compliance/voluntary-product-accessibility-templates" className=" bg-[#87830F]">
+				<Link href="/compliance/the-accessible-canada-act-aca/" className=" bg-[#87830F]">
 				<div className="compliance-block">
-					<Heading showHeading={showHeading}>VPAT</Heading>
-					<p>Voluntary Product Accessibility Template</p>
+					<Heading showHeading={showHeading}>ACA</Heading>
+					<p>Accessible Canada Act</p>
 				</div>
 				</Link>
 				<Link href="/compliance/aoda" className="bg-[#0F7987]">
