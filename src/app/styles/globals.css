@@ -24,4 +24,12 @@ body {
   margin-bottom: 1rem;
 }
 
-/* red for errors: #da3940 */
+.breadcrumbs {
+  margin-block: .5rem;
+  font-size: 1rem;
+}
+
+.breadcrumbs li {
+  margin-inline: 0 !important;
+  padding: 0;
+}

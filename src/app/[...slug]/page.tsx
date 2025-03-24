@@ -5,6 +5,7 @@ import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
 import FAQAccordion from "@/components/FaqAccordion";
 
+
 type PageProps = {
   params: Promise<{ slug: string[] }>; // Await this
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;

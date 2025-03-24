@@ -34,7 +34,7 @@ const customTitles: Record<string, string> = {
   "compliance": "Compliance",
 };
 
-const predefinedOrder = ["about-us", "services", "articles"];
+const predefinedOrder = ["about-us", "services", "compliance", "articles"];
 
 const staticLinks: StaticLink[] = [
   { id: "blog", slug: "blog", title: "Articles" }
