@@ -25,3 +25,27 @@
 	}
  
   }
+
+  .aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+  }
+
+  .size-large {
+	width: 5rem;
+	height: 5rem;
+  }
+
+  // SERVICES - AUDIT  
+  .audit-features-block {
+	h2 {
+		margin-block: 4rem 2rem;
+	}
+	.wp-block-column {
+		background: #fff;
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		border:1px solid rgb(209, 213, 219);
+	}
+  }
