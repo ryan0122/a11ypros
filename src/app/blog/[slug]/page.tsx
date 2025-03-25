@@ -89,23 +89,32 @@ export default async function BlogPost({ params }: PageProps ) {
   return (
     <main id="main-content">
       <div className="blog max-w-6xl mx-auto p-8">
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column: Author & Date */}
-          <aside className="w-1/4 border-r pr-6 text-gray-600">
-            <p className="text-lg font-semibold">By {post.author_name}</p>
-            <p className="mt-0">
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-           <SharePost url={postUrl} title={post.title.rendered} />
-          </aside>
+          <aside className="w-full md:w-1/4 border-b md:border-b-0 md:border-r pb-6 md:pb-0 md:pr-6 text-gray-600">
+  <div className="flex flex-row justify-between text-left md:block">
+    <div className="w-1/2 md:w-full">
+      <p className="text-lg font-semibold">By {post.author_name}</p>
+      <p className="mt-0">
+        {new Date(post.date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </p>
+    </div>
+    <div className="w-1/2 md:w-full flex justify-end md:justify-start">
+      <SharePost url={postUrl} title={post.title.rendered} />
+    </div>
+  </div>
+</aside>
 
           {/* Right Column: Blog Content */}
-          <div className="w-3/4">
-            <h1 className="text-3xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+          <div className="w-full md:w-3/4">
+            <h1
+              className="text-3xl font-bold mb-6"
+              dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+            />
 
             {/* Featured Image */}
             {post.featured_image_url && (
@@ -121,13 +130,21 @@ export default async function BlogPost({ params }: PageProps ) {
               </div>
             )}
 
-            <article className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: postContent }} suppressHydrationWarning />
+            <article
+              className="prose lg:prose-xl"
+              dangerouslySetInnerHTML={{ __html: postContent }}
+              suppressHydrationWarning
+            />
           </div>
         </div>
       </div>
+
       {/* ✅ Inject RankMath JSON-LD Schema */}
       {post.rankMathSchema && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: post.rankMathSchema }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.rankMathSchema }}
+        />
       )}
     </main>
   );

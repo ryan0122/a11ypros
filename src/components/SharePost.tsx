@@ -18,27 +18,27 @@ interface SharePostProps {
 
 export default function SharePost({ url, title }: SharePostProps) {
   return (
-    <div className="mt-4">
+    <div className="sm:mt-4 text-center md:text-left">
       <p className="font-semibold mb-2">Share this post:</p>
       <div className="flex gap-3">
         {/* Facebook Share */}
         <FacebookShareButton url={url}>
-          <FacebookIcon className="w-6 h-6 text-blue-600 hover:text-blue-800" />
+          <FacebookIcon className="w-6 h-6" />
         </FacebookShareButton>
 
         {/* LinkedIn Share */}
         <LinkedinShareButton url={url}>
-          <LinkedinIcon className="w-6 h-6 text-blue-500 hover:text-blue-700" />
+          <LinkedinIcon className="w-6 h-6" />
         </LinkedinShareButton>
 
         {/* X (Twitter) Share */}
         <TwitterShareButton url={url} title={title}>
-          <TwitterIcon className="w-6 h-6 text-black hover:text-gray-600" />
+          <TwitterIcon className="w-6 h-6" />
         </TwitterShareButton>
 
         {/* Email Share */}
         <EmailShareButton url={url} subject={title}>
-          <EmailIcon className="w-6 h-6 text-gray-700 hover:text-gray-900" />
+          <EmailIcon className="w-6 h-6" />
         </EmailShareButton>
       </div>
     </div>
