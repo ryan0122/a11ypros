@@ -22,9 +22,10 @@ const Heading = ({
 const Services = ({ showHeading }: ServicesProps) => (
 	
 	<section className="w-full mx-auto bg-white pt-10">
-		{showHeading && <h2 className="text-center text-3xl md:text-4xl my-14">Web Accessibility Compliance Services</h2>}
-		  {/* WCAG Compliance Auditing */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
+		
+			{showHeading && <h2 className="text-center text-3xl md:text-4xl my-14 mx-10">Web Accessibility Compliance Services</h2>}
+			<div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
+		    {/* WCAG Compliance Auditing */}
 		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">

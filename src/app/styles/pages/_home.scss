@@ -9,9 +9,12 @@
 	background: vars.$bg-dark;
 	color:  #fff;
 	h2.wp-block-heading {
-		font-size: 2.25rem;
-		line-height: 1.25;
+		font-size: 1.5rem;
+		line-height: 1.28;
 		margin-block-end: 2rem;
+		@media (min-width: 640px) { // Equivalent to sm: breakpoint (640px)
+			font-size: 2.25rem;
+		  }
 	}
 }
 

@@ -12,7 +12,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 	  <div className="font-[family-name:var(--font-inter)]">
 		<div className="home-hero isolate px-6 py-14 lg:px-8 mx-auto w-full pt-0 sm:pt-14">
 		<header className="flex flex-col md:flex-row items-center justify-between text-left gap-6 max-w-6xl mx-auto">
-		  <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl md:w-1/2">
+		  <h1 className="tracking-tight text-balance text-4xl md:text-5xl md:w-1/2">
 		    WCAG, ADA & Section 508  
 		    <span className="font-semibold block">
 		      Web Accessibility Compliance Consultants
