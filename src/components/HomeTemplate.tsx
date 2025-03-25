@@ -1,7 +1,7 @@
 import { getPosts, Post } from "@/lib/api/posts/dataApi";
 import Services from "./Services";
 import Compliances from "./Compliances";
-import IconA11yCollab from "@/components/icons/IconA11yCollab"
+import IconHomeHero from "@/components/icons/IconHomeHero";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,16 +11,18 @@ export default async function HomeTemplate({ content }: { title: string; content
 	return (
 	  <div className="font-[family-name:var(--font-inter)]">
 		<div className="home-hero isolate px-6 py-14 lg:px-8 mx-auto w-full pt-0 sm:pt-14">
-		    <div className="">
-		      <header className="text-center">
-				<div className="flex justify-center items-center mx-auto">
-					<IconA11yCollab aria-hidden="true"/>
-				</div>
-		        <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl">
-					WCAG, ADA & Section 508  <span className="font-semibold block">Web Accessibility Compliance Consultants</span>
-				</h1>
-		      </header>
-		    </div>
+		<header className="flex flex-col md:flex-row items-center justify-between text-left gap-6 max-w-6xl mx-auto">
+		  <h1 className="tracking-tight text-balance text-2xl sm:text-3xl md:text-5xl md:w-1/2">
+		    WCAG, ADA & Section 508  
+		    <span className="font-semibold block">
+		      Web Accessibility Compliance Consultants
+		    </span>
+		  </h1>
+
+		  <div className="md:w-1/2 flex justify-center">
+		    <IconHomeHero aria-hidden="true" />
+		  </div>
+		</header>
   		</div>
 		<main id="mainContent" className="home-content py-10 px-10 text-center w-full isolate ">
       		<section className="content max-w-6xl mx-auto text-xl" dangerouslySetInnerHTML={{ __html: content }} />
