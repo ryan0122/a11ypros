@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import FieldSet from '@/components/FieldSet';
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { usePathname } from 'next/navigation';
 
 let globalCount = 0; // Global counter for tracking form submissions
 
@@ -14,11 +16,36 @@ interface ContactFormProps {
   isMainContactForm?: boolean;
 }
 
+type FieldName =
+  | 'contact-first-name'
+  | 'contact-last-name'
+  | 'organization-name'
+  | 'contact-email'
+  | 'contact-message';
+
 const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState<FormData | null>(null);
   const router = useRouter();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const pathname = usePathname();
+  const formRef = useRef<HTMLFormElement>(null);
+  const inputRefs: Record<FieldName, React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>> = {
+    'contact-first-name': useRef(null),
+    'contact-last-name': useRef(null),
+    'organization-name': useRef(null),
+    'contact-email': useRef(null),
+    'contact-message': useRef(null),
+  };
+
+  useEffect(() => {
+    // Clear form state on route change
+    setErrors({});
+    setFormData(null);
+  
+    // Optionally reset the actual HTML form fields too
+    formRef.current?.reset();
+  }, [pathname]);
 
   // ✅ Function to validate form fields BEFORE executing reCAPTCHA
   const validateForm = (formData: FormData) => {
@@ -50,6 +77,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      // Focus the first field with an error
+      const firstErrorField = Object.keys(newErrors)[0] as FieldName;
+      const refToFocus = inputRefs[firstErrorField];
+      refToFocus?.current?.focus();
+
       return;
     }
 
@@ -104,7 +136,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
   return (
     <div id={isMainContactForm ? 'mainContactForm' : undefined} className='mx-auto max-w-2xl'>
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate ref={formRef}>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6">
           <FieldSet legend="Contact Us for a Free Initial Consultation" legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-bold text-center py-4 w-full mb-3`}>
             <p className='mb-2'><span className="text-[#da3940]">*</span> indicates required field</p>
@@ -116,7 +148,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                   errorText={errors['contact-first-name']} 
                   id='contact-first-name'
                   label='First name' 
-                  name='contact-first-name'  
+                  name='contact-first-name'
+                  ref={inputRefs['contact-first-name']}  
                   required  
                 />
               </div>
@@ -128,6 +161,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                   id='contact-last-name'
                   label='Last name' 
                   name='contact-last-name'  
+                  ref={inputRefs['contact-last-name']}
                   required  
                 />
               </div>
@@ -140,6 +174,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 id='organization-name'
                 label='Organization name' 
                 name='organization-name'  
+                ref={inputRefs['organization-name']}
                 required  
               />
             </div>
@@ -151,6 +186,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 name='contact-email' 
                 id='email' 
                 type="email"
+                ref={inputRefs['contact-email']}
                 required 
                 autoComplete="email" 
               />
@@ -162,6 +198,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 label='Message' 
                 name='contact-message' 
                 id='message' 
+                ref={inputRefs['contact-message']}
               />
             </div>
 

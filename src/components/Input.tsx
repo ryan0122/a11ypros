@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useId, useRef } from "react";
+import React, { forwardRef, InputHTMLAttributes, useId, useRef } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -7,21 +7,44 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-const Input = ({ className = "", errorText, id, label, type = "text", ...props }: InputProps) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  const {
+    className = "",
+    errorText,
+    id,
+    label,
+    type = "text",
+    required,
+    ...rest
+  } = props;
 
   const inputIdRef = useRef(useId());
   const inputId = id || inputIdRef.current;
   const errorId = useRef(useId()).current;
 
-  return (  
-	<div className={`${className} mb-5 flex flex-col`}>
-		<label htmlFor={inputId} className="block mb-2">
-			{label} {props.required && <span className="text-[#da3940]">*</span>}
-		</label>
-		<input {...props} id={inputId} type={type} className={errorText && "error"} aria-describedby={errorText ? errorId : undefined}/>
-		{errorText && <span className="mt-2 text-[#da3940]" id={errorId}>{errorText}</span>}
-	</div>
-  )
-};
+  return (
+    <div className={`${className} mb-5 flex flex-col`}>
+      <label htmlFor={inputId} className="block mb-2">
+        {label} {required && <span className="text-[#da3940]">*</span>}
+      </label>
+      <input
+        ref={ref}
+        id={inputId}
+        type={type}
+        required={required}
+        className={errorText ? "error" : ""}
+        aria-describedby={errorText ? errorId : undefined}
+        {...rest}
+      />
+      {errorText && (
+        <span className="mt-2 text-[#da3940]" id={errorId}>
+          {errorText}
+        </span>
+      )}
+    </div>
+  );
+});
+
+Input.displayName = "Input";
 
 export default Input;
