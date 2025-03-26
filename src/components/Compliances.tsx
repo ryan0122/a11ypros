@@ -42,7 +42,7 @@ const Heading = ({
 					<p>US Rehabilitation Act</p>
 				</div>
 				</Link>
-				<Link href="/compliance/the-accessible-canada-act-aca/" className=" bg-[#87830F]">
+				<Link href="/compliance/the-accessible-canada-act-aca/" className=" bg-[#6B660D]">
 				<div className="compliance-block">
 					<Heading showHeading={showHeading}>ACA</Heading>
 					<p>Accessible Canada Act</p>
