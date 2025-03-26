@@ -236,6 +236,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 id="message"
                 ref={messageRef}
                 onBlur={() => handleBlur('contact-message')}
+                autoComplete="off"
               />
             </div>
             <Button
