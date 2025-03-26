@@ -121,7 +121,7 @@ export default async function BlogPost({ params }: PageProps ) {
               <div className="mb-6">
                 <Image
                   src={post.featured_image_url}
-                  alt={`Featured image for ${post.title.rendered}`}
+                  alt={`${post.title.rendered}`}
                   width={600}
                   height={350}
                   className="w-3/5 h-auto mx-auto"

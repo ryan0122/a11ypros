@@ -50,7 +50,7 @@ export default async function Blog() {
 					  <div className="mb-4">
 						<Image
 						  src={post.featured_image_url}
-						  alt={`Featured image for ${post.title.rendered}`}
+						  alt={`${post.title.rendered}`}
 						  className="w-full h-48"
 						  loading="lazy"
 						  width={100}
