@@ -1,3 +1,5 @@
 User-agent: *
 Disallow: /*.woff2$
+Disallow: /*.woff$
+Disallow: /*.ttf$
 Sitemap: https://a11ypros.com/sitemap.xml
