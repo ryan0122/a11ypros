@@ -30,13 +30,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const pathname = usePathname();
   const formRef = useRef<HTMLFormElement>(null);
-  const inputRefs: Record<FieldName, React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>> = {
-    'contact-first-name': useRef(null),
-    'contact-last-name': useRef(null),
-    'organization-name': useRef(null),
-    'contact-email': useRef(null),
-    'contact-message': useRef(null),
+  const inputRefs = {
+    'contact-first-name': useRef<HTMLInputElement>(null),
+    'contact-last-name': useRef<HTMLInputElement>(null),
+    'organization-name': useRef<HTMLInputElement>(null),
+    'contact-email': useRef<HTMLInputElement>(null),
   };
+  
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     // Clear form state on route change
@@ -77,11 +78,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // Focus the first field with an error
       const firstErrorField = Object.keys(newErrors)[0] as FieldName;
-      const refToFocus = inputRefs[firstErrorField];
-      refToFocus?.current?.focus();
-
+    
+      if (firstErrorField === 'contact-message') {
+        messageRef.current?.focus();
+      } else {
+        inputRefs[firstErrorField]?.current?.focus();
+      }
+    
       return;
     }
 
@@ -198,7 +202,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 label='Message' 
                 name='contact-message' 
                 id='message' 
-                ref={inputRefs['contact-message']}
+                ref={messageRef}
               />
             </div>
 
