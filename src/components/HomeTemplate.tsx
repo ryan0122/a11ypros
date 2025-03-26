@@ -4,6 +4,7 @@ import Compliances from "./Compliances";
 import IconHomeHero from "@/components/icons/IconHomeHero";
 import Image from "next/image";
 import Link from "next/link";
+import IconManualAudit from './icons/IconManualAudit'
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
@@ -24,8 +25,22 @@ export default async function HomeTemplate({ content }: { title: string; content
 		  </div>
 		</header>
   		</div>
-		<main id="mainContent" className="home-content py-10 px-10 text-center w-full isolate ">
-      		<section className="content max-w-6xl mx-auto text-xl" dangerouslySetInnerHTML={{ __html: content }} />
+		<main id="mainContent">
+      		<section className="home-content text-center w-full isolate py-10">
+				<div className="content max-w-6xl mx-auto text-xl px-10"  dangerouslySetInnerHTML={{ __html: content }}/>
+			</section>
+			<section className="max-full bg-white">
+				<div className="max-w-6xl mx-auto pt-10 pb-20 flex flex-col md:flex-row items-center gap-6">
+					<div className="flex-shrink-0 md:w-1/2">
+						<IconManualAudit />
+					</div>
+					<div className="md:w-1/2 text-center md:text-left px-10 md:px-0">
+						<h3>Why WCAG Testing for ADA Web Compliance Requires Manual Auditing</h3>
+						<p className="text-xl">Automated accessibility testing tools, including those with AI capabilities, are essential for identifying certain web accessibility issues efficiently. However, these tools alone can only detect about 40% of WCAG success criteria, leaving a significant gap that requires manual human testing to ensure full compliance.</p>
+						<p className="text-center text-xl"><strong>Manual human testing. No Shortcuts. <br/>Expert Audits for True WCAG Compliance.</strong></p>
+					</div>
+				</div>
+			</section>
 		</main>
 		<Compliances showHeading={true}/>
 		<Services showHeading/>

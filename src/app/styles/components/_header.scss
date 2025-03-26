@@ -19,9 +19,19 @@
 	}
 }
 
-.header a.logo {
-	// width: 20%;
-} 
+.header a.contact-link {
+	background: vars.$primary-color;
+	padding-block: .5rem;
+	padding-inline: 1rem;
+	border-radius: 5px;
+	&:hover {
+		color: #fff;
+		background-color: #0B6652;
+	}
+	&.active {
+		color: #fff;
+	}
+}
 
 .header ul li {
 	top: 4px;

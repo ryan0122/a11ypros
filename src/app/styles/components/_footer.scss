@@ -23,4 +23,12 @@
 
 .bottom-footer a {
 	text-decoration: underline;
+	color: #fff;
+	&:hover {
+		color: vars.$accent-color;
+	}
+}
+
+.bottom-footer address {
+	font-style: normal;
 }

@@ -117,6 +117,10 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const isPageActive = pathname === pagePath;
     const hasActiveChild = "children" in page && isChildActive(page);
     const isExpanded = "children" in page && expandedMenuId === page.id;
+    const isContactPage = page.slug === 'contact-us';
+    const contactSpecialClasses = isContactPage 
+      ? 'contact-link' 
+      : '';
   
     // Use custom title if available, otherwise default to WordPress title
     const menuTitle =
@@ -130,7 +134,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link 
             href={pagePath} 
-            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''}`}
+            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''} ${contactSpecialClasses}`}
             onClick={handleLinkClick}
           >
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}

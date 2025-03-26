@@ -5,6 +5,7 @@ import ContactPageForm from "./ContactPageForm";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import IconLogo from "./icons/IconLogo";
 
 
 export default function Footer() {
@@ -30,9 +31,21 @@ export default function Footer() {
           {pathname === '/contact-us' ? <ContactPageForm /> : <ContactForm />}
          </section>
        )}
-      <footer className="bottom-footer flex flex-col items-center md:flex-row md:justify-evenly w-full gap-4 p-4">
-        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center md:justify-between text-center md:text-left">
-          
+      <footer className="bottom-footer w-full gap-4 p-4">
+        {/* ROW */}
+        <div className="max-w-6xl mx-auto w-full flex flex-col items-center md:justify-between">
+          <div className="w-36 mb-5">
+            <IconLogo color="#fff"/>
+          </div>
+         
+          <address className="mb-5">
+            <a href="tel:+17207221775">+1 (720) 722-1775</a> | <a href="mailto: info@a11ypros.com">info@a11ypros.com</a>
+          </address>
+        </div>
+         {/* ROW */}
+        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center text-center justify-center md:text-left text-sm  gap-2 md:gap-4">
+          {/* Copyright Text - Moves Below Nav on Mobile */}
+          <p className="mt-4 md:mt-0">&copy; {currentYear} A11Y Pros | All rights reserved.</p>
           {/* Navigation Menu */}
           <nav aria-label="Footer navigation" className="w-full md:w-auto">
             <ul className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
@@ -45,8 +58,7 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Copyright Text - Moves Below Nav on Mobile */}
-          <p className="mt-4 md:mt-0">&copy; {currentYear} A11Y Pros</p>
+        
         </div>
       </footer>
 
