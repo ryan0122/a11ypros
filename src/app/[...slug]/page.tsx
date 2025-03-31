@@ -47,6 +47,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: seoData?.description,
       url: `${process.env.NEXT_PUBLIC_URL}/${fullSlug}`,
       type: "website",
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_URL}/a11ypros_logo_web.png`,
+          alt: 'A11Y Pros Logo',
+          width: 301,  
+          height: 49,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",

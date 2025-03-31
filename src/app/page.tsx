@@ -31,6 +31,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
       url: process.env.NEXT_PUBLIC_URL,
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_URL}/a11ypros_logo_web.png`,
+          alt: 'A11Y Pros Logo',
+          width: 301,  
+          height: 49,
+        },
+        ],
     },
     twitter: {
       card: "summary_large_image",
