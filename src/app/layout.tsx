@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import "./styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,7 +16,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full">
-      <Head>
+      <head>
         {/* eslint-disable-next-line */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"></script>
         <script
@@ -30,7 +29,7 @@ export default function RootLayout({
             `,
           }}
         ></script>
-      </Head>
+      </head>
       <body className={`${inter.variable} antialiased h-full`}>
          {/* Skip to Content Link */}
          <a
