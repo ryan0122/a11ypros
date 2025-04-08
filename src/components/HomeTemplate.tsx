@@ -48,7 +48,7 @@ export default async function HomeTemplate({ content }: { title: string; content
 			<h2 className="page-heading">Accessibility Articles</h2>
 			{/* render blog posts here */}
 			<ul className="articles-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-	          {posts.map((post: Post) => (
+	          {posts.slice(0, 6).map((post: Post) => (
 	            <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
 	              <Link href={`/blog/${post.slug}`}>
 				  {/* ✅ Featured Image */}
@@ -63,13 +63,21 @@ export default async function HomeTemplate({ content }: { title: string; content
 						  height={100}
 			            />
 			          </div>
-			)}
-
+					)}
 	                <h3 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
 	              </Link>
 	            </li>
 	          ))}
 	        </ul>
+			{/* View More Link */}
+			  <div className="mt-12">
+				<Link 
+				  href="/blog" 
+				  className="text-xl inline-block hover:underline font-semibold border-2 border-[#0E8168] rounded-lg px-4 py-2"
+				>
+				  View All Articles
+				</Link>
+			  </div>
 		</section>
 	  </div>
 	);
