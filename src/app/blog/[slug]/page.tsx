@@ -92,22 +92,22 @@ export default async function BlogPost({ params }: PageProps ) {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column: Author & Date */}
           <aside className="w-full md:w-1/4 border-b md:border-b-0 md:border-r pb-6 md:pb-0 md:pr-6 text-gray-600">
-  <div className="flex flex-row justify-between text-left md:block">
-    <div className="w-1/2 md:w-full">
-      <p className="text-lg font-semibold">By {post.author_name}</p>
-      <p className="mt-0">
-        {new Date(post.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </p>
-    </div>
-    <div className="w-1/2 md:w-full flex justify-end md:justify-start">
-      <SharePost url={postUrl} title={post.title.rendered} />
-    </div>
-  </div>
-</aside>
+            <div className="flex flex-row justify-between text-left md:block">
+              <div className="w-1/2 md:w-full">
+                <p className="text-lg font-semibold">By {post.author_name}</p>
+                <p className="mt-0">
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+              <div className="w-1/2 md:w-full flex justify-end md:justify-start">
+                <SharePost url={postUrl} title={post.title.rendered} />
+              </div>
+            </div>
+          </aside>
 
           {/* Right Column: Blog Content */}
           <div className="w-full md:w-3/4">
