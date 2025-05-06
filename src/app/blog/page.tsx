@@ -20,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 			{
 			  url: `${process.env.NEXT_PUBLIC_URL}/a11ypros_logo_web.png`,
 			  alt: 'A11Y Pros Logo',
-			  width: 301,  
-			  height: 49,
+			  width: 1200,  
+          	  height: 630,
 			},
 		  ],
 	  },
