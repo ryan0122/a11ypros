@@ -68,6 +68,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
     return newErrors;
   };
 
+  console.log('PATHNAME:', pathname);
+
+  const isPartnerForm = pathname === '/services/accessibility-partnerships-for-agencies-dev-teams';
+
   const handleBlur = (field: FieldName) => {
     const ref =
       field === 'contact-message' ? messageRef.current : inputRefs[field].current;
@@ -168,12 +172,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
     }
   };
 
+  const legendText = isPartnerForm ? 'Reach Out to Discuss a Strategic Partnership with Your Team' : 'Contact Us for a Free Initial Consultation';
+
   return (
     <div id={isMainContactForm ? 'mainContactForm' : undefined} className="mx-auto max-w-2xl">
       <form onSubmit={handleSubmit} noValidate ref={formRef}>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6">
           <FieldSet
-            legend="Contact Us for a Free Initial Consultation"
+            legend={legendText}
             legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-bold text-center py-4 w-full mb-3`}
           >
             <p className="mb-2">
@@ -249,6 +255,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
                 onBlur={() => handleBlur('contact-message')}
                 autoComplete="off"
                 disabled={isSubmitting}
+                placeholder={isPartnerForm ? 'Tell us about your team and how we can help.' : 'Tell us how we can help you.'}
               />
             </div>
             <Button
