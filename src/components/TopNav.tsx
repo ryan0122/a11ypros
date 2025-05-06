@@ -32,6 +32,7 @@ const customTitles: Record<string, string> = {
   "services": "Services",
   "contact": "Contact",
   "compliance": "Compliance",
+  "accessibility-partnerships-for-agencies-dev-teams": "Agency Partnerships",
 };
 
 const predefinedOrder = ["about-us", "services", "compliance", "articles"];
