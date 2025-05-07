@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		type: "website",
 		images: [
 			{
-			  url: `${process.env.NEXT_PUBLIC_URL}/a11ypros_logo_web.png`,
+			  url: `${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`,
 			  alt: 'A11Y Pros Logo',
 			  width: 1200,  
           	  height: 630,
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		card: "summary_large_image",
 		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
-		images: [`${siteUrl}/blog-og-image.jpg`],
+		images: [`${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`],
 	  },
 	};
   }

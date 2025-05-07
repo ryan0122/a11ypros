@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "website",
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_URL}/a11ypros_logo_web.png`,
+          url: `${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`,
           alt: 'A11Y Pros Logo',
           width: 1200,  
           height: 630,
@@ -60,6 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: `${decodedTitle} - A11Y Pros`,
       description: seoData?.description,
+      images: [`${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`],
     },
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_URL}/${fullSlug}`,

@@ -57,13 +57,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.seoDescription,
       url: postUrl,
       type: "article",
-      images: post.featured_image_url ? [{ url: post.featured_image_url, width: 1200, height: 630 }] : undefined,
+      images: post.featured_image_url ? [{ url: post.featured_image_url, width: 1200, height: 630 }] : `${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`,
     },
     twitter: {
       card: "summary_large_image",
       title: `${decodedTitle} - A11Y Pros`,
       description: post.seoDescription,
-      images: post.featured_image_url ? [post.featured_image_url] : undefined,
+      images: post.featured_image_url ? [post.featured_image_url] : `${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`,
     },
     alternates: {
       canonical: `${postUrl}`,
