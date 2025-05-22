@@ -5,17 +5,11 @@ import Image from "next/image";
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const posts: Post[] = await getPosts();
-	const featuredImage =
-	  posts.length && posts[0].featured_image_url
-		? posts[0].featured_image_url
-		: `${siteUrl}/og_banner.jpg`;
-
 	return {
 	  title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 	  description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
 	  alternates: {
-		canonical: `${siteUrl}/blog`,
+		canonical: `${siteUrl}/blog`, // ✅ Add canonical URL
 	  },
 	  openGraph: {
 		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
@@ -23,19 +17,19 @@ export async function generateMetadata(): Promise<Metadata> {
 		url: `${siteUrl}/blog`,
 		type: "website",
 		images: [
-		  {
-			url: featuredImage,
-			alt: 'A11Y Pros Logo',
-			width: 1200,
-			height: 630,
-		  },
-		],
+			{
+			  url: `${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`,
+			  alt: 'A11Y Pros Logo',
+			  width: 1200,  
+          	  height: 630,
+			},
+		  ],
 	  },
 	  twitter: {
 		card: "summary_large_image",
 		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
-		images: [featuredImage],
+		images: [`${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`],
 	  },
 	};
   }
