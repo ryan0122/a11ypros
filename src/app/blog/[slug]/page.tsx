@@ -53,6 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${decodedTitle} - A11Y Pros`,
     description: post.seoDescription,
     openGraph: {
+      authors: post.author_name || "A11Y Pros",
       title: `${decodedTitle} - A11Y Pros`,
       description: post.seoDescription,
       url: postUrl,
