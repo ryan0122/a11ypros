@@ -36,6 +36,26 @@
 	height: 5rem;
   }
 
+  .alignnone {
+    float: none;
+    margin: 5px 0;
+	}
+
+	.alignleft {
+	    float: left;
+	    margin: 5px 10px 5px 0;
+	}
+
+	.aligncenter {
+	    display: block;
+	    margin: 5px auto;
+	}
+
+	.alignright {
+	    float: right;
+	    margin: 5px 0 5px 10px;
+	}
+
   // SERVICES - AUDIT  
   .audit-features-block {
 	h2 {

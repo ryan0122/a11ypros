@@ -1,0 +1,10 @@
+# Allow all AI crawlers to use content
+User-Agent: *
+Allow: /
+
+# OR block specific ones
+User-Agent: GPTBot
+Disallow: /
+
+User-Agent: ClaudeBot
+Disallow: /
