@@ -10,10 +10,10 @@ import IconLogo from "./icons/IconLogo";
 const ObfuscatedEmail = () => {
   const email = 'info@a11ypros.com';
   const encoded = btoa(email); // Base64 encode
-  
-  const handleClick = (e) => {
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const decoded = atob(encoded);
+    const decoded = atob(encoded) as string;
     window.location.href = `mailto:${decoded}`;
   };
 
