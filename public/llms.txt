@@ -1,0 +1,37 @@
+# Web Accessibility Compliance Consultants - A11Y Pros
+
+Avoid litigation and make your website, SaaS or app accessible. Offering human-based WCAG/ADA/508 auditing, and remediation consulting.
+
+## Contact Information
+- [Home](https://a11ypros.com/): The homepage of A11Y Pros, providing an overview of services and information.
+- [+1 (720) 722-1775](tel:+17207221775): Contact number for inquiries and consultations.
+- [info@a11ypros.com](mailto: info@a11ypros.com): Email address for direct communication regarding services and questions.
+
+## Legal and Compliance Standards
+- [Privacy Policy](https://a11ypros.com/privacy-policy): Details on how A11Y Pros handles user data and privacy.
+- [Accessibility Statement](https://a11ypros.com/accessibility-statement): A declaration of the commitment to accessibility and compliance.
+- [WCAG](https://a11ypros.com/compliance/web-content-accessibility-guidelines): Web Content Accessibility Guidelines that outline how to make web content more accessible.
+- [ADA](https://a11ypros.com/compliance/the-americans-with-disabilities-act): Americans With Disabilities Act, a civil rights law that prohibits discrimination based on disability.
+- [Section 508](https://a11ypros.com/compliance/section-508): US Rehabilitation Act section that requires federal agencies to make their electronic and information technology accessible.
+- [ACA](https://a11ypros.com/compliance/the-accessible-canada-act-aca): Accessible Canada Act, aimed at making Canada barrier-free for people with disabilities.
+- [AODA](https://a11ypros.com/compliance/aoda): Accessibility for Ontarians with Disabilities Act, legislation to improve accessibility in Ontario.
+- [EN 301 549](https://a11ypros.com/compliance/en-301-549): European Standard for Digital Accessibility, providing guidelines for accessibility in the EU.
+
+## Services Offered
+- [WCAG Compliance Auditing](https://a11ypros.com/services/wcag-compliance-auditing): Comprehensive audits to ensure compliance with WCAG standards.
+- [Website Remediation](https://a11ypros.com/services/website-remediation): Services to fix accessibility issues on websites.
+- [VPAT & ACR Authoring](https://a11ypros.com/services/vpat-acr-authoring): Authoring of Voluntary Product Accessibility Templates and Accessibility Conformance Reports.
+- [Web Accessibility Consulting](https://a11ypros.com/services/web-accessibility-consulting): Expert consulting services to guide organizations in achieving accessibility.
+- [PDF Remediation](https://a11ypros.com/services/pdf-remediation): Services to make PDF documents accessible to all users.
+- [Accessibility Testing for AI: Why Manual Verification Matters More Than Ever](https://a11ypros.com/blog/ai-meets-accessibility-ensuring-wcag-compliance-in-the-age-of-generative-interfaces): An article discussing the importance of manual testing in AI accessibility.
+- [Navigating the European Accessibility Act (EAA): A Guide for U.S. Websites](https://a11ypros.com/blog/navigating-the-european-accessibility-act-eaa-a-guide-for-u-s-websites): Guidance for U.S. websites on compliance with the EAA.
+- [Mobile Accessibility Testing Checklist for Native & Web Apps (2025 Edition)](https://a11ypros.com/blog/mobile-accessibility-testing-checklist-2025-edition): A checklist to ensure mobile applications meet accessibility standards.
+- [Is Your Dev Team Accessibility‑Ready? 7 Skills Every Engineer Should Know](https://a11ypros.com/blog/dev-team-accessibility-skills): An article outlining essential skills for developers to ensure accessibility in their work.
+- [How Accessibility Enhancements Boost SEO](https://a11ypros.com/blog/how-accessibility-enhancements-boost-seo): Insights on how improving accessibility can positively impact search engine optimization.
+- [Accessible AI: Ensuring WCAG Compliance in Chatbots, Generative UIs, and Assistive Tech](https://a11ypros.com/blog/accessible-ai): Discussion on making AI technologies compliant with accessibility standards.
+- [View All Articles](https://a11ypros.com/blog): A link to access a collection of articles related to web accessibility.
+
+## Overview of A11Y Pros
+- [Web Accessibility Services - A11Y Pros](https://a11ypros.com/pages/services): An overview of the various services offered by A11Y Pros in the field of web accessibility.
+- [Web Accessibility Compliance Consultants - A11Y Pros](https://a11ypros.com/pages/home): A detailed description of the consulting services provided by A11Y Pros.
+- [Accessibility Compliance - A11Y Pros](https://a11ypros.com/pages/compliance): Information on how A11Y Pros assists organizations in achieving compliance with accessibility standards.
