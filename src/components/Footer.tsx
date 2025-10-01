@@ -7,6 +7,23 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import IconLogo from "./icons/IconLogo";
 
+const ObfuscatedEmail = () => {
+  const email = 'info@a11ypros.com';
+  const encoded = btoa(email); // Base64 encode
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    const decoded = atob(encoded);
+    window.location.href = `mailto:${decoded}`;
+  };
+
+  return (
+    <a href="#" onClick={handleClick} className="email-link">
+      Email Us
+    </a>
+  );
+};
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -39,7 +56,7 @@ export default function Footer() {
           </div>
          
           <address className="mb-5">
-            <a href="tel:+17207221775">+1 (720) 722-1775</a> | <a href="mailto: info@a11ypros.com">info@a11ypros.com</a>
+            <a href="tel:+17207221775">+1 (720) 722-1775</a> | {ObfuscatedEmail()}
           </address>
         </div>
          {/* ROW */}
