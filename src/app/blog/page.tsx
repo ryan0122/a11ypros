@@ -53,10 +53,9 @@ export default async function Blog() {
 						<Image
 						  src={post.featured_image_url}
 						  alt={`${post.title.rendered}`}
-						  className="w-full h-48"
 						  loading="lazy"
-						  width={100}
-						  height={100}
+						  width={350}
+						  height={400}
 						/>
 					  </div>
 			)}
