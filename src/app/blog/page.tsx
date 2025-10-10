@@ -45,6 +45,7 @@ export default async function Blog() {
 	  
 	  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 		{posts.map((post) => (
+			console.log(post),
 		  <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
 			{/* ✅ Featured Image */}
 				  {post.featured_image_url && (
@@ -65,6 +66,13 @@ export default async function Blog() {
 				dangerouslySetInnerHTML={{ __html: post.title.rendered }}
 			  />
 			</h2>
+			<small className="text-gray-500 text-sm">
+				{new Date(post.date).toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				})}
+			</small>
 			<p
 			  className="text-gray-700 mb-4"
 			  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}

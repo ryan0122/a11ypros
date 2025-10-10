@@ -68,8 +68,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
     return newErrors;
   };
 
-  console.log('PATHNAME:', pathname);
-
   const isPartnerForm = pathname === '/services/accessibility-partnerships-for-agencies-dev-teams';
 
   const handleBlur = (field: FieldName) => {
