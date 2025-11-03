@@ -269,7 +269,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ isMainContactForm = false }) 
           </FieldSet>
         </div>
 
-        {/* @ts-expect-error ReCAPTCHA is a class component, not typed for JSX */}
         <ReCAPTCHA
           tabIndex={-1}
           ref={recaptchaRef}
