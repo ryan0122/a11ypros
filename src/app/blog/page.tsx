@@ -5,17 +5,33 @@ import Pagination from "@/components/Pagination";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 
-export async function generateMetadata(): Promise<Metadata> {
+interface MetadataProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export async function generateMetadata({ searchParams }: MetadataProps): Promise<Metadata> {
+	const resolvedSearchParams = await searchParams;
+	const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
+	
+	// Generate canonical URL - page 1 is just /blog, others include ?page=X
+	const canonicalUrl = currentPage > 1 
+		? `${siteUrl}/blog?page=${currentPage}`
+		: `${siteUrl}/blog`;
+
 	return {
-	  title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+	  title: currentPage > 1 
+		? `Web Accessibility and ADA Compliance Articles - Page ${currentPage} - A11Y Pros`
+		: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 	  description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
 	  alternates: {
-		canonical: `${siteUrl}/blog`, // ✅ Add canonical URL
+		canonical: canonicalUrl,
 	  },
 	  openGraph: {
-		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+		title: currentPage > 1
+			? `Web Accessibility and ADA Compliance Articles - Page ${currentPage} - A11Y Pros`
+			: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
-		url: `${siteUrl}/blog`,
+		url: canonicalUrl,
 		type: "website",
 		images: [
 			{
@@ -28,7 +44,9 @@ export async function generateMetadata(): Promise<Metadata> {
 	  },
 	  twitter: {
 		card: "summary_large_image",
-		title: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
+		title: currentPage > 1
+			? `Web Accessibility and ADA Compliance Articles - Page ${currentPage} - A11Y Pros`
+			: "Web Accessibility and ADA Compliance Articles - A11Y Pros",
 		description: "Explore expert articles on web accessibility, ADA compliance, and WCAG guidelines. Learn how to make your website accessible.",
 		images: [`${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`],
 	  },
