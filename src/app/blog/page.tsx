@@ -1,6 +1,7 @@
-import { getPosts, Post } from "@/lib/api/posts/dataApi";
+import { getPostsForListing, Post } from "@/lib/api/posts/dataApi";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Pagination from "@/components/Pagination";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 
@@ -34,8 +35,26 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
   }
 
-export default async function Blog() {
-  const posts: Post[] = await getPosts(); // ✅ Fetches data on the server before rendering
+interface BlogProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function Blog({ searchParams }: BlogProps) {
+  const posts: Post[] = await getPostsForListing(); // ✅ Optimized: fast fetch without RankMath or extra API calls
+  
+  // Await searchParams and get current page, default to 1
+  const resolvedSearchParams = await searchParams;
+  const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
+  const postsPerPage = 9;
+  
+  // Calculate pagination
+  const totalPosts = posts.length;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  
+  // Slice posts for current page
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const paginatedPosts = posts.slice(startIndex, endIndex);
 
   return (
 	<main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -44,20 +63,19 @@ export default async function Blog() {
 		</header>
 	  
 	  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-		{posts.map((post) => (
-			console.log(post),
+		{paginatedPosts.map((post) => (
 		  <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
 			{/* ✅ Featured Image */}
-				  {post.featured_image_url && (
-					  <div className="mb-4">
-						<Image
-						  src={post.featured_image_url}
-						  alt={`${post.title.rendered}`}
-						  loading="lazy"
-						  width={350}
-						  height={400}
-						/>
-					  </div>
+			{post.featured_image_url && (
+			  <div className="mb-4">
+				<Image
+				  src={post.featured_image_url}
+				  alt={`${post.title.rendered}`}
+				  loading="lazy"
+				  width={350}
+				  height={400}
+				/>
+			  </div>
 			)}
 			<h2 className="text-2xl font-semibold mb-4">
 			  <a
@@ -85,6 +103,8 @@ export default async function Blog() {
 		  </li>
 		))}
 	  </ul>
+	  
+	  <Pagination currentPage={currentPage} totalPages={totalPages} />
 	</main>
   );
 }

@@ -24,11 +24,50 @@ const CMS_URL = "https://cms.a11ypros.com";
 const SITE_URL = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 
 /**
- * ✅ Fetch all blog posts with RankMath metadata
+ * ✅ Optimized function to fetch posts for listing pages (no RankMath, uses embedded author)
+ * This is much faster as it doesn't make additional API calls per post
+ */
+export async function getPostsForListing(): Promise<Post[]> {
+  const res = await fetch(
+    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&per_page=100`,
+    { 
+      cache: "force-cache",
+      next: { revalidate: 60 } // Revalidate every 60 seconds
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
+  const posts = await res.json();
+
+  // Map posts without additional API calls - use embedded data
+  return posts.map((post: Post) => {
+    const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
+    // Use embedded author data instead of making separate API call
+    const author_name = post._embedded?.author?.[0]?.name || "Unknown Author";
+
+    return {
+      id: post.id,
+      title: post.title,
+      excerpt: post.excerpt,
+      slug: post.slug,
+      date: post.date,
+      author: post.author,
+      author_name,
+      featured_media: post.featured_media,
+      featured_image_url,
+    };
+  });
+}
+
+/**
+ * ✅ Fetch all blog posts with RankMath metadata (used for sitemap, etc.)
  */
 export async function getPosts(): Promise<Post[]> {
   const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true`,
+    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&per_page=100`,
     { cache: "no-store" }
   );
 
@@ -41,30 +80,32 @@ export async function getPosts(): Promise<Post[]> {
   return await Promise.all(
     posts.map(async (post: Post) => {
       const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
-      let author_name = "Unknown Author";
-      let seoDescription = "";
-
-      // ✅ Fetch author name
-      try {
-        const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
-        if (authorRes.ok) {
-          const authorData = await authorRes.json();
-          author_name = authorData.name || "Unknown Author";
+      // Use embedded author data if available, fallback to API call
+      let author_name = post._embedded?.author?.[0]?.name || "Unknown Author";
+      
+      if (author_name === "Unknown Author") {
+        try {
+          const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
+          if (authorRes.ok) {
+            const authorData = await authorRes.json();
+            author_name = authorData.name || "Unknown Author";
+          }
+        } catch (error) {
+          console.error("Error fetching author:", error);
         }
-      } catch (error) {
-        console.error("Error fetching author:", error);
       }
 
       // ✅ Fetch RankMath metadata
       let rankMathMeta = "";
       let rankMathSchema = "";
+      let seoDescription = "";
       try {
         const rankMathRes = await fetch(`${CMS_URL}/wp-json/rankmath/v1/getHead?url=${SITE_URL}/blog/${post.slug}`);
         if (rankMathRes.ok) {
           const rankMathData = await rankMathRes.json();
           rankMathMeta = rankMathData.head || "";
           rankMathSchema = extractJsonLD(rankMathMeta);
-          seoDescription = extractMetaDescription(rankMathMeta); // ✅ Extract description
+          seoDescription = extractMetaDescription(rankMathMeta);
         }
       } catch (error) {
         console.error("Error fetching RankMath metadata:", error);

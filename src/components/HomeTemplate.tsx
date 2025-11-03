@@ -1,4 +1,4 @@
-import { getPosts, Post } from "@/lib/api/posts/dataApi";
+import { getPostsForListing, Post } from "@/lib/api/posts/dataApi";
 import Services from "./Services";
 import Compliances from "./Compliances";
 import IconHomeHero from "@/components/icons/IconHomeHero";
@@ -7,7 +7,7 @@ import Link from "next/link";
 import IconManualAudit from './icons/IconManualAudit'
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
-	const posts: Post[] = await getPosts(); // Fetch posts using centralized API function
+	const posts: Post[] = await getPostsForListing(); // ✅ Optimized: fast fetch without RankMath
 
 	return (
 	  <div className="font-[family-name:var(--font-inter)]">
