@@ -24,17 +24,15 @@ h4 {
 	font-weight: 600;
 }
 
-ul.wp-block-list {
+.wp-block-list {
 	list-style: inherit;
-	margin-inline-start: 2rem;;
+	padding: .5rem 0 0 2rem;
+	line-height: 1.75;
 }
 
 article {
 	ul {
 		list-style: inherit;
-	}
-	ul li {
-		margin-inline-start: 2rem;;
 	}
 }
 

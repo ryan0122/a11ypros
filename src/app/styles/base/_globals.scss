@@ -8,7 +8,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-a:focus {
+a:focus, summary:focus {
 	outline: none; // Remove default outline
 	box-shadow:
 	  0 0 0 2px #ffffff,   // Inner white outline
@@ -18,6 +18,18 @@ a:focus {
 // from wordpress for formatting
 .has-text-align-center {
 	text-align: center;
+}
+
+summary {
+	cursor: pointer;
+	line-height: 1.75;
+	margin-block: .25rem;
+	padding: 0 .25rem;
+	font-weight: 600;
+}
+
+details {
+	padding: .25rem;
 }
 
 .skip-link {

@@ -14,31 +14,31 @@
 	}
   }
   
-  .wp-block-column {
-	flex: 1 1 0;
-	min-width: 0;
-  
-	&.is-layout-flow {
-	  display: flex;
-	  flex-direction: column;
+	.wp-block-column {
+		flex: 1 1 0;
+		min-width: 0;
+
+		&.is-layout-flow {
+		  display: flex;
+		  flex-direction: column;
+		}
+
 	}
- 
-  }
 
-  .aligncenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-  }
+	.aligncenter {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-  .size-large {
-	width: 5rem;
-	height: 5rem;
-  }
+	.size-large {
+		width: 5rem;
+		height: 5rem;
+	}
 
-  .alignnone {
-    float: none;
-    margin: 5px 0;
+	.alignnone {
+		float: none;
+		margin: 5px 0;
 	}
 
 	.alignleft {
@@ -54,6 +54,13 @@
 	.alignright {
 	    float: right;
 	    margin: 5px 0 5px 10px;
+	}
+
+	.wp-block-code {
+		border:1px solid #ccc;
+		border-radius:4px;
+		font-family:Menlo,Consolas,monaco,monospace;
+		padding:.8em 1em;
 	}
 
   // SERVICES - AUDIT  
