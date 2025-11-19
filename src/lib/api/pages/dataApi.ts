@@ -11,7 +11,7 @@ export async function getPageData(slug: string) {
 	  return null;
 	}
 	
-	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent,featured_media,acf`;
+	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent,featured_media,acf&acf_format=standard`;
 	
 	try {
 	  const res = await fetch(apiUrl, {
@@ -80,42 +80,33 @@ export async function getPageData(slug: string) {
   
 
   export async function getPageMetaData(slug: string) {
-	if (!process.env.NEXT_PUBLIC_SEO_URL || !process.env.NEXT_PUBLIC_CMS_URL) return null;
+	if (!process.env.NEXT_PUBLIC_SEO_URL) return null;
   
-	const seoApiUrl = `${process.env.NEXT_PUBLIC_SEO_URL}https://cms.a11ypros.com/${slug}`;
+	const headUrl = `${process.env.NEXT_PUBLIC_SEO_URL}/wp-json/rankmath/v1/getHead?url=https://cms.a11ypros.com/${slug}`;
+	console.log('HEAD URL', headUrl);
   
 	try {
-	  // ✅ Fetch RankMath metadata & SEO data in a single request
-	  const res = await fetch(seoApiUrl, {
+	  const res = await fetch(headUrl, {
 		cache: "no-store",
-		method: "GET",
-		headers: {
-		  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-		  "Cache-Control": "no-cache",
-		},
 	  });
   
 	  if (!res.ok) {
-		console.error("❌ ERROR: Failed to fetch RankMath metadata:", res.status);
+		console.error("Rank Math getHead failed:", res.status);
 		return null;
 	  }
   
-	  const data = await res.json();
+	  const data = await res.json();  // ← Returns { head: "<meta ...>", json_ld: "{...full schema including your ACF FAQ...}" }
   
-	  // ✅ Extract description from meta tags
-	  let seoDescription = "";
+	  // Extract description from the head HTML
 	  const descriptionMatch = data.head?.match(/<meta name="description" content="(.*?)"\s*\/?>/i);
-	  if (descriptionMatch) {
-		seoDescription = descriptionMatch[1];
-	  }
+	  const description = descriptionMatch ? descriptionMatch[1] : "";
   
-	  // ✅ Extract JSON-LD & FAQs from RankMath
-	  const rankMathMeta = data.head || "";
-	  const rankMathSchema = extractJsonLD(rankMathMeta);
-  
-	  return { description: seoDescription, rankMathMeta, rankMathSchema};
+	  return {
+		description,
+		rankMathSchema: data.json_ld || null,   // ← This includes your FAQPage from the custom snippet!
+	  };
 	} catch (error) {
-	  console.error("❌ ERROR: Fetch request to RankMath API failed:", error);
+	  console.error("getHead request failed:", error);
 	  return null;
 	}
   }
