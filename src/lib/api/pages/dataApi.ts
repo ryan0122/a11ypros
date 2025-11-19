@@ -1,5 +1,3 @@
-import extractJsonLD from "@/utils/extractJsonLD";
-
 interface FAQItem {
 	faq_question: string;
 	faq_answer: string;
