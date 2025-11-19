@@ -121,7 +121,6 @@ export default async function Page({ params }: PageProps) {
         )
         notFound()
     }
-    console.log('PAGE FAQ', page.faqs)
 
     return (
         <>
@@ -132,8 +131,7 @@ export default async function Page({ params }: PageProps) {
                     dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
                 />
             )}
-
-            {/* ACF FAQ schema – generated from your repeater (100% reliable) */}
+            {/* ACF FAQ schema – generated in Next.js (bypasses all Rank Math bugs) */}
             {page.faqs && page.faqs.length > 0 && (
                 <script
                     type="application/ld+json"
@@ -143,10 +141,16 @@ export default async function Page({ params }: PageProps) {
                             '@type': 'FAQPage',
                             mainEntity: page.faqs.map((faq: FAQ) => ({
                                 '@type': 'Question',
-                                name: faq.question,
+                                name: faq.question
+                                    .replace(/&/g, '&amp;')
+                                    .replace(/</g, '&lt;')
+                                    .replace(/>/g, '&gt;'),
                                 acceptedAnswer: {
                                     '@type': 'Answer',
-                                    text: faq.answer,
+                                    text: faq.answer
+                                        .replace(/&/g, '&amp;')
+                                        .replace(/</g, '&lt;')
+                                        .replace(/>/g, '&gt;'),
                                 },
                             })),
                         }),
