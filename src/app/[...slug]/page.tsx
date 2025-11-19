@@ -5,6 +5,11 @@ import { getPageData, getPageMetaData } from '@/lib/api/pages/dataApi'
 import he from 'he'
 import FAQAccordion from '@/components/FaqAccordion'
 
+type FAQ = {
+    question: string
+    answer: string
+}
+
 type PageProps = {
     params: Promise<{ slug: string[] }> // Await this
     searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
@@ -136,7 +141,7 @@ export default async function Page({ params }: PageProps) {
                         __html: JSON.stringify({
                             '@context': 'https://schema.org',
                             '@type': 'FAQPage',
-                            mainEntity: page.faqs.map((faq) => ({
+                            mainEntity: page.faqs.map((faq: FAQ) => ({
                                 '@type': 'Question',
                                 name: faq.question,
                                 acceptedAnswer: {
