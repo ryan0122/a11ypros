@@ -3,15 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Ensure that /sitemap.xml and /robots.txt are NOT processed by the catch-all [...slug] route
-  if (pathname === "/sitemap.xml") {
-    return NextResponse.rewrite(new URL("/sitemap", req.url));
-  }
+  // Let Next.js handle /sitemap.xml automatically via sitemap.ts
+  // No rewrite needed - Next.js will serve it correctly
 
   return NextResponse.next();
 }
 
-// Apply middleware to both /sitemap.xml and /robots.txt
+// Apply middleware to specific paths if needed
 export const config = {
-  matcher: ["/sitemap.xml"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

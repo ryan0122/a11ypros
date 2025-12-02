@@ -8,11 +8,13 @@ import Button from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { usePathname } from 'next/navigation'
+import cx from 'clsx'
 
 let globalCount = 0
 
 interface ContactFormProps {
     isMainContactForm?: boolean
+    className?: string;
 }
 
 type FieldName =
@@ -25,6 +27,7 @@ type FieldName =
 
 const ContactForm: React.FC<ContactFormProps> = ({
     isMainContactForm = false,
+    className,
 }) => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
     const [formData, setFormData] = useState<FormData | null>(null)
@@ -204,7 +207,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     return (
         <div
             id={isMainContactForm ? 'mainContactForm' : undefined}
-            className="mx-auto max-w-2xl"
+            className={cx('mx-auto max-w-2xl', className)}
         >
             <form onSubmit={handleSubmit} noValidate ref={formRef}>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6">

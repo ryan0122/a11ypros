@@ -44,3 +44,6 @@ next-env.d.ts
 # Local development
 .vscode
 cms.a11ypros.com
+
+# Local Netlify folder
+.netlify

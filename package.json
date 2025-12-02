@@ -6,12 +6,16 @@
     "dev": "NODE_OPTIONS= next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "netlify:build": "netlify build",
+    "netlify:dev": "netlify dev",
+    "build:check": "npm run lint && netlify build"
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "he": "^1.2.0",
+    "lucide-react": "^0.555.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -39,7 +39,7 @@ export default function Footer() {
       }
     }, []);
 
-  const doNotDisplay = ["/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
+  const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
 
   return (
     <>
@@ -72,6 +72,7 @@ export default function Footer() {
               <li>
                 <Link href="/accessibility-statement" className="text-white hover:text-[#d4e300]">Accessibility Statement</Link>
               </li>
+              <li><Link href="/sitemap" className="text-white hover:text-[#d4e300]">Sitemap</Link></li>
             </ul>
           </nav>
 

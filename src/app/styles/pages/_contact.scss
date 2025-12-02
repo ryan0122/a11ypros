@@ -1,3 +1,6 @@
 #mainContactForm {
 	margin-block-end: 4rem;
+	&.consultation-form {
+		margin-block-end: 0;
+	}
 }

@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"          # your existing React build
+  publish = "build"                  # CRA creates /build
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/scan"
+  to = "/.netlify/functions/pa11y-scan"
+  status = 200

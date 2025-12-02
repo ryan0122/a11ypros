@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
-import Header from "@/components/Header";
+import ConditionalHeader from "@/components/ConditionalHeader";
 import Footer from "@/components/Footer";
 import "./styles/main.scss";
 import Loader from "@/components/Loader";
@@ -40,7 +40,7 @@ export default function RootLayout({
         </a>
         
         <div className="min-h-full">
-          <Header />
+          <ConditionalHeader />
           <Loader/>
           {children}
           <Footer />
