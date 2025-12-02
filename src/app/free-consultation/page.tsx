@@ -55,7 +55,7 @@ export default function FreeAudit() {
             </section>
             <section>
                 <h2 className='my-5 text-center text-2xl'>Trusted by</h2>
-                <div className='flex justify-center items-center gap-20 my-10'>
+                <div className='flex flex-col md:flex-row justify-center items-center gap-8 md:gap-20 my-10'>
                     {/* I need to add partner and client images here */}
                     <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/05/Mogli_Logo.png" alt="Mogli" width={175} height={122} />
                     <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/05/spry_elephant_logo.png" alt="Spry Elephant" width={175} height={100} />
