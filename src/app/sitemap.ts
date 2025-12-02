@@ -1,8 +1,6 @@
 import { MetadataRoute } from 'next';
 import { fetchWordPressPages } from '@/lib/sitemap';
 
-const BASE_URL = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com';
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemapUrls = await fetchWordPressPages();
 

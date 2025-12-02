@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function middleware(_req: NextRequest) {
   // Let Next.js handle /sitemap.xml automatically via sitemap.ts
   // No rewrite needed - Next.js will serve it correctly
 

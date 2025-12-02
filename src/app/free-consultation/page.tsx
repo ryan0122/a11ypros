@@ -33,7 +33,7 @@ export default function FreeAudit() {
                             Americans with Disabilities Act (ADA) Title II accessibility regulations require that by <strong>April 24, 2026</strong>, all state and local government entities must make their digital content fully accessible, including websites, mobile apps, and online course materials. This federal requirement mandates compliance with WCAG 2.1 Level AA standards, ensuring content is usable with assistive technologies like screen readers and keyboard navigation. Public universities, libraries, and government websites must ensure accessibility from the start, including third-party products and services.
                             </p>
 
-                           <p className='font-500 text-2xl text-[#d4e300] font-bold'>Don't let your website be the next target. Request a free consultation today.</p>
+                           <p className='font-500 text-2xl text-[#d4e300] font-bold'>Don&apos;t let your website be the next target. Request a free consultation today.</p>
                         </div>
 
                         {/* Right Column: Contact Form */}
@@ -43,7 +43,7 @@ export default function FreeAudit() {
                                     Book a free 30 minute Consultation
                                 </h2>
                                 <p className="text-center font-semibold">
-                                    Fill out the form below and we'll get back
+                                    Fill out the form below and we&apos;ll get back
                                     to you within 24 hours.
                                 </p>
                                 <ContactForm className='consultation-form' isMainContactForm={true} />
@@ -65,7 +65,7 @@ export default function FreeAudit() {
             <section className='bg-[#fff]'>
             <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16">
                 <h2 className="text-3xl font-bold mb-6">Why ADA Compliance Matters</h2>
-                <p className="mb-12 text-lg">Non-compliance doesn't just mean legal exposure—it can damage your brand reputation, trigger negative publicity, and alienate potential customers. Achieving ADA compliance protects your business while expanding your reach to millions of users with disabilities, creating a more inclusive and successful digital presence for everyone.</p>
+                <p className="mb-12 text-lg">Non-compliance doesn&apos;t just mean legal exposure—it can damage your brand reputation, trigger negative publicity, and alienate potential customers. Achieving ADA compliance protects your business while expanding your reach to millions of users with disabilities, creating a more inclusive and successful digital presence for everyone.</p>
             
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div className="flex flex-col items-start">
@@ -132,7 +132,7 @@ export default function FreeAudit() {
                                 </div>
                                 <div>
                                     <span className="block text-xl font-bold text-[#001d2f] mb-2">Determine the best accessibility testing path for your business</span>
-                                    <p className="text-gray-700">Align on which WCAG standard you'd like to test against. Choose a representative sample of pages to test for passing or failing accessibility standards.</p>
+                                    <p className="text-gray-700">Align on which WCAG standard you&apos;d like to test against. Choose a representative sample of pages to test for passing or failing accessibility standards.</p>
                                 </div>
                             </li>
                             <li className="flex items-start">

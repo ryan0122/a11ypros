@@ -5,6 +5,21 @@ import Input from '@/components/Input'
 import IconLogo from '@/components/icons/IconLogo'
 import Link from 'next/link'
 import ContactForm from '@/components/ContactForm'
+
+interface ScanIssue {
+    code: string;
+    message: string;
+}
+
+interface ScanData {
+    total: number;
+    issues: ScanIssue[];
+    htmlReport?: string;
+    aiReport?: string;
+    url?: string;
+    disclaimer?: string;
+}
+
 // Helper function to extract preview (top 5 issues) from HTML report
 const extractTop5Issues = (
     htmlReport: string
@@ -130,9 +145,8 @@ export default function FreeAudit() {
     const [url, setUrl] = useState('')
     const [email, setEmail] = useState('')
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState<any>(null)
+    const [data, setData] = useState<ScanData | null>(null)
     const [error, setError] = useState('')
-    const [showForm, setShowForm] = useState(false)
     const [emailSubmitted, setEmailSubmitted] = useState(false)
     const [showFullResults, setShowFullResults] = useState(false)
     const [submittingEmail, setSubmittingEmail] = useState(false)
@@ -142,7 +156,6 @@ export default function FreeAudit() {
         setLoading(true)
         setError('')
         setData(null)
-        setShowForm(false)
         setEmailSubmitted(false)
         setShowFullResults(false)
         setEmail('')
@@ -155,8 +168,9 @@ export default function FreeAudit() {
             const json = await res.json()
             if (!res.ok) throw new Error(json.error || 'Scan failed')
             setData(json)
-        } catch (err: any) {
-            setError(err.message)
+        } catch (err) {
+            const error = err instanceof Error ? err : new Error('Scan failed')
+            setError(error.message)
         } finally {
             setLoading(false)
         }
@@ -174,19 +188,23 @@ export default function FreeAudit() {
         formData.append('scanned-url', url)
 
         try {
+            const params = new URLSearchParams()
+            formData.forEach((value, key) => {
+                params.append(key, value.toString())
+            })
+            
             await fetch('/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams(formData as any).toString(),
+                body: params.toString(),
             })
             // Success - unlock full results
             setEmailSubmitted(true)
             setShowFullResults(true)
-            setShowForm(false)
             // Don't clear email so they can see it was submitted
-        } catch (err) {
+        } catch {
             setError(
                 'Failed to submit email. Please try again or email us directly.'
             )
@@ -222,7 +240,7 @@ export default function FreeAudit() {
                                     Get Started Today
                                 </h2>
                                 <p className="mb-6 text-gray-600">
-                                    Fill out the form below and we'll get back
+                                    Fill out the form below and we&apos;ll get back
                                     to you within 24 hours.
                                 </p>
                                 <ContactForm isMainContactForm={true} />
@@ -239,7 +257,7 @@ export default function FreeAudit() {
                 <p className="mb-4 text-lg leading-relaxed opacity-90 lg:text-xl">
                     Find the accessibility issues you need to fix and meet your
                     compliance goals. With a quick automated scan (powered by
-                    Pa11y + AI), you'll get a beautiful, plain-English report in
+                    Pa11y + AI), you&apos;ll get a beautiful, plain-English report in
                     seconds.
                 </p>
                 <div className="mt-6 rounded-lg border border-sky-700/50 bg-sky-900/30 p-6 text-sm">
@@ -393,7 +411,7 @@ export default function FreeAudit() {
                                                         <ul className="mt-4 space-y-3 text-xs">
                                                             {data.issues.map(
                                                                 (
-                                                                    i: any,
+                                                                    i: ScanIssue,
                                                                     idx: number
                                                                 ) => (
                                                                     <li
@@ -431,7 +449,7 @@ export default function FreeAudit() {
                                                         successfully!
                                                     </p>
                                                     <p className="text-green-700">
-                                                        We'll email you at{' '}
+                                                        We&apos;ll email you at{' '}
                                                         <strong>{email}</strong>{' '}
                                                         to schedule your free
                                                         consultation.
@@ -440,13 +458,13 @@ export default function FreeAudit() {
 
                                                 {/* Consultation CTA */}
                                                 <div className="mt-10 text-center">
-                                                    <a
+                                                    <Link
                                                         href="/contact"
                                                         className="inline-block transform rounded-lg bg-green-600 px-10 py-5 text-2xl font-bold text-white shadow-lg transition hover:scale-105 hover:bg-green-700"
                                                     >
                                                         Book Your Free 30-Min
                                                         Consultation
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </>
                                         )}
