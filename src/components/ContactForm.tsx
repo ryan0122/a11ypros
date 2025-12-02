@@ -15,6 +15,7 @@ let globalCount = 0
 interface ContactFormProps {
     isMainContactForm?: boolean
     className?: string;
+    privacyNoticeId?: string;
 }
 
 type FieldName =
@@ -28,6 +29,7 @@ type FieldName =
 const ContactForm: React.FC<ContactFormProps> = ({
     isMainContactForm = false,
     className,
+    privacyNoticeId,
 }) => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
     const [formData, setFormData] = useState<FormData | null>(null)
@@ -209,7 +211,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             id={isMainContactForm ? 'mainContactForm' : undefined}
             className={cx('mx-auto max-w-2xl', className)}
         >
-            <form onSubmit={handleSubmit} noValidate ref={formRef}>
+            <form onSubmit={handleSubmit} noValidate ref={formRef} aria-describedby={privacyNoticeId ? privacyNoticeId : undefined}>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6">
                     <FieldSet
                         legend={legendText}

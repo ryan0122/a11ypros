@@ -46,7 +46,8 @@ export default function FreeAudit() {
                                     Fill out the form below and we&apos;ll get back
                                     to you within 24 hours.
                                 </p>
-                                <ContactForm className='consultation-form' isMainContactForm={true} />
+                                <ContactForm className='consultation-form' isMainContactForm={true} privacyNoticeId="consultation-privacy-notice" />
+                                <p id="consultation-privacy-notice">Your information is used to respond to your consultation request and stored securely in our systems. See our <a href="/privacy-policy">Privacy Policy</a>.</p>
                             </div>
                         </div>
                     </div>
