@@ -15,6 +15,8 @@ type PageProps = {
     searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
+export const dynamic = 'force-dynamic';
+
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({
     params,

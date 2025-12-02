@@ -4,6 +4,7 @@ import HomeTemplate from "@/components/HomeTemplate";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
 
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   const [page, seoData] = await Promise.all([
