@@ -22,19 +22,25 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
       <main id="main-content">
         <div className="page-container max-w-6xl mx-auto p-8 font-[family-name:var(--font-inter)]">
         
-          <h1 className="text-4xl font-semibold mb-6 text-center" dangerouslySetInnerHTML={{ __html: title }} />
-          {featuredImage && (
-            <div className="my-10 mx-auto flex justify-center">
-              <Image 
-                src={featuredImage.source_url} 
-                alt={featuredImage.alt_text || ''} 
-                width={600} 
-                height={450} 
-                className="rounded-lg w-1/2 h-auto"
-                priority
-              />
+          {/* Hero Section - 2 Column Layout */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center mt-10 mb-20">
+            <div className="flex-1">
+              <h1 className="text-6xl font-semibold mb-6 text-left" dangerouslySetInnerHTML={{ __html: title }} />
             </div>
-           )}
+            {featuredImage && (
+              <div className="flex-1 flex justify-center lg:justify-end">
+                <Image 
+                  src={featuredImage.source_url} 
+                  alt={featuredImage.alt_text || ''} 
+                  width={600} 
+                  height={450} 
+                  className="rounded-lg w-full max-w-lg h-auto"
+                  priority
+                />
+              </div>
+            )}
+          </div>
+          
           <div dangerouslySetInnerHTML={{ __html: content }} />
          
         </div>
