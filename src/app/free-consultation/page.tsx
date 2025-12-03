@@ -40,7 +40,7 @@ export default function FreeAudit() {
                         <div className="w-full lg:w-1/2">
                             <div id="consultation-form" className="rounded-lg bg-white p-6 text-gray-800 lg:p-8 border-t-8 border-[#0E8168]">
                                 <h2 className="mt-0 mb-4 text-3xl font-bold text-gray-900 text-center">
-                                    Book a free 30 minute Consultation
+                                    Book a Free 30 minute Consultation
                                 </h2>
                                 <p className="text-center font-semibold">
                                     Fill out the form below and we&apos;ll get back
@@ -107,10 +107,10 @@ export default function FreeAudit() {
             <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16">
                 <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-12">
                     <div className="w-full lg:w-1/2 flex-shrink-0 flex flex-col justify-center items-center gap-6">
-                        <IconHomeHero size="large" aria-hidden="true" />
+                        <IconHomeHero size="large" aria-hidden="true" className='ml-[-36px]'/>
                         <a 
                             href="#consultation-form"
-                            className="px-8 py-4 bg-[#0E8168] text-white font-bold rounded-lg hover:bg-[#0a6b57] transition-colors text-lg no-underline"
+                            className="mt-4 px-8 py-4 bg-[#0E8168] text-white font-bold rounded-lg hover:bg-[#0a6b57] transition-colors text-lg no-underline"
                         >
                             Book Free Consultation
                         </a>
