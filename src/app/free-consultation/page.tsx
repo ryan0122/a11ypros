@@ -27,7 +27,7 @@ export default function FreeAudit() {
                             Expert ADA Audit and Remediation Services
                             </h1>
                             <h2 className="flex items-start gap-3 text-xl text-[#d4e300]">
-                             Over 3,200 ADA website lawsuits filed in 2025 alone. We deliver manual audits + human remediation trusted by enterprises and agencies.</h2>
+                             Over 3,200 ADA website lawsuits filed in 2025 alone. Protect your business with A11Y Pros&apos; combination of AI-powered tools backed and verified by our certified human experts trusted by leading enterprises and agencies.</h2>
                             <h2 className='mb-0 mt-8'>Deadline: April 24, 2026 for digital accessibility compliance</h2>
                             <p className='font-500 text-xl mt-5mb-10 leading-relaxed'>
                             Americans with Disabilities Act (ADA) Title II accessibility regulations require that by <strong>April 24, 2026</strong>, all state and local government entities must make their digital content fully accessible, including websites, mobile apps, and online course materials. This federal requirement mandates compliance with WCAG 2.1 Level AA standards, ensuring content is usable with assistive technologies like screen readers and keyboard navigation. Public universities, libraries, and government websites must ensure accessibility from the start, including third-party products and services.
@@ -42,8 +42,8 @@ export default function FreeAudit() {
                                 <h2 className="mt-0 mb-4 text-3xl font-bold text-gray-900 text-center">
                                     Book a Free 30 minute Consultation
                                 </h2>
-                                <p className="text-center font-semibold">
-                                    Fill out the form below and we&apos;ll get back
+                                <p className="font-semibold">
+                                    Fill out the form below and an Accessbility Consultant will get back
                                     to you within 24 hours.
                                 </p>
                                 <ContactForm className='consultation-form' isMainContactForm={true} privacyNoticeId="consultation-privacy-notice" />
@@ -54,7 +54,8 @@ export default function FreeAudit() {
                 </div>
             </section>
             <section>
-                <h2 className='my-5 text-center text-2xl'>Trusted by</h2>
+                <h2 className='my-5 text-center text-2xl'>IAAP and USA DHS Certified Accessibility Consultants specializing in ADA and WCAG Compliance</h2>
+                <p className='text-center text-2xl mb-0'>trusted by</p>
                 <div className='flex flex-col md:flex-row justify-center items-center gap-8 md:gap-20 my-10'>
                     {/* I need to add partner and client images here */}
                     <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/05/Mogli_Logo.png" alt="Mogli" width={175} height={122} />
@@ -116,15 +117,15 @@ export default function FreeAudit() {
                         </a>
                     </div>
                     <div className="w-full lg:w-1/2 flex-shrink-0">
-                        <h2 className="text-4xl mb-10">How does ADA compliance auditing work?</h2>
+                        <h2 className="text-4xl mb-10">How A11Y Pros delivers ADA compliance</h2>
                         <ul className="space-y-6">
                             <li className="flex items-start">
                                 <div className="mr-4 flex-shrink-0 w-8 h-8 rounded-full bg-[#0E8168] flex items-center justify-center">
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">Hire an expert to audit your website or mobile app for ADA compliance</span>
-                                    <p className="text-gray-700">Get assessed by a qualified professional who knows how to properly start an ADA audit, what to look for, and how to measure the results comprehensively.</p>
+                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">Our IAAP and US DHS certified consultants audit your website or mobile app</span>
+                                    <p className="text-gray-700">We combine automated tools with comprehensive manual audits to identify accessibility barriers that automated scans alone miss. We provide actionable insights based on WCAG 2.1 Level AA standards.</p>
                                 </div>
                             </li>
                             <li className="flex items-start">
@@ -132,8 +133,8 @@ export default function FreeAudit() {
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">Determine the best accessibility testing path for your business</span>
-                                    <p className="text-gray-700">Align on which WCAG standard you&apos;d like to test against. Choose a representative sample of pages to test for passing or failing accessibility standards.</p>
+                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">We determine the best accessibility testing approach for your business</span>
+                                    <p className="text-gray-700">A11y Pros works with you to select the appropriate WCAG standard and identify a representative sample of pages. Our consultants guide you through the testing strategy that fits your specific needs.</p>
                                 </div>
                             </li>
                             <li className="flex items-start">
@@ -141,8 +142,8 @@ export default function FreeAudit() {
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">Create an accessibility audit report</span>
-                                    <p className="text-gray-700">Receive detailed findings with prioritized remediation recommendations and implementation guidance to address accessibility barriers effectively.</p>
+                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">A11Y Pros delivers a comprehensive accessibility audit report</span>
+                                    <p className="text-gray-700">You&apos;ll receive detailed findings from our certified consultants with prioritized remediation recommendations. We provide clear implementation guidance to address accessibility barriers effectively.</p>
                                 </div>
                             </li>
                             <li className="flex items-start">
@@ -150,8 +151,8 @@ export default function FreeAudit() {
                                     <Check className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">Receive VPAT/ACR documentation</span>
-                                    <p className="text-gray-700">After remediation, we deliver a VPAT (Voluntary Product Accessibility Template) or ACR (Accessibility Conformance Report) documenting your compliance status.</p>
+                                    <span className="block text-xl font-bold text-[#001d2f] mb-2">A11Y Pros provides VPAT/ACR documentation</span>
+                                    <p className="text-gray-700">After our expert remediation services, A11y Pros delivers a VPAT (Voluntary Product Accessibility Template) or ACR (Accessibility Conformance Report) documenting your compliance status for procurement and legal requirements.</p>
                                 </div>
                             </li>
                         </ul>
