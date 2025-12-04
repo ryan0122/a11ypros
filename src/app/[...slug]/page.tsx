@@ -91,6 +91,11 @@ export default async function Page({ params }: PageProps) {
         notFound()
     }
 
+    // Exclude /sales paths - let the server handle PHP files directly
+    if (resolvedParams.slug[0] === 'sales') {
+        notFound()
+    }
+
     if (resolvedParams?.slug?.join('/') === 'sitemap.xml') {
         return notFound()
     }

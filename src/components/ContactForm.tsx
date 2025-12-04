@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { usePathname } from 'next/navigation'
 import cx from 'clsx'
+import { submitToHubSpot }  from '@/utils/sumitToHubSpot';
 
 let globalCount = 0
 
@@ -194,6 +195,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 setIsSubmitting(false)
                 return
             }
+
+   
+            submitToHubSpot(formData).catch(err => {
+                console.error('Error submitting to HubSpot:', err)
+            })
 
             router.push('/contact-us-thank-you')
         } catch (error) {
