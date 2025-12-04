@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getPostBySlug } from "@/lib/api/posts/dataApi";
 import Image from "next/image";
 import SharePost from "@/components/SharePost";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import he from "he";
 
 // Define Post interface
@@ -88,8 +89,12 @@ export default async function BlogPost({ params }: PageProps ) {
   const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`;
 
   return (
-    <main id="main-content">
-      <div className="blog max-w-6xl mx-auto p-8">
+    <>
+      <div className='max-w-6xl mx-auto'>
+        <Breadcrumbs/>
+      </div>
+      <main id="main-content">
+        <div className="blog max-w-6xl mx-auto p-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column: Author & Date */}
           <aside className="w-full md:w-1/4 border-b md:border-b-0 md:border-r pb-6 md:pb-0 md:pr-6 text-gray-600">
@@ -140,13 +145,14 @@ export default async function BlogPost({ params }: PageProps ) {
         </div>
       </div>
 
-      {/* ✅ Inject RankMath JSON-LD Schema */}
-      {post.rankMathSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: post.rankMathSchema }}
-        />
-      )}
-    </main>
+        {/* ✅ Inject RankMath JSON-LD Schema */}
+        {post.rankMathSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: post.rankMathSchema }}
+          />
+        )}
+      </main>
+    </>
   );
 }

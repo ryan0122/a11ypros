@@ -2,6 +2,7 @@ import { getPostsForListing, Post } from "@/lib/api/posts/dataApi";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 
@@ -75,6 +76,10 @@ export default async function Blog({ searchParams }: BlogProps) {
   const paginatedPosts = posts.slice(startIndex, endIndex);
 
   return (
+	<>
+	<div className='max-w-6xl mx-auto'>
+	<Breadcrumbs/>
+  	</div>  
 	<main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 		<header className="text-center mb-12">
 			<h1 className="text-3xl font-semibold mb-6">Web Accessibility & ADA Compliance Articles</h1>
@@ -124,5 +129,6 @@ export default async function Blog({ searchParams }: BlogProps) {
 	  
 	  <Pagination currentPage={currentPage} totalPages={totalPages} />
 	</main>
+	</>
   );
 }
