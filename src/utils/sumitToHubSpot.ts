@@ -5,17 +5,21 @@ export async function submitToHubSpot(formData: FormData) {
   
 	// Pull values from your existing FormData keys.
 	// Adjust the keys on the right (e.g. 'your-email', 'your-name') to match your actual CF7 field names.
-	const email = formData.get('your-email') as string | null;
-	const name = formData.get('your-name') as string | null;
+	const email = formData.get('contact-email') as string | null;
+	const firstname = formData.get('contact-first-name') as string | null;
+	const lastname = formData.get('contact-last-name') as string | null;
+	const organization = formData.get('organization-name') as string | null;
+	const phone = formData.get('contact-phone') as string | null;
 	const message = formData.get('your-message') as string | null;
   
-	// Split name if you want first/last, otherwise just map to firstname.
-	const [firstname] = (name || '').split(' ');
   
 	const payload = {
 	  fields: [
 		email && { name: 'email', value: email },
 		firstname && { name: 'firstname', value: firstname },
+		lastname && { name: 'lastname', value: lastname },
+		organization && { name: 'company', value: organization },
+		phone && { name: 'phone', value: phone },
 		message && { name: 'message', value: message },
 	  ].filter(Boolean),
 	  context: {
