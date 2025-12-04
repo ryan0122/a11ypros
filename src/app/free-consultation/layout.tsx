@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
     title: 'Free Consultation - Expert ADA Audit and Remediation Services - A11Y Pros',
@@ -32,6 +33,15 @@ export default function FreeConsultationLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <>{children}</>
+    return (
+        <>
+            {children}
+            <Script
+                id="hs-script-loader"
+                strategy="afterInteractive"
+                src="//js-na2.hs-scripts.com/244523502.js"
+            />
+        </>
+    )
 }
 
