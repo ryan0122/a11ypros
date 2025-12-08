@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { usePathname } from 'next/navigation'
 import cx from 'clsx'
-import { submitToHubSpot }  from '@/utils/sumitToHubSpot';
+import { submitToVtiger } from '@/utils/submitToVtiger';
 
 let globalCount = 0
 
@@ -181,29 +181,42 @@ const ContactForm: React.FC<ContactFormProps> = ({
         formData.append('_wpcf7_unit_tag', unitTag)
 
         try {
-            const res = await fetch(
-                process.env.NEXT_PUBLIC_CONTACT_URL as string,
-                {
-                    method: 'POST',
-                    body: formData,
-                }
-            )
+            // Use Next.js API route to proxy the request (bypasses CORS)
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                body: formData,
+            })
+
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`)
+            }
+
             const result = await res.json()
 
             if (!result) {
-                console.error('Form submission failed')
+                console.error('Form submission failed: No response data')
                 setIsSubmitting(false)
                 return
             }
 
-   
-            submitToHubSpot(formData).catch(err => {
-                console.error('Error submitting to HubSpot:', err)
+            // Submit to vtiger CRM (non-blocking)
+            submitToVtiger(formData).catch(err => {
+                console.error('Error submitting to vtiger:', err)
             })
 
             router.push('/contact-us-thank-you')
         } catch (error) {
             console.error('Error submitting form:', error)
+            
+            // Provide user-friendly error message
+            if (error instanceof TypeError && error.message === 'Failed to fetch') {
+                alert('Network error: Unable to reach the server. Please check your connection and try again.')
+            } else if (error instanceof Error) {
+                alert(`Form submission error: ${error.message}. Please try again.`)
+            } else {
+                alert('An unexpected error occurred. Please try again later.')
+            }
+            
             setIsSubmitting(false)
         }
     }

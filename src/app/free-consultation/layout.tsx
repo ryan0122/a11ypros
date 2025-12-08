@@ -36,11 +36,6 @@ export default function FreeConsultationLayout({
     return (
         <>
             {children}
-            <Script
-                id="hs-script-loader"
-                strategy="afterInteractive"
-                src="//js-na2.hs-scripts.com/244523502.js"
-            />
         </>
     )
 }
