@@ -2,7 +2,8 @@
   command = "npm run build"
   functions = "netlify/functions"
 
-[[redirects]]
-  from = "/api/scan"
-  to = "/.netlify/functions/pa11y-scan"
-  status = 200
+# Disabled to reduce Netlify function usage
+# [[redirects]]
+#   from = "/api/scan"
+#   to = "/.netlify/functions/pa11y-scan"
+#   status = 200
