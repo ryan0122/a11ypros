@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     if (isJson) {
       try {
         result = await response.json();
-      } catch (jsonError) {
+      } catch {
         const textResult = await response.text();
         console.error('Failed to parse JSON response:', textResult.substring(0, 500));
         return NextResponse.json(

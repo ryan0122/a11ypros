@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
     title: 'Free Consultation - Expert ADA Audit and Remediation Services - A11Y Pros',
