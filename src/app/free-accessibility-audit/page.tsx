@@ -142,6 +142,9 @@ const extractTop5Issues = (
 }
 
 export default function FreeAudit() {
+    // DISABLED: Free accessibility scan temporarily disabled to reduce Netlify function usage
+    const isDisabled = true;
+    
     const [url, setUrl] = useState('')
     const [email, setEmail] = useState('')
     const [loading, setLoading] = useState(false)
@@ -153,6 +156,13 @@ export default function FreeAudit() {
 
     const handleScan = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        
+        // Block scans if disabled
+        if (isDisabled) {
+            setError('Free accessibility scan is temporarily unavailable. Please contact us for a professional audit.')
+            return
+        }
+        
         setLoading(true)
         setError('')
         setData(null)
@@ -269,31 +279,49 @@ export default function FreeAudit() {
                     </p>
                 </div>
                 <div className="mx-auto max-w-6xl p-8">
-                    <form onSubmit={handleScan}>
-                        <Input
-                            label="Web page URL"
-                            type="url"
-                            placeholder="https://your-site.com"
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            required
-                            className="w-full rounded-md border-2 px-6 py-4"
-                        />
+                    {isDisabled ? (
+                        <div className="rounded-lg border-2 border-yellow-500/50 bg-yellow-900/30 p-8 text-center">
+                            <h3 className="mb-4 text-2xl font-bold text-yellow-400">
+                                Free Scan Temporarily Unavailable
+                            </h3>
+                            <p className="mb-6 text-lg opacity-90">
+                                The free accessibility scan is temporarily disabled to manage server resources.
+                            </p>
+                            <p className="mb-6 text-lg opacity-90">
+                                For a comprehensive accessibility audit, please{' '}
+                                <Link href="/free-consultation" className="text-[#d4e300] underline hover:no-underline">
+                                    request a free consultation
+                                </Link>
+                                {' '}with our certified accessibility experts.
+                            </p>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleScan}>
+                            <Input
+                                label="Web page URL"
+                                type="url"
+                                placeholder="https://your-site.com"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                required
+                                className="w-full rounded-md border-2 px-6 py-4"
+                            />
 
-                        <Button
-                            type="submit"
-                            disabled={loading}
-                            className={`mt-6 w-full rounded-md px-8 py-5 text-xl font-bold uppercase transition-all ${
-                                loading
-                                    ? 'cursor-not-allowed bg-gray-500'
-                                    : 'bg-[#0E8168] hover:bg-[#0B6652]'
-                            }`}
-                        >
-                            {loading
-                                ? 'Scanning...'
-                                : 'Run Free Accessibility Scan'}
-                        </Button>
-                    </form>
+                            <Button
+                                type="submit"
+                                disabled={loading}
+                                className={`mt-6 w-full rounded-md px-8 py-5 text-xl font-bold uppercase transition-all ${
+                                    loading
+                                        ? 'cursor-not-allowed bg-gray-500'
+                                        : 'bg-[#0E8168] hover:bg-[#0B6652]'
+                                }`}
+                            >
+                                {loading
+                                    ? 'Scanning...'
+                                    : 'Run Free Accessibility Scan'}
+                            </Button>
+                        </form>
+                    )}
 
                     <footer className="mt-10 text-center text-sm opacity-80">
                         Powered by Pa11y + Groq AI (Llama 3.1 70B) – 100% free

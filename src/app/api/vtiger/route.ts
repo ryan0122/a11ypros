@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const email = formData.get('contact-email') as string | null;
     const phone = formData.get('contact-phone') as string | null;
     const description = formData.get('contact-message') as string | null;
-    const organization = formData.get('organization-name') as string | null;
+    const title = formData.get('organization-name') as string | null;
 
     // Debug: Log received values
     console.log('Received form data:', {
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       description: description?.substring(0, 50),
-      organization,
+      title,
     });
 
     // Create FormData for vtiger submission
@@ -62,9 +62,9 @@ export async function POST(request: NextRequest) {
     // vtiger may auto-create/link the account based on this
     vtigerFormData.append('account_id', '11x0');
     
-    if (organization && organization.trim()) {
+    if (title && title.trim()) {
       // Try sending organization name - vtiger may accept this to create/link account
-      vtigerFormData.append('accountname', organization.trim());
+      vtigerFormData.append('title', title.trim());
     }
 
     // Debug: Log what we're sending to vtiger
