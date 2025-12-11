@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPostBySlug } from "@/lib/api/posts/dataApi";
 import Image from "next/image";
-import SharePost from "@/components/SharePost";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import SharePost from "@/components/ui/SharePost";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import he from "he";
 
 // Define Post interface

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import HomeTemplate from "@/components/HomeTemplate";
+import HomeTemplate from "@/components/templates/HomeTemplate";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
 

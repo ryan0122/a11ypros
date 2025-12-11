@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Services from './Services';
-import Breadcrumbs from '@/components/Breadcrumbs';
+import Services from '@/components/features/Services';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
 interface PageProps {
   title: string;

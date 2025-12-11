@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import TopNav from "@/components/TopNav";
-import IconLogo from "./icons/IconLogo";
+import TopNav from "@/components/layout/TopNav";
+import IconLogo from "@/components/icons/IconLogo";
 
 interface MobileNavProps {
   isOpen: boolean;

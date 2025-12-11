@@ -1,9 +1,9 @@
 import { Inter } from "next/font/google";
-import "./styles/globals.css";
-import ConditionalHeader from "@/components/ConditionalHeader";
-import Footer from "@/components/Footer";
-import "./styles/main.scss";
-import Loader from "@/components/Loader";
+import "@/styles/globals.css";
+import ConditionalHeader from "@/components/layout/ConditionalHeader";
+import Footer from "@/components/layout/Footer";
+import "@/styles/main.scss";
+import Loader from "@/components/ui/Loader";
 
 const inter = Inter({
   variable: "--font-inter",

@@ -1,8 +1,8 @@
 import { getPostsForListing, Post } from "@/lib/api/posts/dataApi";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Pagination from "@/components/Pagination";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Pagination from "@/components/ui/Pagination";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
 

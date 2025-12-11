@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import PageTemplate from '@/components/PageTemplate'
+import PageTemplate from '@/components/templates/PageTemplate'
 import type { Metadata } from 'next'
 import { getPageData, getPageMetaData } from '@/lib/api/pages/dataApi'
 import he from 'he'
-import FAQAccordion from '@/components/FaqAccordion'
+import FAQAccordion from '@/components/ui/FaqAccordion'
 
 type FAQ = {
     question: string
