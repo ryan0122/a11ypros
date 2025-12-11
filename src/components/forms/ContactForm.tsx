@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import FieldSet from '@/components/FieldSet'
-import Input from '@/components/Input'
-import TextArea from '@/components/TextArea'
-import Button from '@/components/Button'
+import FieldSet from '@/components/forms/FieldSet'
+import Input from '@/components/forms/Input'
+import TextArea from '@/components/forms/TextArea'
+import Button from '@/components/forms/Button'
 import { useRouter } from 'next/navigation'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { usePathname } from 'next/navigation'
@@ -17,6 +17,7 @@ interface ContactFormProps {
     isMainContactForm?: boolean
     className?: string;
     privacyNoticeId?: string;
+    submitToVtiger?: boolean;
 }
 
 type FieldName =
@@ -31,6 +32,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     isMainContactForm = false,
     className,
     privacyNoticeId,
+    submitToVtiger: shouldSubmitToVtiger = false,
 }) => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
     const [formData, setFormData] = useState<FormData | null>(null)
@@ -199,10 +201,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 return
             }
 
-            // Submit to vtiger CRM (non-blocking)
-            submitToVtiger(formData).catch(err => {
-                console.error('Error submitting to vtiger:', err)
-            })
+            // Submit to vtiger CRM (non-blocking) - only if prop is enabled
+            if (shouldSubmitToVtiger) {
+                submitToVtiger(formData).catch(err => {
+                    console.error('Error submitting to vtiger:', err)
+                })
+            }
 
             router.push('/contact-us-thank-you')
         } catch (error) {

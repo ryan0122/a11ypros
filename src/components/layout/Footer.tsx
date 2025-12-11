@@ -1,11 +1,11 @@
 'use client';
 
-import ContactForm from "./ContactForm";
-import ContactPageForm from "./ContactPageForm";
+import ContactForm from "@/components/forms/ContactForm";
+import ContactPageForm from "@/components/forms/ContactPageForm";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import IconLogo from "./icons/IconLogo";
+import IconLogo from "@/components/icons/IconLogo";
 
 const ObfuscatedEmail = () => {
   const email = 'info@a11ypros.com';

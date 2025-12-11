@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  try {
-    const contactUrl = process.env.NEXT_PUBLIC_CONTACT_URL;
+  const contactUrl = process.env.NEXT_PUBLIC_CONTACT_URL;
 
-    if (!contactUrl) {
-      console.error('NEXT_PUBLIC_CONTACT_URL is not defined');
-      return NextResponse.json(
-        { message: 'Contact URL not configured' },
-        { status: 500 }
-      );
-    }
+  if (!contactUrl) {
+    console.error('NEXT_PUBLIC_CONTACT_URL is not defined');
+    return NextResponse.json(
+      { message: 'Contact URL not configured' },
+      { status: 500 }
+    );
+  }
+
+  try {
 
     // Get form data from the request
     const formData = await request.formData();
@@ -21,6 +22,7 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       body: formData,
       // Don't set Content-Type header - let fetch set it automatically with boundary
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     const contentType = response.headers.get('content-type');
@@ -67,11 +69,44 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Error proxying contact form:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    // Enhanced error logging
+    const errorDetails = error instanceof Error ? {
+      message: error.message,
+      name: error.name,
+      cause: (error).cause,
+      stack: error.stack?.split('\n').slice(0, 3).join('\n'), // First 3 lines of stack
+    } : { message: 'Unknown error', error };
+
+    console.error('Error proxying contact form:', {
+      ...errorDetails,
+      contactUrl: contactUrl ? new URL(contactUrl).origin : 'not configured',
+    });
+
+    // Provide more specific error messages
+    let errorMessage = 'Internal server error';
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      if (error.name === 'AbortError' || error.message.includes('timeout')) {
+        errorMessage = 'Request timeout: The server took too long to respond';
+        statusCode = 504;
+      } else if (error.message.includes('ECONNREFUSED') || error.message.includes('fetch failed')) {
+        errorMessage = 'Connection refused: Unable to reach the WordPress server. Please check server configuration.';
+        statusCode = 502;
+      } else if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
+        errorMessage = 'DNS resolution failed: Unable to resolve the server address';
+        statusCode = 502;
+      } else {
+        errorMessage = `Network error: ${error.message}`;
+      }
+    }
+
     return NextResponse.json(
-      { message: 'Internal server error', error: errorMessage },
-      { status: 500 }
+      { 
+        message: errorMessage,
+        error: process.env.NODE_ENV === 'development' ? errorDetails.message : undefined,
+      },
+      { status: statusCode }
     );
   }
 }

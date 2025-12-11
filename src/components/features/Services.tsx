@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import IconServiceAudit from './icons/IconServiceAudit';
-import IconServiceRemediation from './icons/IconServiceRemediation';
-import IconServiceReport from './icons/IconServiceReport';
-import IconServiceConsulting from './icons/IconServiceConsulting';
-import IconServicePDF from './icons/IconServicePDF';
+import IconServiceAudit from '@/components/icons/IconServiceAudit';
+import IconServiceRemediation from '@/components/icons/IconServiceRemediation';
+import IconServiceReport from '@/components/icons/IconServiceReport';
+import IconServiceConsulting from '@/components/icons/IconServiceConsulting';
+import IconServicePDF from '@/components/icons/IconServicePDF';
 interface ServicesProps {
 	showHeading?: boolean;
 }

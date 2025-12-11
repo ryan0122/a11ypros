@@ -1,9 +1,9 @@
 "use client";
 
-import TopNav from "./TopNav";
+import TopNav from "@/components/layout/TopNav";
 import Link from "next/link";
-import IconLogo from "./icons/IconLogo";
-import MobileNav from "@/components/MobileNav";
+import IconLogo from "@/components/icons/IconLogo";
+import MobileNav from "@/components/layout/MobileNav";
 import { useState } from "react";
 
 export default function Header() {

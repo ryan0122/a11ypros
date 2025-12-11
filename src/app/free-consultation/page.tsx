@@ -1,7 +1,7 @@
 'use client'
 import IconLogo from '@/components/icons/IconLogo'
 import Link from 'next/link'
-import ContactForm from '@/components/ContactForm'
+import ContactForm from '@/components/forms/ContactForm'
 import Image from 'next/image'
 import { Shield, Users, TrendingUp, Heart, Check } from 'lucide-react'
 import IconHomeHero from '@/components/icons/IconHomeHero'
@@ -46,7 +46,7 @@ export default function FreeAudit() {
                                     Fill out the form below and an Accessbility Consultant will get back
                                     to you within 24 hours.
                                 </p>
-                                <ContactForm className='consultation-form' isMainContactForm={true} privacyNoticeId="consultation-privacy-notice" />
+                                <ContactForm className='consultation-form' isMainContactForm={true} privacyNoticeId="consultation-privacy-notice" submitToVtiger={true} />
                                 <p id="consultation-privacy-notice">Your information is used to respond to your consultation request and stored securely in our systems. See our <Link href="/privacy-policy">Privacy Policy</Link>.</p>
                             </div>
                         </div>

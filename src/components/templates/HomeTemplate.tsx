@@ -1,10 +1,10 @@
 import { getPostsForListing, Post } from "@/lib/api/posts/dataApi";
-import Services from "./Services";
-import Compliances from "./Compliances";
+import Services from "@/components/features/Services";
+import Compliances from "@/components/features/Compliances";
 import IconHomeHero from "@/components/icons/IconHomeHero";
 import Image from "next/image";
 import Link from "next/link";
-import IconManualAudit from './icons/IconManualAudit'
+import IconManualAudit from '@/components/icons/IconManualAudit'
 
 export default async function HomeTemplate({ content }: { title: string; content: string }) {
 	const posts: Post[] = await getPostsForListing(); // ✅ Optimized: fast fetch without RankMath
