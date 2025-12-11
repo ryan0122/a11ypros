@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     const errorDetails = error instanceof Error ? {
       message: error.message,
       name: error.name,
-      cause: (error as any).cause,
+      cause: (error).cause,
       stack: error.stack?.split('\n').slice(0, 3).join('\n'), // First 3 lines of stack
     } : { message: 'Unknown error', error };
 
