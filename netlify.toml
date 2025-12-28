@@ -2,6 +2,9 @@
   command = "npm run build"
   functions = "netlify/functions"
 
+[build.environment]
+  NODE_VERSION = "22"
+
 # Disabled to reduce Netlify function usage
 # [[redirects]]
 #   from = "/api/scan"
