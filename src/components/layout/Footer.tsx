@@ -44,7 +44,7 @@ export default function Footer() {
   return (
     <>
       {!doNotDisplay && (
-         <section className="footer-form p-8">
+         <section id="contactForm" className="footer-form p-8">
           {pathname === '/contact-us' ? <ContactPageForm /> : <ContactForm />}
          </section>
        )}
