@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 60; // 60 requests per minute
+
+// In-memory store for rate limiting (IP -> array of timestamps)
+const rateLimitStore = new Map<string, number[]>();
+
 // Bot patterns to block
 const BLOCKED_BOT_PATTERNS = [
   /AhrefsBot/i,
@@ -33,7 +40,55 @@ const ALLOWED_BOT_PATTERNS = [
   /WhatsApp/i,
 ];
 
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = rateLimitStore.get(ip) || [];
+
+  // Filter out timestamps outside the current window
+  const recentTimestamps = timestamps.filter(
+    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW
+  );
+
+  // Check if limit exceeded
+  if (recentTimestamps.length >= MAX_REQUESTS_PER_WINDOW) {
+    return false; // Rate limit exceeded
+  }
+
+  // Add current timestamp and update store
+  recentTimestamps.push(now);
+  rateLimitStore.set(ip, recentTimestamps);
+
+  // Cleanup old entries periodically
+  if (rateLimitStore.size > 10000) {
+    const cutoff = now - RATE_LIMIT_WINDOW;
+    for (const [key, value] of rateLimitStore.entries()) {
+      const filtered = value.filter((t) => now - t < RATE_LIMIT_WINDOW);
+      if (filtered.length === 0 || filtered[0] < cutoff) {
+        rateLimitStore.delete(key);
+      }
+    }
+  }
+
+  return true; // Within rate limit
+}
+
 export function middleware(req: NextRequest) {
+  // Get IP address
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0] ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+
+  // Rate limiting check
+  if (!checkRateLimit(ip)) {
+    return new NextResponse("Too Many Requests", {
+      status: 429,
+      headers: {
+        "Retry-After": "60",
+      },
+    });
+  }
+
   const userAgent = req.headers.get("user-agent") || "";
 
   // Check if it's an allowed bot first
