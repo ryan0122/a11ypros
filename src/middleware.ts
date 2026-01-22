@@ -73,22 +73,6 @@ function checkRateLimit(ip: string): boolean {
 }
 
 export function middleware(req: NextRequest) {
-  // Get IP address
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0] ||
-    req.headers.get("x-real-ip") ||
-    "unknown";
-
-  // Rate limiting check
-  if (!checkRateLimit(ip)) {
-    return new NextResponse("Too Many Requests", {
-      status: 429,
-      headers: {
-        "Retry-After": "60",
-      },
-    });
-  }
-
   const userAgent = req.headers.get("user-agent") || "";
 
   // Check if it's an allowed bot first
@@ -105,6 +89,22 @@ export function middleware(req: NextRequest) {
     if (isBlockedBot) {
       return new NextResponse("Access Denied", { status: 403 });
     }
+  }
+
+  // Get IP address
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0] ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+
+  // Rate limiting check
+  if (!checkRateLimit(ip)) {
+    return new NextResponse("Too Many Requests", {
+      status: 429,
+      headers: {
+        "Retry-After": "60",
+      },
+    });
   }
 
   // Let Next.js handle /sitemap.xml automatically via sitemap.ts
