@@ -27,6 +27,40 @@ const BLOCKED_BOT_PATTERNS = [
   /wget/i,
   /scrapy/i,
   /Go-http-client/i,
+  // AI crawlers
+  /GPTBot/i,
+  /ChatGPT-User/i,
+  /CCBot/i,
+  /anthropic-ai/i,
+  /Claude-Web/i,
+  /cohere-ai/i,
+  /Bytespider/i, // TikTok/ByteDance
+  /PerplexityBot/i,
+  /Applebot-Extended/i,
+  /omgili/i,
+  /omgilibot/i,
+  /FacebookBot/i,
+  /Meta-ExternalAgent/i,
+  // SEO/scraping tools
+  /Screaming Frog/i,
+  /SEOkicks/i,
+  /LinkpadBot/i,
+  /SEOlizer/i,
+  /MegaIndex/i,
+  /ltx71/i,
+  /PiplBot/i,
+  /Turnitin/i,
+  /VelenPublicWebCrawler/i,
+  /Cliqzbot/i,
+  /Qwantify/i,
+  /MauiBot/i,
+  /AlphaBot/i,
+  /SiteExplorer/i,
+  /DomainStatsBot/i,
+  /newspaper/i, // Python newspaper library
+  /Seekport/i,
+  /archive\.org_bot/i,
+  /Um[gm]i/i,
 ];
 
 // Allowed good bots (Google, Bing, etc.)
@@ -74,6 +108,11 @@ function checkRateLimit(ip: string): boolean {
 
 export function middleware(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") || "";
+
+  // Temporary logging to identify crawlers
+  if (userAgent && (userAgent.toLowerCase().includes('bot') || userAgent.toLowerCase().includes('crawler') || userAgent.toLowerCase().includes('spider'))) {
+    console.log('Crawler detected:', userAgent.substring(0, 200));
+  }
 
   // Check if it's an allowed bot first
   const isAllowedBot = ALLOWED_BOT_PATTERNS.some((pattern) =>
