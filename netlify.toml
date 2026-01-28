@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Block aggressive crawlers at edge (doesn't count as errors)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noai, noimageai"
+
 # Disabled to reduce Netlify function usage
 # [[redirects]]
 #   from = "/api/scan"
