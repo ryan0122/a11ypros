@@ -51,7 +51,6 @@ export default {
     // Fallback pattern for any missed ranges
     {
       pattern: /(bg|text|border|ring|fill|stroke)-(slate|gray|brand|primary|accent|error|success|warning|info|neutral|stone|zinc|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|red|orange|amber|yellow|lime|green)-(50|100|200|300|400|500|600|700|800|900|950)/,
-
     },
   ],
 } satisfies Config;
