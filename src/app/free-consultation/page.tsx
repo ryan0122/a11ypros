@@ -28,12 +28,12 @@ export default function FreeAudit() {
                             </h1>
                             <h2 className="flex items-start gap-3 text-xl text-[#d4e300]">
                              Over 3,200 ADA website lawsuits filed in 2025 alone. Protect your business with A11Y Pros&apos; combination of AI-powered tools backed and verified by our certified human experts trusted by leading enterprises and agencies.</h2>
-                            <h2 className='mb-0 mt-8'>Deadline: April 24, 2026 for digital accessibility compliance</h2>
+                            <h2 className='mb-0 mt-8'>Deadline: April 24, 2027 for digital accessibility compliance</h2>
                             <p className='font-500 text-xl mt-5mb-10 leading-relaxed'>
-                            Americans with Disabilities Act (ADA) Title II accessibility regulations require that by <strong>April 24, 2026</strong>, all state and local government entities must make their digital content fully accessible, including websites, mobile apps, and online course materials. This federal requirement mandates compliance with WCAG 2.1 Level AA standards, ensuring content is usable with assistive technologies like screen readers and keyboard navigation. Public universities, libraries, and government websites must ensure accessibility from the start, including third-party products and services.
+                            Americans with Disabilities Act (ADA) Title II accessibility regulations require that by <strong>April 24, 2027</strong>, all state and local government entities with populations under 50,000 must make their digital content fully accessible, including websites, mobile apps, and online course materials. This federal requirement mandates compliance with WCAG 2.1 Level AA standards, ensuring content is usable with assistive technologies like screen readers and keyboard navigation. Public universities, libraries, and government websites must ensure accessibility from the start, including third-party products and services.
                             </p>
 
-                           <p className='font-500 text-2xl text-[#d4e300] font-bold'>Don&apos;t let your website be the next target. Request a free consultation today.</p>
+                           <p className='font-500 text-2xl text-[#d4e300] font-bold'>Don&apos;t wait for the 2027 deadline to start your assessment. Request your free Title II consultation and audit today.</p>
                         </div>
 
                         {/* Right Column: Contact Form */}
