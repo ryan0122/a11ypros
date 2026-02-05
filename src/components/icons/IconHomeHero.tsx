@@ -30,6 +30,7 @@ const IconHomeHero = ({
 	fill={color}
 	aria-hidden="true"
 	focusable="false"
+	role="img"
 	className={`max-w-full h-auto ${className}`}
 	style={{ maxWidth: '100%', height: 'auto' }}
   >

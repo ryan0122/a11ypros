@@ -7,6 +7,9 @@ const IconServiceRemediation = ({width = 876.3, height = 661.5}: {height?: numbe
 	    x="0px"
 	    y="0px"
 	    viewBox={`0 0 ${width} ${height}`}
+		aria-hidden="true"
+		focusable="false"
+		role="img"
   	>
 		<style type="text/css">
 			{`

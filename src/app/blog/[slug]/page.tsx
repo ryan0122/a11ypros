@@ -93,7 +93,7 @@ export default async function BlogPost({ params }: PageProps ) {
       <div className='max-w-6xl mx-auto'>
         <Breadcrumbs/>
       </div>
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <div className="blog max-w-6xl mx-auto p-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Column: Author & Date */}

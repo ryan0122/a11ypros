@@ -2,10 +2,13 @@ import React from "react";
 
 const IconA11yCollab = ({ width = 1058, height = 434}) => (
 	<svg
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 1058 434.7"
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 1058 434.7"
 	  width={width}
 	  height={height}
+    focusable="false"
+  	aria-hidden="true"
+  	role="img"
     >
       <style>
         {`

@@ -7,6 +7,9 @@ const IconContactUs = ({width = 894, height = 448}: {height?: number, width?: nu
 		x="0px"
 		y="0px"
 		viewBox={`0 0 ${width} ${height}`}
+		focusable="false"
+  		aria-hidden="true"
+  		role="img"
 	>
 <style type="text/css">
 {`

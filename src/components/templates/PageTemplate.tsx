@@ -19,7 +19,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
       <div className='max-w-6xl mx-auto'>
         <Breadcrumbs/>
       </div>  
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <div className="page-container max-w-6xl mx-auto p-8 font-[family-name:var(--font-inter)]">
         
           {/* Hero Section - 2 Column Layout */}

@@ -9,6 +9,9 @@ const IconServiceAudit = ({width = 830, height = 685}: {height?: number, width?:
     x="0px"
     y="0px"
     viewBox={`0 0 ${width} ${height}`}
+	focusable="false"
+	aria-hidden="true"
+	role="img"
   >
 <style type="text/css">
 {`

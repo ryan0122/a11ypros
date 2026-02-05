@@ -2,10 +2,13 @@ import React from "react";
 
 const IconNotFound = ({ width = 982, height = 763}) => (
 	<svg
-	  xmlns="http://www.w3.org/2000/svg" 
-	  viewBox="0 0 1058 434.7"
-	  width={width}
-	  height={height}
+		xmlns="http://www.w3.org/2000/svg" 
+		viewBox="0 0 1058 434.7"
+		width={width}
+		height={height}
+		aria-hidden="true"
+		focusable="false"
+		role="img"
 	>
 		<circle fill="#E6E6E6" cx="559.4" cy="333.1" r="40"/>
 		<path fill="#001D2F" d="M657.5,384.5l-41.8-41.8c13.2-20.6,7.3-48-13.3-61.2c-0.4-0.2-0.7-0.5-1.1-0.7

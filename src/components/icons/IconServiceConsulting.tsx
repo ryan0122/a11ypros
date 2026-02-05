@@ -7,6 +7,9 @@ const IconServiceConsulting = ({width = 787, height = 453}: {height?: number, wi
 		x="0px"
 		y="0px"
 		viewBox={`0 0 ${width} ${height}`}
+		focusable="false"
+		aria-hidden="true"
+		role="img"
 	>
 <style type="text/css">
 {`

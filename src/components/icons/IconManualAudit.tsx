@@ -8,6 +8,9 @@ const IconManualAudit = ({width = 864, height = 560}: {height?: number, width?: 
 		x="0px"
 		y="0px"
 		viewBox={`0 0 ${width} ${height}`}
+		aria-hidden="true"
+		focusable="false"
+		role="img"
 	>
 		<path fill="#F2F2F2" d="M828.5,474.1c1-28.4-12.1-56.7-37.4-66.4c6,29.1,0.9,61.8-14.2,90.5c-5.9,11.2-13.5,23.2-11.4,34.6
 			c1.3,7.1,6.3,12.6,12.4,16.1c6.1,3.5,13.1,5.2,20.1,6.9l1.2,1.2C814.8,531,827.6,502.5,828.5,474.1z"/>

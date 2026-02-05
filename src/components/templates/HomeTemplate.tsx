@@ -39,7 +39,7 @@ export default async function HomeTemplate({
                     </div>
                 </div>
             </div>
-            <main id="mainContent">
+            <main id="main-content" tabIndex={-1}>
                 <section className="home-content isolate w-full py-10 text-center">
                     <div
                         className="content mx-auto max-w-6xl px-10 text-xl"

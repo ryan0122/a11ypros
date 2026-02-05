@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ConditionalHeader from "@/components/layout/ConditionalHeader";
 import Footer from "@/components/layout/Footer";
+import FocusManager from "@/components/layout/FocusManager";
 import "@/styles/main.scss";
 import Loader from "@/components/ui/Loader";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
         </a>
         
         <div className="min-h-full">
+          <FocusManager />
           <ConditionalHeader />
           <Loader/>
           {children}

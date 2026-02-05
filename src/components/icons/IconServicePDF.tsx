@@ -7,6 +7,9 @@ const IconServicePDF = ({width = 885, height = 545}: {height?: number, width?: n
 		x="0px"
 		y="0px"
 		viewBox={`0 0 ${width} ${height}`}
+		aria-hidden="true"
+		focusable="false"
+		role="img"
 	>
 	<g id="Group_105" data-name="Group 105">
 		<rect id="Rectangle_410" data-name="Rectangle 410" x="328.79" y="1.08" width="555.41" height="360.85" fill="#fff"/>
