@@ -23,6 +23,13 @@ export default {
           border: '#ccd2d5',
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            '--tw-prose-bullets': '#0E8168', // Using brand primary color
+          },
+        },
+      },
     },
   },
   plugins: [typography],
