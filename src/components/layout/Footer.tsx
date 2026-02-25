@@ -11,16 +11,15 @@ const ObfuscatedEmail = () => {
   const email = 'info@a11ypros.com';
   const encoded = btoa(email); // Base64 encode
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleClick = () => {
     const decoded = atob(encoded) as string;
     window.location.href = `mailto:${decoded}`;
   };
 
   return (
-    <a href="#" onClick={handleClick} className="email-link">
+    <button type="button" onClick={handleClick} className="email-link">
       Email Us
-    </a>
+    </button>
   );
 };
 
@@ -51,8 +50,8 @@ export default function Footer() {
       <footer className="bottom-footer w-full gap-4 p-4">
         {/* ROW */}
         <div className="max-w-6xl mx-auto w-full flex flex-col items-center md:justify-between">
-          <div className="w-36 mb-5">
-            <IconLogo color="#fff"/>
+          <div className="w-36 mb-5" aria-hidden="true">
+            <IconLogo color="#fff" aria-hidden={true} />
           </div>
          
           <address className="mb-5">

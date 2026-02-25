@@ -1,6 +1,16 @@
 import React from "react";
 
-const IconLogo = ({width = 230, height = 36, color = '#fff'}: {height?: number, width?: number, color?: string }) => (
+const IconLogo = ({
+  width = 230,
+  height = 36,
+  color = '#fff',
+  'aria-hidden': ariaHidden,
+}: {
+  height?: number;
+  width?: number;
+  color?: string;
+  'aria-hidden'?: boolean;
+}) => (
 
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -9,8 +19,9 @@ const IconLogo = ({width = 230, height = 36, color = '#fff'}: {height?: number, 
 		y="0px"
 		viewBox={`0 0 ${width} ${height}`}
 		fill={color}
-		role="img"
-		aria-label="A11Y Pros Logo"
+		role={ariaHidden ? undefined : "img"}
+		aria-label={ariaHidden ? undefined : "A11Y Pros Logo"}
+		aria-hidden={ariaHidden ? true : undefined}
 		focusable="false"
 	>
 		<path d="M0,36.22l13.85-35h7.2l13.75,35H26.2L19.6,18.47c-.27-.7-.53-1.45-.8-2.25s-.53-1.63-.8-2.48-.53-1.68-.78-2.5S16.77,9.67,16.6,9l1.5-.05c-.2.83-.43,1.65-.68,2.45s-.5,1.59-.75,2.37-.52,1.57-.82,2.35-.58,1.6-.85,2.43L8.4,36.22Zm6.6-6.7,2.65-6.4h16.1l2.6,6.4Z" transform="translate(0 -0.72)"/>
