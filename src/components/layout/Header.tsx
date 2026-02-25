@@ -10,7 +10,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="header flex items-center w-full py-5 px-6 sticky top-0 z-10">
+    <header className="header flex items-center w-full py-5 px-6 sticky top-0 z-10">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
       <div className="flex lg:flex-1 gap-10 max-w-6xl mx-auto justify-between">
         <Link href="/" className="logo no-underline hover:no-underline lg:mr-14 w-36 sm:w-56">
@@ -28,8 +28,11 @@ export default function Header() {
           onClick={() => setMobileMenuOpen((prev) => !prev)}
           type="button"
           className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobileMenu"
+          aria-haspopup="dialog"
         >
-          <span className="sr-only">Open main menu</span>
+          <span className="sr-only">{mobileMenuOpen ? "Close main menu" : "Open main menu"}</span>
           <svg
             className="size-6"
             fill="none"
@@ -46,6 +49,6 @@ export default function Header() {
 
       {/* Mobile Menu Component */}
       <MobileNav isOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-    </div>
+    </header>
   );
 }
