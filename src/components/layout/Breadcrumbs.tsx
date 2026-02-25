@@ -228,7 +228,7 @@ export default function Breadcrumbs() {
                   {he.decode(crumb.name)}
                 </a>
               )}
-              {!isLast && <span className="mx-1">/</span>}
+              {!isLast && <span className="mx-1" aria-hidden="true">/</span>}
             </li>
           );
         })}

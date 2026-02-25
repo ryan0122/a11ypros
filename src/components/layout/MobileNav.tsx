@@ -104,7 +104,6 @@ export default function MobileNav({ isOpen, setMobileMenuOpen }: MobileNavProps)
             className="-m-2.5 rounded-md p-2.5 text-gray-700"
             aria-label="Close menu"
           >
-            <span className="sr-only">Close menu</span>
             <svg
               className="size-6"
               fill="none"

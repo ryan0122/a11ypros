@@ -134,9 +134,10 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     return (
       <li key={page.id} className={`relative ${isMobile ? 'py-3' : ''}`}>
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
-          <Link 
-            href={pagePath} 
+          <Link
+            href={pagePath}
             className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''} ${contactSpecialClasses}`}
+            aria-current={isPageActive ? "page" : undefined}
             onClick={handleLinkClick}
           >
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
@@ -187,6 +188,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
                   <Link
                     href={childPath}
                     className={`${isMobile ? '' : 'uppercase'} ${isChildActive ? "active" : ""}`}
+                    aria-current={isChildActive ? "page" : undefined}
                     onClick={handleLinkClick}
                   >
                     {childTitle}
