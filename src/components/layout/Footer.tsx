@@ -51,8 +51,8 @@ export default function Footer() {
       <footer className="bottom-footer w-full gap-4 p-4">
         {/* ROW */}
         <div className="max-w-6xl mx-auto w-full flex flex-col items-center md:justify-between">
-          <div className="w-36 mb-5">
-            <IconLogo color="#fff"/>
+          <div className="w-36 mb-5" aria-hidden="true">
+            <IconLogo color="#fff" aria-hidden={true} />
           </div>
          
           <address className="mb-5">

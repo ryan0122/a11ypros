@@ -118,6 +118,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const isPageActive = pathname === pagePath;
     const hasActiveChild = "children" in page && isChildActive(page);
     const isExpanded = "children" in page && expandedMenuId === page.id;
+    const submenuId = `submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
     const contactSpecialClasses = isContactPage 
       ? 'contact-link' 
@@ -145,7 +146,8 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
               type="button"
               className={`nav-plus p-1 hover:bg-[#d4e300] focus:bg-[#d4e300] rounded-full ml-2 ${hasActiveChild ? "child-menu-active" : ""}`}
               aria-expanded={isExpanded}
-              aria-label={`${menuTitle} sub menu`}
+              aria-controls={submenuId}
+              aria-label={`${menuTitle} submenu`}
               onClick={() => toggleMenu(page.id)}
             >
               <svg
@@ -168,9 +170,11 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
           )}
         </div>
         {"children" in page && page.children.length > 0 && isExpanded && (
-          <ul className={`menu sub-menu ${isMobile 
-            ? 'mt-2 ml-4 border-l-2 border-gray-200 pl-4' 
-            : 'absolute left-0 mt-2 min-w-80 bg-white shadow-lg rounded-md py-2'}`}
+          <ul
+            id={submenuId}
+            className={`menu sub-menu ${isMobile
+              ? 'mt-2 ml-4 border-l-2 border-gray-200 pl-4'
+              : 'absolute left-0 mt-2 min-w-80 bg-white shadow-lg rounded-md py-2'}`}
           >
             {page.children.map((childPage) => {
               const childPath = getFullPath(childPage, page.slug);
@@ -197,7 +201,10 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
   };
   
   return (
-    <nav className={isMobile ? "w-full block" : "w-full hidden md:block"}>
+    <nav
+      aria-label={isMobile ? "Mobile navigation" : "Main navigation"}
+      className={isMobile ? "w-full block" : "w-full hidden md:block"}
+    >
       <ul className={isMobile 
         ? "flex flex-col space-y-1" 
         : "flex flex-row justify-between items-center gap-16"
