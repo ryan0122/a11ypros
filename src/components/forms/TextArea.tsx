@@ -23,7 +23,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, InputProps>(({ className = "", 
 			<label htmlFor={inputId} className="block mb-2">
 				{label} {props.required && <span className="text-[#da3940]">*</span>}
 			</label>
-			<textarea id={inputId} className={inputClasses} ref={ref} {...props} />
+			<textarea id={inputId} className={inputClasses} ref={ref} aria-invalid={!!errorText} aria-describedby={errorText ? errorId : undefined} {...props} />
 			{errorText && <span className="mt-2 text-[#da3940]" id={errorId}>{errorText}</span>}
 		</div>
 	);

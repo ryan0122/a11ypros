@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import cx from 'clsx'
 
 interface PaginationProps {
     currentPage: number
@@ -74,15 +73,20 @@ export default function Pagination({
         >
 			<h2 id="pagination" className="sr-only">Blog Pagination</h2>
             {/* Previous Button */}
-				<Link
-                    rel="prev"
-                    href={currentPage === 1 ? '#' : getPageUrl(currentPage - 1)}
-                    className={cx(`rounded-lg border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50 focus:outline-2 focus:outline-offset-2 focus:outline-[#0E8168]`, currentPage === 1 && 'cursor-not-allowed text-gray-500')}
-                    aria-label={`Go to page ${currentPage - 1}`}
-					aria-disabled={currentPage === 1}
-                >
-                    Previous
-                </Link>
+                {currentPage === 1 ? (
+                    <span className="cursor-not-allowed rounded-lg border border-gray-300 px-4 py-2 text-gray-500" aria-disabled="true">
+                        Previous
+                    </span>
+                ) : (
+                    <Link
+                        rel="prev"
+                        href={getPageUrl(currentPage - 1)}
+                        className="rounded-lg border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50 focus:outline-2 focus:outline-offset-2 focus:outline-[#0E8168]"
+                        aria-label={`Go to page ${currentPage - 1}, previous page`}
+                    >
+                        Previous
+                    </Link>
+                )}
 
             {/* Page Numbers */}
             <div className="flex gap-2">
@@ -103,15 +107,14 @@ export default function Pagination({
 
                     if (isCurrentPage) {
                         return (
-                            <Link
-								href="#"
+                            <span
                                 key={pageNum}
                                 className="cursor-default rounded-lg border border-[#0E8168] bg-[#0E8168] px-4 py-2 text-white"
-                                aria-label={`Current page, page ${pageNum}`}
+                                aria-label={`Page ${pageNum}, current page`}
                                 aria-current="page"
                             >
                                 {pageNum}
-                            </Link>
+                            </span>
                         )
                     }
 
@@ -129,15 +132,20 @@ export default function Pagination({
             </div>
 
             {/* Next Button */}
-				<Link
-                    rel="next"
-                    href={currentPage < totalPages ? getPageUrl(currentPage + 1) : '#'}
-                    className={cx(`rounded-lg border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50 focus:outline-2 focus:outline-offset-2 focus:outline-[#0E8168]`, currentPage >= totalPages && 'cursor-not-allowed  text-gray-500')}
-                    aria-label={`Go to page ${currentPage + 1}`}
-                    aria-disabled={currentPage < totalPages}
-                >
-                    Next
-                </Link>
+                {currentPage >= totalPages ? (
+                    <span className="cursor-not-allowed rounded-lg border border-gray-300 px-4 py-2 text-gray-500" aria-disabled="true">
+                        Next
+                    </span>
+                ) : (
+                    <Link
+                        rel="next"
+                        href={getPageUrl(currentPage + 1)}
+                        className="rounded-lg border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50 focus:outline-2 focus:outline-offset-2 focus:outline-[#0E8168]"
+                        aria-label={`Go to page ${currentPage + 1}, next page`}
+                    >
+                        Next
+                    </Link>
+                )}
         </nav>
     )
 }
