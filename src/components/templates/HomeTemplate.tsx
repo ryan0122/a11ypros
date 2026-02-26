@@ -77,8 +77,8 @@ export default async function HomeTemplate({
             </main>
             <Compliances showHeading={true} />
             <Services showHeading />
-            <section className="mx-auto max-w-6xl items-center px-10 pb-20 pt-10 text-center">
-                <h2 className="page-heading">Accessibility Articles</h2>
+            <section className="mx-auto max-w-6xl items-center px-10 pb-20 pt-10">
+                <h2 className="page-heading text-center">Accessibility Articles</h2>
                 {/* render blog posts here */}
                 <ul className="articles-list grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {posts.slice(0, 6).map((post: Post) => (
@@ -105,12 +105,15 @@ export default async function HomeTemplate({
                                         __html: post.title.rendered,
                                     }}
                                 />
+                            <time dateTime={new Date(post.date).toISOString().split('T')[0]} className="text-gray-500 text-sm">
+                                {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            </time>
                             </Link>
                         </li>
                     ))}
                 </ul>
                 {/* View More Link */}
-                <div className="mt-12">
+                <div className="mt-12  text-center">
                     <Link
                         href="/blog"
                         className="inline-block rounded-lg border-2 border-[#0E8168] px-4 py-2 text-xl font-semibold hover:underline"

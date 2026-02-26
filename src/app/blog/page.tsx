@@ -88,40 +88,26 @@ export default async function Blog({ searchParams }: BlogProps) {
 	  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 		{paginatedPosts.map((post) => (
 		  <li key={post.id} className="bg-white rounded-lg shadow-md border border-gray-300 p-6">
-			{/* ✅ Featured Image */}
-			{post.featured_image_url && (
-			  <div className="mb-4">
-				<Image
-				  src={post.featured_image_url}
-				  alt={`${post.title.rendered}`}
-				  loading="lazy"
-				  width={350}
-				  height={400}
-				/>
-			  </div>
-			)}
-			<h2 className="text-2xl font-semibold mb-4">
-			  <a
-				href={`/blog/${post.slug}`}
+			<a href={`/blog/${post.slug}`} className="block no-underline hover:no-underline">
+			  {post.featured_image_url && (
+				<div className="mb-4">
+				  <Image
+					src={post.featured_image_url}
+					alt=""
+					loading="lazy"
+					width={350}
+					height={400}
+					className="h-48 w-full"
+				  />
+				</div>
+			  )}
+			  <h2
+				className="text-2xl font-semibold mb-4"
 				dangerouslySetInnerHTML={{ __html: post.title.rendered }}
 			  />
-			</h2>
-			<small className="text-gray-500 text-sm">
-				{new Date(post.date).toLocaleDateString('en-US', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric'
-				})}
-			</small>
-			<p
-			  className="text-gray-700 mb-4"
-			  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-			/>
-			<a
-			  href={`/blog/${post.slug}`}
-			  className="inline-block mt-2"
-			>
-			  Read More →
+			  <time dateTime={new Date(post.date).toISOString().split('T')[0]} className="text-gray-500 text-sm">
+				{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+			  </time>
 			</a>
 		  </li>
 		))}
