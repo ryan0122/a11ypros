@@ -16,30 +16,42 @@ export default async function HomeTemplate({
 
     return (
         <div className="font-[family-name:var(--font-inter)]">
-            <div className="home-hero isolate mx-auto w-full px-6 py-14 pt-0 sm:pt-14 lg:px-8">
-                <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 text-left md:flex-row">
-				<div className="mx-auto mt-8 flex flex-col max-w-6xl justify-center md:w-1/2">
-					<h1 className="text-balance text-4xl tracking-tight md:text-5xl w-full">
-                        WCAG, ADA & Section 508
-                        <span className="block font-semibold">
-                            Web Accessibility Compliance Consultants
-                        </span>
-                    </h1>
-                   
-                        <a
-                            href="#contactForm"
-                            className="rounded-lg w-fit mt-8 text-center  px-8 py-4 text-xl font-semibold bg-white hover:text-white text-#0E8168 border-2 border-[#0E8168] transition-colors hover:bg-[#0a6b57] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168]"
-                        >
-                            Schedule a Free Consultation
-                        </a>
-                    </div>
+            <main id="main-content" tabIndex={-1}>
+                <div className="home-hero isolate mx-auto w-full px-6 py-14 pt-0 sm:pt-14 lg:px-8">
+                    <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 text-left md:flex-row">
+    				<div className="mx-auto mt-8 flex flex-col max-w-6xl justify-center md:w-1/2">
+    					<h1 className="text-balance text-4xl tracking-tight md:text-5xl w-full">
+                            WCAG, ADA & Section 508
+                            <span className="block font-semibold">
+                                Web Accessibility Compliance Consultants
+                            </span>
+                        </h1>
+                       
+                        </div>
 
-                    <div className="flex justify-center md:w-1/2">
-                        <IconHomeHero aria-hidden="true" />
+                        <div className="flex justify-center md:w-1/2">
+                            <IconHomeHero aria-hidden="true" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <main id="main-content" tabIndex={-1}>
+            
+                <section className="ada-lawsuit-help bg-slate-50 border-l-4 border-[#0E8168] py-12">
+                    <div className="mx-auto max-w-4xl px-6 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                            Facing an ADA Compliance Lawsuit?
+                        </h2>
+                        <p className="text-xl text-slate-700 mb-6">
+                            We help businesses navigate accessibility challenges and achieve lasting WCAG compliance with expert guidance.
+                        </p>
+                        <a
+                            href="#contactForm"
+                            className="inline-block rounded-lg bg-[#0E8168] px-8 py-4 text-xl font-semibold text-white hover:bg-[#0a6b57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168] transition-colors"
+                        >
+                            Let&rsquo;s Talk
+                        </a>
+                    </div>
+                </section>
+
                 <section className="home-content isolate w-full py-10 text-center">
                     <div
                         className="content mx-auto max-w-6xl px-10 text-xl"

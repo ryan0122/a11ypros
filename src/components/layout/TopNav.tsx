@@ -20,6 +20,7 @@ interface StaticLink {
   id: string;
   slug: string;
   title: string;
+  parentSlug?: string;
 }
 
 interface TopNavProps {
@@ -35,10 +36,11 @@ const customTitles: Record<string, string> = {
   "accessibility-partnerships-for-agencies-dev-teams": "Agency Partnerships",
 };
 
-const predefinedOrder = ["about-us", "services", "compliance", "articles"];
+const predefinedOrder = ["services", "compliance", "articles", "about-us",];
 
 const staticLinks: StaticLink[] = [
-  { id: "blog", slug: "blog", title: "Articles" }
+  { id: "blog", slug: "blog", title: "Articles" },
+  { id: "ada-litigation-support", slug: "ada-litigation-support", title: "ADA Litigation Support", parentSlug: "services" }
 ];
 
 export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
@@ -59,14 +61,41 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
             ...page,
             children: data
               .filter(childPage => childPage.parent === page.id)
-              .sort((a, b) => a.menu_order - b.menu_order) // Sort child pages
               .map(childPage => ({
                 ...childPage,
                 children: []
               }))
           }));
 
-        const mergedPages: (PageWithChildren | StaticLink)[] = [...staticLinks, ...pagesWithChildren];
+        // Inject static links with parents into their parent pages
+        staticLinks.forEach(staticLink => {
+          if (staticLink.parentSlug) {
+            const parentPage = pagesWithChildren.find(p => p.slug === staticLink.parentSlug);
+            if (parentPage) {
+              parentPage.children.push({
+                id: Number(staticLink.id) || Math.random() * 1000000,
+                parent: parentPage.id,
+                menu_order: 999,
+                slug: staticLink.slug,
+                title: { rendered: staticLink.title },
+                children: []
+              });
+            }
+          }
+        });
+
+        // Sort all children alphabetically by title
+        pagesWithChildren.forEach(page => {
+          page.children.sort((a, b) => {
+            const titleA = he.decode(a.title.rendered).toLowerCase();
+            const titleB = he.decode(b.title.rendered).toLowerCase();
+            return titleA.localeCompare(titleB);
+          });
+        });
+
+        // Only merge static links without parents at top level
+        const topLevelStaticLinks = staticLinks.filter(link => !link.parentSlug);
+        const mergedPages: (PageWithChildren | StaticLink)[] = [...topLevelStaticLinks, ...pagesWithChildren];
 
         const sortedPages = mergedPages.sort((a, b) => {
           const indexA = predefinedOrder.indexOf(a.slug);
