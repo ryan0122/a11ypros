@@ -11,7 +11,6 @@ import {
     Scale,
     Zap,
 } from 'lucide-react'
-import Button from '@/components/forms/Button'
 
 export const metadata: Metadata = {
     title: 'ADA Website Compliance & Litigation Protection | A11Y Pros',
