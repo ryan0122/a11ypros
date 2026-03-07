@@ -418,31 +418,6 @@ export default function ADALitigationSupport() {
                     </div>
                 </div>
             </section>
-
-            {/* ── Final CTA ── */}
-            <section
-                aria-labelledby="cta-heading"
-                className="py-32 text-center bg-[#f9f8f2]"
-            >
-                <div className="max-w-4xl mx-auto px-6">
-                    <h2
-                        id="cta-heading"
-                        className="text-5xl font-black mb-6"
-                    >
-                        Expert Remediation. Total Compliance.
-                    </h2>
-                    <p className="text-xl text-gray-700 mb-12">
-                        We bridge the gap between legal theory and technical
-                        reality. Secure your business today.
-                    </p>
-                    <Button
-                        href="/free-consultation"
-                        className="px-12 py-5 rounded-2xl font-black text-xl shadow-2xl transition-all hover:scale-105 bg-[#0E8168] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168]"
-                    >
-                        Book Forensic Audit
-                    </Button>
-                </div>
-            </section>
         </main>
     )
 }
