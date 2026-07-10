@@ -90,9 +90,24 @@ export default async function HomeTemplate({
             <Compliances showHeading={true} />
             <Services showHeading />
             <section className="mx-auto max-w-6xl items-center px-10 pb-20 pt-10">
+                <h2 className="text-center text-3xl md:text-4xl my-14 mx-10">Clients we have worked with</h2>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {/* Render client logos or information here */}
+                    <div className="flex justify-center items-center">
+                        <Image src="/coforma_logo.png" alt="Cormorma" className="h-20" width={360} height={270} />
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <Image src="/savvy_insure_logo.webp" alt="Savvy Insure" className="h-20"   width={300} height={270} />
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <Image src="/Mogli_Logo.png" alt="Mogli" className="h-20"  width={300} height={270} />
+                    </div>
+                </div>
+            </section>
+            <section className="mx-auto w-full items-center px-10 pb-20 pt-10 bg-white">
                 <h2 className="page-heading text-center">Accessibility Articles</h2>
                 {/* render blog posts here */}
-                <ul className="articles-list grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="articles-list grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                     {posts.slice(0, 6).map((post: Post) => (
                         <li
                             key={post.id}
