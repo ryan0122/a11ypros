@@ -73,7 +73,7 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
 
           {/* Featured Image */}
           {post.featured_image_url && (
-            <div className="max-w-4xl mx-auto mb-10 overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+            <div className="max-w-4xl mx-auto mb-10 overflow-hidden rounded-2xl">
               <Image
                 src={post.featured_image_url}
                 alt={post.title.rendered.replace(/<[^>]*>/g, '')}
