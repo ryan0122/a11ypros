@@ -83,7 +83,7 @@ export default function ADALitigationSupport() {
 
                     <div className="flex flex-col sm:flex-row gap-4">
                         <Link
-                            href="#contactForm"
+                            href="/contact-us"
                             className="px-10 py-5 rounded-xl font-black text-lg shadow-2xl transition-all flex items-center justify-center gap-3 bg-[#0E8168] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         >
                            Talk to an Expert Today{' '}
@@ -243,7 +243,7 @@ export default function ADALitigationSupport() {
                     ))}
                 </ul>
                 <Button
-                    href="/free-consultation"
+                    href="/contact-us"
                     className="inline-flex items-center gap-3 px-10 py-5 rounded-xl font-black text-lg shadow-xl transition-all hover:scale-105 bg-[#0E8168] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168]"
                 >
                     Start Your Audit Now <ArrowRight size={20} aria-hidden="true" />

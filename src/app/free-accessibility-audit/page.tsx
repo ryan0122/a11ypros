@@ -280,20 +280,84 @@ export default function FreeAudit() {
                 </div>
                 <div className="mx-auto max-w-6xl p-8">
                     {isDisabled ? (
-                        <div className="rounded-lg border-2 border-yellow-500/50 bg-yellow-900/30 p-8 text-center">
-                            <h3 className="mb-4 text-2xl font-bold text-yellow-400">
-                                Free Scan Temporarily Unavailable
+                        <div className="rounded-2xl border-2 border-[#0E8168] bg-slate-900 p-8 text-center text-white shadow-2xl">
+                            <span className="inline-block px-3 py-1 bg-[#0E8168]/20 border border-[#0E8168]/50 text-[#14b895] rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                                Premium Expert Review
+                            </span>
+                            <h3 className="mb-3 text-3xl font-bold text-white">
+                                Request a Free 3-Point Manual Teaser Audit
                             </h3>
-                            <p className="mb-6 text-lg opacity-90">
-                                The free accessibility scan is temporarily disabled to manage server resources.
+                            <p className="mb-6 text-lg text-slate-300 max-w-2xl mx-auto">
+                                Automated scanners miss 60%+ of accessibility barriers. Enter your site URL and work email below, and our certified accessibility engineers will manually test key keyboard focus & screen reader flows on your site—delivering a video breakdown within 24 hours.
                             </p>
-                            <p className="mb-6 text-lg opacity-90">
-                                For a comprehensive accessibility audit, please{' '}
-                                <Link href="/free-consultation" className="text-[#d4e300] underline hover:no-underline">
-                                    request a free consultation
-                                </Link>
-                                {' '}with our certified accessibility experts.
-                            </p>
+
+                            <form
+                                onSubmit={async (e) => {
+                                    e.preventDefault()
+                                    if (!url || !email) return
+                                    setLoading(true)
+                                    try {
+                                        await fetch('/api/contact', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({
+                                                'contact-first-name': 'Free Audit',
+                                                'contact-last-name': 'Requester',
+                                                'organization-name': 'Website Owner',
+                                                'contact-email': email,
+                                                'contact-message': `[FREE MANUAL TEASER AUDIT REQUEST]\nSite URL: ${url}`,
+                                            }),
+                                        })
+                                        setEmailSubmitted(true)
+                                    } catch {
+                                        setError('Failed to submit request. Please try again.')
+                                    } finally {
+                                        setLoading(false)
+                                    }
+                                }}
+                                className="max-w-xl mx-auto space-y-4 text-left"
+                            >
+                                {emailSubmitted ? (
+                                    <div className="p-6 bg-[#0E8168]/20 border border-[#0E8168] rounded-xl text-center">
+                                        <h4 className="text-xl font-bold text-[#14b895] mb-2">Teaser Audit Request Received!</h4>
+                                        <p className="text-sm text-slate-200">
+                                            We'll manually inspect <strong>{url}</strong> and send your video breakdown to <strong>{email}</strong> within 24 hours.
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-slate-300 mb-1">Your Website URL *</label>
+                                            <input
+                                                type="url"
+                                                required
+                                                placeholder="https://your-website.com"
+                                                value={url}
+                                                onChange={(e) => setUrl(e.target.value)}
+                                                className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-[#0E8168] focus:outline-none"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-slate-300 mb-1">Work Email *</label>
+                                            <input
+                                                type="email"
+                                                required
+                                                placeholder="you@company.com"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-[#0E8168] focus:outline-none"
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            disabled={loading}
+                                            className="w-full py-4 px-6 bg-[#0E8168] hover:bg-[#0a6b57] text-white font-bold rounded-xl text-lg transition-colors shadow-lg shadow-[#0E8168]/30 disabled:opacity-50"
+                                        >
+                                            {loading ? 'Submitting Request...' : 'Get Free Manual Teaser Audit Video →'}
+                                        </button>
+                                    </>
+                                )}
+                            </form>
                         </div>
                     ) : (
                         <form onSubmit={handleScan}>

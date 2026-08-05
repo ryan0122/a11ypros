@@ -4,6 +4,7 @@ import IconServiceRemediation from '@/components/icons/IconServiceRemediation';
 import IconServiceReport from '@/components/icons/IconServiceReport';
 import IconServiceConsulting from '@/components/icons/IconServiceConsulting';
 import IconServicePDF from '@/components/icons/IconServicePDF';
+
 interface ServicesProps {
 	showHeading?: boolean;
 }
@@ -23,10 +24,9 @@ const Services = ({ showHeading }: ServicesProps) => (
 	
 	<section className="w-full mx-auto bg-white pt-10">
 		
-			{showHeading && <h2 className="text-center text-3xl md:text-4xl my-14 mx-10">Web Accessibility Compliance Services</h2>}
+			{showHeading && <h2 className="text-center text-3xl md:text-4xl my-14 mx-10 font-bold text-slate-900">Web Accessibility Compliance Services</h2>}
 			<div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
 		    {/* WCAG Compliance Auditing */}
-		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
 		        <IconServiceAudit/>
@@ -42,7 +42,6 @@ const Services = ({ showHeading }: ServicesProps) => (
 
 		  {/* Website Remediation */}
 		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
-		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
 				<Heading showHeading={showHeading}>
 		        	<Link href="/services/website-remediation">Website Remediation</Link>
@@ -58,7 +57,6 @@ const Services = ({ showHeading }: ServicesProps) => (
 
 		  {/* VPAT & ACR Authoring */}
 		  <div className="flex flex-col sm:flex-row items-center sm:items-start  py-10 sm:py-20 max-w-6xl mx-auto">
-		    {/* For mobile: text first, then image */}
 		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
 		      <div className="w-3/5 mx-auto sm:mx-0">
 		        <IconServiceReport/>
@@ -72,37 +70,50 @@ const Services = ({ showHeading }: ServicesProps) => (
 		    </div>
 		  </div>
 
+		  {/* ADA Litigation Support */}
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
+		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
+				<Heading showHeading={showHeading}>
+		        	<Link href="/services/ada-litigation-support">ADA Litigation Support</Link>
+				</Heading>
+		      <p className="text-center sm:text-left text-xl">If your business is facing an ADA compliance lawsuit or demand letter, our certified accessibility experts provide forensic manual audits, prioritized remediation roadmaps, and post-verification Letters of Conformance to support your legal defense.</p>
+		    </div>
+		    <div className="w-full order-2 sm:w-2/5 text-center">
+		      <div className="w-3/5 mx-auto">
+		        <IconServiceAudit />
+		      </div>
+		    </div>
+		  </div>
+
 		  {/* Web Accessibility Consulting */}
 		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
-		    {/* For mobile: text first, then image */}
-		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
+		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
+		      <div className="w-3/5 mx-auto sm:mx-0">
+		        <IconServiceConsulting />
+		      </div>
+		    </div>
+		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
 				<Heading showHeading={showHeading}>
 		        	<Link href="/services/web-accessibility-consulting">Web Accessibility Consulting</Link>
 				</Heading>
 		      <p className="text-center sm:text-left text-xl">Our web accessibility experts ensure your digital platforms meet U.S. and international legal standards by adhering to the latest Web Content Accessibility Guidelines (WCAG). With a practical, solutions-driven approach, our ADA compliance consultants help your team navigate accessibility challenges and maintain full compliance.</p>
 		    </div>
-		    <div className="w-full order-2 sm:w-2/5 text-center">
-		      <div className="w-3/5 mx-auto">
-		        <IconServiceConsulting />
-		      </div>
-		    </div>
 		  </div>
 
 		  {/* PDF Remediation */}
-		  <div className="flex flex-col sm:flex-row items-center sm:items-start  py-10 sm:py-20 max-w-6xl mx-auto">
-		    {/* For mobile: text first, then image */}
-		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
-		      <div className="w-4/5 mx-auto sm:mx-0">
-		        <IconServicePDF/>
-		      </div>
-		    </div>
-		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
+		    <div className="w-full order-1 sm:w-3/5 px-10 sm:px-0 sm:pr-16 mb-8 sm:mb-0">
 				<Heading showHeading={showHeading}>
 			        <Link href="/services/pdf-remediation">PDF Remediation</Link>
 				</Heading>
 		      <p className="text-center sm:text-left text-xl">
 			  Make your PDFs as accessible as your website. Our PDF remediation services ensure your documents meet compliance standards, making them easy to read, navigate, and interact with for all users, including those with disabilities. No matter your industry, accessible PDFs help everyone access important information with ease.
 				</p>
+		    </div>
+		    <div className="w-full order-2 sm:w-2/5 text-center">
+		      <div className="w-4/5 mx-auto">
+		        <IconServicePDF/>
+		      </div>
 		    </div>
 		  </div>
 

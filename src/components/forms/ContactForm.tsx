@@ -226,8 +226,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
 
     const legendText = isPartnerForm
-        ? 'Reach Out to Discuss a Strategic Partnership with Your Team'
-        : 'Contact Us for a Free Initial Consultation'
+        ? 'Discuss a Strategic Partnership with Our Team'
+        : 'Contact Us'
 
     return (
         <div
@@ -238,17 +238,16 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6">
                     <FieldSet
                         legend={legendText}
-                        legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-bold text-center py-4 w-full mb-3`}
+                        legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-extrabold text-slate-900 text-center py-2 w-full mb-1`}
                     >
-                        <p className="mb-2">
-                            <span className="text-[#da3940]">*</span> indicates
-                            required field
+                        <p className="text-center text-xs text-slate-500 mb-6">
+                            <span className="text-[#da3940]">*</span> indicates required field
                         </p>
-                        <div className="grid grid-cols-1 gap-x-8 md:grid-cols-2 md:gap-y-6">
+                        <div className="grid grid-cols-1 gap-x-6 md:grid-cols-2">
                             <div>
                                 <Input
                                     autoComplete="given-name"
-                                    className="text-xl"
+                                    className="text-base font-medium text-slate-800"
                                     errorText={errors['contact-first-name']}
                                     id="contact-first-name"
                                     label="First name"
@@ -264,7 +263,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                             <div>
                                 <Input
                                     autoComplete="family-name"
-                                    className="text-xl"
+                                    className="text-base font-medium text-slate-800"
                                     errorText={errors['contact-last-name']}
                                     id="contact-last-name"
                                     label="Last name"
@@ -281,7 +280,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         <div>
                             <Input
                                 autoComplete="organization"
-                                className="text-xl"
+                                className="text-base font-medium text-slate-800"
                                 errorText={errors['organization-name']}
                                 id="organization-name"
                                 label="Organization name"
@@ -294,7 +293,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         </div>
                         <div>
                             <Input
-                                className="text-xl"
+                                className="text-base font-medium text-slate-800"
                                 errorText={errors['contact-email']}
                                 label="Business email"
                                 name="contact-email"
@@ -309,7 +308,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         </div>
                         <div>
                             <Input
-                                className="text-xl"
+                                className="text-base font-medium text-slate-800"
                                 errorText={errors['contact-phone']}
                                 label="Phone number"
                                 name="contact-phone"
@@ -323,7 +322,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         </div>
                         <div>
                             <TextArea
-                                className="text-xl"
+                                className="text-base font-medium text-slate-800"
                                 errorText={errors['contact-message']}
                                 label="Message"
                                 name="contact-message"
@@ -340,15 +339,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
                             />
                         </div>
                         <Button
-                            className={`w-full rounded-md border-2 px-6 py-3 text-center text-xl font-bold uppercase text-white ${
+                            className={`w-full rounded-xl border-none px-6 py-4 text-center text-base font-bold text-white shadow-md transition-all ${
                                 isSubmitting
-                                    ? 'cursor-not-allowed border-gray-400 bg-gray-400'
-                                    : 'border-[#0E8168] bg-[#0E8168] hover:border-[#001d2f] hover:bg-[#001d2f]'
+                                    ? 'cursor-not-allowed bg-slate-400'
+                                    : 'bg-[#0E8168] hover:bg-[#0a6b57]'
                             }`}
                             type="submit"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                            {isSubmitting ? 'Sending Message...' : 'Send Message'}
                         </Button>
                     </FieldSet>
                 </div>

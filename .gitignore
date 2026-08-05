@@ -47,3 +47,8 @@ cms.a11ypros.com
 
 # Local Netlify folder
 .netlify
+
+# Secrets / credentials
+gsc-key.json
+*-key.json
+

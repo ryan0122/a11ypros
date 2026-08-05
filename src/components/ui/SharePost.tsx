@@ -1,14 +1,14 @@
 "use client"; // This makes it a Client Component
 
 import {
-	EmailIcon,
-	EmailShareButton,
-	FacebookIcon,
-	FacebookShareButton,
-	LinkedinIcon,
-	LinkedinShareButton,
-	TwitterIcon,
-	TwitterShareButton,
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
 } from "react-share";
 
 interface SharePostProps {
@@ -18,8 +18,8 @@ interface SharePostProps {
 
 export default function SharePost({ url, title }: SharePostProps) {
   return (
-    <div className="sm:mt-4 text-center md:text-left">
-      <p className="font-semibold mb-2">Share this post:</p>
+    <div className="text-center md:text-left">
+      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-0 mb-3">Share this post</h4>
       <div className="flex gap-3">
         {/* Facebook Share */}
         <FacebookShareButton url={url} aria-label="Share on Facebook">
