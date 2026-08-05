@@ -4,7 +4,7 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ShieldCheck, CheckCircle2, UserCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, UserCheck, Sparkles } from 'lucide-react'
 
 export default async function HomeTemplate({
     title,
@@ -24,9 +24,6 @@ export default async function HomeTemplate({
                 <div className="home-hero isolate mx-auto w-full px-6 py-12 lg:px-8 bg-slate-50 border-b border-slate-200">
                     <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 text-left md:flex-row">
                         <div className="flex flex-col max-w-2xl justify-center md:w-3/5">
-                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-3 w-fit">
-                                <ShieldCheck className="w-4 h-4" /> Certified WCAG 2.1/2.2 AA & VPAT® Experts
-                            </span>
                             <h1 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
                                 WCAG, ADA & Section 508
                                 <span className="block font-semibold text-2xl sm:text-3xl text-slate-700 mt-1">
