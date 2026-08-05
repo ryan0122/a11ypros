@@ -46,12 +46,8 @@ export default function Footer() {
   const [is404, setIs404] = useState(false);
 
   useEffect(() => {
-    if (document.title.includes("Page Not Found")) {
-      setIs404(true);
-    } else {
-      setIs404(false);
-    }
-  }, []);
+    setIs404(document.title.includes('Page Not Found'))
+  }, [pathname]);
 
   const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
 
