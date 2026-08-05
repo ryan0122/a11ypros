@@ -19,7 +19,7 @@ interface SharePostProps {
 export default function SharePost({ url, title }: SharePostProps) {
   return (
     <div className="text-center md:text-left">
-      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-0 mb-3">Share this post</h4>
+      <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-0 mb-3">Share this post</p>
       <div className="flex gap-3">
         {/* Facebook Share */}
         <FacebookShareButton url={url} aria-label="Share on Facebook">
