@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Services from '@/components/features/Services';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface PageProps {
   title: string;
@@ -48,11 +48,11 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
               </div>
               {featuredImage && (
                 <div className="flex-1 flex justify-center lg:justify-end">
-                  <Image 
-                    src={featuredImage.source_url} 
-                    alt={featuredImage.alt_text || ''} 
-                    width={600} 
-                    height={450} 
+                  <Image
+                    src={featuredImage.source_url}
+                    alt={featuredImage.alt_text || ''}
+                    width={600}
+                    height={450}
                     className="rounded-2xl w-full max-w-lg h-auto object-cover"
                     priority
                   />
@@ -130,7 +130,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
         {/* Overview Services Grid */}
         {isServices && (
           <div className="mt-16 border-t border-slate-200 pt-12 max-w-6xl mx-auto px-6">
-            <Services showHeading={false}/>
+            <Services showHeading={false} />
           </div>
         )}
       </main>
