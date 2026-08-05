@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SharePost from '@/components/ui/SharePost'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
-import { Calendar, User, Clock, ShieldCheck, ArrowRight } from 'lucide-react'
+import { Calendar, User, Clock, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react'
 
 export interface ArticleTemplateProps {
   post: {
@@ -13,32 +13,39 @@ export interface ArticleTemplateProps {
     author_name?: string
     featured_image_url?: string
     rankMathSchema?: string
+    slug: string
   }
   postUrl: string
 }
 
 export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps) {
-  const postContent = post.content?.rendered || '<p>No content available.</p>'
+  const authorName = post.author_name || 'A11y Pros Editorial Team'
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
 
-  // Estimate read time (avg 220 wpm)
-  const wordCount = postContent.replace(/<[^>]*>/g, '').split(/\s+/).length
-  const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 220))
+  // Estimate read time (avg 200 words/min)
+  const plainText = post.content?.rendered.replace(/<[^>]*>/g, '') || ''
+  const wordCount = plainText.split(/\s+/).length
+  const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200))
 
   return (
-    <div className="bg-white min-h-screen font-[family-name:var(--font-inter)] text-slate-900">
+    <article className="min-h-screen bg-white font-[family-name:var(--font-inter)] text-slate-900">
       {/* Breadcrumbs Header */}
       <div className="bg-slate-50 border-b border-slate-200 py-3">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <Breadcrumbs />
         </div>
       </div>
 
       <main id="main-content" tabIndex={-1} className="py-10">
-        <article className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           {/* Article Header */}
-          <header className="max-w-3xl mx-auto text-left mb-8">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-4">
-              <ShieldCheck className="w-4 h-4" /> Web Accessibility Article
+          <header className="max-w-4xl mx-auto mb-10 text-center">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#084A3B]/10 text-[#084A3B] text-xs font-bold uppercase tracking-wider mb-4">
+              <ShieldCheck className="w-4 h-4" /> Accessibility Insights
             </span>
 
             <h1
@@ -47,25 +54,19 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
             />
 
             {/* Metadata Bar */}
-            <div className="flex flex-wrap items-center gap-6 py-4 border-y border-slate-200 text-sm text-slate-600 font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-slate-600 font-medium pb-6 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-[#0E8168]" />
-                <span>By <strong>{post.author_name || 'A11y Pros Expert'}</strong></span>
+                <User className="w-4 h-4 text-[#084A3B]" />
+                <span>{authorName}</span>
               </div>
 
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-[#0E8168]" />
-                <time dateTime={new Date(post.date).toISOString().split('T')[0]}>
-                  {new Date(post.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
+                <Calendar className="w-4 h-4 text-[#084A3B]" />
+                <time dateTime={new Date(post.date).toISOString()}>{formattedDate}</time>
               </div>
 
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#0E8168]" />
+                <Clock className="w-4 h-4 text-[#084A3B]" />
                 <span>{readTimeMinutes} min read</span>
               </div>
             </div>
@@ -85,21 +86,42 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
             </div>
           )}
 
-          {/* Grid Layout: Main Article Content + Sidebar */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Sidebar (Desktop & Tablet) */}
-            <aside className="lg:col-span-3 lg:order-2 space-y-6">
-              <div className="sticky top-16 bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-6">
+          {/* Main Article Grid: Body + Sticky Sidebar */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Sticky Sidebar (Social Share + UI Component Library Card + CTA) */}
+            <aside className="lg:col-span-3 lg:order-2 space-y-6 lg:sticky lg:top-8">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-5 shadow-sm">
                 <div>
                   <SharePost url={postUrl} title={post.title.rendered} />
                 </div>
 
                 <hr className="border-slate-200" />
 
-                {/* Versatile Consultation CTA Box */}
+                {/* Free Developer UI Library Card */}
+                <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#084A3B] block">
+                    Free Developer Tool
+                  </span>
+                  <h4 className="text-xs font-bold text-slate-900 leading-snug">A11Y UI Component Library</h4>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Free, open-source WCAG 2.2 AA compliant React & HTML components tested with screen readers.
+                  </p>
+                  <a
+                    href="https://ui.a11ypros.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#084A3B] hover:underline pt-1"
+                  >
+                    Browse Components <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                <hr className="border-slate-200" />
+
+                {/* Consultation CTA Box */}
                 <div className="space-y-3">
-                  <h4 className="text-sm font-bold text-slate-900">Need Accessibility Help?</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <h4 className="text-xs font-bold text-slate-900">Need Accessibility Help?</h4>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
                     Speak with our accessibility team for WCAG audits, remediation, or compliance strategy.
                   </p>
                   <Link
@@ -117,39 +139,36 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
               <div
                 className="prose prose-slate prose-lg max-w-none 
                   prose-headings:font-bold prose-headings:text-slate-900 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-slate-200 prose-h2:pb-2
-                  prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-5
-                  prose-a:text-[#0E8168] prose-a:font-semibold hover:prose-a:underline
-                  prose-ul:list-disc prose-ul:pl-6 prose-li:mb-2 prose-li:text-slate-700
-                  prose-blockquote:border-l-4 prose-blockquote:border-[#0E8168] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg"
-                dangerouslySetInnerHTML={{ __html: postContent }}
-                suppressHydrationWarning
+                  prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+                  prose-p:text-slate-700 prose-p:leading-relaxed
+                  prose-a:text-[#084A3B] prose-a:font-semibold hover:prose-a:underline
+                  prose-img:rounded-xl prose-img:shadow-md
+                  prose-blockquote:border-l-4 prose-blockquote:border-[#084A3B] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg"
+                dangerouslySetInnerHTML={{ __html: post.content?.rendered || '' }}
               />
 
-              {/* General Accessibility Services Banner */}
-              <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6 bg-slate-900 text-white p-8 rounded-2xl">
-                <div>
-                  <h4 className="font-bold text-white text-lg mb-1">Achieve Digital Accessibility Compliance</h4>
-                  <p className="text-sm text-slate-300">Explore our manual WCAG auditing, website remediation, PDF compliance, and consulting services.</p>
+              {/* Versatile Bottom Services & Audit Callout */}
+              <div className="mt-12 p-8 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-[#14b895] uppercase tracking-wider">Audit & Remediation Services</span>
+                  <h3 className="text-xl font-bold text-white">Achieve Digital Accessibility Compliance</h3>
+                  <p className="text-sm text-slate-300 max-w-xl leading-relaxed">
+                    Explore our manual WCAG 2.1/2.2 AA auditing, website remediation, PDF compliance, and VPAT® documentation services.
+                  </p>
                 </div>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-2 bg-[#0E8168] hover:bg-[#0a6b57] text-white font-bold py-3 px-6 rounded-xl transition-colors text-sm shrink-0"
-                >
-                  Explore Services <ArrowRight className="w-4 h-4" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center justify-center gap-2 bg-[#0E8168] hover:bg-[#0a6b57] text-white text-sm font-bold py-3 px-5 rounded-xl transition-colors"
+                  >
+                    View Services <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </article>
-
-        {/* RankMath JSON-LD Schema */}
-        {post.rankMathSchema && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: post.rankMathSchema }}
-          />
-        )}
+        </div>
       </main>
-    </div>
+    </article>
   )
 }
