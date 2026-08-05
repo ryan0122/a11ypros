@@ -4,7 +4,7 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, UserCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, UserCheck, Sparkles } from 'lucide-react'
 
 export default async function HomeTemplate({
     title,
