@@ -8,9 +8,6 @@ export default function ContactPageForm() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-4">
-            <ShieldCheck className="w-4 h-4" /> Reach Out To Our Team
-          </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
             Get in Touch with A11y Pros
           </h1>
@@ -34,7 +31,7 @@ export default function ContactPageForm() {
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Phone</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Phone</span>
                 <p className="font-bold text-slate-900 text-lg group-hover:text-[#0E8168] transition-colors mt-0.5">
                   +1 (720) 722-1775
                 </p>
@@ -51,7 +48,7 @@ export default function ContactPageForm() {
                 <Mail className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Email</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Email</span>
                 <p className="font-bold text-slate-900 text-lg group-hover:text-[#0E8168] transition-colors mt-0.5">
                   info@a11ypros.com
                 </p>
@@ -65,7 +62,7 @@ export default function ContactPageForm() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">USA Headquarters</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">USA Headquarters</span>
                 <address className="not-italic text-sm text-slate-800 font-semibold leading-relaxed mt-1">
                   1905 Sherman Street<br />
                   Ste 200 #2042<br />
