@@ -16,8 +16,8 @@ export interface PublishResult {
   status: string
 }
 
-const CMS_BASE = process.env.NEXT_PUBLIC_CMS_URL || "https://cms.a11ypros.com/wp-json/wp/v2"
-const AUTH_HEADER = process.env.NEXT_PUBLIC_WP_AUTH || ""
+const CMS_BASE = process.env.CMS_BASE_URL || process.env.NEXT_PUBLIC_CMS_URL || 'https://cms.a11ypros.com/wp-json/wp/v2'
+const AUTH_HEADER = process.env.WP_AUTH || process.env.NEXT_PUBLIC_WP_AUTH || ''
 
 /**
  * Publish a new blog post directly to WordPress Headless CMS
