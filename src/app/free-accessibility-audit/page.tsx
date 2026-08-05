@@ -297,7 +297,7 @@ export default function FreeAudit() {
                                     if (!url || !email) return
                                     setLoading(true)
                                     try {
-                                        await fetch('/api/contact', {
+                                        const res = await fetch('/api/contact', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({
@@ -308,6 +308,7 @@ export default function FreeAudit() {
                                                 'contact-message': `[FREE MANUAL TEASER AUDIT REQUEST]\nSite URL: ${url}`,
                                             }),
                                         })
+                                        if (!res.ok) throw new Error(`Request failed (${res.status})`)
                                         setEmailSubmitted(true)
                                     } catch {
                                         setError('Failed to submit request. Please try again.')
