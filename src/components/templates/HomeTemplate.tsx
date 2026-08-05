@@ -48,15 +48,6 @@ export default async function HomeTemplate({
                                     Contact Us
                                 </Link>
                             </div>
-
-                            <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-slate-600 font-medium">
-                                <span className="flex items-center gap-1.5">
-                                    <CheckCircle2 className="w-4 h-4 text-[#0E8168]" /> 100% Manual Human Testing
-                                </span>
-                                <span className="flex items-center gap-1.5">
-                                    <CheckCircle2 className="w-4 h-4 text-[#0E8168]" /> Official VPAT® 2.5 ACR
-                                </span>
-                            </div>
                         </div>
 
                         <div className="flex justify-center md:w-2/5 w-full">
