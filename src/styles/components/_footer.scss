@@ -2,23 +2,23 @@
 @use "tailwindcss/utilities";
 
 .footer-form {
-	background: #fff;
-	border-top: 2px vars.$border-light solid;
-	/* Medium breakpoint and up */
-	@screen lg {
-		background: #fff url('/contact_us_footer_bg.svg') no-repeat 20% center;
-	}
+	background: #f8fafc;
+	border-top: 1px #e2e8f0 solid;
+	padding-block: 4rem;
 }
 
 .footer-form form {
-	background: #fff;
-	padding: 20px;
+	background: #ffffff;
+	border-radius: 1rem;
+	border: 1px #e2e8f0 solid;
+	padding: 2.5rem;
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
 }
 
 .bottom-footer {
 	background: vars.$bg-dark;
 	color: white;
-	padding-block: 2rem;
+	padding-block: 2.5rem;
 }
 
 .bottom-footer a,

@@ -13,6 +13,7 @@
       "dependencies": [
         "npm:@eslint/eslintrc@3",
         "npm:@svgr/webpack@^8.1.0",
+        "npm:@tailwindcss/typography@~0.5.19",
         "npm:@types/he@^1.2.3",
         "npm:@types/node@20",
         "npm:@types/react-dom@19",
@@ -23,7 +24,7 @@
         "npm:eslint@9",
         "npm:he@^1.2.0",
         "npm:lucide-react@0.555",
-        "npm:next@15.1.6",
+        "npm:next@15.1.9",
         "npm:pa11y@7",
         "npm:postcss@8",
         "npm:prettier-plugin-tailwindcss@~0.6.11",
