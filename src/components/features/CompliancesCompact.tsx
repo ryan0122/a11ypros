@@ -16,7 +16,7 @@ export default function CompliancesCompact() {
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="md:w-1/3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#001d2f] text-xs font-bold uppercase tracking-wider mb-2">
               <ShieldCheck className="w-4 h-4" /> Full Coverage
             </span>
             <h3 className="text-xl font-bold text-slate-900">Compliance Standards</h3>
