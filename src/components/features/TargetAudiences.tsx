@@ -1,5 +1,5 @@
 import React from 'react'
-import { Building2, Code2, ShoppingCart, ShieldAlert, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Building2, Code2, ShoppingCart, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default function TargetAudiences() {

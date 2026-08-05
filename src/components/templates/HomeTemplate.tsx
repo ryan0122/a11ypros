@@ -4,14 +4,17 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ShieldCheck, CheckCircle2, UserCheck, Sparkles, Building2 } from 'lucide-react'
+import { ArrowRight, ShieldCheck, CheckCircle2, UserCheck, Sparkles } from 'lucide-react'
 
 export default async function HomeTemplate({
+    title,
     content,
 }: {
-    title: string
-    content: string
-}) {
+    title?: string
+    content?: string
+} = {}) {
+    void title
+    void content
     const posts: Post[] = await getPostsForListing()
 
     return (

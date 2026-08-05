@@ -321,7 +321,7 @@ export default function FreeAudit() {
                                     <div className="p-6 bg-[#0E8168]/20 border border-[#0E8168] rounded-xl text-center">
                                         <h4 className="text-xl font-bold text-[#14b895] mb-2">Teaser Audit Request Received!</h4>
                                         <p className="text-sm text-slate-200">
-                                            We'll manually inspect <strong>{url}</strong> and send your video breakdown to <strong>{email}</strong> within 24 hours.
+                                            We&apos;ll manually inspect <strong>{url}</strong> and send your video breakdown to <strong>{email}</strong> within 24 hours.
                                         </p>
                                     </div>
                                 ) : (
