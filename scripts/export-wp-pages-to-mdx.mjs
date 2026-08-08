@@ -17,7 +17,7 @@ const turndownService = new TurndownService({
 
 turndownService.addRule('strikethrough', {
   filter: ['del', 's', 'strike'],
-  replacement: (content) => `~${content}~`,
+  replacement: (content) => `~~${content}~~`,
 })
 
 async function downloadImage(url, destPath) {
