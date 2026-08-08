@@ -1,123 +1,119 @@
-import extractJsonLD from "@/utils/extractJsonLD";
+import fs from 'node:fs'
+import path from 'node:path'
+import matter from 'gray-matter'
+import { remark } from 'remark'
+import html from 'remark-html'
+
+const PAGES_DIR = path.join(process.cwd(), 'src', 'content', 'pages')
 
 interface FAQItem {
-	faq_question: string;
-	faq_answer: string;
+  question: string
+  answer: string
+}
+
+export interface PageData {
+  id: number
+  slug: string
+  title: { rendered: string }
+  content: { rendered: string }
+  parentSlug?: string | null
+  featuredImage?: { source_url: string; alt_text?: string } | null
+  faqs: FAQItem[]
+}
+
+function stringToNumericId(str: string): number {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash |= 0
+  }
+  return Math.abs(hash)
+}
+
+/**
+ * Fetch Page data directly from local MDX files in src/content/pages/
+ */
+export async function getPageData(slug: string): Promise<PageData | null> {
+  if (!fs.existsSync(PAGES_DIR)) {
+    return null
   }
 
-export async function getPageData(slug: string) {
-	if (!process.env.NEXT_PUBLIC_CMS_URL) {
-	  console.error("❌ ERROR: `NEXT_PUBLIC_CMS_URL` is not defined in `.env.local`");
-	  return null;
-	}
-	
-	const apiUrl = `${process.env.NEXT_PUBLIC_CMS_URL}/pages?slug=${slug}&_fields=id,slug,title,content,parent,featured_media,acf`;
-	
-	try {
-	  const res = await fetch(apiUrl, {
-		cache: "no-store",
-		headers: {
-		  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-		},
-	  });
-	  
-	  if (!res.ok) {
-		console.error(`❌ ERROR: Failed to fetch page data (Status ${res.status})`);
-		return null;
-	  }
-	  
-	  const pages = await res.json();
-	  if (!pages.length) return null;
-	  
-	  const page = pages[0];
-	  
-	  // Get featured image if exists
-	  let featuredImage = null;
-	  if (page.featured_media) {
-		const mediaRes = await fetch(
-		  `${process.env.NEXT_PUBLIC_CMS_URL}/media/${page.featured_media}?_fields=source_url,alt_text,caption`,
-		  {
-			headers: {
-			  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-			},
-		  }
-		);
-		
-		if (mediaRes.ok) {
-		  featuredImage = await mediaRes.json();
-		}
-	  }
-	  
-	  let parentSlug = null;
-	  if (page.parent) {
-		const parentRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages/${page.parent}?_fields=slug`, {
-		  headers: {
-			Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-		  },
-		});
-		
-		if (parentRes.ok) {
-		  const parentData = await parentRes.json();
-		  parentSlug = parentData.slug;
-		}
-	  }
-
-	  let faqs: { question: string; answer: string }[] = [];
-
-	  if (Array.isArray(page.acf?.['faq-acf-repeater'])) {
-		faqs = (page.acf['faq-acf-repeater'] as FAQItem[]).map((faq) => ({
-		  question: faq.faq_question,
-		  answer: faq.faq_answer,
-		}));
-	  }
-	  
-	  return { ...page, parentSlug, featuredImage, faqs };
-	} catch (error) {
-	  console.error("❌ ERROR: Fetch request to WordPress API failed", error);
-	  return null;
-	}
+  let filePath = path.join(PAGES_DIR, `${slug}.mdx`)
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(PAGES_DIR, `${slug}.md`)
+    if (!fs.existsSync(filePath)) {
+      // Fallback: search files for matching frontmatter slug
+      const fileNames = fs.readdirSync(PAGES_DIR)
+      for (const fn of fileNames) {
+        const fullPath = path.join(PAGES_DIR, fn)
+        if (fs.statSync(fullPath).isDirectory()) continue
+        const fileContents = fs.readFileSync(fullPath, 'utf-8')
+        const { data } = matter(fileContents)
+        if (data.slug === slug) {
+          filePath = fullPath
+          break
+        }
+      }
+    }
   }
-  
 
-  export async function getPageMetaData(slug: string) {
-	if (!process.env.NEXT_PUBLIC_SEO_URL || !process.env.NEXT_PUBLIC_CMS_URL) return null;
-  
-	const seoApiUrl = `${process.env.NEXT_PUBLIC_SEO_URL}https://cms.a11ypros.com/${slug}`;
-  
-	try {
-	  // ✅ Fetch RankMath metadata & SEO data in a single request
-	  const res = await fetch(seoApiUrl, {
-		cache: "no-store",
-		method: "GET",
-		headers: {
-		  Authorization: `${process.env.NEXT_PUBLIC_WP_AUTH}`,
-		  "Cache-Control": "no-cache",
-		},
-	  });
-  
-	  if (!res.ok) {
-		console.error("❌ ERROR: Failed to fetch RankMath metadata:", res.status);
-		return null;
-	  }
-  
-	  const data = await res.json();
-  
-	  // ✅ Extract description from meta tags
-	  let seoDescription = "";
-	  const descriptionMatch = data.head?.match(/<meta name="description" content="(.*?)"\s*\/?>/i);
-	  if (descriptionMatch) {
-		seoDescription = descriptionMatch[1];
-	  }
-  
-	  // ✅ Extract JSON-LD & FAQs from RankMath
-	  const rankMathMeta = data.head || "";
-	  const rankMathSchema = extractJsonLD(rankMathMeta);
-  
-	  return { description: seoDescription, rankMathMeta, rankMathSchema};
-	} catch (error) {
-	  console.error("❌ ERROR: Fetch request to RankMath API failed:", error);
-	  return null;
-	}
+  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    return null
   }
-  
-  
+
+  const fileContents = fs.readFileSync(filePath, 'utf-8')
+  const { data, content } = matter(fileContents)
+
+  // Convert markdown to HTML string
+  const processedContent = await remark().use(html).process(content)
+  const contentHtml = processedContent.toString()
+
+  const id = stringToNumericId(slug)
+
+  return {
+    id,
+    slug: data.slug || slug,
+    title: { rendered: data.title || slug },
+    content: { rendered: contentHtml },
+    parentSlug: data.parentSlug || null,
+    featuredImage: data.featuredImage || null,
+    faqs: Array.isArray(data.faqs) ? data.faqs : [],
+  }
+}
+
+/**
+ * Fetch SEO metadata directly from local MDX frontmatter
+ */
+export async function getPageMetaData(fullSlug: string) {
+  // Extract child slug if path is parent/child
+  const parts = fullSlug.split('/')
+  const slug = parts[parts.length - 1]
+
+  const page = await getPageData(slug)
+  if (!page) return null
+
+  // Re-read file frontmatter for RankMath fields
+  let filePath = path.join(PAGES_DIR, `${slug}.mdx`)
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(PAGES_DIR, `${slug}.md`)
+  }
+
+  let rankMathSchema = ''
+  let description = ''
+  let rankMathMeta = ''
+
+  if (fs.existsSync(filePath) && !fs.statSync(filePath).isDirectory()) {
+    const fileContents = fs.readFileSync(filePath, 'utf-8')
+    const { data } = matter(fileContents)
+    description = data.seoDescription || ''
+    rankMathSchema = data.rankMathSchema || ''
+    rankMathMeta = data.seoTitle || data.title || ''
+  }
+
+  return {
+    description,
+    rankMathMeta,
+    rankMathSchema,
+  }
+}

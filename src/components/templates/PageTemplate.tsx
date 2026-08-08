@@ -10,9 +10,9 @@ interface PageProps {
   slug: string;
   featuredImage?: {
     source_url: string;
-    alt_text: string;
+    alt_text?: string;
     caption?: string;
-  };
+  } | null;
 }
 
 export default function PageTemplate({ title, content, featuredImage, slug }: PageProps) {

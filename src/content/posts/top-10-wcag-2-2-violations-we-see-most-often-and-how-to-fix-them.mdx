@@ -1,0 +1,108 @@
+---
+title: Top 10 WCAG 2.2 Violations We See Most Often (and How to Fix Them
+slug: top-10-wcag-2-2-violations-we-see-most-often-and-how-to-fix-them
+date: '2025-05-14T18:54:41'
+author_name: Ryan Mack
+excerpt: >-
+  Web accessibility is no longer optional—it’s essential. As digital
+  accessibility lawsuits continue to rise, WCAG 2.2 compliance has become a
+  critical part of building modern websites. At A11y Pros, we conduct audits
+  across various industries, and these are the most common WCAG 2.2 violations
+  we encounter—along with practical tips on how to fix them. 1. [&hellip;]
+featured_image_url: >-
+  /images/blog/top-10-wcag-2-2-violations-we-see-most-often-and-how-to-fix-them.svg
+seoTitle: Top 10 WCAG 2.2 Violations We See Most Often (and How to Fix Them
+seoDescription: >-
+  Web accessibility is no longer optional—it’s essential. As digital
+  accessibility lawsuits continue to rise, WCAG 2.2 compliance has become a
+  critical part of building modern websites. At A11y Pros, we conduct audits
+  across various industries, and these are the most common WCAG 2.2 violations
+  we encounter—along with practical tips on how to fix them. 1. [&hellip;]
+rankMathSchema: >-
+  {"@context":"https://schema.org","@graph":[{"@type":"Place","@id":"https://cms.a11ypros.com/#place","address":{"@type":"PostalAddress","streetAddress":"1905
+  Sherman Street Ste 200
+  #2042","addressLocality":"Denver","addressRegion":"Colorado","postalCode":"80203","addressCountry":"US"}},{"@type":"Organization","@id":"https://cms.a11ypros.com/#organization","name":"A11y
+  Pros","url":"https://a11ypros.com","email":"info@a11ypros.com","address":{"@type":"PostalAddress","streetAddress":"1905
+  Sherman Street Ste 200
+  #2042","addressLocality":"Denver","addressRegion":"Colorado","postalCode":"80203","addressCountry":"US"},"logo":{"@type":"ImageObject","@id":"https://cms.a11ypros.com/#logo","url":"https://cms.a11ypros.com/wp-content/uploads/2025/03/a11ypros_logo_web_square.png","contentUrl":"https://cms.a11ypros.com/wp-content/uploads/2025/03/a11ypros_logo_web_square.png","caption":"A11y
+  Pros","inLanguage":"en-US","width":"934","height":"934"},"contactPoint":[{"@type":"ContactPoint","telephone":"+1-720-722-1775","contactType":"customer
+  support"}],"description":"Our expertise in digital accessibility is both deep
+  and comprehensive. At A11y Pros, we bring together a team of senior-level
+  accessibility consultants with over a decade of hands-on experience performing
+  accessibility audits, testing, and remediation. We specialize in helping
+  organizations achieve and maintain compliance with the Web Content
+  Accessibility Guidelines (WCAG) 2.1 and 2.2, as well as legal standards such
+  as the Americans with Disabilities Act (ADA), Section 508 of the
+  Rehabilitation Act, the European EN 301 549 standard, the Accessible Canada
+  Act (ACA), and various U.S. state-level digital accessibility
+  laws.\r\n\r\nWhether you\u2019re developing a public-facing website, a SaaS
+  platform, or a mobile application, our consultants know how to uncover
+  critical accessibility barriers and provide practical, code-level solutions.
+  We work directly with your design, development, and content teams to ensure
+  your digital products are usable by everyone\u2014including users who rely on
+  screen readers, keyboard navigation, or assistive
+  technologies.","legalName":"A11Y
+  Pros","location":{"@id":"https://cms.a11ypros.com/#place"}},{"@type":"WebSite","@id":"https://cms.a11ypros.com/#website","url":"https://cms.a11ypros.com","name":"A11y
+  Pros","publisher":{"@id":"https://cms.a11ypros.com/#organization"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"#breadcrumb","itemListElement":[{"@type":"ListItem","position":"1","item":{"@id":"https://a11ypros.com","name":"Home"}}]},{"@type":"WebPage","@id":"#webpage","url":"","isPartOf":{"@id":"https://cms.a11ypros.com/#website"},"inLanguage":"en-US","breadcrumb":{"@id":"#breadcrumb"}}]}
+---
+Web accessibility is no longer optional—it’s essential. As digital accessibility lawsuits continue to rise, WCAG 2.2 compliance has become a critical part of building modern websites. At A11y Pros, we conduct audits across various industries, and these are the most common WCAG 2.2 violations we encounter—along with practical tips on how to fix them.
+
+## 1\. Missing Form Labels
+
+**Why it matters:** Screen reader users rely on labels to understand the purpose of form inputs.   
+**Fix:** Always use a `<label>`element with a `for` attribute that matches the input’s `id`, or use `aria-label` or `aria-labelledby` if a visual label isn’t present.
+
+## 2\. Low Color Contrast
+
+**Why it matters:** Users with low vision or color blindness may not be able to read text with insufficient contrast.   
+**Fix:** Ensure text has at least a 4.5:1 contrast ratio (3:1 for large text). Use tools like WebAIM’s Contrast Checker.
+
+## 3\. Keyboard Traps or No Keyboard Access
+
+**Why it matters:** Users who navigate via keyboard must be able to access all interactive elements.   
+**Fix:** Test your site with only a keyboard. Ensure that all buttons, links, modals, and inputs are reachable and operable.
+
+## 4\. Missing Focus Indicators
+
+**Why it matters:** Without visible focus, keyboard users can’t tell where they are on the page.   
+**Fix:** Never remove outlines via CSS (`outline: none`) unless replacing them with a clear custom style.
+
+## 5\. Improper Use of ARIA
+
+**Why it matters:** Misusing ARIA can break accessibility rather than enhance it.   
+**Fix:** Follow the ARIA authoring practices and use native HTML whenever possible before reaching for ARIA.
+
+## 6\. Non-Descriptive Link Text
+
+**Why it matters:** Screen reader users often navigate by links and need context.   
+**Fix:** Avoid generic text like “Click here.” Use descriptive links such as “Download our accessibility checklist.”
+
+## 7\. Inaccessible Modals or Dialogs
+
+**Why it matters:** Many modals are not announced properly by screen readers or trap keyboard users.  
+ **Fix:** Ensure modals use `role="dialog"`, manage focus when opened/closed, and include accessible labels.
+
+## 8\. Auto-Playing Media Without Controls
+
+**Why it matters:** Users must be able to pause, stop, or control media.   
+**Fix:** Include controls for video/audio or avoid auto-play altogether.
+
+## 9\. Poor Heading Structure
+
+**Why it matters:** Headings provide a navigable page outline for screen reader users.   
+**Fix:** Use semantic heading levels (`<h1>` through `<h6>`) in order and don’t skip levels unnecessarily.
+
+## 10\. Inaccessible Custom Components
+
+**Why it matters:** Components like dropdowns, tabs, and sliders are often not usable by screen reader or keyboard users.  
+**Fix:** Follow ARIA authoring practices or use accessible component libraries. Test with screen readers and keyboards.
+
+## How to Stay Compliant
+
+Avoiding these issues requires more than a checklist—it requires a mindset. Integrate accessibility into your design and development process from the start. Use a combination of automated tools and manual testing, and train your team on accessibility basics.
+
+## Need Help?
+
+A11y Pros specializes in [WCAG 2.2 audits](https://a11ypros.com/services/wcag-compliance-auditing), [remediation](https://a11ypros.com/services/website-remediation), and [compliance consulting](https://a11ypros.com/services/web-accessibility-consulting). Whether you’re building from scratch or retrofitting an existing site, we can help you meet accessibility standards and reduce legal risk.
+
+[Contact us](https://a11ypros.com/contact-us) today for a free consultation.

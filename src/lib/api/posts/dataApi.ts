@@ -1,203 +1,147 @@
-import extractJsonLD from "@/utils/extractJsonLD";
+import fs from 'node:fs'
+import path from 'node:path'
+import matter from 'gray-matter'
+import { remark } from 'remark'
+import html from 'remark-html'
 
 export interface Post {
-  id: number;
-  title: { rendered: string };
-  excerpt: { rendered: string };
-  slug: string;
-  date: string;
-  author: number;
-  author_name?: string;
-  featured_media: number;
-  featured_image_url?: string;
-  content?: { rendered: string };
-  rankMathMeta?: string;
-  rankMathSchema?: string;
-  seoDescription?: string; // ✅ Add SEO meta description field
-  _embedded?: {
-    "wp:featuredmedia"?: { source_url: string }[];
-    author?: { name: string }[];
-  };
+  id: number
+  title: { rendered: string }
+  excerpt: { rendered: string }
+  slug: string
+  date: string
+  author: number
+  author_name?: string
+  featured_media: number
+  featured_image_url?: string
+  content?: { rendered: string }
+  rankMathMeta?: string
+  rankMathSchema?: string
+  seoDescription?: string
 }
 
-const CMS_URL = "https://cms.a11ypros.com";
-const SITE_URL = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com";
+const POSTS_DIR = path.join(process.cwd(), 'src', 'content', 'posts')
 
 /**
- * ✅ Optimized function to fetch posts for listing pages (no RankMath, uses embedded author)
- * This is much faster as it doesn't make additional API calls per post
+ * Generate a consistent numeric ID from a string slug
  */
-export async function getPostsForListing(): Promise<Post[]> {
-  const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&per_page=100`,
-    { 
-      cache: "force-cache",
-      next: { revalidate: 60 } // Revalidate every 60 seconds
-    }
-  );
+function stringToNumericId(str: string): number {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash |= 0
+  }
+  return Math.abs(hash)
+}
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
+/**
+ * Read and parse all local MDX post files from disk
+ */
+function parseAllLocalPosts(): Post[] {
+  if (!fs.existsSync(POSTS_DIR)) {
+    console.warn(`[MDX Data API Warning] Posts directory not found: ${POSTS_DIR}`)
+    return []
   }
 
-  const posts = await res.json();
+  const fileNames = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.mdx') || f.endsWith('.md'))
+  console.log(`📂 [MDX Data API] Loaded ${fileNames.length} posts directly from local Git files (${POSTS_DIR})`)
 
-  // Map posts without additional API calls - use embedded data
-  return posts.map((post: Post) => {
-    const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
-    // Use embedded author data instead of making separate API call
-    const author_name = post._embedded?.author?.[0]?.name || "Unknown Author";
+  const posts: Post[] = fileNames.map((fileName) => {
+    const filePath = path.join(POSTS_DIR, fileName)
+    const fileContents = fs.readFileSync(filePath, 'utf-8')
+    const { data } = matter(fileContents)
+
+    const slug = data.slug || fileName.replace(/\.mdx?$/, '')
+    const id = stringToNumericId(slug)
 
     return {
-      id: post.id,
-      title: post.title,
-      excerpt: post.excerpt,
-      slug: post.slug,
-      date: post.date,
-      author: post.author,
-      author_name,
-      featured_media: post.featured_media,
-      featured_image_url,
-    };
-  });
+      id,
+      title: { rendered: data.title || '' },
+      excerpt: { rendered: data.excerpt || data.seoDescription || '' },
+      slug,
+      date: data.date || new Date().toISOString(),
+      author: 1,
+      author_name: data.author_name || 'A11y Pros Editorial Team',
+      featured_media: 1,
+      featured_image_url: data.featured_image_url || undefined,
+      seoDescription: data.seoDescription || data.excerpt || '',
+      rankMathSchema: data.rankMathSchema || undefined,
+      rankMathMeta: data.seoTitle || data.title || '',
+    }
+  })
+
+  // Sort posts by date descending
+  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 /**
- * ✅ Fetch all blog posts with RankMath metadata (used for sitemap, etc.)
+ * Fetch all posts for listing pages (fast local disk read)
+ */
+export async function getPostsForListing(): Promise<Post[]> {
+  return parseAllLocalPosts()
+}
+
+/**
+ * Fetch all blog posts with metadata (used for sitemap, etc.)
  */
 export async function getPosts(): Promise<Post[]> {
-  const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?_embed=true&per_page=100`,
-    { cache: "no-store" }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  const posts = await res.json();
-
-  return await Promise.all(
-    posts.map(async (post: Post) => {
-      const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
-      // Use embedded author data if available, fallback to API call
-      let author_name = post._embedded?.author?.[0]?.name || "Unknown Author";
-      
-      if (author_name === "Unknown Author") {
-        try {
-          const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
-          if (authorRes.ok) {
-            const authorData = await authorRes.json();
-            author_name = authorData.name || "Unknown Author";
-          }
-        } catch (error) {
-          console.error("Error fetching author:", error);
-        }
-      }
-
-      // ✅ Fetch RankMath metadata
-      let rankMathMeta = "";
-      let rankMathSchema = "";
-      let seoDescription = "";
-      try {
-        const rankMathRes = await fetch(`${CMS_URL}/wp-json/rankmath/v1/getHead?url=${SITE_URL}/blog/${post.slug}`);
-        if (rankMathRes.ok) {
-          const rankMathData = await rankMathRes.json();
-          rankMathMeta = rankMathData.head || "";
-          rankMathSchema = extractJsonLD(rankMathMeta);
-          seoDescription = extractMetaDescription(rankMathMeta);
-        }
-      } catch (error) {
-        console.error("Error fetching RankMath metadata:", error);
-      }
-
-      return {
-        id: post.id,
-        title: post.title,
-        excerpt: post.excerpt,
-        slug: post.slug,
-        date: post.date,
-        author: post.author,
-        author_name,
-        featured_media: post.featured_media,
-        featured_image_url,
-        rankMathMeta,
-        rankMathSchema,
-        seoDescription,
-      };
-    })
-  );
+  return parseAllLocalPosts()
 }
 
 /**
- * ✅ Fetch a single blog post by slug with RankMath metadata
+ * Fetch a single blog post by slug with rendered HTML content
  */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const res = await fetch(
-    `${CMS_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed=true`
-  );
-
-  if (!res.ok) {
-    return null;
+  if (!fs.existsSync(POSTS_DIR)) {
+    return null
   }
 
-  const posts = await res.json();
-  if (!posts.length) return null;
-
-  const post = posts[0];
-
-  const featured_image_url = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
-  let author_name = "Unknown Author";
-  let seoDescription = "";
-
-  // ✅ Fetch author name
-  try {
-    const authorRes = await fetch(`${CMS_URL}/wp-json/wp/v2/users/${post.author}`);
-    if (authorRes.ok) {
-      const authorData = await authorRes.json();
-      author_name = authorData.name || "Unknown Author";
+  // Try slug.mdx or slug.md
+  let filePath = path.join(POSTS_DIR, `${slug}.mdx`)
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(POSTS_DIR, `${slug}.md`)
+    if (!fs.existsSync(filePath)) {
+      // Fallback: search by frontmatter slug
+      const fileNames = fs.readdirSync(POSTS_DIR)
+      for (const fn of fileNames) {
+        const fullPath = path.join(POSTS_DIR, fn)
+        const fileContents = fs.readFileSync(fullPath, 'utf-8')
+        const { data } = matter(fileContents)
+        if (data.slug === slug) {
+          filePath = fullPath
+          break
+        }
+      }
     }
-  } catch (error) {
-    console.error("Error fetching author:", error);
   }
 
-  // ✅ Fetch RankMath metadata
-  let rankMathMeta = "";
-  let rankMathSchema = "";
-  try {
-    const rankMathRes = await fetch(`${CMS_URL}/wp-json/rankmath/v1/getHead?url=${CMS_URL}/${slug}`);
-    if (rankMathRes.ok) {
-      const rankMathData = await rankMathRes.json();
-      rankMathMeta = rankMathData.head || "";
-      rankMathSchema = extractJsonLD(rankMathMeta);
-      seoDescription = extractMetaDescription(rankMathMeta); // ✅ Extract description
-    }
-  } catch (error) {
-    console.error("Error fetching RankMath metadata:", error);
+  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    return null
   }
+
+  const fileContents = fs.readFileSync(filePath, 'utf-8')
+  const { data, content } = matter(fileContents)
+
+  // Process markdown body to HTML string
+  const processedContent = await remark().use(html).process(content)
+  const contentHtml = processedContent.toString()
+
+  const id = stringToNumericId(slug)
 
   return {
-    id: post.id,
-    title: post.title,
-    excerpt: post.excerpt,
-    slug: post.slug,
-    date: post.date,
-    author: post.author,
-    author_name,
-    content: post.content,
-    featured_media: post.featured_media,
-    featured_image_url,
-    rankMathMeta,
-    rankMathSchema,
-    seoDescription,
-  };
-}
-
-/**
- * ✅ Extracts <meta name="description"> content from RankMath metadata
- */
-function extractMetaDescription(htmlString: string): string {
-  const regex = /<meta name="description" content="(.*?)"\s*\/?>/i;
-  const match = regex.exec(htmlString);
-  return match ? match[1] : "";
+    id,
+    title: { rendered: data.title || '' },
+    excerpt: { rendered: data.excerpt || data.seoDescription || '' },
+    slug,
+    date: data.date || new Date().toISOString(),
+    author: 1,
+    author_name: data.author_name || 'A11y Pros Editorial Team',
+    featured_media: 1,
+    featured_image_url: data.featured_image_url || undefined,
+    content: { rendered: contentHtml },
+    seoDescription: data.seoDescription || data.excerpt || '',
+    rankMathSchema: data.rankMathSchema || undefined,
+    rankMathMeta: data.seoTitle || data.title || '',
+  }
 }
