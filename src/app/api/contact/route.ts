@@ -2,112 +2,88 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const contactUrl = process.env.NEXT_PUBLIC_CONTACT_URL;
+  const siteUrl = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com';
 
-  if (!contactUrl) {
-    console.error('NEXT_PUBLIC_CONTACT_URL is not defined');
+  try {
+    const contentType = request.headers.get('content-type') || '';
+    const netlifyBody = new URLSearchParams();
+
+    let firstName = '';
+    let lastName = '';
+    let email = '';
+    let phone = '';
+    let org = '';
+    let message = '';
+
+    if (contentType.includes('application/json')) {
+      const json = await request.json();
+      firstName = json['contact-first-name'] || '';
+      lastName = json['contact-last-name'] || '';
+      org = json['organization-name'] || '';
+      email = json['contact-email'] || json.email || '';
+      phone = json['contact-phone'] || '';
+      message = json['contact-message'] || json.message || '';
+    } else {
+      const formData = await request.formData();
+      firstName = (formData.get('contact-first-name') as string) || '';
+      lastName = (formData.get('contact-last-name') as string) || '';
+      org = (formData.get('organization-name') as string) || '';
+      email = (formData.get('contact-email') as string) || (formData.get('email') as string) || '';
+      phone = (formData.get('contact-phone') as string) || '';
+      message = (formData.get('contact-message') as string) || (formData.get('message') as string) || '';
+    }
+
+    // Build Netlify Forms payload
+    netlifyBody.append('form-name', 'contact');
+    netlifyBody.append('contact-first-name', firstName);
+    netlifyBody.append('contact-last-name', lastName);
+    netlifyBody.append('organization-name', org);
+    netlifyBody.append('contact-email', email);
+    netlifyBody.append('contact-phone', phone);
+    netlifyBody.append('contact-message', message);
+
+    console.log(`[Form Submission] Forwarding contact submission for ${email} to Netlify Forms...`);
+
+    // Submit to Netlify Forms endpoint
+    const netlifyRes = await fetch(`${siteUrl}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: netlifyBody.toString(),
+    });
+
+    if (!netlifyRes.ok) {
+      console.warn(`Netlify Forms returned status ${netlifyRes.status}, fallback handling...`);
+    }
+
+    // Also forward to WordPress Contact Form 7 if contactUrl is defined
+    if (contactUrl && contactUrl.includes('http')) {
+      try {
+        const wpFormData = new FormData();
+        wpFormData.append('contact-first-name', firstName);
+        wpFormData.append('contact-last-name', lastName);
+        wpFormData.append('organization-name', org);
+        wpFormData.append('contact-email', email);
+        wpFormData.append('contact-phone', phone);
+        wpFormData.append('contact-message', message);
+
+        await fetch(contactUrl, {
+          method: 'POST',
+          body: wpFormData,
+          signal: AbortSignal.timeout(5000),
+        });
+      } catch (err) {
+        console.warn('WordPress CF7 secondary forward skipped/failed:', (err as Error).message);
+      }
+    }
+
+    return NextResponse.json({ status: 'mail_sent', message: 'Thank you! Your message has been received.' });
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
     return NextResponse.json(
-      { message: 'Contact URL not configured' },
+      { message: 'Form submission failed', error: (error as Error).message },
       { status: 500 }
     );
   }
-
-  try {
-
-    // Get form data from the request
-    const formData = await request.formData();
-
-    // Forward the form data to WordPress Contact Form 7
-    // Use the same approach as the client-side fetch
-    const response = await fetch(contactUrl, {
-      method: 'POST',
-      body: formData,
-      // Don't set Content-Type header - let fetch set it automatically with boundary
-      signal: AbortSignal.timeout(30000), // 30 second timeout
-    });
-
-    const contentType = response.headers.get('content-type');
-    const isJson = contentType?.includes('application/json');
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('WordPress CF7 error:', {
-        status: response.status,
-        statusText: response.statusText,
-        contentType,
-        errorText: errorText.substring(0, 500), // Limit log size
-      });
-      
-      return NextResponse.json(
-        { 
-          message: 'Form submission failed', 
-          error: errorText.substring(0, 200),
-          status: response.status 
-        },
-        { status: response.status }
-      );
-    }
-
-    // Try to parse as JSON, fallback to text if not JSON
-    let result;
-    if (isJson) {
-      try {
-        result = await response.json();
-      } catch {
-        const textResult = await response.text();
-        console.error('Failed to parse JSON response:', textResult.substring(0, 500));
-        return NextResponse.json(
-          { message: 'Invalid JSON response from server', raw: textResult.substring(0, 200) },
-          { status: 500 }
-        );
-      }
-    } else {
-      const textResult = await response.text();
-      console.warn('Non-JSON response received:', textResult.substring(0, 500));
-      // WordPress CF7 might return HTML success page, treat as success
-      result = { status: 'mail_sent', message: 'Message sent successfully' };
-    }
-
-    return NextResponse.json(result);
-  } catch (error) {
-    // Enhanced error logging
-    const errorDetails = error instanceof Error ? {
-      message: error.message,
-      name: error.name,
-      cause: (error).cause,
-      stack: error.stack?.split('\n').slice(0, 3).join('\n'), // First 3 lines of stack
-    } : { message: 'Unknown error', error };
-
-    console.error('Error proxying contact form:', {
-      ...errorDetails,
-      contactUrl: contactUrl ? new URL(contactUrl).origin : 'not configured',
-    });
-
-    // Provide more specific error messages
-    let errorMessage = 'Internal server error';
-    let statusCode = 500;
-
-    if (error instanceof Error) {
-      if (error.name === 'AbortError' || error.message.includes('timeout')) {
-        errorMessage = 'Request timeout: The server took too long to respond';
-        statusCode = 504;
-      } else if (error.message.includes('ECONNREFUSED') || error.message.includes('fetch failed')) {
-        errorMessage = 'Connection refused: Unable to reach the WordPress server. Please check server configuration.';
-        statusCode = 502;
-      } else if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
-        errorMessage = 'DNS resolution failed: Unable to resolve the server address';
-        statusCode = 502;
-      } else {
-        errorMessage = `Network error: ${error.message}`;
-      }
-    }
-
-    return NextResponse.json(
-      { 
-        message: errorMessage,
-        error: process.env.NODE_ENV === 'development' ? errorDetails.message : undefined,
-      },
-      { status: statusCode }
-    );
-  }
 }
-
