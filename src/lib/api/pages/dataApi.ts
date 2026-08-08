@@ -39,6 +39,10 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     return null
   }
 
+  if (slug.includes('..') || slug.includes('/') || slug.includes('\\')) {
+    return null
+  }
+
   let filePath = path.join(PAGES_DIR, `${slug}.mdx`)
   if (!fs.existsSync(filePath)) {
     filePath = path.join(PAGES_DIR, `${slug}.md`)
