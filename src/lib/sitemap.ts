@@ -13,7 +13,7 @@ export interface SitemapUrl {
   slug: string
 }
 
-export async function fetchWordPressPages(): Promise<SitemapUrl[]> {
+export async function getSitemapUrls(): Promise<SitemapUrl[]> {
   try {
     const localPosts = await getPosts()
     const sitemapUrls: SitemapUrl[] = [
