@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { fetchWordPressPages } from '@/lib/sitemap';
+import { getSitemapUrls } from '@/lib/sitemap';
 
 export const dynamic = 'force-dynamic';
 
@@ -109,7 +109,7 @@ function PageTree({ pages }: { pages: PageNode[] }) {
 }
 
 export default async function SitemapPage() {
-  const urls = await fetchWordPressPages();
+  const urls = await getSitemapUrls();
 
   // Group URLs by type
   const homePage = urls.find((url) => url.type === 'home');

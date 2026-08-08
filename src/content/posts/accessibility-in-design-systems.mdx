@@ -1,0 +1,231 @@
+---
+title: >-
+  Accessibility in Design Systems: Building the Foundation for Compliant
+  Products
+slug: accessibility-in-design-systems
+date: '2025-11-13T06:55:43'
+author_name: Ryan Mack
+excerpt: >-
+  Design systems are no longer just about visual consistency. They&#8217;re a
+  critical foundation for preventing accessibility failures, reducing
+  remediation costs, and supporting compliance with ADA, EAA, and WCAG
+  standards. Accessible design systems address a pressing need: in 2025, 94.8%
+  of home pages had detectable WCAG violations, many stemming from repeated
+  component errors like buttons without [&hellip;]
+featured_image_url: /images/blog/accessibility-in-design-systems.png
+seoTitle: >-
+  Accessibility in Design Systems: Building the Foundation for Compliant
+  Products
+seoDescription: >-
+  Design systems are no longer just about visual consistency. They&#8217;re a
+  critical foundation for preventing accessibility failures, reducing
+  remediation costs, and supporting compliance with ADA, EAA, and WCAG
+  standards. Accessible design systems address a pressing need: in 2025, 94.8%
+  of home pages had detectable WCAG violations, many stemming from repeated
+  component errors like buttons without [&hellip;]
+rankMathSchema: >-
+  {"@context":"https://schema.org","@graph":[{"@type":"Place","@id":"https://cms.a11ypros.com/#place","address":{"@type":"PostalAddress","streetAddress":"1905
+  Sherman Street Ste 200
+  #2042","addressLocality":"Denver","addressRegion":"Colorado","postalCode":"80203","addressCountry":"US"}},{"@type":"Organization","@id":"https://cms.a11ypros.com/#organization","name":"A11y
+  Pros","url":"https://a11ypros.com","email":"info@a11ypros.com","address":{"@type":"PostalAddress","streetAddress":"1905
+  Sherman Street Ste 200
+  #2042","addressLocality":"Denver","addressRegion":"Colorado","postalCode":"80203","addressCountry":"US"},"logo":{"@type":"ImageObject","@id":"https://cms.a11ypros.com/#logo","url":"https://cms.a11ypros.com/wp-content/uploads/2025/03/a11ypros_logo_web_square.png","contentUrl":"https://cms.a11ypros.com/wp-content/uploads/2025/03/a11ypros_logo_web_square.png","caption":"A11y
+  Pros","inLanguage":"en-US","width":"934","height":"934"},"contactPoint":[{"@type":"ContactPoint","telephone":"+1-720-722-1775","contactType":"customer
+  support"}],"description":"Our expertise in digital accessibility is both deep
+  and comprehensive. At A11y Pros, we bring together a team of senior-level
+  accessibility consultants with over a decade of hands-on experience performing
+  accessibility audits, testing, and remediation. We specialize in helping
+  organizations achieve and maintain compliance with the Web Content
+  Accessibility Guidelines (WCAG) 2.1 and 2.2, as well as legal standards such
+  as the Americans with Disabilities Act (ADA), Section 508 of the
+  Rehabilitation Act, the European EN 301 549 standard, the Accessible Canada
+  Act (ACA), and various U.S. state-level digital accessibility
+  laws.\r\n\r\nWhether you\u2019re developing a public-facing website, a SaaS
+  platform, or a mobile application, our consultants know how to uncover
+  critical accessibility barriers and provide practical, code-level solutions.
+  We work directly with your design, development, and content teams to ensure
+  your digital products are usable by everyone\u2014including users who rely on
+  screen readers, keyboard navigation, or assistive
+  technologies.","legalName":"A11Y
+  Pros","location":{"@id":"https://cms.a11ypros.com/#place"}},{"@type":"WebSite","@id":"https://cms.a11ypros.com/#website","url":"https://cms.a11ypros.com","name":"A11y
+  Pros","publisher":{"@id":"https://cms.a11ypros.com/#organization"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"#breadcrumb","itemListElement":[{"@type":"ListItem","position":"1","item":{"@id":"https://a11ypros.com","name":"Home"}}]},{"@type":"WebPage","@id":"#webpage","url":"","isPartOf":{"@id":"https://cms.a11ypros.com/#website"},"inLanguage":"en-US","breadcrumb":{"@id":"#breadcrumb"}}]}
+---
+Design systems are no longer just about visual consistency. They’re a critical foundation for preventing accessibility failures, reducing remediation costs, and supporting compliance with ADA, EAA, and WCAG standards.
+
+Accessible design systems address a pressing need: in 2025, [94.8% of home pages had detectable WCAG violations](https://webaim.org/projects/million/), many stemming from repeated component errors like buttons without focus indicators, modals that trap keyboard users, and forms without proper error messaging. Fix these issues once in your design system, and you prevent them from propagating across every page, product, and team.
+
+**Important: An accessible design system provides essential building blocks, but doesn’t guarantee full application accessibility.** Even with accessible components, implementation issues can still create barriers. Developers can misuse components, create problematic page layouts, omit required labels, or break keyboard navigation through custom code. Your design system creates the foundation: governance, training, and comprehensive testing ensure compliance at the application level.
+
+This guide helps product owners, developers, and design leads build an accessibility-first design system using Figma, component libraries, and automated testing.
+
+## Why Accessibility Must Be Built Into Your Design System
+
+### One fix equals global compliance
+
+Update a single button component and instantly fix hundreds of instances across your app.
+
+### Faster QA and fewer bugs in production
+
+Automated testing using tools like axe-core can help catch accessibility issues early. Research shows that [automated tools found 57% of issues by volume in Deque’s analysis of 13,000+ pages](https://www.deque.com/automated-accessibility-testing-coverage/), though manual testing remains essential for comprehensive coverage.
+
+### Stronger RFPs and enterprise contracts
+
+Deliver VPAT-ready documentation that proves compliance at the component level.
+
+### Improved SEO and user experience
+
+Semantic structure, proper labeling, and keyboard support help search engines and all users.
+
+## What Your Design System Can’t Fix
+
+Design systems alone cannot prevent every accessibility issue. They can’t address:
+
+*   **Content-level decisions**: Writing meaningful alt text, creating logical heading hierarchies, and providing clear labels
+*   **Page structure**: Navigation flows, skip links, landmark regions, and reading order
+*   **Component usage context**: The same image may require different descriptions depending on context; forms need specific error messages based on their purpose
+*   **Layout and responsive design**: How components adapt to different zoom levels, viewport sizes, and screen orientations
+*   **Third-party integrations**: External widgets and embedded content
+
+Having accessible components doesn’t guarantee an accessible page—always test complete pages and user journeys.
+
+## Step 1: Figma – Design with Accessibility Tokens from the Start
+
+Don’t leave accessibility to developers. Embed it in your **design tokens** during the earliest phase.
+
+### Essential Accessibility Tokens to Define:
+
+**Token:** `focus/ring-color`  
+**Value:** `#0066FF`  
+**WCAG Reference:** [2.4.7 Focus Visible](https://www.w3.org/TR/WCAG22/#focus-visible)
+
+**Token:** `focus/ring-width`  
+**Value:** `3px`  
+**WCAG Reference:** Non-text contrast ratio of 3:1 or higher[](https://www.w3.org/TR/WCAG22/#non-text-contrast)
+
+**Token:** `spacing/touch-target`  
+**Value:** `44px minimum`  
+**WCAG Reference:** [2.5.5 Target Size](https://www.w3.org/TR/WCAG22/#target-size)
+
+**Token:** `color/aa-large`  
+**Value:** `#1A1A1A on #FFFFFF`  
+**WCAG Reference:** [1.4.3 Contrast for large text](https://www.w3.org/TR/WCAG22/#contrast-minimum)
+
+### Figma Accessibility Audit Checklist
+
+*   Focus indicators clearly visible in high-contrast mode
+*   All interactive elements meet 44×44 px touch target minimum
+*   All text and icon combinations pass AA contrast (or AAA for enterprise)
+*   Image components include required alt text placeholders
+*   Keyboard navigation order matches logical reading flow
+
+**Recommended Figma Plugin:** [A11y – Color Contrast Checker](https://www.figma.com/community/plugin/734814447775070204) (free)
+
+## Step 2: Build Accessible Components That Scale
+
+Focus on the **four most common problem areas**: buttons, modals, forms, and data tables.
+
+### Key Principles for Every Component
+
+*   Use semantic HTML elements (never <div> for buttons or links)
+*   Include visible focus indicators that meet [WCAG 2.4.7](https://www.w3.org/TR/WCAG22/#focus-visible)
+*   Ensure touch targets are at least 44px tall and wide
+*   Add proper ARIA labels and roles for screen readers when necessary
+*   Support full keyboard navigation (Tab, Enter, Escape)
+
+**WCAG Success Criteria Covered:**
+
+*   [1.3.1 Info and Relationships](https://www.w3.org/TR/WCAG22/#info-and-relationships)
+*   [2.1.1 Keyboard](https://www.w3.org/TR/WCAG22/#keyboard)
+*   [2.4.7 Focus Visible](https://www.w3.org/TR/WCAG22/#focus-visible)
+*   [2.5.5 Target Size](https://www.w3.org/TR/WCAG22/#target-size)
+*   [4.1.2 Name, Role, Value](https://www.w3.org/TR/WCAG22/#name-role-value)
+
+### Remember: Page-Level Concerns
+
+Semantic HTML and ARIA in components are starting points. Implementation must address heading hierarchy, skip links, landmarks, and content reading order.
+
+## Step 3: Automate Accessibility Testing in CI/CD
+
+Catch issues before they ship. Add accessibility testing to your GitHub Actions, GitLab CI, or Jenkins pipeline.
+
+### Recommended Tools
+
+*   [Storybook](https://storybook.js.org/) **+** [Chromatic](https://www.chromatic.com/) – Visual regression with a11y snapshots
+*   [axe-core](https://github.com/dequelabs/axe-core) – Catches 57% of WCAG issues automatically[](https://github.com/dequelabs/axe-core)
+*   [pa11y](https://pa11y.org/) – Full-page accessibility reports
+
+### Understanding Automated Testing Limits
+
+According to [Accessible.org’s analysis](https://accessible.org/automated-scans-wcag/), roughly 13% of WCAG 2.2 AA criteria can be flagged with mostly accurate results, while approximately 45% can be partially detected with varying reliability. The remaining 42% cannot be detected at all by automated tools.
+
+In practical terms, the [UK Government Digital Service found](https://alphagov.github.io/accessibility-tool-audit/) that the best performing automated tool detected 40% of known accessibility barriers, while the worst performing tool only picked up 13%. These tools excel at finding technical violations but cannot evaluate subjective qualities like whether alt text accurately describes an image or if content is clear and understandable.
+
+**Critical gaps automated tools miss:**
+
+*   Context-dependent alt text quality
+*   Logical reading order and heading structure
+*   Full keyboard navigation patterns
+*   Screen reader user experience
+*   Cognitive accessibility issues
+
+Run automated tests on every pull request and fail builds for critical issues, but always supplement with manual testing.
+
+## Step 4: Document Components for VPAT and Compliance Reporting
+
+Create a living **accessibility compliance report** for your design system.
+
+### Example Documentation Format
+
+**Component:** Primary Button  
+**WCAG 2.2 AA Success Criteria:** 1.4.3, 2.4.7, 2.5.5  
+**Tested With:** axe DevTools, NVDA screen reader  
+**Notes:** 3px focus ring, 44px min height, semantic `<button>` element
+
+**Component:** Modal Dialog  
+**WCAG 2.2 AA Success Criteria:** 2.1.2, 4.1.2  
+**Tested With:** Keyboard navigation, VoiceOver  
+**Notes:** Focus trap enabled, `aria-modal="true"`, Escape to close
+
+Export this report as a PDF and attach it to **VPAT/ACR requests**. Learn more in our guide: [What Is a VPAT and Do I Need One?](https://cms.a11ypros.com/what-is-a-vpat-and-do-i-need-one/)
+
+## Final Checklist: Is Your Design System Truly Accessible?
+
+*   All interactive elements have visible focus indicators
+*   Touch targets meet 44px minimum in mobile and desktop
+*   Color contrast tokens are enforced across all themes
+*   ARIA roles and labels are documented and consistent
+*   Automated accessibility tests run in CI/CD
+*   Component library includes WCAG compliance mapping
+
+## FAQ: Accessbility in Design Systems
+
+How do I ensure focus indicators are visible across all themes?
+
+Define a `focus/ring-color` token with a contrast ratio of at least 3:1 against both light and dark backgrounds . Test in Figma using the A11y Color Contrast Checker plugin, and enforce the same rule in CSS with `focus-visible:ring`.
+
+How do I scale accessibility audits when my design system has 50+ components?
+
+Prioritize high-impact components first: buttons, forms, modals, navigation, and data tables. Use Storybook to isolate them, run axe-core in Chromatic, and create a shared compliance report. Audit new components during design review, not after release..
+
+How should I handle dark mode accessibility?
+
+Test color contrast in both light and dark themes. Use the CSS `prefers-contrast: high` media query to support Windows High Contrast mode users .
+
+My team uses Sketch, not Figma. Does this still apply?
+
+Absolutely. Use the [Stark plugin](https://www.getstark.co/) for contrast checking, focus order, and alt text (the same principles apply across tools).
+
+Should I document ARIA roles in Figma or only in code?
+
+Do both. In Figma, add ARIA labels as component descriptions or comments. In code, include them in your documentation file (e.g., `components.md`). This ensures designers and developers stay aligned and supports VPAT reporting.
+
+Can automated tools like axe-core catch all component issues?
+
+No. axe-core catches about 57% of WCAG violations . Use it in CI/CD for fast feedback, but always follow up with manual testing using screen readers (NVDA, VoiceOver) and keyboard navigation.
+
+## Ready to Make Your Design System Accessibility-Compliant?
+
+Stop fixing the same WCAG errors across every sprint. Let us **audit one of your core components live** and show you exactly what’s missing.
+
+[Book a Free 15-Minute Accessibility Audit](https://calendly.com/ryan-a11ypros/15min)  
+_We’ll review your button, modal, or form (and give you a compliance score on the spot)._

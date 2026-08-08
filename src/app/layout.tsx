@@ -4,7 +4,11 @@ import ConditionalHeader from "@/components/layout/ConditionalHeader";
 import Footer from "@/components/layout/Footer";
 import FocusManager from "@/components/layout/FocusManager";
 import "@/styles/main.scss";
-import Loader from "@/components/ui/Loader";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://a11ypros.com"),
+};
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,7 +47,6 @@ export default function RootLayout({
         <div className="min-h-full">
           <FocusManager />
           <ConditionalHeader />
-          <Loader/>
           {children}
           <Footer />
         </div>

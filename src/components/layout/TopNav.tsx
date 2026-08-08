@@ -25,10 +25,9 @@ interface StaticLink {
 
 interface TopNavProps {
   isMobile?: boolean;
-  onLinkClick?: () => void; // Add this prop to handle menu closing
+  onLinkClick?: () => void;
 }
 
-// Define custom titles
 const customTitles: Record<string, string> = {
   "services": "Services",
   "contact": "Contact",
@@ -36,11 +35,52 @@ const customTitles: Record<string, string> = {
   "accessibility-partnerships-for-agencies-dev-teams": "Agency Partnerships",
 };
 
-const predefinedOrder = ["services", "compliance", "articles", "about-us",];
+const navStructure: PageWithChildren[] = [
+  {
+    id: 1,
+    menu_order: 1,
+    parent: 0,
+    slug: "services",
+    title: { rendered: "Services" },
+    children: [
+      { id: 11, menu_order: 1, parent: 1, slug: "wcag-compliance-auditing", title: { rendered: "WCAG Compliance Auditing" }, children: [] },
+      { id: 12, menu_order: 2, parent: 1, slug: "vpat-acr-authoring", title: { rendered: "VPAT® / ACR Authoring" }, children: [] },
+      { id: 13, menu_order: 3, parent: 1, slug: "website-remediation", title: { rendered: "Website Remediation" }, children: [] },
+      { id: 14, menu_order: 4, parent: 1, slug: "pdf-remediation", title: { rendered: "PDF Remediation" }, children: [] },
+      { id: 15, menu_order: 5, parent: 1, slug: "web-accessibility-consulting", title: { rendered: "Web Accessibility Consulting" }, children: [] },
+      { id: 16, menu_order: 6, parent: 1, slug: "ada-litigation-support", title: { rendered: "ADA Litigation Support" }, children: [] },
+      { id: 17, menu_order: 7, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
+    ],
+  },
+  {
+    id: 2,
+    menu_order: 2,
+    parent: 0,
+    slug: "compliance",
+    title: { rendered: "Compliance" },
+    children: [
+      { id: 21, menu_order: 1, parent: 2, slug: "web-content-accessibility-guidelines", title: { rendered: "WCAG 2.1 / 2.2 AA" }, children: [] },
+      { id: 22, menu_order: 2, parent: 2, slug: "the-americans-with-disabilities-act", title: { rendered: "ADA Title III" }, children: [] },
+      { id: 23, menu_order: 3, parent: 2, slug: "section-508", title: { rendered: "Section 508" }, children: [] },
+      { id: 24, menu_order: 4, parent: 2, slug: "en-301-549", title: { rendered: "EN 301 549" }, children: [] },
+      { id: 25, menu_order: 5, parent: 2, slug: "the-accessible-canada-act-aca", title: { rendered: "Accessible Canada Act (ACA)" }, children: [] },
+      { id: 26, menu_order: 6, parent: 2, slug: "aoda", title: { rendered: "AODA (Ontario)" }, children: [] },
+    ],
+  },
+  {
+    id: 3,
+    menu_order: 3,
+    parent: 0,
+    slug: "about-us",
+    title: { rendered: "About Us" },
+    children: [
+      { id: 31, menu_order: 1, parent: 3, slug: "our-mission", title: { rendered: "Our Mission" }, children: [] },
+    ],
+  },
+];
 
 const staticLinks: StaticLink[] = [
   { id: "blog", slug: "blog", title: "Articles" },
-  { id: "ada-litigation-support", slug: "ada-litigation-support", title: "ADA Litigation Support", parentSlug: "services" }
 ];
 
 export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
@@ -49,64 +89,14 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
   const pathname = usePathname();
 
   useEffect(() => {
-    async function fetchPages() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/pages?per_page=100`);
-      if (res.ok) {
-        const data: Page[] = await res.json();
-        const excludedPages = ["privacy-policy", "accessibility-statement", "contact-us-thank-you", "blog"];
-        
-        const pagesWithChildren: PageWithChildren[] = data
-          .filter(page => page.parent === 0 && !excludedPages.includes(page.slug))
-          .map(page => ({
-            ...page,
-            children: data
-              .filter(childPage => childPage.parent === page.id)
-              .map(childPage => ({
-                ...childPage,
-                children: []
-              }))
-          }));
-
-        // Inject static links with parents into their parent pages
-        staticLinks.forEach(staticLink => {
-          if (staticLink.parentSlug) {
-            const parentPage = pagesWithChildren.find(p => p.slug === staticLink.parentSlug);
-            if (parentPage) {
-              parentPage.children.push({
-                id: Number(staticLink.id) || Math.random() * 1000000,
-                parent: parentPage.id,
-                menu_order: 999,
-                slug: staticLink.slug,
-                title: { rendered: staticLink.title },
-                children: []
-              });
-            }
-          }
-        });
-
-        // Sort all children alphabetically by title
-        pagesWithChildren.forEach(page => {
-          page.children.sort((a, b) => {
-            const titleA = he.decode(a.title.rendered).toLowerCase();
-            const titleB = he.decode(b.title.rendered).toLowerCase();
-            return titleA.localeCompare(titleB);
-          });
-        });
-
-        // Only merge static links without parents at top level
-        const topLevelStaticLinks = staticLinks.filter(link => !link.parentSlug);
-        const mergedPages: (PageWithChildren | StaticLink)[] = [...topLevelStaticLinks, ...pagesWithChildren];
-
-        const sortedPages = mergedPages.sort((a, b) => {
-          const indexA = predefinedOrder.indexOf(a.slug);
-          const indexB = predefinedOrder.indexOf(b.slug);
-          return (indexA === -1 ? predefinedOrder.length : indexA) - (indexB === -1 ? predefinedOrder.length : indexB);
-        });
-
-        setPages(sortedPages);
-      }
-    }
-    fetchPages();
+    // Standardize navigation from local static structure (0 network calls)
+    const mergedPages: (PageWithChildren | StaticLink)[] = [
+      navStructure[0], // Services
+      navStructure[1], // Compliance
+      staticLinks[0],  // Articles
+      navStructure[2], // About Us
+    ];
+    setPages(mergedPages);
   }, []);
 
   useEffect(() => {
@@ -117,21 +107,15 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     setExpandedMenuId((prevId) => (prevId === pageId ? null : pageId));
   };
 
-  // Handle link clicks to close menu if needed
   const handleLinkClick = () => {
-    // Close any expanded menus
     setExpandedMenuId(null);
-    
-    // Call the onLinkClick callback if provided
     if (onLinkClick) {
       onLinkClick();
     }
   };
 
-  // Check if any child page is active
   const isChildActive = (page: PageWithChildren) => {
     if (!("children" in page)) return false;
-    
     return page.children.some(childPage => {
       const childPath = `/${page.slug}/${childPage.slug}`;
       return pathname === childPath;
@@ -149,11 +133,8 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const isExpanded = "children" in page && expandedMenuId === page.id;
     const submenuId = `submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
-    const contactSpecialClasses = isContactPage 
-      ? 'contact-link' 
-      : '';
+    const contactSpecialClasses = isContactPage ? 'contact-link' : '';
   
-    // Use custom title if available, otherwise default to WordPress title
     const menuTitle =
       customTitles[page.slug] ||
       (typeof page.title === "object" ? page.title.rendered : page.title);
