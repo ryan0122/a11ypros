@@ -7,8 +7,8 @@ import {
   FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  TwitterIcon,
   TwitterShareButton,
+  XIcon,
 } from "react-share";
 
 interface SharePostProps {
@@ -31,9 +31,9 @@ export default function SharePost({ url, title }: SharePostProps) {
           <LinkedinIcon className="w-6 h-6" />
         </LinkedinShareButton>
 
-        {/* X (Twitter) Share */}
+        {/* X Share */}
         <TwitterShareButton url={url} title={title} aria-label="Share on X">
-          <TwitterIcon className="w-6 h-6" />
+          <XIcon className="w-6 h-6" />
         </TwitterShareButton>
 
         {/* Email Share */}
