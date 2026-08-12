@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
+import { sanitizeMdxContent } from '@/lib/utils/sanitizeHtml'
 
 const PAGES_DIR = path.join(process.cwd(), 'src', 'content', 'pages')
 
@@ -68,10 +69,9 @@ export async function getPageData(slug: string): Promise<PageData | null> {
 
   const fileContents = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(fileContents)
-
-  // Convert markdown to HTML string (preserve raw HTML tags like grid cards)
+  // Convert markdown to HTML string and apply strict HTML sanitization
   const processedContent = await remark().use(html, { sanitize: false }).process(content)
-  const contentHtml = processedContent.toString()
+  const contentHtml = sanitizeMdxContent(processedContent.toString())
 
   const id = stringToNumericId(slug)
 
