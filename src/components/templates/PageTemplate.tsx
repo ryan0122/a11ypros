@@ -1,7 +1,10 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Services from '@/components/features/Services';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import PricingCards from '@/components/ui/PricingCards';
+import AdditionalServicesPricing from '@/components/ui/AdditionalServicesPricing';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface PageProps {
@@ -18,6 +21,37 @@ interface PageProps {
 export default function PageTemplate({ title, content, featuredImage, slug }: PageProps) {
   const isContact = slug === 'contact-us';
   const isServices = slug === 'services';
+  const isPricing = slug === 'pricing';
+  const isFigmaAudits = slug === 'figma-design-audits';
+  const isSingleColumn = isContact || isServices || isPricing || isFigmaAudits;
+  const showPricingCards = isPricing;
+
+  const renderContent = (htmlContent: string) => {
+    const markerRegex = /<pricingcards\b[^>]*>([\s\S]*?<\/pricingcards>)?|<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/i;
+
+    if (markerRegex.test(htmlContent)) {
+      // Clean out paired closing tags if present
+      const sanitizedHtml = htmlContent.replace(/<\/pricingcards>/gi, '');
+      const splitRegex = /<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/gi;
+      const parts = sanitizedHtml.split(splitRegex);
+
+      return (
+        <>
+          {parts.map((part, idx) => (
+            <React.Fragment key={idx}>
+              {part && <div dangerouslySetInnerHTML={{ __html: part }} />}
+              {idx < parts.length - 1 && (
+                <div className="my-8 not-prose">
+                  <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </>
+      );
+    }
+    return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+  };
 
   return (
     <div className="bg-white text-slate-900 font-[family-name:var(--font-inter)]">
@@ -40,6 +74,11 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                     Explore our manual WCAG 2.1/2.2 AA auditing, official VPAT® ACR authoring, website remediation, and ADA litigation support.
                   </p>
                 )}
+                {isPricing && (
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mt-3">
+                    Fixed-rate, expert manual accessibility testing and design audits with zero hidden fees or ineffective automated overlays.
+                  </p>
+                )}
                 {isContact && (
                   <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mt-3">
                     Reach out to our certified web accessibility team for audits, VPAT® documentation, or compliance inquiries.
@@ -51,9 +90,9 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                   <Image
                     src={featuredImage.source_url}
                     alt={featuredImage.alt_text || ''}
-                    width={600}
-                    height={450}
-                    className="rounded-2xl w-full max-w-lg h-auto object-cover"
+                    width={400}
+                    height={300}
+                    className="rounded-2xl w-full max-w-xs sm:max-w-sm h-auto object-contain max-h-64"
                     priority
                   />
                 </div>
@@ -62,15 +101,30 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
           </div>
 
           {/* Main Layout */}
-          {isContact || isServices ? (
-            /* Single column layout for Contact and Services pages - no sidebars */
-            <div className="max-w-4xl mx-auto">
+          {isSingleColumn ? (
+            /* Single column layout for Contact, Services, and Pricing pages */
+            <div className="max-w-4xl mx-auto space-y-8">
+              {isPricing && (
+                <div className="text-center max-w-3xl mx-auto mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
+                    Fixed-Rate, Transparent Pricing for Expert Human-Led Accessibility Services
+                  </h2>
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+                    At A11Y Pros, we believe in complete pricing transparency. We provide fixed-rate, expert manual accessibility testing and design audits with zero hidden fees or ineffective automated overlays.
+                  </p>
+                </div>
+              )}
+              {showPricingCards && (
+                <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
+              )}
+              {isPricing && <AdditionalServicesPricing />}
               <div
                 className="prose prose-slate prose-lg max-w-none 
                   prose-headings:font-bold prose-headings:text-slate-900 
                   prose-p:text-slate-700 prose-p:leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
+              >
+                {renderContent(content)}
+              </div>
             </div>
           ) : (
             /* 2-Column Layout for standard informational pages */
@@ -85,8 +139,9 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                     prose-p:text-slate-700 prose-p:leading-relaxed
                     prose-a:text-[#0E8168] prose-a:font-semibold hover:prose-a:underline
                     prose-li:text-slate-700 prose-strong:text-slate-900"
-                  dangerouslySetInnerHTML={{ __html: content }}
-                />
+                >
+                  {renderContent(content)}
+                </div>
               </div>
 
               {/* Sidebar */}

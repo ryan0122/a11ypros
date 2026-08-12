@@ -87,7 +87,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             const isValidFormat = /^(\+\d{1,4}[-.\s()]?)?[\d\s\-\(\)\.]{7,}$/.test(phoneValue)
             // Must have at least 10 digits
             const hasEnoughDigits = digitsOnly.length >= 10
-            
+
             if (!isValidFormat || !hasEnoughDigits) {
                 newErrors['contact-phone'] = 'Phone number is invalid.'
             }
@@ -211,7 +211,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             router.push('/contact-us-thank-you')
         } catch (error) {
             console.error('Error submitting form:', error)
-            
+
             // Provide user-friendly error message
             if (error instanceof TypeError && error.message === 'Failed to fetch') {
                 alert('Network error: Unable to reach the server. Please check your connection and try again.')
@@ -220,7 +220,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             } else {
                 alert('An unexpected error occurred. Please try again later.')
             }
-            
+
             setIsSubmitting(false)
         }
     }
@@ -240,7 +240,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         legend={legendText}
                         legendClassName={`${isMainContactForm && 'hidden'} text-3xl font-extrabold text-slate-900 text-center py-2 w-full mb-1`}
                     >
-                        <p className="text-center text-xs text-slate-500 mb-6">
+                        <p className="text-xs text-slate-500 mt-0 mb-2">
                             <span className="text-[#da3940]">*</span> indicates required field
                         </p>
                         <div className="grid grid-cols-1 gap-x-6 md:grid-cols-2">
@@ -339,11 +339,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
                             />
                         </div>
                         <Button
-                            className={`w-full rounded-xl border-none px-6 py-4 text-center text-base font-bold text-white shadow-md transition-all ${
-                                isSubmitting
-                                    ? 'cursor-not-allowed bg-slate-400'
-                                    : 'bg-[#0E8168] hover:bg-[#0a6b57]'
-                            }`}
+                            className={`w-full rounded-xl border-none px-6 py-4 text-center text-base font-bold text-white shadow-md transition-all ${isSubmitting
+                                ? 'cursor-not-allowed bg-slate-400'
+                                : 'bg-[#0E8168] hover:bg-[#0a6b57]'
+                                }`}
                             type="submit"
                             disabled={isSubmitting}
                         >

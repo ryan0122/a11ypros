@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import VpatEstimatorWidget from '@/components/features/VpatEstimatorWidget'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
+import Link from 'next/link'
 import { ShieldCheck, CheckCircle2 } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -26,13 +27,13 @@ export default function VpatEstimatorPage() {
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-4">
-              <ShieldCheck className="w-4 h-4" /> Certified WCAG & VPAT® Scope Calculator
+              <ShieldCheck className="w-4 h-4" /> Enterprise & Multi-Product Scope Calculator
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
-              Estimate Your Accessibility Audit & VPAT® Scope
+              Custom Enterprise Accessibility & VPAT® Scope Estimator
             </h1>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-              Answer 3 quick questions to calculate your compliance scope, recommended WCAG standard, and estimated completion timeline.
+              Calculate custom audit and VPAT® compliance requirements for complex SaaS platforms, web applications, and multi-domain enterprises. Looking for standard fixed packages? <Link href="/pricing" className="text-[#0E8168] font-bold underline">View Transparent Pricing →</Link>
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-slate-500 font-medium">

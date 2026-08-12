@@ -45,11 +45,12 @@ const navStructure: PageWithChildren[] = [
     children: [
       { id: 11, menu_order: 1, parent: 1, slug: "wcag-compliance-auditing", title: { rendered: "WCAG Compliance Auditing" }, children: [] },
       { id: 12, menu_order: 2, parent: 1, slug: "vpat-acr-authoring", title: { rendered: "VPAT® / ACR Authoring" }, children: [] },
-      { id: 13, menu_order: 3, parent: 1, slug: "website-remediation", title: { rendered: "Website Remediation" }, children: [] },
-      { id: 14, menu_order: 4, parent: 1, slug: "pdf-remediation", title: { rendered: "PDF Remediation" }, children: [] },
-      { id: 15, menu_order: 5, parent: 1, slug: "web-accessibility-consulting", title: { rendered: "Web Accessibility Consulting" }, children: [] },
-      { id: 16, menu_order: 6, parent: 1, slug: "ada-litigation-support", title: { rendered: "ADA Litigation Support" }, children: [] },
-      { id: 17, menu_order: 7, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
+      { id: 18, menu_order: 3, parent: 1, slug: "figma-design-audits", title: { rendered: "Figma Design Audits" }, children: [] },
+      { id: 13, menu_order: 4, parent: 1, slug: "website-remediation", title: { rendered: "Website Remediation" }, children: [] },
+      { id: 14, menu_order: 5, parent: 1, slug: "pdf-remediation", title: { rendered: "PDF Remediation" }, children: [] },
+      { id: 15, menu_order: 6, parent: 1, slug: "web-accessibility-consulting", title: { rendered: "Web Accessibility Consulting" }, children: [] },
+      { id: 16, menu_order: 7, parent: 1, slug: "ada-litigation-support", title: { rendered: "ADA Litigation Support" }, children: [] },
+      { id: 17, menu_order: 8, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
     ],
   },
   {
@@ -80,7 +81,9 @@ const navStructure: PageWithChildren[] = [
 ];
 
 const staticLinks: StaticLink[] = [
+  { id: "pricing", slug: "pricing", title: "Pricing" },
   { id: "blog", slug: "blog", title: "Articles" },
+  { id: "contact-us", slug: "contact-us", title: "Contact Us" },
 ];
 
 export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
@@ -93,8 +96,10 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const mergedPages: (PageWithChildren | StaticLink)[] = [
       navStructure[0], // Services
       navStructure[1], // Compliance
-      staticLinks[0],  // Articles
+      staticLinks[0],  // Pricing
+      staticLinks[1],  // Articles
       navStructure[2], // About Us
+      staticLinks[2],  // Contact Us
     ];
     setPages(mergedPages);
   }, []);
@@ -126,7 +131,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const getFullPath = (page: PageWithChildren, parentSlug?: string) => {
       return parentSlug ? `/${parentSlug}/${page.slug}` : `/${page.slug}`;
     };
-  
+
     const pagePath = 'slug' in page ? `/${page.slug}` : '/';
     const isPageActive = pathname === pagePath;
     const hasActiveChild = "children" in page && isChildActive(page);
@@ -134,13 +139,13 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const submenuId = `submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
     const contactSpecialClasses = isContactPage ? 'contact-link' : '';
-  
+
     const menuTitle =
       customTitles[page.slug] ||
       (typeof page.title === "object" ? page.title.rendered : page.title);
-  
+
     if (page.slug === "home") return null;
-  
+
     return (
       <li key={page.id} className={`relative ${isMobile ? 'py-3' : ''}`}>
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
@@ -192,7 +197,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
               const childTitle =
                 customTitles[childPage.slug] || he.decode(childPage.title.rendered);
               const isChildActive = pathname === childPath;
-              
+
               return (
                 <li key={childPage.id} className={isMobile ? "py-2" : "px-4 py-2"}>
                   <Link
@@ -211,15 +216,15 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       </li>
     );
   };
-  
+
   return (
     <nav
       aria-label={isMobile ? "Mobile navigation" : "Main navigation"}
       className={isMobile ? "w-full block" : "w-full hidden md:block"}
     >
-      <ul className={isMobile 
-        ? "flex flex-col space-y-1" 
-        : "flex flex-row justify-between items-center gap-16"
+      <ul className={isMobile
+        ? "flex flex-col space-y-1"
+        : "flex flex-row justify-between items-center gap-8"
       }>
         {pages.map(renderPageLink)}
       </ul>
