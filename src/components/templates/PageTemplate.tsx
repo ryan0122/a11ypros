@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Services from '@/components/features/Services';
@@ -26,15 +27,26 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
   const showPricingCards = isPricing;
 
   const renderContent = (htmlContent: string) => {
-    if (htmlContent.match(/<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/i)) {
-      const parts = htmlContent.split(/<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/i);
+    const markerRegex = /<pricingcards\b[^>]*>([\s\S]*?<\/pricingcards>)?|<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/i;
+
+    if (markerRegex.test(htmlContent)) {
+      // Clean out paired closing tags if present
+      const sanitizedHtml = htmlContent.replace(/<\/pricingcards>/gi, '');
+      const splitRegex = /<pricingcards\s*\/?>|<p>&lt;pricingcards\s*\/&gt;<\/p>/gi;
+      const parts = sanitizedHtml.split(splitRegex);
+
       return (
         <>
-          <div dangerouslySetInnerHTML={{ __html: parts[0] }} />
-          <div className="my-8 not-prose">
-            <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
-          </div>
-          {parts[1] && <div dangerouslySetInnerHTML={{ __html: parts[1] }} />}
+          {parts.map((part, idx) => (
+            <React.Fragment key={idx}>
+              {part && <div dangerouslySetInnerHTML={{ __html: part }} />}
+              {idx < parts.length - 1 && (
+                <div className="my-8 not-prose">
+                  <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
         </>
       );
     }
