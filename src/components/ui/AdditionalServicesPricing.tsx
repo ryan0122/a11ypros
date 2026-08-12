@@ -97,7 +97,7 @@ export default function AdditionalServicesPricing() {
               <div>
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-white border border-slate-200 text-[#0E8168] shadow-xs group-hover:bg-[#0E8168] group-hover:text-white transition-colors">
+                    <div className="p-3 rounded-xl bg-white border border-slate-200 text-[#0E8168] shadow-sm group-hover:bg-[#0E8168] group-hover:text-white transition-colors">
                       <IconComponent className="w-6 h-6" />
                     </div>
                     <div>
