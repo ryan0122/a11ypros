@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { ShieldCheck } from 'lucide-react'
+import { ShieldCheck, UserCheck } from 'lucide-react'
 
 export default function CompliancesCompact() {
   const standards = [
@@ -8,16 +8,17 @@ export default function CompliancesCompact() {
     { title: 'ADA Title III', desc: 'Americans with Disabilities Act', href: '/compliance/the-americans-with-disabilities-act' },
     { title: 'Section 508', desc: 'US Rehabilitation Act', href: '/compliance/section-508' },
     { title: 'EN 301 549', desc: 'European Standard', href: '/compliance/en-301-549' },
-    { title: 'ACA & AODA', desc: 'Canadian Accessibility Laws', href: '/compliance/the-accessible-canada-act-aca/' },
+    { title: 'ACA & AODA', desc: 'Canadian Accessibility Laws', href: '/compliance/the-accessible-canada-act-aca' },
   ]
 
   return (
-    <section className="py-10 bg-slate-50 text-slate-900 border-y border-slate-200">
-      <div className="max-w-5xl mx-auto px-6">
+    <section className="py-12 bg-slate-50 text-slate-900 border-y border-slate-200">
+      <div className="max-w-5xl mx-auto px-6 space-y-8">
+        {/* Top: Compliance Standards Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="md:w-1/3">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#001d2f] text-xs font-bold uppercase tracking-wider mb-2">
-              <ShieldCheck className="w-4 h-4" /> Full Coverage
+              <ShieldCheck className="w-4 h-4 text-[#0E8168]" /> Legal Coverage
             </span>
             <h3 className="text-xl font-bold text-slate-900">Compliance Standards</h3>
             <p className="text-sm text-slate-600 mt-1">Audit-ready documentation for US, Canadian, and European legal standards.</p>
@@ -34,6 +35,19 @@ export default function CompliancesCompact() {
                 <div className="text-xs text-slate-500">{st.desc}</div>
               </Link>
             ))}
+          </div>
+        </div>
+
+        {/* Bottom: 100% Manual Human Testing Callout Card */}
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <div className="p-3.5 rounded-xl bg-[#0E8168]/10 text-[#0E8168] shrink-0">
+            <UserCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <h4 className="font-bold text-slate-900 text-sm sm:text-base mb-1">Why 100% Certified Human Testing Matters</h4>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Automated accessibility scanners only detect ~40% of WCAG criteria. Critical barriers—such as screen reader DOM reading order, complex ARIA widget states, and keyboard focus traps—require manual evaluation by IAAP & DHS Trusted Testers.
+            </p>
           </div>
         </div>
       </div>

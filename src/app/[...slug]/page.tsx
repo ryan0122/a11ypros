@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getPageData, getPageMetaData } from '@/lib/api/pages/dataApi'
 import he from 'he'
 import FAQAccordion from '@/components/ui/FaqAccordion'
+import PricingCards from '@/components/ui/PricingCards'
 
 type FAQ = {
     question: string
@@ -146,20 +147,83 @@ export default async function Page({ params }: PageProps) {
                         __html: JSON.stringify({
                             '@context': 'https://schema.org',
                             '@type': 'FAQPage',
-                            mainEntity: page.faqs.map((faq: FAQ) => ({
-                                '@type': 'Question',
-                                name: faq.question
-                                    .replace(/&/g, '&amp;')
-                                    .replace(/</g, '&lt;')
-                                    .replace(/>/g, '&gt;'),
-                                acceptedAnswer: {
-                                    '@type': 'Answer',
-                                    text: faq.answer
+                            mainEntity: page.faqs
+                                .filter((faq: FAQ) => faq && (faq.question || faq.answer))
+                                .map((faq: FAQ) => ({
+                                    '@type': 'Question',
+                                    name: (faq.question || '')
                                         .replace(/&/g, '&amp;')
                                         .replace(/</g, '&lt;')
                                         .replace(/>/g, '&gt;'),
-                                },
-                            })),
+                                    acceptedAnswer: {
+                                        '@type': 'Answer',
+                                        text: (faq.answer || '')
+                                            .replace(/&/g, '&amp;')
+                                            .replace(/</g, '&lt;')
+                                            .replace(/>/g, '&gt;'),
+                                    },
+                                })),
+                        }),
+                    }}
+                />
+            )}
+
+            {/* ✅ Pricing Page OfferCatalog & Service Schema */}
+            {page.slug === 'pricing' && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'WebPage',
+                            name: 'Digital Accessibility Services & Pricing Rates - A11Y Pros',
+                            description: 'Transparent pricing for manual WCAG audits, technical consulting ($195/hr), itemized page rates, VPAT/ACR reports, and website remediation.',
+                            url: `${process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com'}/pricing`,
+                            mainEntity: {
+                                '@type': 'OfferCatalog',
+                                name: 'Digital Accessibility Audit & Consulting Services',
+                                itemListElement: [
+                                    {
+                                        '@type': 'Offer',
+                                        'itemOffered': {
+                                            '@type': 'Service',
+                                            name: 'Figma Design Accessibility Audit',
+                                            description: 'Evaluate Figma design systems, component libraries, and UI specs for WCAG 2.1/2.2 AA compliance before development.',
+                                        },
+                                        priceSpecification: {
+                                            '@type': 'PriceSpecification',
+                                            price: '950.00',
+                                            priceCurrency: 'USD',
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Offer',
+                                        'itemOffered': {
+                                            '@type': 'Service',
+                                            name: 'WCAG Manual Accessibility Audit',
+                                            description: '100% human screen reader & keyboard testing for websites and web apps with prioritized remediation spreadsheet.',
+                                        },
+                                        priceSpecification: {
+                                            '@type': 'PriceSpecification',
+                                            price: '1450.00',
+                                            priceCurrency: 'USD',
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Offer',
+                                        'itemOffered': {
+                                            '@type': 'Service',
+                                            name: 'VPAT / ACR Authoring Package',
+                                            description: 'Comprehensive manual audit + official VPAT 2.5 ACR report authoring for enterprise procurement.',
+                                        },
+                                        priceSpecification: {
+                                            '@type': 'PriceSpecification',
+                                            price: '1800.00',
+                                            priceCurrency: 'USD',
+                                        },
+                                    },
+                                ],
+                            },
                         }),
                     }}
                 />
@@ -173,8 +237,14 @@ export default async function Page({ params }: PageProps) {
                 featuredImage={page.featuredImage}
             />
 
-            {/* ✅ Render FAQ Accordion */}
+            {/* ✅ Render Pricing Cards Module for audit service pages */}
+            {['wcag-compliance-auditing'].includes(page.slug) && (
+                <div className="max-w-6xl mx-auto px-6 pt-12 sm:pt-16">
+                    <PricingCards />
+                </div>
+            )}
 
+            {/* ✅ Render FAQ Accordion */}
             {page.faqs.length > 0 && (
                 <FAQAccordion
                     title={`${he.decode(page.title.rendered)} FAQs`}

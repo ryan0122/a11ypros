@@ -124,7 +124,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const { data, content } = matter(fileContents)
 
   // Process markdown body to HTML string
-  const processedContent = await remark().use(html).process(content)
+  const processedContent = await remark().use(html, { sanitize: false }).process(content)
   const contentHtml = processedContent.toString()
 
   const id = stringToNumericId(slug)

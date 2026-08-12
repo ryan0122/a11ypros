@@ -4,7 +4,7 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, UserCheck, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export default async function HomeTemplate({
     title,
@@ -36,10 +36,10 @@ export default async function HomeTemplate({
 
                             <div className="flex flex-wrap items-center gap-3">
                                 <Link
-                                    href="/vpat-estimator"
+                                    href="/pricing"
                                     className="inline-flex items-center gap-2 rounded-xl bg-[#0E8168] px-6 py-3.5 text-base font-bold text-white shadow-md hover:bg-[#0a6b57] transition-colors"
                                 >
-                                    Estimate VPAT Scope <ArrowRight className="w-5 h-5" />
+                                    View Services & Pricing <ArrowRight className="w-5 h-5" />
                                 </Link>
                                 <Link
                                     href="/contact-us"
@@ -105,45 +105,9 @@ export default async function HomeTemplate({
                 {/* Compact Compliance Standards Bar */}
                 <CompliancesCompact />
 
-                {/* Standalone Interactive Scope Teaser Card */}
-                <section className="max-w-5xl mx-auto px-6 py-10">
-                    <div className="bg-slate-900 rounded-3xl p-8 sm:p-10 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div className="md:w-2/3">
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/20 border border-[#0E8168]/40 text-[#14b895] text-xs font-bold uppercase tracking-wider mb-3">
-                                <Sparkles className="w-3.5 h-3.5" /> Interactive Scope Calculator
-                            </span>
-                            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                                Calculate Your Audit & VPAT® Scope in 30 Seconds
-                            </h3>
-                            <p className="text-sm text-slate-300 leading-relaxed">
-                                Select your product type, target compliance standards, and timeline to receive an instant audit scope estimate and proposal.
-                            </p>
-                        </div>
-                        <div className="md:w-1/3 flex justify-end w-full md:w-auto">
-                            <Link
-                                href="/vpat-estimator"
-                                className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-[#0E8168] hover:bg-[#0a6b57] text-white font-bold px-6 py-3.5 rounded-xl transition-colors text-sm shadow-lg shadow-[#0E8168]/20"
-                            >
-                                Launch Estimator <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </div>
-                    </div>
-                </section>
 
-                {/* Manual Audit Callout Banner */}
-                <section className="py-10 bg-slate-50 border-y border-slate-200">
-                    <div className="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-                        <div className="p-3.5 rounded-xl bg-[#0E8168]/10 text-[#0E8168] shrink-0">
-                            <UserCheck className="w-7 h-7" />
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-slate-900 text-base mb-1">Why 100% Manual Testing Matters</h4>
-                            <p className="text-sm text-slate-600 leading-relaxed">
-                                Automated accessibility scanners only catch ~40% of WCAG criteria. Key barriers like screen reader DOM order and keyboard focus traps require human testing by certified auditors.
-                            </p>
-                        </div>
-                    </div>
-                </section>
+
+
 
                 {/* Articles List */}
                 {posts && posts.length > 0 && (

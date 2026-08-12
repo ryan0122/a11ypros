@@ -69,8 +69,8 @@ export async function getPageData(slug: string): Promise<PageData | null> {
   const fileContents = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(fileContents)
 
-  // Convert markdown to HTML string
-  const processedContent = await remark().use(html).process(content)
+  // Convert markdown to HTML string (preserve raw HTML tags like grid cards)
+  const processedContent = await remark().use(html, { sanitize: false }).process(content)
   const contentHtml = processedContent.toString()
 
   const id = stringToNumericId(slug)
