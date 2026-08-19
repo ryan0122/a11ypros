@@ -12,6 +12,7 @@ export function sanitizeMdxContent(rawHtml: string): string {
       'div',
       'span',
       'img',
+      'iframe',
       'section',
       'aside',
       'header',
@@ -29,12 +30,14 @@ export function sanitizeMdxContent(rawHtml: string): string {
     ],
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
-      '*': ['class', 'className', 'id', 'aria-*', 'role', 'data-*'],
+      '*': ['class', 'className', 'id', 'style', 'aria-*', 'role', 'data-*'],
       a: ['href', 'name', 'target', 'rel', 'title'],
       img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading', 'decoding'],
+      iframe: ['src', 'width', 'height', 'title', 'frameborder', 'scrolling', 'allow', 'allowfullscreen'],
       svg: ['viewBox', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'aria-hidden', 'data-slot'],
       path: ['d', 'fill', 'stroke', 'stroke-linecap', 'stroke-linejoin'],
     },
+    allowedIframeHostnames: ['www.credly.com', 'credly.com', 'www.youtube.com', 'youtube.com'],
     allowedSchemes: ['http', 'https', 'mailto', 'tel'],
   })
 }
