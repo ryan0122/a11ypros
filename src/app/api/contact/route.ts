@@ -67,6 +67,10 @@ export async function POST(request: NextRequest) {
     if (contactUrl && contactUrl.includes('http')) {
       try {
         const wpFormData = new FormData();
+        wpFormData.append('_wpcf7', '55');
+        wpFormData.append('_wpcf7_version', '6.0');
+        wpFormData.append('_wpcf7_locale', 'en_US');
+        wpFormData.append('_wpcf7_unit_tag', 'wpcf7-f55-o1');
         wpFormData.append('contact-first-name', firstName);
         wpFormData.append('contact-last-name', lastName);
         wpFormData.append('organization-name', org);
@@ -74,13 +78,19 @@ export async function POST(request: NextRequest) {
         wpFormData.append('contact-phone', phone);
         wpFormData.append('contact-message', message);
 
-        await fetch(contactUrl, {
+        const wpRes = await fetch(contactUrl, {
           method: 'POST',
           body: wpFormData,
-          signal: AbortSignal.timeout(5000),
+          signal: AbortSignal.timeout(8000),
         });
+
+        if (wpRes.ok) {
+          console.log(`[WordPress CF7] Successfully delivered message for ${email}`);
+        } else {
+          console.warn(`[WordPress CF7] Returned status ${wpRes.status}`);
+        }
       } catch (err) {
-        console.warn('WordPress CF7 secondary forward skipped/failed:', (err as Error).message);
+        console.warn('WordPress CF7 forward skipped/failed:', (err as Error).message);
       }
     }
 

@@ -175,36 +175,30 @@ const ContactForm: React.FC<ContactFormProps> = ({
             netlifyParams.append('contact-phone', (formData.get('contact-phone') as string) || '')
             netlifyParams.append('contact-message', (formData.get('contact-message') as string) || '')
 
-            // 1. Submit directly to Netlify Forms
-            const res = await fetch('/__forms.html', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: netlifyParams.toString(),
-            })
-
-            if (!res.ok) {
-                // Fallback attempt to root
-                await fetch('/', {
+            // Submit to Netlify Forms and internal API route concurrently
+            await Promise.allSettled([
+                fetch('/__forms.html', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: netlifyParams.toString(),
-                })
-            }
+                }),
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: netlifyParams.toString(),
+                }),
+                fetch('/api/contact', {
+                    method: 'POST',
+                    body: formData,
+                }),
+            ])
 
-            // 2. Submit to vtiger CRM (non-blocking) - only if prop is enabled
+            // Submit to vtiger CRM (non-blocking) - only if prop is enabled
             if (shouldSubmitToVtiger) {
                 submitToVtiger(formData).catch((err) => {
                     console.error('Error submitting to vtiger:', err)
                 })
             }
-
-            // 3. Secondary background forward to WordPress CF7 / API route (non-blocking)
-            fetch('/api/contact', {
-                method: 'POST',
-                body: formData,
-            }).catch((err) => {
-                console.warn('Background sync error:', err)
-            })
 
             router.push('/contact-us-thank-you')
         } catch (error) {
