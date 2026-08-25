@@ -45,16 +45,22 @@ export async function POST(request: NextRequest) {
     console.log(`[Form Submission] Forwarding contact submission for ${email} to Netlify Forms...`);
 
     // Submit to Netlify Forms endpoint
-    const netlifyRes = await fetch(`${siteUrl}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: netlifyBody.toString(),
-    });
+    try {
+      const netlifyRes = await fetch(`${siteUrl}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'Mozilla/5.0 (compatible; A11yPros/1.0; +https://a11ypros.com)',
+        },
+        body: netlifyBody.toString(),
+        signal: AbortSignal.timeout(6000),
+      });
 
-    if (!netlifyRes.ok) {
-      console.warn(`Netlify Forms returned status ${netlifyRes.status}, fallback handling...`);
+      if (!netlifyRes.ok) {
+        console.warn(`Netlify Forms returned status ${netlifyRes.status}, fallback handling...`);
+      }
+    } catch (netErr) {
+      console.warn('Netlify Forms submission skipped/failed:', (netErr as Error).message);
     }
 
     // Also forward to WordPress Contact Form 7 if contactUrl is defined

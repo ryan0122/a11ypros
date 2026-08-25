@@ -5,19 +5,17 @@ import FieldSet from '@/components/forms/FieldSet'
 import Input from '@/components/forms/Input'
 import TextArea from '@/components/forms/TextArea'
 import Button from '@/components/forms/Button'
-import { useRouter } from 'next/navigation'
-import ReCAPTCHA from 'react-google-recaptcha'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import cx from 'clsx'
-import { submitToVtiger } from '@/utils/submitToVtiger';
+import { submitToVtiger } from '@/utils/submitToVtiger'
 
 let globalCount = 0
 
 interface ContactFormProps {
     isMainContactForm?: boolean
-    className?: string;
-    privacyNoticeId?: string;
-    submitToVtiger?: boolean;
+    className?: string
+    privacyNoticeId?: string
+    submitToVtiger?: boolean
 }
 
 type FieldName =
@@ -35,10 +33,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
     submitToVtiger: shouldSubmitToVtiger = false,
 }) => {
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
-    const [formData, setFormData] = useState<FormData | null>(null)
+    const [submitError, setSubmitError] = useState<string | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter()
-    const recaptchaRef = useRef<ReCAPTCHA>(null)
     const pathname = usePathname()
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -54,7 +51,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
     useEffect(() => {
         setErrors({})
-        setFormData(null)
+        setSubmitError(null)
         setIsSubmitting(false)
         formRef.current?.reset()
     }, [pathname])
@@ -81,11 +78,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
         const phoneValue = formData.get('contact-phone') as string
         if (phoneValue) {
-            // Remove all non-digit characters except + to count digits
             const digitsOnly = phoneValue.replace(/[^\d]/g, '')
-            // Check if format is valid (allows +, digits, dashes, spaces, parentheses, dots)
             const isValidFormat = /^(\+\d{1,4}[-.\s()]?)?[\d\s\-\(\)\.]{7,}$/.test(phoneValue)
-            // Must have at least 10 digits
             const hasEnoughDigits = digitsOnly.length >= 10
 
             if (!isValidFormat || !hasEnoughDigits) {
@@ -113,7 +107,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
         if (field === 'contact-email') {
             if (!value) return // still empty, keep error
-
             if (!/\S+@\S+\.\S+/.test(value)) return // still invalid
 
             // Valid now, clear error
@@ -138,7 +131,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const formData = new FormData(event.target as HTMLFormElement)
+        const formElement = event.currentTarget
+        const formData = new FormData(formElement)
         const newErrors = validateForm(formData)
 
         if (Object.keys(newErrors).length > 0) {
@@ -155,55 +149,36 @@ const ContactForm: React.FC<ContactFormProps> = ({
         }
 
         setErrors({})
-        setFormData(formData)
+        setSubmitError(null)
         setIsSubmitting(true)
 
-        if (recaptchaRef.current) {
-            recaptchaRef.current.execute()
-        }
-    }
-
-    const onReCAPTCHAVerify = async (captchaToken: string | null) => {
-        if (!captchaToken) {
-            alert('reCAPTCHA verification failed. Please try again.')
-            setIsSubmitting(false)
+        // Spam protection: honeypot check
+        const honeypot = formData.get('bot-field')
+        if (honeypot) {
+            // Silently redirect if bot fills hidden field
+            router.push('/contact-us-thank-you')
             return
         }
-
-        if (!formData) {
-            alert('Unexpected error: Form data missing.')
-            setIsSubmitting(false)
-            return
-        }
-
-        formData.append('captchaToken', captchaToken)
 
         globalCount++
         const unitTag = `wpcf7-f$55-o${globalCount}`
         formData.append('_wpcf7_unit_tag', unitTag)
 
         try {
-            // Use Next.js API route to proxy the request (bypasses CORS)
+            // Submit form data to internal Next.js API endpoint
             const res = await fetch('/api/contact', {
                 method: 'POST',
                 body: formData,
             })
 
             if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`)
-            }
-
-            const result = await res.json()
-
-            if (!result) {
-                console.error('Form submission failed: No response data')
-                setIsSubmitting(false)
-                return
+                const errorData = await res.json().catch(() => ({}))
+                throw new Error(errorData.message || `HTTP error! status: ${res.status}`)
             }
 
             // Submit to vtiger CRM (non-blocking) - only if prop is enabled
             if (shouldSubmitToVtiger) {
-                submitToVtiger(formData).catch(err => {
+                submitToVtiger(formData).catch((err) => {
                     console.error('Error submitting to vtiger:', err)
                 })
             }
@@ -212,15 +187,14 @@ const ContactForm: React.FC<ContactFormProps> = ({
         } catch (error) {
             console.error('Error submitting form:', error)
 
-            // Provide user-friendly error message
+            let msg = 'An unexpected error occurred. Please try again later.'
             if (error instanceof TypeError && error.message === 'Failed to fetch') {
-                alert('Network error: Unable to reach the server. Please check your connection and try again.')
+                msg = 'Network error: Unable to reach the server. Please check your connection and try again.'
             } else if (error instanceof Error) {
-                alert(`Form submission error: ${error.message}. Please try again.`)
-            } else {
-                alert('An unexpected error occurred. Please try again later.')
+                msg = `Form submission error: ${error.message}. Please try again.`
             }
 
+            setSubmitError(msg)
             setIsSubmitting(false)
         }
     }
@@ -234,7 +208,29 @@ const ContactForm: React.FC<ContactFormProps> = ({
             id={isMainContactForm ? 'mainContactForm' : undefined}
             className={cx('mx-auto max-w-2xl', className)}
         >
-            <form onSubmit={handleSubmit} noValidate ref={formRef} aria-describedby={privacyNoticeId ? privacyNoticeId : undefined}>
+            <form
+                onSubmit={handleSubmit}
+                noValidate
+                ref={formRef}
+                aria-describedby={privacyNoticeId ? privacyNoticeId : undefined}
+            >
+                {/* Honeypot for Netlify bot detection */}
+                <p className="hidden" aria-hidden="true">
+                    <label>
+                        Don’t fill this out if you are human:{' '}
+                        <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                    </label>
+                </p>
+
+                {submitError && (
+                    <div
+                        role="alert"
+                        className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700"
+                    >
+                        {submitError}
+                    </div>
+                )}
+
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6">
                     <FieldSet
                         legend={legendText}
@@ -350,19 +346,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
                         </Button>
                     </FieldSet>
                 </div>
-
-                <ReCAPTCHA
-                    tabIndex={-1}
-                    ref={recaptchaRef}
-                    sitekey={
-                        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string
-                    }
-                    size="invisible"
-                    onChange={onReCAPTCHAVerify}
-                />
             </form>
         </div>
     )
 }
 
 export default ContactForm
+
