@@ -35,11 +35,23 @@ export async function generateMetadata({
         }
     }
 
-    const [parentSlug, childSlug] = resolvedParams.slug
-    const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug
+    const slugArray =
+        resolvedParams.slug[0] === 'pages'
+            ? resolvedParams.slug.slice(1)
+            : resolvedParams.slug
+
+    if (slugArray.length === 0) {
+        return {
+            title: 'Page Not Found - A11Y Pros',
+            description: 'The page you are looking for does not exist.',
+        }
+    }
+
+    const slug = slugArray[slugArray.length - 1]
+    const fullSlug = slugArray.join('/')
 
     const [page, seoData] = await Promise.all([
-        getPageData(childSlug),
+        getPageData(slug),
         getPageMetaData(fullSlug),
     ])
 
@@ -105,12 +117,16 @@ export default async function Page({ params }: PageProps) {
         resolvedParams.slug[0] === 'pages'
             ? resolvedParams.slug.slice(1)
             : resolvedParams.slug
+
+    if (slugArray.length === 0) {
+        notFound()
+    }
+
     const slug = slugArray[slugArray.length - 1]
-    const [parentSlug, childSlug] = resolvedParams.slug
-    const fullSlug = childSlug ? `${parentSlug}/${childSlug}` : parentSlug
+    const fullSlug = slugArray.join('/')
 
     const [page, seoData] = await Promise.all([
-        getPageData(childSlug),
+        getPageData(slug),
         getPageMetaData(fullSlug),
     ])
 

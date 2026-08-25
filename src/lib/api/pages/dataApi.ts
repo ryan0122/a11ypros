@@ -36,6 +36,10 @@ function stringToNumericId(str: string): number {
  * Fetch Page data directly from local MDX files in src/content/pages/
  */
 export async function getPageData(slug: string): Promise<PageData | null> {
+  if (!slug || typeof slug !== 'string') {
+    return null
+  }
+
   if (!fs.existsSync(PAGES_DIR)) {
     return null
   }
@@ -90,6 +94,8 @@ export async function getPageData(slug: string): Promise<PageData | null> {
  * Fetch SEO metadata directly from local MDX frontmatter
  */
 export async function getPageMetaData(fullSlug: string) {
+  if (!fullSlug || typeof fullSlug !== 'string') return null
+
   // Extract child slug if path is parent/child
   const parts = fullSlug.split('/')
   const slug = parts[parts.length - 1]
