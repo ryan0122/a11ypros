@@ -165,23 +165,46 @@ const ContactForm: React.FC<ContactFormProps> = ({
         formData.append('_wpcf7_unit_tag', unitTag)
 
         try {
-            // Submit form data to internal Next.js API endpoint
-            const res = await fetch('/api/contact', {
+            // Build URL-encoded payload for Netlify Forms Edge detection
+            const netlifyParams = new URLSearchParams()
+            netlifyParams.append('form-name', 'contact')
+            netlifyParams.append('contact-first-name', (formData.get('contact-first-name') as string) || '')
+            netlifyParams.append('contact-last-name', (formData.get('contact-last-name') as string) || '')
+            netlifyParams.append('organization-name', (formData.get('organization-name') as string) || '')
+            netlifyParams.append('contact-email', (formData.get('contact-email') as string) || '')
+            netlifyParams.append('contact-phone', (formData.get('contact-phone') as string) || '')
+            netlifyParams.append('contact-message', (formData.get('contact-message') as string) || '')
+
+            // 1. Submit directly to Netlify Forms
+            const res = await fetch('/__forms.html', {
                 method: 'POST',
-                body: formData,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: netlifyParams.toString(),
             })
 
             if (!res.ok) {
-                const errorData = await res.json().catch(() => ({}))
-                throw new Error(errorData.message || `HTTP error! status: ${res.status}`)
+                // Fallback attempt to root
+                await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: netlifyParams.toString(),
+                })
             }
 
-            // Submit to vtiger CRM (non-blocking) - only if prop is enabled
+            // 2. Submit to vtiger CRM (non-blocking) - only if prop is enabled
             if (shouldSubmitToVtiger) {
                 submitToVtiger(formData).catch((err) => {
                     console.error('Error submitting to vtiger:', err)
                 })
             }
+
+            // 3. Secondary background forward to WordPress CF7 / API route (non-blocking)
+            fetch('/api/contact', {
+                method: 'POST',
+                body: formData,
+            }).catch((err) => {
+                console.warn('Background sync error:', err)
+            })
 
             router.push('/contact-us-thank-you')
         } catch (error) {

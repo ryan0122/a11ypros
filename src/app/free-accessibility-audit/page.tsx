@@ -297,7 +297,20 @@ export default function FreeAudit() {
                                     if (!url || !email) return
                                     setLoading(true)
                                     try {
-                                        const res = await fetch('/api/contact', {
+                                        const netlifyParams = new URLSearchParams()
+                                        netlifyParams.append('form-name', 'free-audit')
+                                        netlifyParams.append('url', url)
+                                        netlifyParams.append('email', email)
+
+                                        // 1. Submit directly to Netlify Forms
+                                        await fetch('/__forms.html', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                            body: netlifyParams.toString(),
+                                        })
+
+                                        // 2. Background sync
+                                        fetch('/api/contact', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({
@@ -307,8 +320,10 @@ export default function FreeAudit() {
                                                 'contact-email': email,
                                                 'contact-message': `[FREE MANUAL TEASER AUDIT REQUEST]\nSite URL: ${url}`,
                                             }),
+                                        }).catch((err) => {
+                                            console.warn('Free audit background sync error:', err)
                                         })
-                                        if (!res.ok) throw new Error(`Request failed (${res.status})`)
+
                                         setEmailSubmitted(true)
                                     } catch {
                                         setError('Failed to submit request. Please try again.')

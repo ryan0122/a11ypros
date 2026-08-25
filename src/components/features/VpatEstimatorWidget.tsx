@@ -86,8 +86,29 @@ export default function VpatEstimatorWidget() {
     setIsSubmitting(true)
 
     try {
-      // Submit lead to existing contact API
-      const res = await fetch('/api/contact', {
+      const netlifyParams = new URLSearchParams()
+      netlifyParams.append('form-name', 'contact')
+      netlifyParams.append('contact-first-name', formData.firstName)
+      netlifyParams.append('contact-last-name', formData.lastName)
+      netlifyParams.append('organization-name', formData.company)
+      netlifyParams.append('contact-email', formData.email)
+      netlifyParams.append('contact-phone', formData.phone)
+      netlifyParams.append('contact-message', `[ESTIMATOR LEAD]
+Goal: ${formData.goal}
+Asset Type: ${formData.assetType}
+Timeline: ${formData.timeline}
+Website/App URL: ${formData.websiteUrl || 'Not provided'}
+Additional Notes: ${formData.notes || 'None'}`)
+
+      // 1. Submit directly to Netlify Forms
+      await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: netlifyParams.toString(),
+      })
+
+      // 2. Secondary background sync to /api/contact
+      fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -100,17 +121,14 @@ export default function VpatEstimatorWidget() {
 Goal: ${formData.goal}
 Asset Type: ${formData.assetType}
 Timeline: ${formData.timeline}
-Website/App URL: ${formData.websiteUrl}
-Additional Notes: ${formData.notes}`,
+Website/App URL: ${formData.websiteUrl || 'Not provided'}
+Additional Notes: ${formData.notes || 'None'}`,
         }),
+      }).catch((err) => {
+        console.warn('Estimator background sync error:', err)
       })
 
-      if (res.ok) {
-        setSubmitted(true)
-      } else {
-        // Fallback success state even if API mock endpoint returns non-200
-        setSubmitted(true)
-      }
+      setSubmitted(true)
     } catch (err) {
       console.error('Submission error:', err)
       setSubmitted(true)

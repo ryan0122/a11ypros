@@ -32,7 +32,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         id={inputId}
         type={type}
         required={required}
-        className={errorText ? "error" : ""}
+        className={`${errorText ? "error" : ""} placeholder:text-zinc-600 placeholder:opacity-100`}
         aria-describedby={errorText ? errorId : undefined}
         {...rest}
       />

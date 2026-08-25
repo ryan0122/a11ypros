@@ -13,7 +13,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, InputProps>(({ className = "", 
 	const inputId = id || inputIdRef.current;
 	const errorId = useRef(useId()).current;
 	const inputClasses = clsx(
-		"p-2 text-black focus-visible:outline-2 focus-visible:outline-offset-2 border-2 rounded-md",
+		"p-2 text-black placeholder:text-zinc-600 placeholder:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 border-2 rounded-md",
 		errorText ? "border-red-500 focus-visible:outline-red-500" : "border-gray-800 focus-visible:outline-white"
 	);
 
