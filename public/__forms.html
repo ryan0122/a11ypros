@@ -5,8 +5,8 @@
   <title>Netlify Form Detection</title>
 </head>
 <body>
-  <!-- Netlify Form Detection: Main Contact Form -->
-  <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <!-- Netlify Form Detection: Main Contact Form & VPAT Estimator -->
+  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="contact" />
     <input type="text" name="bot-field" />
     <input type="text" name="contact-first-name" />
@@ -18,11 +18,19 @@
   </form>
 
   <!-- Netlify Form Detection: Free Accessibility Teaser Audit Form -->
-  <form name="free-audit" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <form name="free-audit" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="free-audit" />
     <input type="text" name="bot-field" />
     <input type="url" name="url" />
     <input type="email" name="email" />
+  </form>
+
+  <!-- Netlify Form Detection: Free Consultation Form -->
+  <form name="free-consult" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="free-consult" />
+    <input type="text" name="bot-field" />
+    <input type="email" name="email" />
+    <input type="text" name="scanned-url" />
   </form>
 </body>
 </html>

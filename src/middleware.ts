@@ -154,5 +154,5 @@ export function middleware(req: NextRequest) {
 
 // Apply middleware to specific paths if needed
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|__forms\\.html|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|html|txt|xml)$).*)"],
 };

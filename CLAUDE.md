@@ -38,7 +38,7 @@ Note the CMS base URL is handled inconsistently: `NEXT_PUBLIC_CMS_URL` already i
 
 ### Routing
 
-- `next.config.ts` rewrites `/:slug` → `/pages/:slug`, and the `[...slug]` catch-all strips a leading `pages` segment back off. Any change to one half must account for the other.
+- Dynamic CMS pages are caught directly by `src/app/[...slug]/page.tsx` (it also tolerates a legacy leading `pages` segment if requested).
 - The catch-all validates the requested path against the page's real `parentSlug`/`slug` and 404s on mismatch, so CMS page hierarchy must match the URL exactly.
 - Paths under `/sales` and `sitemap.xml` are explicitly `notFound()`-ed in the catch-all so the server/`sitemap.ts` handle them.
 - Hand-coded routes (`/blog`, `/free-accessibility-audit`, `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over CMS pages of the same name.

@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     // Submit to Netlify Forms endpoint
     try {
-      const netlifyRes = await fetch(`${siteUrl}/`, {
+      const netlifyRes = await fetch(`${siteUrl}/__forms.html`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

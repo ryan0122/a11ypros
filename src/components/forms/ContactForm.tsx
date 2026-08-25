@@ -182,11 +182,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: netlifyParams.toString(),
                 }),
-                fetch('/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: netlifyParams.toString(),
-                }),
                 fetch('/api/contact', {
                     method: 'POST',
                     body: formData,
@@ -226,11 +221,16 @@ const ContactForm: React.FC<ContactFormProps> = ({
             className={cx('mx-auto max-w-2xl', className)}
         >
             <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 noValidate
                 ref={formRef}
                 aria-describedby={privacyNoticeId ? privacyNoticeId : undefined}
             >
+                <input type="hidden" name="form-name" value="contact" />
                 {/* Honeypot for Netlify bot detection */}
                 <p className="hidden" aria-hidden="true">
                     <label>
