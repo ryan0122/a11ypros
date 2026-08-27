@@ -274,6 +274,15 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-settings"))}
+                    className="text-xs text-slate-400 hover:text-slate-300 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400 focus-visible:outline-offset-2"
+                  >
+                    Cookie Settings
+                  </button>
+                </li>
+                <li>
                   <Link href="/accessibility-statement" className="hover:text-slate-300 transition-colors">
                     Accessibility Statement
                   </Link>
