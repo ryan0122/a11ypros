@@ -36,6 +36,8 @@ export function sanitizeMdxContent(rawHtml: string): string {
       iframe: ['src', 'width', 'height', 'title', 'frameborder', 'scrolling', 'allow', 'allowfullscreen'],
       svg: ['viewBox', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'aria-hidden', 'data-slot'],
       path: ['d', 'fill', 'stroke', 'stroke-linecap', 'stroke-linejoin'],
+      th: ['scope', 'align', 'colspan', 'rowspan'],
+      td: ['align', 'colspan', 'rowspan'],
     },
     allowedIframeHostnames: ['www.credly.com', 'credly.com', 'www.youtube.com', 'youtube.com'],
     allowedSchemes: ['http', 'https', 'mailto', 'tel'],

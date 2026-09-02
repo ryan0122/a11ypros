@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
+import remarkGfm from 'remark-gfm'
 import { sanitizeMdxContent } from '@/lib/utils/sanitizeHtml'
 
 export interface Post {
@@ -124,8 +125,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const fileContents = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(fileContents)
 
-  // Process markdown body to HTML string and apply strict HTML sanitization
-  const processedContent = await remark().use(html, { sanitize: false }).process(content)
+  // Process markdown body to HTML string (with GFM tables/autolinks) and apply strict HTML sanitization
+  const processedContent = await remark().use(remarkGfm).use(html, { sanitize: false }).process(content)
   const contentHtml = sanitizeMdxContent(processedContent.toString())
 
   const id = stringToNumericId(slug)
