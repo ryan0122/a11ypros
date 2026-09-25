@@ -192,24 +192,20 @@ export default function FreeAudit() {
         if (!email) return
 
         setSubmittingEmail(true)
-        const formData = new FormData()
-        formData.append('form-name', 'free-consult')
-        formData.append('email', email)
-        formData.append('scanned-url', url)
 
         try {
-            const params = new URLSearchParams()
-            formData.forEach((value, key) => {
-                params.append(key, value.toString())
-            })
-            
-            await fetch('/__forms.html', {
+            const res = await fetch('/api/contact', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: params.toString(),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    'form-name': 'free-consult',
+                    email,
+                    'scanned-url': url,
+                }),
             })
+            if (!res.ok) {
+                throw new Error(`Server responded with ${res.status}`)
+            }
             // Success - unlock full results
             setEmailSubmitted(true)
             setShowFullResults(true)
@@ -297,32 +293,18 @@ export default function FreeAudit() {
                                     if (!url || !email) return
                                     setLoading(true)
                                     try {
-                                        const netlifyParams = new URLSearchParams()
-                                        netlifyParams.append('form-name', 'free-audit')
-                                        netlifyParams.append('url', url)
-                                        netlifyParams.append('email', email)
-
-                                        // 1. Submit directly to Netlify Forms
-                                        await fetch('/__forms.html', {
-                                            method: 'POST',
-                                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                            body: netlifyParams.toString(),
-                                        })
-
-                                        // 2. Background sync
-                                        fetch('/api/contact', {
+                                        const res = await fetch('/api/contact', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({
-                                                'contact-first-name': 'Free Audit',
-                                                'contact-last-name': 'Requester',
-                                                'organization-name': 'Website Owner',
-                                                'contact-email': email,
-                                                'contact-message': `[FREE MANUAL TEASER AUDIT REQUEST]\nSite URL: ${url}`,
+                                                'form-name': 'free-audit',
+                                                email,
+                                                url,
                                             }),
-                                        }).catch((err) => {
-                                            console.warn('Free audit background sync error:', err)
                                         })
+                                        if (!res.ok) {
+                                            throw new Error(`Server responded with ${res.status}`)
+                                        }
 
                                         setEmailSubmitted(true)
                                     } catch {
