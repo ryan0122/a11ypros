@@ -103,13 +103,12 @@ export async function getPageMetaData(fullSlug: string) {
   const page = await getPageData(slug)
   if (!page) return null
 
-  // Re-read file frontmatter for RankMath fields
+  // Re-read file frontmatter for SEO fields
   let filePath = path.join(PAGES_DIR, `${slug}.mdx`)
   if (!fs.existsSync(filePath)) {
     filePath = path.join(PAGES_DIR, `${slug}.md`)
   }
 
-  let rankMathSchema = ''
   let description = ''
   let rankMathMeta = ''
 
@@ -117,13 +116,11 @@ export async function getPageMetaData(fullSlug: string) {
     const fileContents = fs.readFileSync(filePath, 'utf-8')
     const { data } = matter(fileContents)
     description = data.seoDescription || ''
-    rankMathSchema = data.rankMathSchema || ''
     rankMathMeta = data.seoTitle || data.title || ''
   }
 
   return {
     description,
     rankMathMeta,
-    rankMathSchema,
   }
 }

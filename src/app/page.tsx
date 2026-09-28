@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import HomeTemplate from "@/components/templates/HomeTemplate";
 import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
+import { pageStructuredData, toJsonLd } from "@/lib/seo/structuredData";
 
 export const dynamic = 'force-dynamic';
 
@@ -68,13 +69,18 @@ export default async function HomePage() {
 
   return (
     <>
-     {/* ✅ Inject JSON-LD Schema from RankMath */}
-     {seoData?.rankMathSchema && (
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
-      />
-    )}
+     <script
+       type="application/ld+json"
+       dangerouslySetInnerHTML={{
+         __html: toJsonLd(
+           pageStructuredData({
+             path: "/",
+             title: page.title.rendered,
+             description: seoData?.description || "",
+           })
+         ),
+       }}
+     />
      <HomeTemplate title={page.title.rendered} content={page.content.rendered} />
      </>
   );

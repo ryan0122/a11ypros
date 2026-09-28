@@ -18,7 +18,7 @@ export interface Post {
   featured_image_url?: string
   content?: { rendered: string }
   rankMathMeta?: string
-  rankMathSchema?: string
+  schemaType?: string // schema.org Article subtype, e.g. TechArticle; defaults to BlogPosting
   seoDescription?: string
 }
 
@@ -68,7 +68,7 @@ function parseAllLocalPosts(): Post[] {
       featured_media: 1,
       featured_image_url: data.featured_image_url || undefined,
       seoDescription: data.seoDescription || data.excerpt || '',
-      rankMathSchema: data.rankMathSchema || undefined,
+      schemaType: data.schemaType || undefined,
       rankMathMeta: data.seoTitle || data.title || '',
     }
   })
@@ -143,7 +143,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     featured_image_url: data.featured_image_url || undefined,
     content: { rendered: contentHtml },
     seoDescription: data.seoDescription || data.excerpt || '',
-    rankMathSchema: data.rankMathSchema || undefined,
+    schemaType: data.schemaType || undefined,
     rankMathMeta: data.seoTitle || data.title || '',
   }
 }

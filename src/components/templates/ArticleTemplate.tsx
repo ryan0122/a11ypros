@@ -12,7 +12,6 @@ export interface ArticleTemplateProps {
     date: string
     author_name?: string
     featured_image_url?: string
-    rankMathSchema?: string
     slug: string
   }
   postUrl: string

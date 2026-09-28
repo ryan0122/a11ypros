@@ -5,6 +5,7 @@ import { getPageData, getPageMetaData } from '@/lib/api/pages/dataApi'
 import he from 'he'
 import FAQAccordion from '@/components/ui/FaqAccordion'
 import PricingCards from '@/components/ui/PricingCards'
+import { pageStructuredData, toJsonLd } from '@/lib/seo/structuredData'
 
 type FAQ = {
     question: string
@@ -35,10 +36,8 @@ export async function generateMetadata({
         }
     }
 
-    const slugArray =
-        resolvedParams.slug[0] === 'pages'
-            ? resolvedParams.slug.slice(1)
-            : resolvedParams.slug
+    // Legacy /pages/* and /home URLs are redirected in next.config.ts
+    const slugArray = resolvedParams.slug
 
     if (slugArray.length === 0) {
         return {
@@ -113,10 +112,7 @@ export default async function Page({ params }: PageProps) {
         return notFound()
     }
 
-    const slugArray =
-        resolvedParams.slug[0] === 'pages'
-            ? resolvedParams.slug.slice(1)
-            : resolvedParams.slug
+    const slugArray = resolvedParams.slug
 
     if (slugArray.length === 0) {
         notFound()
@@ -146,15 +142,39 @@ export default async function Page({ params }: PageProps) {
         notFound()
     }
 
+    // Parent title for the breadcrumb schema (e.g. Services › WCAG Compliance Auditing)
+    const parentPage = page.parentSlug
+        ? await getPageData(page.parentSlug)
+        : null
+
     return (
         <>
-            {/* ✅ Inject JSON-LD Schema from RankMath */}
-            {seoData?.rankMathSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: seoData.rankMathSchema }}
-                />
-            )}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: toJsonLd(
+                        pageStructuredData({
+                            path: `/${fullSlug}`,
+                            title: page.title.rendered,
+                            description: seoData?.description || '',
+                            crumbs: [
+                                ...(parentPage
+                                    ? [
+                                          {
+                                              name: parentPage.title.rendered,
+                                              path: `/${parentPage.slug}`,
+                                          },
+                                      ]
+                                    : []),
+                                {
+                                    name: page.title.rendered,
+                                    path: `/${fullSlug}`,
+                                },
+                            ],
+                        })
+                    ),
+                }}
+            />
             {/* ACF FAQ schema – generated in Next.js (bypasses all Rank Math bugs) */}
             {page.faqs && page.faqs.length > 0 && (
                 <script

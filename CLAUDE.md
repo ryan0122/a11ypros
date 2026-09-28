@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Marketing/lead-gen site for A11Y Pros (accessibility consulting). Next.js 15 App Router + React 19 + TypeScript, styled with Tailwind 3 and SCSS. Content comes from a **headless WordPress CMS** at `https://cms.a11ypros.com`. Deployed to Netlify; every push to `main` deploys.
+Marketing/lead-gen site for A11Y Pros (accessibility consulting). Next.js 15 App Router + React 19 + TypeScript, styled with Tailwind 3 and SCSS. Content lives in the repo as **MDX files in `src/content/`** (migrated from a headless WordPress CMS at `https://cms.a11ypros.com`, which still hosts some images). Deployed to Netlify; every push to `main` deploys.
 
 Node 22 is required (`.nvmrc`, `engines`, `netlify.toml`).
 
@@ -21,34 +21,43 @@ npm run netlify:dev    # dev server with Netlify functions/edge emulated
 
 There is no test framework in this repo. `lint` + `build` is the verification path.
 
-`scripts/*.mjs` are one-off operational scripts run directly with `node` (not npm scripts) — they publish articles to WordPress and ping the Google Indexing API. `scripts/update-post-seo.mjs` is a scratch script with a hardcoded post ID; treat it as a template, not a stable tool. `scripts/index-url.mjs` needs a `gsc-key.json` service-account file at repo root and no-ops with a warning if it's absent.
+`scripts/*.mjs` are one-off operational scripts run directly with `node` (not npm scripts):
+
+- `publish.mjs` writes a new post to `src/content/posts/` (copying its image to `public/images/blog/`) and pings the Google Indexing API via `index-url.mjs`, which needs a `gsc-key.json` service-account file at repo root and no-ops with a warning if it's absent.
+- `export-wp-pages-to-mdx.mjs` / `export-wp-posts-to-mdx.mjs` performed the one-time WordPress → MDX migration. Don't re-run them; they would overwrite local edits.
+- `publish-saas-article.mjs` is a worked example of calling `publishArticle()` for one post; copy it as a template for the next article.
 
 ## Architecture
 
-### Content pipeline (headless WordPress)
+### Content pipeline (local MDX)
 
-Two data layers, deliberately separate:
+Content is read from the filesystem at request time with `gray-matter`, converted with `remark`/`remark-html`, and passed through `sanitizeMdxContent()` ([src/lib/utils/sanitizeHtml.ts](src/lib/utils/sanitizeHtml.ts)). The loaders keep WordPress-shaped return types (`title.rendered`, `content.rendered`, numeric `id` hashed from the slug) so the templates didn't have to change in the migration.
 
-- [src/lib/api/pages/dataApi.ts](src/lib/api/pages/dataApi.ts) — `getPageData(slug)` fetches a WP page plus featured media, parent slug, and the `faq-acf-repeater` ACF field. `getPageMetaData(slug)` fetches the RankMath SEO `<head>` blob.
-- [src/lib/api/posts/dataApi.ts](src/lib/api/posts/dataApi.ts) — three fetchers with different cost/caching tradeoffs: `getPostsForListing()` (embedded author/media only, `force-cache` + 60s revalidate — use this for lists), `getPosts()` (adds a RankMath call per post, `no-store` — sitemap only), `getPostBySlug()` (single post + RankMath).
+- **Pages** — `src/content/pages/<slug>.mdx`, loaded by [src/lib/api/pages/dataApi.ts](src/lib/api/pages/dataApi.ts). `getPageData(slug)` matches by filename, falling back to a frontmatter `slug` scan. Frontmatter: `title`, `slug`, `parentSlug`, `featuredImage`, `faqs` (question/answer list), `seoTitle`, `seoDescription`. `getPageMetaData(slug)` returns the `seoDescription`.
+- **Posts** — `src/content/posts/<slug>.mdx`, loaded by [src/lib/api/posts/dataApi.ts](src/lib/api/posts/dataApi.ts) (adds `remark-gfm`). `getPostsForListing()`, `getPosts()` and `getPostBySlug()` all read local files now; the names are WordPress-era. Frontmatter: `title`, `slug`, `date`, `author_name`, `excerpt` (blog listing cards), `featured_image_url`, `seoTitle`, `seoDescription`, and optional `schemaType` (a schema.org Article subtype such as `TechArticle`; defaults to `BlogPosting`).
 
-SEO metadata is not authored in this repo. RankMath returns a raw HTML `<head>` string; [src/utils/extractJsonLD.ts](src/utils/extractJsonLD.ts) pulls the JSON-LD out of it and routes inject it via `dangerouslySetInnerHTML`. The meta description is regex-extracted from that same blob. FAQ schema is the exception — it is built in Next.js from the ACF repeater rather than trusting RankMath's output (see the comment in [src/app/[...slug]/page.tsx](src/app/[...slug]/page.tsx)).
+SEO is authored in frontmatter:
 
-Note the CMS base URL is handled inconsistently: `NEXT_PUBLIC_CMS_URL` already includes `/wp-json/wp/v2`, but `src/lib/api/posts/dataApi.ts` hardcodes the bare domain and appends the path itself. Check which convention a file uses before adding a fetch.
+- **Meta description** comes from `seoDescription`; pages fall back to a generic sentence and posts to `excerpt`, so every file should have one. Keep it ≤160 characters, plain text, no HTML entities (the WordPress-era excerpts had `&#8217;`/`[&hellip;]` that leaked into search results).
+- **JSON-LD** is generated from frontmatter by [src/lib/seo/structuredData.ts](src/lib/seo/structuredData.ts): Organization + WebSite + WebPage + BreadcrumbList for every page, plus an Article node for posts. Organization details (address, phone, logo) and known-author job titles live there. Serialize with `toJsonLd()`, which escapes `<`. The RankMath schema frozen at the migration was removed from frontmatter because it had `cms.a11ypros.com` `@id`s, an empty page URL and no Article node; don't reintroduce it. FAQ schema is built in Next.js from the `faqs` frontmatter (see [src/app/[...slug]/page.tsx](src/app/[...slug]/page.tsx)).
+- New or renamed pages/posts should also be added to [public/llms.txt](public/llms.txt).
+
+Legacy WordPress code that nothing imports: [src/lib/api/posts/route.ts](src/lib/api/posts/route.ts), [src/lib/api/posts/publishPost.ts](src/lib/api/posts/publishPost.ts), [src/utils/extractJsonLD.ts](src/utils/extractJsonLD.ts). Don't build on them.
 
 ### Routing
 
-- Dynamic CMS pages are caught directly by `src/app/[...slug]/page.tsx` (it also tolerates a legacy leading `pages` segment if requested).
-- The catch-all validates the requested path against the page's real `parentSlug`/`slug` and 404s on mismatch, so CMS page hierarchy must match the URL exactly.
+- MDX pages are served by `src/app/[...slug]/page.tsx`, which validates the requested path against the page's `parentSlug`/`slug` and 404s on mismatch, so a page's frontmatter hierarchy must match its URL exactly. The home page is `src/app/page.tsx` reading `home.mdx`.
+- Legacy URLs are permanently redirected (308) in `next.config.ts`: `/pages/*` → `/*` and `/home` → `/`. They used to render duplicates of the canonical pages.
 - Paths under `/sales` and `sitemap.xml` are explicitly `notFound()`-ed in the catch-all so the server/`sitemap.ts` handle them.
-- Hand-coded routes (`/blog`, `/free-accessibility-audit`, `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over CMS pages of the same name.
-- CMS-driven routes set `export const dynamic = 'force-dynamic'`.
+- Hand-coded routes (`/blog`, `/free-accessibility-audit`, `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over MDX pages of the same name. A client-component route needs a sibling `layout.tsx` to set its metadata.
+- [src/lib/sitemap.ts](src/lib/sitemap.ts) builds the sitemap from `src/content/` (excluding `home`, `blog`, and thank-you pages); hand-coded routes aren't in it.
+- Content routes set `export const dynamic = 'force-dynamic'`.
 
-### Templates and CMS HTML
+### Templates and content HTML
 
-`src/components/templates/` holds the three page shells: `PageTemplate` (CMS pages), `ArticleTemplate` (blog posts), `HomeTemplate`. Page bodies arrive as WordPress HTML rendered through `dangerouslySetInnerHTML`.
+`src/components/templates/` holds the three page shells: `PageTemplate` (MDX pages), `ArticleTemplate` (blog posts), `HomeTemplate`. Bodies are rendered as sanitized HTML through `dangerouslySetInnerHTML`, and much of it still carries WordPress block markup and classes from the migration.
 
-Because those classes never appear in source, Tailwind can't tree-shake against them: `tailwind.config.ts` adds `wp-classes.txt` to `content` plus an explicit `safelist` and a broad regex pattern. If a class used only inside WordPress content isn't rendering, add it to `wp-classes.txt` or the safelist.
+Because those classes never appear in source, Tailwind can't tree-shake against them: `tailwind.config.ts` adds `wp-classes.txt` to `content` plus an explicit `safelist` and a broad regex pattern. If a class used only inside content isn't rendering, add it to `wp-classes.txt` or the safelist.
 
 ### Middleware
 
@@ -94,4 +103,4 @@ SVGs import as React components via `@svgr/webpack` (configured in `next.config.
 
 SCSS partials in `src/styles/` are aggregated by `main.scss` (`@use`); Tailwind's directives live in `globals.css`. Both are imported by the root layout. Global/WP-editor styling belongs in SCSS; component styling in Tailwind classes.
 
-Remote images are restricted to `cms.a11ypros.com/wp-content/uploads/**` in `next.config.ts` — a new image host needs a `remotePatterns` entry.
+Remote images are restricted to `cms.a11ypros.com/wp-content/uploads/**` in `next.config.ts` — some migrated content still references images there, so keep the entry while WordPress is up. New images belong in `public/images/`; a new remote host needs a `remotePatterns` entry.

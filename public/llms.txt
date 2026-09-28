@@ -1,37 +1,80 @@
-# Web Accessibility Compliance Consultants - A11Y Pros
+# A11Y Pros
 
-Avoid litigation and make your website, SaaS or app accessible. Offering human-based WCAG/ADA/508 auditing, and remediation consulting.
+> A11Y Pros is a digital accessibility consultancy. Senior, IAAP-certified consultants and native screen reader users perform 100% manual WCAG 2.1/2.2 AA audits, website and PDF remediation, VPAT/ACR authoring, and accessibility consulting for websites, SaaS platforms, and mobile apps. Services support compliance with the ADA, Section 508, the European Accessibility Act (EAA), EN 301 549, AODA, and the Accessible Canada Act, including urgent help for businesses facing ADA website lawsuits and demand letters.
 
-## Contact Information
-- [Home](https://a11ypros.com/): The homepage of A11Y Pros, providing an overview of services and information.
-- [+1 (720) 722-1775](tel:+17207221775): Contact number for inquiries and consultations.
-- [info@a11ypros.com](mailto: info@a11ypros.com): Email address for direct communication regarding services and questions.
+A11Y Pros does not sell accessibility overlays or widgets; all testing and remediation is done by people, at the code level. A free 30-minute consultation is available for new clients.
 
-## Legal and Compliance Standards
-- [Privacy Policy](https://a11ypros.com/privacy-policy): Details on how A11Y Pros handles user data and privacy.
-- [Accessibility Statement](https://a11ypros.com/accessibility-statement): A declaration of the commitment to accessibility and compliance.
-- [WCAG](https://a11ypros.com/compliance/web-content-accessibility-guidelines): Web Content Accessibility Guidelines that outline how to make web content more accessible.
-- [ADA](https://a11ypros.com/compliance/the-americans-with-disabilities-act): Americans With Disabilities Act, a civil rights law that prohibits discrimination based on disability.
-- [Section 508](https://a11ypros.com/compliance/section-508): US Rehabilitation Act section that requires federal agencies to make their electronic and information technology accessible.
-- [ACA](https://a11ypros.com/compliance/the-accessible-canada-act-aca): Accessible Canada Act, aimed at making Canada barrier-free for people with disabilities.
-- [AODA](https://a11ypros.com/compliance/aoda): Accessibility for Ontarians with Disabilities Act, legislation to improve accessibility in Ontario.
-- [EN 301 549](https://a11ypros.com/compliance/en-301-549): European Standard for Digital Accessibility, providing guidelines for accessibility in the EU.
+## Contact
 
-## Services Offered
-- [WCAG Compliance Auditing](https://a11ypros.com/services/wcag-compliance-auditing): Comprehensive audits to ensure compliance with WCAG standards.
-- [Website Remediation](https://a11ypros.com/services/website-remediation): Services to fix accessibility issues on websites.
-- [VPAT & ACR Authoring](https://a11ypros.com/services/vpat-acr-authoring): Authoring of Voluntary Product Accessibility Templates and Accessibility Conformance Reports.
-- [Web Accessibility Consulting](https://a11ypros.com/services/web-accessibility-consulting): Expert consulting services to guide organizations in achieving accessibility.
-- [PDF Remediation](https://a11ypros.com/services/pdf-remediation): Services to make PDF documents accessible to all users.
-- [Accessibility Testing for AI: Why Manual Verification Matters More Than Ever](https://a11ypros.com/blog/ai-meets-accessibility-ensuring-wcag-compliance-in-the-age-of-generative-interfaces): An article discussing the importance of manual testing in AI accessibility.
-- [Navigating the European Accessibility Act (EAA): A Guide for U.S. Websites](https://a11ypros.com/blog/navigating-the-european-accessibility-act-eaa-a-guide-for-u-s-websites): Guidance for U.S. websites on compliance with the EAA.
-- [Mobile Accessibility Testing Checklist for Native & Web Apps (2025 Edition)](https://a11ypros.com/blog/mobile-accessibility-testing-checklist-2025-edition): A checklist to ensure mobile applications meet accessibility standards.
-- [Is Your Dev Team Accessibility‑Ready? 7 Skills Every Engineer Should Know](https://a11ypros.com/blog/dev-team-accessibility-skills): An article outlining essential skills for developers to ensure accessibility in their work.
-- [How Accessibility Enhancements Boost SEO](https://a11ypros.com/blog/how-accessibility-enhancements-boost-seo): Insights on how improving accessibility can positively impact search engine optimization.
-- [Accessible AI: Ensuring WCAG Compliance in Chatbots, Generative UIs, and Assistive Tech](https://a11ypros.com/blog/accessible-ai): Discussion on making AI technologies compliant with accessibility standards.
-- [View All Articles](https://a11ypros.com/blog): A link to access a collection of articles related to web accessibility.
+- [Contact Us](https://a11ypros.com/contact-us): Request a free initial consultation, including a brief automated assessment of your site and a demonstration of what manual testing finds.
+- [Free Consultation](https://a11ypros.com/free-consultation): Book a free 30-minute consultation for expert ADA website audit and remediation services.
+- Phone: +1 (720) 722-1775
+- Email: info@a11ypros.com
 
-## Overview of A11Y Pros
-- [Web Accessibility Services - A11Y Pros](https://a11ypros.com/pages/services): An overview of the various services offered by A11Y Pros in the field of web accessibility.
-- [Web Accessibility Compliance Consultants - A11Y Pros](https://a11ypros.com/pages/home): A detailed description of the consulting services provided by A11Y Pros.
-- [Accessibility Compliance - A11Y Pros](https://a11ypros.com/pages/compliance): Information on how A11Y Pros assists organizations in achieving compliance with accessibility standards.
+## Services
+
+- [Web Accessibility Services](https://a11ypros.com/services): Overview of accessibility consulting, auditing, and remediation for WCAG, Section 508, and ADA website compliance.
+- [WCAG Compliance Auditing](https://a11ypros.com/services/wcag-compliance-auditing): Manual WCAG 2.1/2.2 AA audits of websites, SaaS platforms, and mobile apps for ADA, Section 508, EAA, and AODA compliance.
+- [Website Remediation](https://a11ypros.com/services/website-remediation): Code-level fixes that bring websites into conformance with WCAG 2.1 A and AA.
+- [VPAT & ACR Authoring](https://a11ypros.com/services/vpat-acr-authoring): Voluntary Product Accessibility Templates and Accessibility Conformance Reports for government and enterprise procurement.
+- [Web Accessibility Consulting](https://a11ypros.com/services/web-accessibility-consulting): Expert guidance on WCAG, EAA, Section 508, and ADA compliance for product, design, and engineering teams.
+- [PDF Remediation](https://a11ypros.com/services/pdf-remediation): Evaluating, fixing, and verifying PDF documents so they are accessible to screen reader users and meet compliance standards.
+- [Figma Design & UI/UX Accessibility Audits](https://a11ypros.com/services/figma-design-audits): Design-phase audits of Figma files, component libraries, and design systems to catch color contrast, focus state, and component issues before development.
+- [ADA Website Compliance & Litigation Protection](https://a11ypros.com/services/ada-litigation-support): Audits, code-level remediation, and VPAT/ACR documentation for businesses at risk of, or responding to, ADA Title III website lawsuits and demand letters.
+- [Accessibility Partnerships for Agencies & Dev Teams](https://a11ypros.com/services/accessibility-partnerships-for-agencies-dev-teams): White-label audits and VPATs, subcontracted accessibility work, and team augmentation for agencies and development teams.
+- [Pricing](https://a11ypros.com/pricing): Rates for manual WCAG 2.1/2.2 AA audits, hourly technical consulting, website remediation, and VPAT authoring.
+
+## Tools
+
+- [Audit & VPAT Scope Estimator](https://a11ypros.com/vpat-estimator): Interactive calculator for WCAG 2.1/2.2 AA audit scope, Section 508 requirements, and estimated VPAT/ACR timeline.
+- [Free Manual Teaser Audit](https://a11ypros.com/free-accessibility-audit): Request a free manual review of key keyboard and screen reader flows on your site, delivered as a video breakdown.
+
+## Accessibility Laws and Standards
+
+- [Accessibility Compliance](https://a11ypros.com/compliance): Overview of web accessibility standards and how A11Y Pros helps organizations meet them.
+- [WCAG](https://a11ypros.com/compliance/web-content-accessibility-guidelines): The Web Content Accessibility Guidelines, the internationally recognized standard behind most accessibility laws.
+- [Americans with Disabilities Act (ADA)](https://a11ypros.com/compliance/the-americans-with-disabilities-act): The U.S. civil rights law that courts apply to websites and digital services.
+- [Section 508](https://a11ypros.com/compliance/section-508): The Rehabilitation Act requirement that federal agencies and contractors provide accessible technology.
+- [EN 301 549](https://a11ypros.com/compliance/en-301-549): The European standard for digital accessibility in public sector procurement.
+- [Accessibility for Ontarians with Disabilities Act (AODA)](https://a11ypros.com/compliance/aoda): Ontario's accessibility law for public and private sector organizations.
+- [Accessible Canada Act (ACA)](https://a11ypros.com/compliance/the-accessible-canada-act-aca): Canada's federal law aiming for a barrier-free Canada by 2040.
+
+## Articles
+
+- [All Articles](https://a11ypros.com/blog): Articles on web accessibility, ADA compliance, and WCAG guidelines.
+- [Why Accessibility Overlays & Widgets Won't Protect You From ADA Lawsuits](https://a11ypros.com/blog/why-accessibility-overlays-dont-protect-against-ada-lawsuits): Why automated overlays fail legal scrutiny, how they create barriers for assistive technology users, and what native remediation looks like.
+- [3 Reasons SaaS Vendors Fail Enterprise Accessibility Procurement](https://a11ypros.com/blog/3-reasons-saas-vendors-fail-enterprise-accessibility-procurement): The accessibility pitfalls that cost B2B SaaS companies enterprise contracts, and how to pass WCAG and VPAT reviews.
+- [What Is a VPAT and Do I Need One?](https://a11ypros.com/blog/what-is-a-vpat-and-do-i-need-one): What a Voluntary Product Accessibility Template is, why it matters, and who needs one.
+- [SaaS Accessibility Legal Compliance](https://a11ypros.com/blog/saas-accessibility-legal-compliance): How SaaS providers navigate ADA, EAA, and WCAG requirements.
+- [Top 10 WCAG 2.2 Violations We See Most Often](https://a11ypros.com/blog/top-10-wcag-2-2-violations-we-see-most-often-and-how-to-fix-them): The most common WCAG 2.2 failures found in audits, with practical fixes.
+- [ADA Web Accessibility Standards & Requirements in 2025](https://a11ypros.com/blog/ada-web-accessibility-standards-amp-requirements-2025): What businesses need to know about ADA and WCAG website compliance.
+- [ADA Title II: What Small Municipalities Must Do Before April 2027](https://a11ypros.com/blog/ada-title-ii-april-2027): The DOJ's ADA Title II rule and the compliance steps for local governments under 50,000 people.
+- [DOJ Extends ADA Title II Web Accessibility Deadlines](https://a11ypros.com/blog/doj-extends-ada-title-ii): The revised implementation timeline for state and local government websites and apps.
+- [Colorado's Digital Accessibility Law HB21-1110](https://a11ypros.com/blog/colorados-digital-accessibility-law-hb21-1110): A guide to Colorado's digital accessibility mandate and its extended compliance deadline.
+- [Navigating the European Accessibility Act (EAA): A Guide for U.S. Websites](https://a11ypros.com/blog/navigating-the-european-accessibility-act-eaa-a-guide-for-u-s-websites): What the EAA means for U.S. businesses serving EU customers.
+- [The $5,000 Web Accessibility Tax Credit](https://a11ypros.com/blog/the-5000-web-accessibility-tax-credit): How small businesses can use the Disabled Access Credit to offset accessibility costs.
+- [The Real Cost of Ignoring Digital Accessibility](https://a11ypros.com/blog/the-real-cost-of-ignoring-digital-accessibility-and-how-to-avoid-it): The financial, legal, and reputational costs of inaccessible websites, and how to avoid them.
+- [Digital Accessibility in 2025: The Year Compliance Became Unavoidable](https://a11ypros.com/blog/digital-accessibility-in-2025): A look back at the lawsuits, regulation, and enforcement that defined 2025.
+- [Accessibility Testing for AI: Why Manual Verification Matters More Than Ever](https://a11ypros.com/blog/ai-meets-accessibility-ensuring-wcag-compliance-in-the-age-of-generative-interfaces): Why chatbots and generative interfaces need accessibility testing beyond automated scanners.
+- [Accessible AI: Ensuring WCAG Compliance in Chatbots, Generative UIs, and Assistive Tech](https://a11ypros.com/blog/accessible-ai): How to make AI-powered products meet WCAG.
+- [Accessibility in Design Systems](https://a11ypros.com/blog/accessibility-in-design-systems): How accessible design systems prevent repeated component failures and reduce remediation costs.
+- [Introducing the A11Y Pros Design System](https://a11ypros.com/blog/a11y-design-system-open-source): A free, open-source accessible React component library for WCAG 2.1/2.2 AA.
+- [Accessible Web Components: Introducing A11Y UI Elements](https://a11ypros.com/blog/accessible-web-components): Zero-dependency, framework-agnostic Web Components for WCAG 2.1/2.2 AA and AAA compliant apps.
+- [How to Create Accessible PDFs](https://a11ypros.com/blog/how-to-create-accessible-pdfs): A step-by-step guide to structuring PDFs for screen reader users.
+- [Mobile Accessibility Testing Checklist for Native & Web Apps](https://a11ypros.com/blog/mobile-accessibility-testing-checklist-2025-edition): A checklist for testing iOS, Android, and responsive web apps.
+- [Is Your Dev Team Accessibility-Ready? 7 Skills Every Engineer Should Know](https://a11ypros.com/blog/dev-team-accessibility-skills): The core accessibility skills for development teams.
+- [How Accessibility Enhancements Boost SEO](https://a11ypros.com/blog/how-accessibility-enhancements-boost-seo): How WCAG improvements also improve search engine optimization.
+- [Creating Web Accessibility Statements for Your Website](https://a11ypros.com/blog/creating-web-accessibility-statements-for-your-website-how-to-guide): Why your site needs an accessibility statement and how to write one.
+- [How to Make Social Media Inclusive](https://a11ypros.com/blog/how-to-make-social-media-inclusive): Accessibility tips for social media content.
+- [Global Accessibility Awareness Day 2025](https://a11ypros.com/blog/global-accessibility-awareness-day-2025-why-digital-inclusion-still-matters): Why digital inclusion still matters.
+- [International Day of Persons with Disabilities](https://a11ypros.com/blog/international-day-of-persons-with-disabilities-2025): Reflections on building a more accessible digital world.
+
+## About
+
+- [About Us](https://a11ypros.com/about-us): The A11Y Pros team and its focus on accessibility consulting, ADA/508/WCAG auditing, and remediation.
+- [Our Mission for Digital Inclusivity](https://a11ypros.com/about-us/our-mission): Why A11Y Pros focuses on genuinely usable experiences, not checklist compliance.
+
+## Optional
+
+- [Accessibility Statement](https://a11ypros.com/accessibility-statement): This website's WCAG 2.2 AA conformance status.
+- [Privacy Policy](https://a11ypros.com/privacy-policy): How A11Y Pros collects, uses, and protects personal data.
