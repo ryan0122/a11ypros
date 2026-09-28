@@ -5,6 +5,7 @@ import Input from '@/components/forms/Input'
 import IconLogo from '@/components/icons/IconLogo'
 import Link from 'next/link'
 import ContactForm from '@/components/forms/ContactForm'
+import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
 interface ScanIssue {
     code: string;
@@ -193,15 +194,18 @@ export default function FreeAudit() {
 
         setSubmittingEmail(true)
 
+        const fields = {
+            'form-name': 'free-consult',
+            email,
+            'scanned-url': url,
+        }
+        recordNetlifySubmission(fields)
+
         try {
             const res = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    'form-name': 'free-consult',
-                    email,
-                    'scanned-url': url,
-                }),
+                body: JSON.stringify(fields),
             })
             if (!res.ok) {
                 throw new Error(`Server responded with ${res.status}`)
@@ -293,14 +297,17 @@ export default function FreeAudit() {
                                     if (!url || !email) return
                                     setLoading(true)
                                     try {
+                                        const fields = {
+                                            'form-name': 'free-audit',
+                                            email,
+                                            url,
+                                        }
+                                        recordNetlifySubmission(fields)
+
                                         const res = await fetch('/api/contact', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
-                                            body: JSON.stringify({
-                                                'form-name': 'free-audit',
-                                                email,
-                                                url,
-                                            }),
+                                            body: JSON.stringify(fields),
                                         })
                                         if (!res.ok) {
                                             throw new Error(`Server responded with ${res.status}`)

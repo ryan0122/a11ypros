@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { CheckCircle2, ShieldCheck, FileText, ArrowRight, Sparkles, Building2, Laptop, Clock, AlertTriangle } from 'lucide-react'
+import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
 interface EstimatorData {
   goal: string
@@ -87,24 +88,27 @@ export default function VpatEstimatorWidget() {
     setIsSubmitting(true)
     setSubmitError(null)
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          'form-name': 'vpat-estimator',
-          'contact-first-name': formData.firstName,
-          'contact-last-name': formData.lastName,
-          'organization-name': formData.company,
-          'contact-email': formData.email,
-          'contact-phone': formData.phone,
-          'contact-message': `[ESTIMATOR LEAD]
+    const fields = {
+      'form-name': 'vpat-estimator',
+      'contact-first-name': formData.firstName,
+      'contact-last-name': formData.lastName,
+      'organization-name': formData.company,
+      'contact-email': formData.email,
+      'contact-phone': formData.phone,
+      'contact-message': `[ESTIMATOR LEAD]
 Goal: ${formData.goal}
 Asset Type: ${formData.assetType}
 Timeline: ${formData.timeline}
 Website/App URL: ${formData.websiteUrl || 'Not provided'}
 Additional Notes: ${formData.notes || 'None'}`,
-        }),
+    }
+    recordNetlifySubmission(fields)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fields),
       })
 
       if (!res.ok) {
