@@ -35,10 +35,8 @@ export async function generateMetadata({
         }
     }
 
-    const slugArray =
-        resolvedParams.slug[0] === 'pages'
-            ? resolvedParams.slug.slice(1)
-            : resolvedParams.slug
+    // Legacy /pages/* and /home URLs are redirected in next.config.ts
+    const slugArray = resolvedParams.slug
 
     if (slugArray.length === 0) {
         return {
@@ -113,10 +111,7 @@ export default async function Page({ params }: PageProps) {
         return notFound()
     }
 
-    const slugArray =
-        resolvedParams.slug[0] === 'pages'
-            ? resolvedParams.slug.slice(1)
-            : resolvedParams.slug
+    const slugArray = resolvedParams.slug
 
     if (slugArray.length === 0) {
         notFound()
