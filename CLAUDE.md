@@ -58,14 +58,14 @@ Because those classes never appear in source, Tailwind can't tree-shake against 
 
 All forms post to internal API routes that proxy to third parties, so credentials/tokens stay off the client:
 
-- `/api/contact` → WordPress Contact Form 7 endpoint (`NEXT_PUBLIC_CONTACT_URL`). Used by `ContactForm`, the free-audit page, and `VpatEstimatorWidget`. Tolerates CF7 returning HTML instead of JSON and treats it as success.
+- `/api/contact` → emails the submission to `LEAD_INBOX` via Resend (`RESEND_API_KEY`, optional `RESEND_FROM`). Used by `ContactForm`, the free-audit page, and `VpatEstimatorWidget`; each sends a `form-name` that ends up in the email subject. Returns a non-2xx on failure and the clients surface it — never report success without checking `res.ok`. Netlify Forms and WordPress CF7 were both abandoned for lead capture.
 - `/api/vtiger` → vtiger webform capture at `sales.a11ypros.com`, with hardcoded `__vtrftk`/`publicid` tokens and an explicit field-name mapping. If vtiger form fields change, that mapping is the thing to update.
 
 `netlify/functions/pa11y-scan.js` runs pa11y + a Groq LLM to produce plain-language audit summaries. Its redirect is **commented out in `netlify.toml`** to reduce Netlify function usage, so `/api/scan` is currently dead — re-enable the redirect if wiring the scanner back up.
 
 ### Environment
 
-`.env.local` holds `NEXT_PUBLIC_CMS_URL`, `NEXT_PUBLIC_SEO_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_CONTACT_URL`, `NEXT_PUBLIC_WP_AUTH`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `GROQ_API_KEY`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`.
+`.env.local` holds `NEXT_PUBLIC_CMS_URL`, `NEXT_PUBLIC_SEO_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_WP_AUTH`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `GROQ_API_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM` (optional), `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`.
 
 `NEXT_PUBLIC_WP_AUTH` is a WordPress Basic-auth credential behind a `NEXT_PUBLIC_` prefix, which means Next inlines it into the client bundle even though it is only ever used server-side. Don't propagate that pattern to new secrets; prefer an unprefixed var for anything server-only.
 

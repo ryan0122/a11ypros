@@ -20,6 +20,7 @@ export default function VpatEstimatorWidget() {
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [formData, setFormData] = useState<EstimatorData>({
     goal: 'vpat',
     assetType: 'saas',
@@ -84,34 +85,14 @@ export default function VpatEstimatorWidget() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitError(null)
 
     try {
-      const netlifyParams = new URLSearchParams()
-      netlifyParams.append('form-name', 'contact')
-      netlifyParams.append('contact-first-name', formData.firstName)
-      netlifyParams.append('contact-last-name', formData.lastName)
-      netlifyParams.append('organization-name', formData.company)
-      netlifyParams.append('contact-email', formData.email)
-      netlifyParams.append('contact-phone', formData.phone)
-      netlifyParams.append('contact-message', `[ESTIMATOR LEAD]
-Goal: ${formData.goal}
-Asset Type: ${formData.assetType}
-Timeline: ${formData.timeline}
-Website/App URL: ${formData.websiteUrl || 'Not provided'}
-Additional Notes: ${formData.notes || 'None'}`)
-
-      // 1. Submit directly to Netlify Forms
-      await fetch('/__forms.html', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: netlifyParams.toString(),
-      })
-
-      // 2. Secondary background sync to /api/contact
-      fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          'form-name': 'vpat-estimator',
           'contact-first-name': formData.firstName,
           'contact-last-name': formData.lastName,
           'organization-name': formData.company,
@@ -124,14 +105,18 @@ Timeline: ${formData.timeline}
 Website/App URL: ${formData.websiteUrl || 'Not provided'}
 Additional Notes: ${formData.notes || 'None'}`,
         }),
-      }).catch((err) => {
-        console.warn('Estimator background sync error:', err)
       })
+
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}`)
+      }
 
       setSubmitted(true)
     } catch (err) {
       console.error('Submission error:', err)
-      setSubmitted(true)
+      setSubmitError(
+        'Sorry, we could not send your request. Please try again or email us at info@a11ypros.com.'
+      )
     } finally {
       setIsSubmitting(false)
     }
@@ -418,6 +403,10 @@ Additional Notes: ${formData.notes || 'None'}`,
                   className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0E8168]"
                   placeholder="https://example.com"
                 />
+              </div>
+
+              <div role="alert" className="text-sm font-medium text-red-300">
+                {submitError}
               </div>
 
               <div className="flex justify-between items-center pt-4">

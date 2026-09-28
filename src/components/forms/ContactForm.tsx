@@ -9,8 +9,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import cx from 'clsx'
 import { submitToVtiger } from '@/utils/submitToVtiger'
 
-let globalCount = 0
-
 interface ContactFormProps {
     isMainContactForm?: boolean
     className?: string
@@ -160,33 +158,16 @@ const ContactForm: React.FC<ContactFormProps> = ({
             return
         }
 
-        globalCount++
-        const unitTag = `wpcf7-f$55-o${globalCount}`
-        formData.append('_wpcf7_unit_tag', unitTag)
-
         try {
-            // Build URL-encoded payload for Netlify Forms Edge detection
-            const netlifyParams = new URLSearchParams()
-            netlifyParams.append('form-name', 'contact')
-            netlifyParams.append('contact-first-name', (formData.get('contact-first-name') as string) || '')
-            netlifyParams.append('contact-last-name', (formData.get('contact-last-name') as string) || '')
-            netlifyParams.append('organization-name', (formData.get('organization-name') as string) || '')
-            netlifyParams.append('contact-email', (formData.get('contact-email') as string) || '')
-            netlifyParams.append('contact-phone', (formData.get('contact-phone') as string) || '')
-            netlifyParams.append('contact-message', (formData.get('contact-message') as string) || '')
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                body: formData,
+            })
 
-            // Submit to Netlify Forms and internal API route concurrently
-            await Promise.allSettled([
-                fetch('/__forms.html', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: netlifyParams.toString(),
-                }),
-                fetch('/api/contact', {
-                    method: 'POST',
-                    body: formData,
-                }),
-            ])
+            if (!res.ok) {
+                const data = await res.json().catch(() => null)
+                throw new Error(data?.message || `Server responded with ${res.status}`)
+            }
 
             // Submit to vtiger CRM (non-blocking) - only if prop is enabled
             if (shouldSubmitToVtiger) {
@@ -223,15 +204,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
             <form
                 name="contact"
                 method="POST"
-                data-netlify="true"
-                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 noValidate
                 ref={formRef}
                 aria-describedby={privacyNoticeId ? privacyNoticeId : undefined}
             >
                 <input type="hidden" name="form-name" value="contact" />
-                {/* Honeypot for Netlify bot detection */}
+                {/* Honeypot for bot detection */}
                 <p className="hidden" aria-hidden="true">
                     <label>
                         Don’t fill this out if you are human:{' '}
