@@ -21,6 +21,21 @@ interface ScanData {
     disclaimer?: string;
 }
 
+// Rendered even when empty: a live region must already be in the DOM for
+// screen readers to announce text added to it. Clearing the message before
+// each attempt lets a repeated failure be announced again.
+const FormError = ({
+    message,
+    className = 'text-red-700',
+}: {
+    message: string
+    className?: string
+}) => (
+    <p role="alert" className={`text-sm font-medium empty:!mt-0 ${className}`}>
+        {message}
+    </p>
+)
+
 // Helper function to extract preview (top 5 issues) from HTML report
 const extractTop5Issues = (
     htmlReport: string
@@ -154,6 +169,8 @@ export default function FreeAudit() {
     const [emailSubmitted, setEmailSubmitted] = useState(false)
     const [showFullResults, setShowFullResults] = useState(false)
     const [submittingEmail, setSubmittingEmail] = useState(false)
+    const [submittingAudit, setSubmittingAudit] = useState(false)
+    const [submitError, setSubmitError] = useState('')
 
     const handleScan = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -166,6 +183,7 @@ export default function FreeAudit() {
         
         setLoading(true)
         setError('')
+        setSubmitError('')
         setData(null)
         setEmailSubmitted(false)
         setShowFullResults(false)
@@ -193,6 +211,7 @@ export default function FreeAudit() {
         if (!email) return
 
         setSubmittingEmail(true)
+        setSubmitError('')
 
         const fields = {
             'form-name': 'free-consult',
@@ -215,8 +234,8 @@ export default function FreeAudit() {
             setShowFullResults(true)
             // Don't clear email so they can see it was submitted
         } catch {
-            setError(
-                'Failed to submit email. Please try again or email us directly.'
+            setSubmitError(
+                'Sorry, we could not submit your email. Please try again or email us at info@a11ypros.com.'
             )
             setSubmittingEmail(false)
         }
@@ -295,7 +314,8 @@ export default function FreeAudit() {
                                 onSubmit={async (e) => {
                                     e.preventDefault()
                                     if (!url || !email) return
-                                    setLoading(true)
+                                    setSubmittingAudit(true)
+                                    setSubmitError('')
                                     try {
                                         const fields = {
                                             'form-name': 'free-audit',
@@ -315,9 +335,9 @@ export default function FreeAudit() {
 
                                         setEmailSubmitted(true)
                                     } catch {
-                                        setError('Failed to submit request. Please try again.')
+                                        setSubmitError('Sorry, we could not submit your request. Please try again or email us at info@a11ypros.com.')
                                     } finally {
-                                        setLoading(false)
+                                        setSubmittingAudit(false)
                                     }
                                 }}
                                 className="max-w-xl mx-auto space-y-4 text-left"
@@ -332,8 +352,9 @@ export default function FreeAudit() {
                                 ) : (
                                     <>
                                         <div>
-                                            <label className="block text-xs font-semibold text-slate-300 mb-1">Your Website URL *</label>
+                                            <label htmlFor="teaser-audit-url" className="block text-xs font-semibold text-slate-300 mb-1">Your Website URL *</label>
                                             <input
+                                                id="teaser-audit-url"
                                                 type="url"
                                                 required
                                                 placeholder="https://your-website.com"
@@ -343,8 +364,9 @@ export default function FreeAudit() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-semibold text-slate-300 mb-1">Work Email *</label>
+                                            <label htmlFor="teaser-audit-email" className="block text-xs font-semibold text-slate-300 mb-1">Work Email *</label>
                                             <input
+                                                id="teaser-audit-email"
                                                 type="email"
                                                 required
                                                 placeholder="you@company.com"
@@ -353,12 +375,13 @@ export default function FreeAudit() {
                                                 className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-[#0E8168] focus:outline-none"
                                             />
                                         </div>
+                                        <FormError message={submitError} className="text-red-300" />
                                         <button
                                             type="submit"
-                                            disabled={loading}
+                                            disabled={submittingAudit}
                                             className="w-full py-4 px-6 bg-[#0E8168] hover:bg-[#0a6b57] text-white font-bold rounded-xl text-lg transition-colors shadow-lg shadow-[#0E8168]/30 disabled:opacity-50"
                                         >
-                                            {loading ? 'Submitting Request...' : 'Get Free Manual Teaser Audit Video →'}
+                                            {submittingAudit ? 'Submitting Request...' : 'Get Free Manual Teaser Audit Video →'}
                                         </button>
                                     </>
                                 )}
@@ -475,6 +498,7 @@ export default function FreeAudit() {
                                                         required
                                                         className="w-full rounded-md border-2 border-gray-300 px-6 py-4 text-lg text-black focus:border-[#0E8168] focus:outline-none"
                                                     />
+                                                    <FormError message={submitError} />
                                                     <Button
                                                         type="submit"
                                                         disabled={
@@ -602,6 +626,7 @@ export default function FreeAudit() {
                                                             required
                                                             className="w-full rounded-md border-2 border-gray-300 px-6 py-4 text-lg text-black focus:border-[#0E8168] focus:outline-none"
                                                         />
+                                                        <FormError message={submitError} />
                                                         <Button
                                                             type="submit"
                                                             disabled={
@@ -654,6 +679,7 @@ export default function FreeAudit() {
                                                         required
                                                         className="w-full rounded-md border-2 border-gray-300 px-6 py-4 text-lg text-black focus:border-[#0E8168] focus:outline-none"
                                                     />
+                                                    <FormError message={submitError} />
                                                     <Button
                                                         type="submit"
                                                         disabled={
