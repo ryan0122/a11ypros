@@ -8,6 +8,7 @@ import Button from '@/components/forms/Button'
 import { useRouter, usePathname } from 'next/navigation'
 import cx from 'clsx'
 import { submitToVtiger } from '@/utils/submitToVtiger'
+import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
 interface ContactFormProps {
     isMainContactForm?: boolean
@@ -157,6 +158,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
             router.push('/contact-us-thank-you')
             return
         }
+
+        const fields: Record<string, string> = {}
+        formData.forEach((value, key) => {
+            if (typeof value === 'string') fields[key] = value
+        })
+        recordNetlifySubmission(fields)
 
         try {
             const res = await fetch('/api/contact', {

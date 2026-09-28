@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Netlify Form Detection</title>
+</head>
+<body>
+  <!--
+    Netlify scans this file at build time to register the forms below.
+    Submissions are posted here by recordNetlifySubmission(); field names
+    must match what the React forms send or Netlify drops the values.
+  -->
+
+  <!-- ContactForm (main + partner contact forms) -->
+  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="text" name="bot-field" />
+    <input type="text" name="contact-first-name" />
+    <input type="text" name="contact-last-name" />
+    <input type="text" name="organization-name" />
+    <input type="email" name="contact-email" />
+    <input type="tel" name="contact-phone" />
+    <textarea name="contact-message"></textarea>
+  </form>
+
+  <!-- VpatEstimatorWidget -->
+  <form name="vpat-estimator" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="vpat-estimator" />
+    <input type="text" name="bot-field" />
+    <input type="text" name="contact-first-name" />
+    <input type="text" name="contact-last-name" />
+    <input type="text" name="organization-name" />
+    <input type="email" name="contact-email" />
+    <input type="tel" name="contact-phone" />
+    <textarea name="contact-message"></textarea>
+  </form>
+
+  <!-- Free accessibility audit: manual audit request -->
+  <form name="free-audit" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="free-audit" />
+    <input type="text" name="bot-field" />
+    <input type="email" name="email" />
+    <input type="url" name="url" />
+  </form>
+
+  <!-- Free accessibility audit: book a consultation after a scan -->
+  <form name="free-consult" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="free-consult" />
+    <input type="text" name="bot-field" />
+    <input type="email" name="email" />
+    <input type="text" name="scanned-url" />
+  </form>
+</body>
+</html>

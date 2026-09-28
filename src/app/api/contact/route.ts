@@ -19,19 +19,26 @@ const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);
 export async function POST(request: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   const inbox = process.env.LEAD_INBOX;
-  // onboarding@resend.dev works before a11ypros.com is verified in Resend,
-  // but can only deliver to the Resend account owner's address.
-  const from = process.env.RESEND_FROM || 'A11Y Pros Website <onboarding@resend.dev>';
+  // Must be an address on the domain verified in Resend. Resend's test sender
+  // (onboarding@resend.dev) only delivers to the account owner, so there is no fallback.
+  const from = process.env.RESEND_FROM;
 
-  if (!apiKey || !inbox) {
-    console.error('[contact] RESEND_API_KEY or LEAD_INBOX is not configured');
+  if (!apiKey || !inbox || !from) {
+    console.error('[contact] RESEND_API_KEY, LEAD_INBOX or RESEND_FROM is not configured');
     return NextResponse.json({ message: 'Form submission is not configured' }, { status: 500 });
   }
 
-  let data: Record<string, string> = {};
+  // Only string fields are kept, so a malformed body can't crash the handler.
+  const data: Record<string, string> = {};
   try {
     if ((request.headers.get('content-type') || '').includes('application/json')) {
-      data = await request.json();
+      const json: unknown = await request.json();
+      if (!json || typeof json !== 'object' || Array.isArray(json)) {
+        return NextResponse.json({ message: 'Invalid form data' }, { status: 400 });
+      }
+      Object.entries(json).forEach(([key, value]) => {
+        if (typeof value === 'string') data[key] = value;
+      });
     } else {
       const formData = await request.formData();
       formData.forEach((value, key) => {
@@ -54,7 +61,7 @@ export async function POST(request: NextRequest) {
 
   const formName = data['form-name'] || 'contact';
   const text = Object.entries(data)
-    .filter(([key, value]) => !IGNORED_FIELDS.has(key) && value?.toString().trim())
+    .filter(([key, value]) => !IGNORED_FIELDS.has(key) && value.trim())
     .map(([key, value]) => `${FIELD_LABELS[key] || key}: ${value}`)
     .join('\n\n');
 
