@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { getPostBySlug } from "@/lib/api/posts/dataApi"
 import ArticleTemplate from "@/components/templates/ArticleTemplate"
 import he from "he"
+import { articleStructuredData, toJsonLd } from "@/lib/seo/structuredData"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -58,5 +59,23 @@ export default async function BlogPostPage({ params }: PageProps) {
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com"
   const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`
 
-  return <ArticleTemplate post={post} postUrl={postUrl} />
+  const structuredData = articleStructuredData({
+    slug: post.slug,
+    title: post.title.rendered,
+    description: post.seoDescription || "",
+    date: post.date,
+    authorName: post.author_name,
+    image: post.featured_image_url,
+    schemaType: post.schemaType,
+  })
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: toJsonLd(structuredData) }}
+      />
+      <ArticleTemplate post={post} postUrl={postUrl} />
+    </>
+  )
 }
