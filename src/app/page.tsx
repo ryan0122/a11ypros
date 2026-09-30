@@ -5,8 +5,6 @@ import { getPageData, getPageMetaData } from "@/lib/api/pages/dataApi";
 import he from "he";
 import { pageStructuredData, toJsonLd } from "@/lib/seo/structuredData";
 
-export const dynamic = 'force-dynamic';
-
 export async function generateMetadata(): Promise<Metadata> {
   const [page, seoData] = await Promise.all([
     getPageData("home"), // Fetch the WordPress "Home" page content

@@ -6,6 +6,7 @@ import he from 'he'
 import FAQAccordion from '@/components/ui/FaqAccordion'
 import PricingCards from '@/components/ui/PricingCards'
 import { pageStructuredData, toJsonLd } from '@/lib/seo/structuredData'
+import { getSitemapUrls } from '@/lib/sitemap'
 
 type FAQ = {
     question: string
@@ -17,7 +18,14 @@ type PageProps = {
     searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export const dynamic = 'force-dynamic';
+// Content only changes on deploy, so every page is prerendered at build time
+// and served from the CDN. Paths not listed here still render on demand.
+export async function generateStaticParams() {
+    const urls = await getSitemapUrls()
+    return urls
+        .filter((item) => item.type === 'page')
+        .map((item) => ({ slug: item.path.split('/').filter(Boolean) }))
+}
 
 // 🛠 Fetch Metadata for SEO
 export async function generateMetadata({

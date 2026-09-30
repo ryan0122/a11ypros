@@ -54,7 +54,7 @@ SEO is authored in frontmatter:
 
 `src/components/templates/` holds the three page shells: `PageTemplate` (MDX pages), `ArticleTemplate` (blog posts), `HomeTemplate`. Bodies are rendered as sanitized HTML through `dangerouslySetInnerHTML`, and much of it still carries WordPress block markup and classes from the migration.
 
-Because those classes never appear in source, Tailwind can't tree-shake against them: `tailwind.config.ts` adds `wp-classes.txt` to `content` plus an explicit `safelist` and a broad regex pattern. If a class used only inside content isn't rendering, add it to `wp-classes.txt` or the safelist.
+`tailwind.config.ts` scans `src/content/**/*.{md,mdx}` directly, so Tailwind classes written in MDX just work. `wp-classes.txt` and a short explicit `safelist` cover the rest. Don't add a regex `safelist` pattern: an unanchored one once matched every opacity and border-side variant, grew the CSS to 1.7MB and wrecked mobile LCP. Likewise, never `@use "tailwindcss/..."` from SCSS — it emits a second full copy of Tailwind; `@tailwind` directives belong only in `src/styles/globals.css`.
 
 ### Middleware
 

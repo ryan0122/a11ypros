@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "@/styles/globals.css";
 import ConditionalHeader from "@/components/layout/ConditionalHeader";
 import Footer from "@/components/layout/Footer";
@@ -52,8 +53,6 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* eslint-disable-next-line */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -79,6 +78,12 @@ export default function RootLayout({
           <Footer />
           <CookieConsent />
         </div>
+        {/* Loaded after hydration so it doesn't compete with first render.
+            The consent defaults and gtag queue above run first either way. */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-W8QRH1S6R6"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
