@@ -58,9 +58,9 @@ export default function FreeAudit() {
                 <p className='text-center text-2xl mb-0'>trusted by</p>
                 <div className='flex flex-col md:flex-row justify-center items-center gap-8 md:gap-20 my-10'>
                     {/* I need to add partner and client images here */}
-                    <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/05/Mogli_Logo.png" alt="Mogli" width={175} height={122} />
-                    <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/05/spry_elephant_logo.png" alt="Spry Elephant" width={175} height={100} />
-                    <Image src="https://cms.a11ypros.com/wp-content/uploads/2025/12/webdrips-logo.png" alt="Webdrips" width={175} height={100} />
+                    <Image src="/images/partners/mogli-logo.png" alt="Mogli" width={175} height={122} />
+                    <Image src="/images/partners/spry-elephant-logo.png" alt="Spry Elephant" width={175} height={100} />
+                    <Image src="/images/partners/webdrips-logo.png" alt="Webdrips" width={175} height={100} />
                 </div>
             </section>
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Marketing/lead-gen site for A11Y Pros (accessibility consulting). Next.js 15 App Router + React 19 + TypeScript, styled with Tailwind 3 and SCSS. Content lives in the repo as **MDX files in `src/content/`** (migrated from a headless WordPress CMS at `https://cms.a11ypros.com`, which still hosts some images). Deployed to Netlify; every push to `main` deploys.
+Marketing/lead-gen site for A11Y Pros (accessibility consulting). Next.js 15 App Router + React 19 + TypeScript, styled with Tailwind 3 and SCSS. Content lives in the repo as **MDX files in `src/content/`** (migrated from a headless WordPress CMS; nothing depends on WordPress anymore). Deployed to Netlify; every push to `main` deploys.
 
 Node 22 is required (`.nvmrc`, `engines`, `netlify.toml`).
 
@@ -24,7 +24,6 @@ There is no test framework in this repo. `lint` + `build` is the verification pa
 `scripts/*.mjs` are one-off operational scripts run directly with `node` (not npm scripts):
 
 - `publish.mjs` writes a new post to `src/content/posts/` (copying its image to `public/images/blog/`) and pings the Google Indexing API via `index-url.mjs`, which needs a `gsc-key.json` service-account file at repo root and no-ops with a warning if it's absent.
-- `export-wp-pages-to-mdx.mjs` / `export-wp-posts-to-mdx.mjs` performed the one-time WordPress → MDX migration. Don't re-run them; they would overwrite local edits.
 - `publish-saas-article.mjs` is a worked example of calling `publishArticle()` for one post; copy it as a template for the next article.
 
 ## Architecture
@@ -41,8 +40,6 @@ SEO is authored in frontmatter:
 - **Meta description** comes from `seoDescription`; pages fall back to a generic sentence and posts to `excerpt`, so every file should have one. Keep it ≤160 characters, plain text, no HTML entities (the WordPress-era excerpts had `&#8217;`/`[&hellip;]` that leaked into search results).
 - **JSON-LD** is generated from frontmatter by [src/lib/seo/structuredData.ts](src/lib/seo/structuredData.ts): Organization + WebSite + WebPage + BreadcrumbList for every page, plus an Article node for posts. Organization details (address, phone, logo) and known-author job titles live there. Serialize with `toJsonLd()`, which escapes `<`. The RankMath schema frozen at the migration was removed from frontmatter because it had `cms.a11ypros.com` `@id`s, an empty page URL and no Article node; don't reintroduce it. FAQ schema is built in Next.js from the `faqs` frontmatter (see [src/app/[...slug]/page.tsx](src/app/[...slug]/page.tsx)).
 - New or renamed pages/posts should also be added to [public/llms.txt](public/llms.txt).
-
-Legacy WordPress code that nothing imports: [src/lib/api/posts/route.ts](src/lib/api/posts/route.ts), [src/lib/api/posts/publishPost.ts](src/lib/api/posts/publishPost.ts), [src/utils/extractJsonLD.ts](src/utils/extractJsonLD.ts). Don't build on them.
 
 ### Routing
 
@@ -75,9 +72,9 @@ All forms post to internal API routes that proxy to third parties, so credential
 
 ### Environment
 
-`.env.local` holds `NEXT_PUBLIC_CMS_URL`, `NEXT_PUBLIC_SEO_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_WP_AUTH`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `GROQ_API_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`.
+`.env.local` holds `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `GROQ_API_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`.
 
-`NEXT_PUBLIC_WP_AUTH` is a WordPress Basic-auth credential behind a `NEXT_PUBLIC_` prefix, which means Next inlines it into the client bundle even though it is only ever used server-side. Don't propagate that pattern to new secrets; prefer an unprefixed var for anything server-only.
+Anything with a `NEXT_PUBLIC_` prefix is inlined into the client bundle. Use an unprefixed var for anything server-only (a WordPress credential once leaked this way).
 
 ## Accessibility is the product
 
@@ -103,4 +100,4 @@ SVGs import as React components via `@svgr/webpack` (configured in `next.config.
 
 SCSS partials in `src/styles/` are aggregated by `main.scss` (`@use`); Tailwind's directives live in `globals.css`. Both are imported by the root layout. Global/WP-editor styling belongs in SCSS; component styling in Tailwind classes.
 
-Remote images are restricted to `cms.a11ypros.com/wp-content/uploads/**` in `next.config.ts` — some migrated content still references images there, so keep the entry while WordPress is up. New images belong in `public/images/`; a new remote host needs a `remotePatterns` entry.
+All images and downloads are local: images in `public/images/` (partner logos in `partners/`, content icons in `icons/`), files in `public/downloads/`. `next.config.ts` has no `remotePatterns`, so a remote `next/image` source needs one added.
