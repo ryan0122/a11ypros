@@ -2,15 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cms.a11ypros.com",
-        pathname: "/wp-content/uploads/**",
-      },
-    ],
-  },
   async redirects() {
     // Old WordPress-era URLs served duplicates of canonical pages.
     return [
