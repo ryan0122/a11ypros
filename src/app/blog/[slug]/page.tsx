@@ -1,12 +1,18 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { getPostBySlug } from "@/lib/api/posts/dataApi"
+import { getPostBySlug, getPosts } from "@/lib/api/posts/dataApi"
 import ArticleTemplate from "@/components/templates/ArticleTemplate"
 import he from "he"
 import { articleStructuredData, toJsonLd } from "@/lib/seo/structuredData"
 
 type PageProps = {
   params: Promise<{ slug: string }>
+}
+
+// Prerender every post at build time; content only changes on deploy
+export async function generateStaticParams() {
+  const posts = await getPosts()
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
 // Generate SEO metadata and social open graph tags

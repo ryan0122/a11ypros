@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { getSitemapUrls } from '@/lib/sitemap';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
   title: 'Sitemap | A11y Pros',
   description: 'Complete sitemap of all pages and blog posts on A11y Pros',
