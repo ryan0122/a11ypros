@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       { source: "/pages/home", destination: "/", permanent: true },
       { source: "/pages", destination: "/", permanent: true },
       { source: "/pages/:path*", destination: "/:path*", permanent: true },
+      { source: "/services/vpat-vpat-2-0-authoring-services", destination: "/services/vpat-acr-authoring", permanent: true },
+      { source: "/services/website-remediation-services", destination: "/services/website-remediation", permanent: true },
+      { source: "/services/pdf-remediation-services", destination: "/services/pdf-remediation", permanent: true },
     ];
   },
   webpack(config) {

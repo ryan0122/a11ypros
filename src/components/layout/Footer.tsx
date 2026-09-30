@@ -176,12 +176,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/vpat-vpat-2-0-authoring-services" className="hover:text-emerald-300 transition-colors">
+                  <Link href="/services/vpat-acr-authoring" className="hover:text-emerald-300 transition-colors">
                     VPAT® & ACR Authoring
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/website-remediation-services" className="hover:text-emerald-300 transition-colors">
+                  <Link href="/services/website-remediation" className="hover:text-emerald-300 transition-colors">
                     Website Remediation
                   </Link>
                 </li>
@@ -191,7 +191,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services/pdf-remediation-services" className="hover:text-emerald-300 transition-colors">
+                  <Link href="/services/pdf-remediation" className="hover:text-emerald-300 transition-colors">
                     PDF Document Remediation
                   </Link>
                 </li>
