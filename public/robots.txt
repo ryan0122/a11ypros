@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /audit-test-page
 Disallow: /*.woff2$
 Disallow: /*.woff$
 Disallow: /*.ttf$
