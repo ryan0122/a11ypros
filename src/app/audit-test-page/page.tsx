@@ -1,19 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
 import { 
   FileSpreadsheet, 
-  AlertTriangle, 
-  Info, 
-  CheckCircle2, 
-  ExternalLink,
-  ChevronDown,
-  ChevronUp,
   X,
   Search,
   ShoppingCart,
-  SlidersHorizontal,
   FileText
 } from 'lucide-react'
 
