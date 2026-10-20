@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SharePost from '@/components/ui/SharePost'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
+import FAQAccordion from '@/components/ui/FaqAccordion'
 import { Calendar, User, Clock, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react'
 
 export interface ArticleTemplateProps {
@@ -13,6 +14,7 @@ export interface ArticleTemplateProps {
     author_name?: string
     featured_image_url?: string
     slug: string
+    faqs?: { question: string; answer: string }[]
   }
   postUrl: string
 }
@@ -145,6 +147,13 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
                   prose-blockquote:border-l-4 prose-blockquote:border-[#084A3B] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg"
                 dangerouslySetInnerHTML={{ __html: post.content?.rendered || '' }}
               />
+
+              {/* Frequently Asked Questions (from `faqs` frontmatter; FAQPage schema is emitted by the route) */}
+              {post.faqs && post.faqs.length > 0 && (
+                <div className="[&_.faq-accordion]:mb-0 [&_.faq-accordion]:px-0 [&_.faq-accordion_p]:my-2 [&_.faq-accordion_a]:font-semibold [&_.faq-accordion_a]:text-[#084A3B] [&_.faq-accordion_a]:underline">
+                  <FAQAccordion title="Frequently Asked Questions" faqs={post.faqs} />
+                </div>
+              )}
 
               {/* Versatile Bottom Services & Audit Callout */}
               <div className="mt-12 p-8 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">

@@ -61,6 +61,7 @@ A11Y Pros does not sell accessibility overlays or widgets; all testing and remed
 - [Introducing the A11Y Pros Design System](https://a11ypros.com/blog/a11y-design-system-open-source): A free, open-source accessible React component library for WCAG 2.1/2.2 AA.
 - [Accessible Web Components: Introducing A11Y UI Elements](https://a11ypros.com/blog/accessible-web-components): Zero-dependency, framework-agnostic Web Components for WCAG 2.1/2.2 AA and AAA compliant apps.
 - [How to Create Accessible PDFs](https://a11ypros.com/blog/how-to-create-accessible-pdfs): A step-by-step guide to structuring PDFs for screen reader users.
+- [How to Create an Accessible PowerPoint Presentation](https://a11ypros.com/blog/how-to-create-accessible-powerpoint-presentations): A step-by-step guide to slide titles, reading order, alt text, contrast, captions, and presenting inclusively.
 - [Mobile Accessibility Testing Checklist for Native & Web Apps](https://a11ypros.com/blog/mobile-accessibility-testing-checklist-2025-edition): A checklist for testing iOS, Android, and responsive web apps.
 - [Is Your Dev Team Accessibility-Ready? 7 Skills Every Engineer Should Know](https://a11ypros.com/blog/dev-team-accessibility-skills): The core accessibility skills for development teams.
 - [How Accessibility Enhancements Boost SEO](https://a11ypros.com/blog/how-accessibility-enhancements-boost-seo): How WCAG improvements also improve search engine optimization.

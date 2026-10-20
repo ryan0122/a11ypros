@@ -99,6 +99,27 @@ export function pageStructuredData({
   return { '@context': 'https://schema.org', '@graph': graph }
 }
 
+/** Strip tags and decode entities so schema text is plain text. */
+const toPlainText = (htmlString: string) =>
+  he.decode(htmlString.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim()
+
+function faqPage(url: string, faqs: { question: string; answer: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    isPartOf: { '@id': `${url}#webpage` },
+    inLanguage: 'en-US',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: toPlainText(faq.question),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: toPlainText(faq.answer),
+      },
+    })),
+  }
+}
+
 export function articleStructuredData(post: {
   slug: string
   title: string
@@ -107,6 +128,7 @@ export function articleStructuredData(post: {
   authorName?: string
   image?: string
   schemaType?: string
+  faqs?: { question: string; answer: string }[] // answer may be HTML; emitted as plain text
 }) {
   const path = `/blog/${post.slug}`
   const url = absolute(path)
@@ -146,6 +168,7 @@ export function articleStructuredData(post: {
         { name: title, path },
       ]),
       article,
+      ...(post.faqs && post.faqs.length > 0 ? [faqPage(url, post.faqs)] : []),
     ],
   }
 }
