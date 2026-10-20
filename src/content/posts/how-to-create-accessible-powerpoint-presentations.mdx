@@ -1,0 +1,232 @@
+---
+title: 'How to Create an Accessible PowerPoint Presentation: A Step-by-Step Guide'
+slug: how-to-create-accessible-powerpoint-presentations
+date: '2026-10-19T12:00:00'
+author_name: Ryan Mack
+excerpt: >-
+  Slide decks get emailed, posted online, and presented to mixed audiences
+  every day. Learn how to build PowerPoint presentations that work for screen
+  reader users, people with low vision, and anyone watching live, from slide
+  titles and reading order to alt text, captions, and contrast.
+featured_image_url: /images/blog/how-to-create-accessible-powerpoint-presentations.jpg
+seoTitle: 'How to Create an Accessible PowerPoint Presentation (Step-by-Step)'
+seoDescription: "A step-by-step guide to accessible PowerPoint: slide titles, reading order, alt text, contrast, tables, captions, and presenting live to every audience."
+schemaType: TechArticle
+faqs:
+  - question: Does PowerPoint have a built-in accessibility checker?
+    answer: >-
+      Yes. In PowerPoint for Microsoft 365, Windows, Mac, and the web, go to
+      **Review > Check Accessibility**. It flags missing alt text, missing or
+      duplicate slide titles, possible reading order problems, tables without
+      header rows, and hard-to-read text contrast, and offers one-click fixes
+      for many of them.
+  - question: Is the Accessibility Checker enough to make a presentation compliant?
+    answer: >-
+      No. The checker catches common, machine-detectable problems, but it can't
+      tell whether your alt text is accurate, your link text is meaningful, or
+      your reading order makes sense. Always follow it with a manual review:
+      navigate with a keyboard, listen to slides with a screen reader such as
+      NVDA, JAWS, Narrator, or VoiceOver, and read the deck in Outline View.
+  - question: Should I share my slides as a PPTX or a PDF?
+    answer: >-
+      An accessible PPTX is usually the better choice because it keeps slide
+      titles, reading order, alt text, and speaker notes intact. If you need a
+      PDF, export with **Document structure tags for accessibility** enabled and
+      verify the result in Adobe Acrobat Pro. Our [guide to accessible
+      PDFs](/blog/how-to-create-accessible-pdfs) covers the details.
+  - question: How do I add alt text to a chart in PowerPoint?
+    answer: >-
+      Right-click the chart and choose **View Alt Text**, then summarize the
+      key takeaway, such as the trend or comparison the chart shows, rather
+      than listing every value. For detailed data, add a table on the next
+      slide or a full description in the speaker notes.
+  - question: What font size should I use for accessible slides?
+    answer: >-
+      For projected presentations, aim for at least 24pt body text and 36pt
+      titles, using a clear sans-serif font such as Calibri, Arial, Verdana, or
+      Segoe UI. Text must also meet a contrast ratio of at least 4.5:1 against
+      its background (3:1 for large text).
+  - question: Do these tips apply to Google Slides and Keynote?
+    answer: >-
+      Mostly, yes. Unique slide titles, logical reading order, alt text,
+      sufficient contrast, descriptive links, captions, and simple tables are
+      principles that apply to any presentation tool. The menus differ, and
+      Google Slides and Keynote don't include an accessibility checker as
+      thorough as PowerPoint's, so manual testing matters even more.
+  - question: Are PowerPoint presentations covered by the ADA and WCAG?
+    answer: >-
+      Presentations posted online or shared as part of a public program are
+      digital content. Under the [ADA Title II
+      rule](/blog/ada-title-ii-april-2027), state and local governments must
+      make posted documents conform to WCAG 2.1 AA, and federal agencies face
+      similar requirements under [Section 508](/compliance/section-508). Private
+      businesses are also increasingly expected to provide accessible documents
+      under ADA Title III.
+---
+PowerPoint is everywhere. Training decks, board reports, city council presentations, sales pitches, and conference talks all end up as `.pptx` files that get emailed, posted to websites, and shared on learning platforms. Yet most slide decks are built visually first, with little thought for how someone using a screen reader, magnification, or captions will experience them.
+
+The good news: PowerPoint has strong built-in accessibility features. If you use them from the start, building an accessible presentation takes very little extra time. This guide walks through each step, roughly in the order you'll encounter them while building a deck.
+
+## Why Accessible Presentations Matter
+
+An inaccessible slide deck shuts people out twice: once in the room, and again when the file is shared afterward.
+
+*   **Screen reader users** rely on slide titles, reading order, and alt text to understand each slide.
+*   **People with low vision** need sufficient contrast, readable font sizes, and content that doesn't depend on color alone.
+*   **Deaf and hard-of-hearing people** need captions for video, audio, and the live presentation itself.
+*   **People with cognitive disabilities** benefit from clear structure, plain language, and minimal motion.
+
+There's a legal side too. Presentations posted to a website are digital content. Under the [ADA Title II rule](/blog/ada-title-ii-april-2027), state and local governments must make web content, including posted documents, conform to WCAG 2.1 AA. Federal agencies and their vendors face similar requirements under [Section 508](/compliance/section-508).
+
+## Step 1: Start with Built-In Slide Layouts
+
+The single most important habit for accessible slides is to **use PowerPoint's built-in layouts and placeholders** instead of drawing your own text boxes.
+
+*   Choose layouts from **Home > Layout** (for example, "Title and Content" or "Two Content").
+*   Type into the existing placeholders. Placeholders carry meaning that assistive technology understands, such as "this is the slide title" and "this is the body content."
+*   If a slide has drifted from its layout, use **Home > Reset** to restore placeholder formatting.
+*   To customize the look across the whole deck, edit the layouts in **View > Slide Master** rather than restyling individual slides.
+
+Free-floating text boxes are often skipped as titles, read out of order, or missing from the outline view entirely.
+
+## Step 2: Give Every Slide a Unique Title
+
+Slide titles work like headings on a web page. Screen reader users navigate a deck by jumping from title to title, so every slide needs one, and each should be distinct.
+
+*   Avoid repeating the same title on several slides. Use "Q3 Results: Revenue" and "Q3 Results: Expenses" instead of "Q3 Results" twice.
+*   If a design calls for a slide without a visible title (a full-bleed photo, for example), add a title anyway and position it off the visible slide area. In Microsoft 365, the **Accessibility** ribbon's **Slide Title** menu can add a hidden title for you.
+*   Check your titles quickly in **View > Outline View**. If a slide shows up blank there, it's missing a real title.
+
+## Step 3: Set a Logical Reading Order
+
+Screen readers don't read slides top-to-bottom visually. They read objects in the order they were added to the slide, which is often not the order you intend.
+
+*   Open **Review > Check Accessibility**, then select **Reading Order Pane** (in Microsoft 365) to see and reorder objects from first to last.
+*   In older versions, use **Home > Arrange > Selection Pane**. Note that the Selection Pane lists objects **in reverse**: the bottom item is read first.
+*   The title should always be read first, followed by content in the order a sighted reader would naturally follow.
+*   Group related shapes (such as a diagram's boxes and labels) so they're read together.
+
+## Step 4: Add Alt Text to Meaningful Visuals
+
+Every image, chart, SmartArt graphic, icon, and diagram that conveys information needs alternative text.
+
+*   Right-click the object and choose **View Alt Text** (or **Edit Alt Text**).
+*   Describe the purpose, not just the appearance. "Bar chart showing customer satisfaction rising from 72% in 2024 to 89% in 2026" is far more useful than "bar chart."
+*   Keep it concise, usually a sentence or two. Don't start with "Image of" or "Picture of," since screen readers already announce the object type.
+*   Mark purely decorative elements (background shapes, divider lines, stock flourishes) as **Mark as decorative** so they're skipped.
+*   Review auto-generated alt text carefully. PowerPoint can suggest descriptions, but they're often vague or wrong.
+
+For complex charts and diagrams, a short alt text plus a fuller description in the **speaker notes** or a data table on the following slide gives everyone access to the details.
+
+## Step 5: Ensure Strong Color Contrast and Don't Rely on Color Alone
+
+Projected slides lose contrast in bright rooms, and many viewers have low vision or color vision deficiencies.
+
+*   Meet WCAG contrast ratios: at least **4.5:1** for normal text and **3:1** for large text (18pt or 14pt bold and above) and for meaningful graphics like chart lines.
+*   Avoid placing text over busy photos. If you must, add a solid or semi-opaque shape behind the text.
+*   Never use color as the only way to convey meaning. In charts, add data labels, patterns, or direct labels instead of relying on a color legend. "Items in red are overdue" fails for many viewers; add an icon or the word "Overdue."
+*   Choose a high-contrast theme to begin with. It's far easier than fixing contrast slide by slide.
+
+## Step 6: Use Readable Fonts and Sizes
+
+*   Use clean sans-serif fonts such as Calibri, Arial, Verdana, or Segoe UI.
+*   Aim for **24pt or larger** body text and **36pt or larger** titles for projected presentations.
+*   Avoid long passages in all caps, italics, or underlines (underlining non-links can be mistaken for hyperlinks).
+*   Leave generous white space and limit each slide to one main idea. Dense slides are hard for everyone, and especially hard for people with cognitive or visual disabilities.
+
+## Step 7: Write Descriptive Hyperlinks
+
+Screen reader users often pull up a list of links out of context. "Click here" or a raw URL like `https://example.com/2026/q3/report?id=4421` tells them nothing.
+
+*   Use link text that describes the destination: "Download the 2026 annual report."
+*   Select the text, then use **Insert > Link** to attach the URL.
+*   If the deck will be printed, include a short, readable URL elsewhere on the slide or in a resources slide.
+
+## Step 8: Use Real Lists and Simple Tables
+
+**Lists:** Use the built-in **Bullets** and **Numbering** buttons. Typed dashes or asterisks aren't recognized as lists, so screen readers can't announce "list, 4 items."
+
+**Tables:** Use tables for data only, never for visual layout.
+
+*   Create tables with **Insert > Table** rather than pasting an image of a spreadsheet.
+*   Check **Header Row** under **Table Design** so column headers are identified.
+*   Avoid merged cells, split cells, and empty rows or columns used for spacing. They break the way screen readers navigate the table.
+*   Keep tables small. If a table won't fit legibly on one slide, link to the full data instead.
+
+## Step 9: Caption Video and Audio, and Go Easy on Motion
+
+**Video and audio:**
+
+*   Add captions to embedded videos. In PowerPoint for Microsoft 365, select the video and use **Playback > Insert Captions** to attach a WebVTT (`.vtt`) caption file.
+*   Provide a transcript for audio-only content, either in the speaker notes or as a linked document.
+*   Avoid autoplay, and make sure playback controls are reachable by keyboard.
+
+**Animations and transitions:**
+
+*   Use animations sparingly and only when they support understanding. Excessive motion can distract or cause discomfort for people with vestibular disorders.
+*   Never include content that flashes more than three times per second, which can trigger seizures.
+*   Avoid auto-advancing slides with timed transitions. Let viewers control the pace.
+
+## Step 10: Set the Language and Document Properties
+
+*   Set the proofing language via **Review > Language** so screen readers use the correct pronunciation. Mark any passages in another language separately.
+*   Add a meaningful document title under **File > Info > Properties > Title**.
+*   Give the file a clear name, like `2026-Accessibility-Training.pptx` rather than `deck_FINAL_v7.pptx`.
+
+## Step 11: Run the Accessibility Checker, Then Test Manually
+
+Open **Review > Check Accessibility**. PowerPoint's checker flags common issues, including:
+
+*   Missing alt text
+*   Missing or duplicate slide titles
+*   Objects that may be read out of order
+*   Tables without header rows
+*   Hard-to-read text contrast
+
+The checker is a great first pass, but it can't judge whether your alt text is accurate, your link text is meaningful, or your reading order makes sense. Finish with a manual review:
+
+*   Navigate the deck with a keyboard only.
+*   Listen to a few slides with a screen reader such as NVDA, JAWS, Narrator, or VoiceOver.
+*   Read the outline view top to bottom to confirm the deck makes sense as structured text.
+
+## Step 12: Present Inclusively
+
+An accessible file is only half the story. How you present matters just as much.
+
+*   **Share the slides in advance** so attendees can follow along with their own assistive technology or magnification.
+*   **Turn on live captions.** PowerPoint can display real-time subtitles under **Slide Show > Always Use Subtitles**, and most meeting platforms offer live captions as well. For important events, consider human (CART) captioning for higher accuracy.
+*   **Describe what's on screen.** Say the key takeaway of a chart out loud rather than "as you can see here."
+*   **Speak clearly and face the audience,** especially for anyone who lip-reads.
+*   **Repeat audience questions** into the microphone before answering.
+
+## Step 13: Share in an Accessible Format
+
+When you distribute the deck afterward, the accessible `.pptx` is usually the best format because it preserves titles, reading order, alt text, and speaker notes.
+
+If you need to share a PDF:
+
+*   Use **File > Export > Create PDF/XPS** (or **Save As > PDF**), select **Options**, and make sure **Document structure tags for accessibility** is checked.
+*   Verify the result in Adobe Acrobat Pro using its accessibility checker. See our [guide to creating accessible PDFs](/blog/how-to-create-accessible-pdfs) for the details.
+
+## Quick Accessible PowerPoint Checklist
+
+*   Built-in layouts and placeholders on every slide
+*   A unique title on every slide (visible or hidden)
+*   Logical reading order verified in the Reading Order Pane
+*   Meaningful alt text on informative visuals; decorative items marked as decorative
+*   Text contrast of at least 4.5:1; meaning never conveyed by color alone
+*   Sans-serif fonts at 24pt or larger
+*   Descriptive hyperlink text
+*   Built-in bullets and simple tables with header rows
+*   Captions for video, transcripts for audio, minimal motion and no flashing
+*   Document language, title, and file name set
+*   Accessibility Checker run and manual screen reader check completed
+*   Slides shared in advance and live captions enabled when presenting
+
+## Conclusion
+
+Accessible presentations aren't harder to make. They're just built with intention. By starting from proper layouts, giving every slide a real title, and checking reading order, alt text, and contrast as you go, you'll create decks that work for everyone in the room and everyone who opens the file later.
+
+* * *
+
+_Need help remediating a library of existing presentations, PDFs, and documents, or training your team to build accessible content from the start? [A11Y Pros](https://a11ypros.com) provides [document and PDF remediation](/services/pdf-remediation) and [WCAG compliance auditing](/services/wcag-compliance-auditing) for agencies, municipalities, and businesses. [Get in touch](/contact-us) to learn more._

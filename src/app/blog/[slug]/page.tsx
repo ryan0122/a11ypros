@@ -67,6 +67,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     authorName: post.author_name,
     image: post.featured_image_url,
     schemaType: post.schemaType,
+    faqs: post.faqs,
   })
 
   return (

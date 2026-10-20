@@ -20,6 +20,12 @@ export interface Post {
   rankMathMeta?: string
   schemaType?: string // schema.org Article subtype, e.g. TechArticle; defaults to BlogPosting
   seoDescription?: string
+  faqs?: PostFAQ[]
+}
+
+export interface PostFAQ {
+  question: string
+  answer: string // sanitized HTML rendered from the frontmatter Markdown
 }
 
 const POSTS_DIR = path.join(process.cwd(), 'src', 'content', 'posts')
@@ -35,6 +41,34 @@ function stringToNumericId(str: string): number {
     hash |= 0
   }
   return Math.abs(hash)
+}
+
+/**
+ * Render a Markdown string to sanitized HTML (GFM enabled)
+ */
+async function markdownToHtml(markdown: string): Promise<string> {
+  const processed = await remark().use(remarkGfm).use(html, { sanitize: false }).process(markdown)
+  return sanitizeMdxContent(processed.toString())
+}
+
+/**
+ * Normalize the optional `faqs` frontmatter list. Answers may contain Markdown
+ * (links, emphasis, lists) and are rendered to sanitized HTML.
+ */
+async function parseFaqs(raw: unknown): Promise<PostFAQ[]> {
+  if (!Array.isArray(raw)) return []
+
+  const items = raw.filter(
+    (faq): faq is { question: string; answer: string } =>
+      !!faq && typeof faq.question === 'string' && typeof faq.answer === 'string' && !!faq.question.trim() && !!faq.answer.trim()
+  )
+
+  return Promise.all(
+    items.map(async (faq) => ({
+      question: faq.question.trim(),
+      answer: await markdownToHtml(faq.answer),
+    }))
+  )
 }
 
 /**
@@ -126,8 +160,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const { data, content } = matter(fileContents)
 
   // Process markdown body to HTML string (with GFM tables/autolinks) and apply strict HTML sanitization
-  const processedContent = await remark().use(remarkGfm).use(html, { sanitize: false }).process(content)
-  const contentHtml = sanitizeMdxContent(processedContent.toString())
+  const contentHtml = await markdownToHtml(content)
+  const faqs = await parseFaqs(data.faqs)
 
   const id = stringToNumericId(slug)
 
@@ -145,5 +179,6 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     seoDescription: data.seoDescription || data.excerpt || '',
     schemaType: data.schemaType || undefined,
     rankMathMeta: data.seoTitle || data.title || '',
+    faqs,
   }
 }
