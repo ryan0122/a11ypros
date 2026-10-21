@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useId } from 'react'
+import Link from 'next/link'
 import { Download, CheckCircle2, FileText } from 'lucide-react'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
@@ -182,8 +183,15 @@ export default function GatedDownloadCard({
                   {submitting ? 'Unlocking Download...' : buttonText}
                 </button>
               </div>
-              <p id={hintId} className="mt-1.5 text-xs text-slate-600">
-                Enter your email for instant access to the template file (and a backup link in your inbox).
+              <p id={hintId} className="mt-2 text-xs text-slate-600 leading-relaxed">
+                We&apos;ll send you a backup link to this file and occasional digital accessibility tips and resources from A11Y Pros. You can unsubscribe anytime. View our{' '}
+                <Link
+                  href="/privacy-policy"
+                  className="font-semibold text-[#084A3B] underline hover:text-[#06382C]"
+                >
+                  Privacy Policy
+                </Link>
+                .
               </p>
             </div>
 

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { syncLeadToTwenty } from '@/lib/crm/twenty';
 
 // Human-readable labels for the fields the site's forms send.
 const FIELD_LABELS: Record<string, string> = {
@@ -84,21 +83,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Form submission failed' }, { status: 502 });
     }
 
-    // Forward lead to Twenty CRM workflow webhook if TWENTY_WEBHOOK_URL is configured
-    await syncLeadToTwenty({
-      email,
-      firstName: data['contact-first-name'],
-      lastName: data['contact-last-name'],
-      organization: data['organization-name'],
-      phone: data['contact-phone'],
-      formName,
-      resourceTitle: data['resource-title'],
-      resourceUrl: data['resource-url'],
-      postSlug: data['post-slug'],
-      message: data['contact-message'],
-    }).catch((err) => {
-      console.warn('[contact] Could not forward lead to Twenty webhook:', err);
-    });
+    // Add the email to Resend Contacts (for Broadcasts / marketing emails) using the existing RESEND_API_KEY.
+    // Optional RESEND_SEGMENT_ID (or legacy RESEND_AUDIENCE_ID) assigns the contact to a specific segment.
+    const segmentId = (process.env.RESEND_SEGMENT_ID || process.env.RESEND_AUDIENCE_ID || '').trim();
+    const firstName = (data['contact-first-name'] || '').trim() || undefined;
+    const lastName = (data['contact-last-name'] || '').trim() || undefined;
+
+    await resend.contacts
+      .create({
+        email: email.toLowerCase(),
+        ...(firstName ? { firstName } : {}),
+        ...(lastName ? { lastName } : {}),
+        unsubscribed: false,
+        ...(segmentId ? { segments: [{ id: segmentId }] } : {}),
+      })
+      .catch((err) => {
+        console.warn('[contact] Could not add contact to Resend Contacts:', err);
+      });
 
     // If this is a gated resource download, also email a copy of the download link to the requester.
     if (formName === 'resource-download' && data['resource-url']) {
