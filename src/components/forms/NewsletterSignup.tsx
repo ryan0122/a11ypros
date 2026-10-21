@@ -7,11 +7,11 @@ import { Mail, CheckCircle2, ArrowRight } from 'lucide-react'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
 const NEWSLETTER_TOPICS = [
-  'Legal News',
-  'Best Practice Guides',
-  'Benefits of Accessibility',
-  'Lessons Learned',
-  'Free Resources',
+  'ADA & Regulatory Updates',
+  'Practical WCAG How-Tos',
+  'Real-World Audit Insights',
+  'ROI of Inclusive Design',
+  'Free Templates & Checklists',
 ]
 
 export interface NewsletterSignupProps {
