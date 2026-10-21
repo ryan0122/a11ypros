@@ -27,16 +27,19 @@ const BLOCKED_BOT_PATTERNS = [
   /wget/i,
   /scrapy/i,
   /Go-http-client/i,
-  // AI crawlers
+  // AI training & scraping crawlers
   /GPTBot/i,
-  /ChatGPT-User/i,
+  /Google-Extended/i,
   /CCBot/i,
+  /ClaudeBot/i,
   /anthropic-ai/i,
   /Claude-Web/i,
   /cohere-ai/i,
   /Bytespider/i, // TikTok/ByteDance
-  /PerplexityBot/i,
   /Applebot-Extended/i,
+  /Amazonbot/i,
+  /Diffbot/i,
+  /AI2Bot/i,
   /omgili/i,
   /omgilibot/i,
   /FacebookBot/i,
@@ -63,10 +66,14 @@ const BLOCKED_BOT_PATTERNS = [
   /Um[gm]i/i,
 ];
 
-// Allowed good bots (Google, Bing, etc.)
+// Allowed good bots (Google, Bing, AI search citation bots, etc.)
 const ALLOWED_BOT_PATTERNS = [
   /Googlebot/i,
   /bingbot/i,
+  /OAI-SearchBot/i,
+  /ChatGPT-User/i,
+  /PerplexityBot/i,
+  /Perplexity-User/i,
   /Slackbot/i,
   /LinkedInBot/i,
   /facebookexternalhit/i,

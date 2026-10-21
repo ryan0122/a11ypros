@@ -5,6 +5,7 @@ import Services from '@/components/features/Services';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import PricingCards from '@/components/ui/PricingCards';
 import AdditionalServicesPricing from '@/components/ui/AdditionalServicesPricing';
+import NewsletterSignup from '@/components/forms/NewsletterSignup';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface PageProps {
@@ -177,6 +178,9 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                     <span>Section 508 & WCAG 2.1/2.2 AA Coverage</span>
                   </div>
                 </div>
+
+                {/* Stay Informed Newsletter Signup */}
+                <NewsletterSignup variant="sidebar" headingLevel="h3" />
               </aside>
             </div>
           )}

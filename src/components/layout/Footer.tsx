@@ -2,6 +2,7 @@
 
 import ContactForm from "@/components/forms/ContactForm";
 import ContactPageForm from "@/components/forms/ContactPageForm";
+import NewsletterSignup from "@/components/forms/NewsletterSignup";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -140,6 +141,11 @@ export default function Footer() {
       {/* Modern Multi-Column Footer */}
       <footer className="w-full bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-slate-800 font-[family-name:var(--font-inter)]">
         <div className="max-w-6xl mx-auto px-6">
+          {/* Sitewide Stay Informed Email Signup Banner */}
+          <div className="mb-12">
+            <NewsletterSignup variant="banner" headingLevel="h2" />
+          </div>
+
           {/* Main 4-Column Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
             {/* Column 1: Brand & Contact Info (4 cols) */}
