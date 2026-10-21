@@ -15,6 +15,7 @@ const FIELD_LABELS: Record<string, string> = {
   'resource-title': 'Resource Downloaded',
   'resource-url': 'Resource File',
   'post-slug': 'Blog Post',
+  'signup-page': 'Signup Page',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);

@@ -60,5 +60,13 @@
     <input type="text" name="resource-url" />
     <input type="text" name="post-slug" />
   </form>
+
+  <!-- Sitewide Stay Informed newsletter signup -->
+  <form name="newsletter-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="newsletter-signup" />
+    <input type="text" name="bot-field" />
+    <input type="email" name="email" />
+    <input type="text" name="signup-page" />
+  </form>
 </body>
 </html>

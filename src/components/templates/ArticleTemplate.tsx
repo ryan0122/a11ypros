@@ -5,6 +5,7 @@ import SharePost from '@/components/ui/SharePost'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import FAQAccordion from '@/components/ui/FaqAccordion'
 import GatedDownloadCard from '@/components/forms/GatedDownloadCard'
+import NewsletterSignup from '@/components/forms/NewsletterSignup'
 import { Calendar, User, Clock, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react'
 
 export interface ArticleTemplateProps {
@@ -139,6 +140,11 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
                     Contact Us <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
+
+                <hr className="border-slate-200" />
+
+                {/* Stay Informed Newsletter Card */}
+                <NewsletterSignup variant="sidebar" headingLevel="h4" />
               </div>
             </aside>
 
