@@ -4,6 +4,7 @@ import Link from 'next/link'
 import SharePost from '@/components/ui/SharePost'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import FAQAccordion from '@/components/ui/FaqAccordion'
+import GatedDownloadCard from '@/components/forms/GatedDownloadCard'
 import { Calendar, User, Clock, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react'
 
 export interface ArticleTemplateProps {
@@ -15,6 +16,12 @@ export interface ArticleTemplateProps {
     featured_image_url?: string
     slug: string
     faqs?: { question: string; answer: string }[]
+    gatedDownload?: {
+      title: string
+      description: string
+      fileUrl: string
+      buttonText?: string
+    }
   }
   postUrl: string
 }
@@ -147,6 +154,19 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
                   prose-blockquote:border-l-4 prose-blockquote:border-[#084A3B] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg"
                 dangerouslySetInnerHTML={{ __html: post.content?.rendered || '' }}
               />
+
+              {/* Optional Gated Resource / Template Download */}
+              {post.gatedDownload && (
+                <div id="download-template">
+                  <GatedDownloadCard
+                    title={post.gatedDownload.title}
+                    description={post.gatedDownload.description}
+                    fileUrl={post.gatedDownload.fileUrl}
+                    buttonText={post.gatedDownload.buttonText}
+                    postSlug={post.slug}
+                  />
+                </div>
+              )}
 
               {/* Frequently Asked Questions (from `faqs` frontmatter; FAQPage schema is emitted by the route) */}
               {post.faqs && post.faqs.length > 0 && (

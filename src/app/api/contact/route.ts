@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { syncLeadToTwenty } from '@/lib/crm/twenty';
 
 // Human-readable labels for the fields the site's forms send.
 const FIELD_LABELS: Record<string, string> = {
@@ -12,6 +13,9 @@ const FIELD_LABELS: Record<string, string> = {
   email: 'Email',
   url: 'Website URL',
   'scanned-url': 'Scanned URL',
+  'resource-title': 'Resource Downloaded',
+  'resource-url': 'Resource File',
+  'post-slug': 'Blog Post',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);
@@ -78,6 +82,49 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error('[contact] Resend rejected the email:', error);
       return NextResponse.json({ message: 'Form submission failed' }, { status: 502 });
+    }
+
+    // Forward lead to Twenty CRM workflow webhook if TWENTY_WEBHOOK_URL is configured
+    await syncLeadToTwenty({
+      email,
+      firstName: data['contact-first-name'],
+      lastName: data['contact-last-name'],
+      organization: data['organization-name'],
+      phone: data['contact-phone'],
+      formName,
+      resourceTitle: data['resource-title'],
+      resourceUrl: data['resource-url'],
+      postSlug: data['post-slug'],
+      message: data['contact-message'],
+    }).catch((err) => {
+      console.warn('[contact] Could not forward lead to Twenty webhook:', err);
+    });
+
+    // If this is a gated resource download, also email a copy of the download link to the requester.
+    if (formName === 'resource-download' && data['resource-url']) {
+      const siteUrl = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com';
+      const downloadUrl = data['resource-url'].startsWith('http')
+        ? data['resource-url']
+        : `${siteUrl}${data['resource-url']}`;
+      const resourceTitle = data['resource-title'] || 'Accessibility Resource';
+
+      await resend.emails
+        .send({
+          from,
+          to: [email],
+          replyTo: inbox.split(',')[0].trim(),
+          subject: `Your download: ${resourceTitle} - A11Y Pros`,
+          text: [
+            `Hi there,`,
+            `Thanks for downloading the ${resourceTitle} from A11Y Pros!`,
+            `You can download your file anytime at the link below:\n${downloadUrl}`,
+            `Need help auditing or remediating your organization's presentations, PDFs, or web applications for WCAG 2.1/2.2 AA compliance? Reply directly to this email or get in touch at ${siteUrl}/contact-us.`,
+            `— The A11Y Pros Team\n${siteUrl}`,
+          ].join('\n\n'),
+        })
+        .catch((err) => {
+          console.warn('[contact] Could not send resource copy to user:', err);
+        });
     }
 
     return NextResponse.json({ ok: true });
