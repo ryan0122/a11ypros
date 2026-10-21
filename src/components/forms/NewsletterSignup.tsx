@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useId } from 'react'
+import React, { useState, useRef, useId } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Mail, CheckCircle2, ArrowRight } from 'lucide-react'
@@ -40,6 +40,8 @@ export default function NewsletterSignup({
   const errorId = `${baseId}-newsletter-error`
   const headingId = `${baseId}-newsletter-heading`
 
+  const successRef = useRef<HTMLDivElement>(null)
+
   const HeadingTag = headingLevel
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,6 +77,9 @@ export default function NewsletterSignup({
       }
 
       setSubscribed(true)
+      setTimeout(() => {
+        successRef.current?.focus()
+      }, 50)
     } catch {
       setErrorMessage(
         'Sorry, we could not subscribe your email right now. Please try again or email info@a11ypros.com.'
@@ -110,9 +115,11 @@ export default function NewsletterSignup({
 
         {subscribed ? (
           <div
+            ref={successRef}
+            tabIndex={-1}
             role="status"
             aria-live="polite"
-            className="rounded-lg border border-[#084A3B]/30 bg-[#F4F9F7] p-3 text-xs text-slate-800 flex items-start gap-2"
+            className="rounded-lg border border-[#084A3B]/30 bg-[#F4F9F7] p-3 text-xs text-slate-800 flex items-start gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#084A3B]"
           >
             <CheckCircle2 aria-hidden="true" className="w-4 h-4 text-[#084A3B] shrink-0 mt-0.5" />
             <span>
@@ -209,9 +216,11 @@ export default function NewsletterSignup({
         <div className="lg:col-span-6">
           {subscribed ? (
             <div
+              ref={successRef}
+              tabIndex={-1}
               role="status"
               aria-live="polite"
-              className="rounded-xl border border-emerald-500/40 bg-emerald-950/50 p-5 text-sm text-emerald-100 flex items-start gap-3"
+              className="rounded-xl border border-emerald-500/40 bg-emerald-950/50 p-5 text-sm text-emerald-100 flex items-start gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             >
               <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
               <div>
