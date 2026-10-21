@@ -119,7 +119,7 @@ export default function GatedDownloadCard({
           >
             <div className="flex items-start gap-2.5 text-[#084A3B]">
               <CheckCircle2 aria-hidden="true" className="h-5 w-5 shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base font-medium text-slate-800">
+              <p className="!mt-0 text-sm sm:text-base font-medium text-slate-800 leading-snug">
                 Thank you! Your download has started, and we sent a copy of the link to{' '}
                 <strong>{email.trim()}</strong>.
               </p>

@@ -223,9 +223,9 @@ export default function NewsletterSignup({
               className="rounded-xl border border-emerald-500/40 bg-emerald-950/50 p-5 text-sm text-emerald-100 flex items-start gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             >
               <CheckCircle2 aria-hidden="true" className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-white">Thanks for subscribing!</p>
-                <p className="mt-1 text-emerald-200">
+              <div className="space-y-1">
+                <p className="!mt-0 font-bold text-white leading-snug">Thanks for subscribing!</p>
+                <p className="!mt-0 text-emerald-200 leading-relaxed">
                   We&apos;ve added <strong>{email.trim()}</strong> to our accessibility updates list.
                 </p>
               </div>
