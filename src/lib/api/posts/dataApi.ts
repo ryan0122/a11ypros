@@ -21,11 +21,19 @@ export interface Post {
   schemaType?: string // schema.org Article subtype, e.g. TechArticle; defaults to BlogPosting
   seoDescription?: string
   faqs?: PostFAQ[]
+  gatedDownload?: PostGatedDownload
 }
 
 export interface PostFAQ {
   question: string
   answer: string // sanitized HTML rendered from the frontmatter Markdown
+}
+
+export interface PostGatedDownload {
+  title: string
+  description: string
+  fileUrl: string
+  buttonText?: string
 }
 
 const POSTS_DIR = path.join(process.cwd(), 'src', 'content', 'posts')
@@ -69,6 +77,29 @@ async function parseFaqs(raw: unknown): Promise<PostFAQ[]> {
       answer: await markdownToHtml(faq.answer),
     }))
   )
+}
+
+/**
+ * Normalize the optional `gatedDownload` frontmatter block.
+ */
+function parseGatedDownload(raw: unknown): PostGatedDownload | undefined {
+  if (!raw || typeof raw !== 'object') return undefined
+  const obj = raw as Record<string, unknown>
+  if (
+    typeof obj.title !== 'string' ||
+    typeof obj.description !== 'string' ||
+    typeof obj.fileUrl !== 'string' ||
+    !obj.title.trim() ||
+    !obj.fileUrl.trim()
+  ) {
+    return undefined
+  }
+  return {
+    title: obj.title.trim(),
+    description: obj.description.trim(),
+    fileUrl: obj.fileUrl.trim(),
+    buttonText: typeof obj.buttonText === 'string' && obj.buttonText.trim() ? obj.buttonText.trim() : undefined,
+  }
 }
 
 /**
@@ -162,6 +193,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   // Process markdown body to HTML string (with GFM tables/autolinks) and apply strict HTML sanitization
   const contentHtml = await markdownToHtml(content)
   const faqs = await parseFaqs(data.faqs)
+  const gatedDownload = parseGatedDownload(data.gatedDownload)
 
   const id = stringToNumericId(slug)
 
@@ -180,5 +212,6 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     schemaType: data.schemaType || undefined,
     rankMathMeta: data.seoTitle || data.title || '',
     faqs,
+    gatedDownload,
   }
 }
