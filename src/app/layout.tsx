@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "@/styles/globals.css";
 import ConditionalHeader from "@/components/layout/ConditionalHeader";
@@ -12,10 +12,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://a11ypros.com"),
 };
 
-const inter = Inter({
+const inter = localFont({
+  src: "./fonts/Inter-Latin.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: "100 900",
+  display: "swap",
 });
 
 export default function RootLayout({
