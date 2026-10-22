@@ -21,7 +21,7 @@ Most digital accessibility barriers stem from design decisions made long before 
 
 * **Inaccessible Color Contrast**: Text and interactive UI elements failing WCAG 4.5:1 / 3:1 contrast ratios.
 * **Missing Focus Indicators**: Interactive components lacking high-visibility focus rings for keyboard navigators.
-* **Unclear Touch Targets**: Buttons, icons, and interactive controls smaller than the 24x24px / 44x44px minimum touch boundaries.
+* **Unclear Touch Targets**: Buttons, icons, and interactive controls smaller than the WCAG 2.2 minimum of 24x24 CSS pixels, or the 44x44 size recommended for touch.
 * **Ambiguous Screen Reader Order**: Complex multi-column grid layouts lacking explicit heading hierarchy and DOM reading order annotations.
 
 By partnering with A11Y Pros during the UI/UX design phase, your design team delivers dev-ready, accessible Figma components that streamline development and eliminate costly post-launch remediation.
@@ -39,7 +39,7 @@ Our IAAP-certified accessibility consultants review your Figma design files usin
 
 ### 2. Component & Interactive State Review
 * **Focus State Specifications**: Ensure every interactive component (buttons, form inputs, dropdowns, modal dialogs, cards) includes high-visibility focus indicator specs with a minimum 3:1 contrast ratio.
-* **Touch Target & Tap Boundaries**: Measure button paddings, icon click zones, and interactive controls against WCAG 2.2 Target Size (Minimum) 24x24px and 44x44px mobile touch guidelines.
+* **Touch Target & Tap Boundaries**: Measure button paddings, icon click zones, and interactive controls against WCAG 2.2 Target Size (Minimum) at 24x24 CSS pixels, plus the 44x44 Target Size (Enhanced) criterion and iOS and Android touch guidelines.
 * **Form Validation & Error Messaging**: Review inline error patterns, helper text, required field indicators, and accessible error announcements in Figma wireframes.
 
 ### 3. Screen Reader & Layout Annotations
@@ -49,7 +49,7 @@ Our IAAP-certified accessibility consultants review your Figma design files usin
 
 ### 4. Interactive Components & Motion Accessibility
 * **Modal Dialog & Drawer Specs**: Annotate keyboard focus containment loops, initial focus targets, and `ESC` key dismiss behavior for popovers and modal overlays.
-* **Animation & Motion Sensitivity**: Audit UI micro-animations, auto-playing carousels, and visual transitions against WCAG Three Flashes thresholds and `prefers-reduced-motion` requirements.
+* **Animation & Motion Sensitivity**: Audit UI micro-animations, auto-playing carousels, and visual transitions against WCAG Three Flashes or Below Threshold, Pause, Stop, Hide for auto-playing content, and Animation from Interactions via `prefers-reduced-motion`.
 
 ### 5. Design Team Walkthrough & Actionable Deliverables
 * **Annotated Figma File**: Direct inline design annotations, callouts, and spec overlays placed directly in a dedicated branch of your Figma design system.

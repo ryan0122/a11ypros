@@ -15,9 +15,9 @@ import {
 export const metadata: Metadata = {
     title: 'ADA Website Compliance & Litigation Protection | A11Y Pros',
     description:
-        'Shield your business from rising ADA Title III website lawsuits in 2026. Get expert accessibility audits, code-level remediation, WCAG 2.1 AA compliance, and formal VPAT/ACR certification to avoid demand letters and costly settlements.',
+        'Shield your business from rising ADA Title III website lawsuits in 2026. Get expert accessibility audits, code-level remediation, WCAG 2.2 AA conformance, and a formal VPAT/ACR to avoid demand letters and costly settlements.',
     keywords:
-        'ADA website compliance, ADA Title III lawsuits, WCAG 2.1 AA, website accessibility audit, ADA demand letter defense, VPAT authoring, accessibility remediation, ADA litigation protection, WCAG compliance services, disabled access credit, IRS Form 8826',
+        'ADA website compliance, ADA Title III lawsuits, WCAG 2.1 AA, WCAG 2.2 AA, website accessibility audit, ADA demand letter defense, VPAT authoring, accessibility remediation, ADA litigation protection, WCAG compliance services, disabled access credit, IRS Form 8826',
 }
 
 const roadmapSteps = [
@@ -26,7 +26,7 @@ const roadmapSteps = [
         title: 'Accessibility Audit & Remediation Roadmap',
         icon: <Search className="w-6 h-6" aria-hidden="true" />,
         what: 'We perform deep-dive manual and automated testing on the unique templates and functional states of your site using a combination of browsers, devices and screen readers (Windows, OSX, iPhone, Android, VoiceOver, NVDA, JAWS, TalkBack).',
-        goal: "This audit produces a comprehensive WCAG 2.1 AA conformance report documenting every accessibility barrier across your site, prioritized by severity and mapped to specific success criteria. The deliverable is a formal Remediation Roadmap your attorney can present as evidence of a good-faith compliance effort.",
+        goal: "This audit produces a comprehensive WCAG 2.2 AA conformance report (covering every WCAG 2.1 AA criterion that courts and settlements reference) documenting every accessibility barrier across your site, prioritized by severity and mapped to specific success criteria. The deliverable is a formal Remediation Roadmap your attorney can present as evidence of a good-faith compliance effort.",
     },
     {
         step: '02',
@@ -39,8 +39,8 @@ const roadmapSteps = [
         step: '03',
         title: 'Verification & Formal VPAT/ACR',
         icon: <FileText className="w-6 h-6" aria-hidden="true" />,
-        what: 'Once fixes are live, we re-test the site to verify they work.We then author and deliver your formal VPAT 2.5 / ACR document, detailing conformance to WCAG 2.1 Level AA. This includes comprehensive documentation of any remaining issues, their legal risk, and the steps taken to address them.',
-        goal: "This is your 'Certificate of Compliance'—a legal document that proves your site meets WCAG 2.1 AA standards and provides your final layer of legal defense.",
+        what: 'Once fixes are live, we re-test the site to verify they work. We then author and deliver your formal VPAT 2.5Rev / ACR document, detailing conformance to WCAG 2.2 Level AA. This includes comprehensive documentation of any remaining issues, their legal risk, and the steps taken to address them.',
+        goal: "This is your documented record of conformance: an independent report showing how your site meets WCAG 2.2 AA (and therefore 2.1 AA), and strong evidence of good-faith compliance for your legal defense.",
     },
 ]
 
@@ -203,7 +203,7 @@ export default function ADALitigationSupport() {
                             Estimated Total Exposure
                         </p>
                         <p className="text-white max-w-md">
-                           Including repeats, hidden demands, rush fixes, and fees with 4,000+ total filings in 2024 and 2025 on pace to exceed 5,000, up 37% year-over-year.
+                           Including repeats, hidden demands, rush fixes, and fees with nearly 5,000 website accessibility lawsuits filed in federal and state courts in 2025, and federal filings up 27% over 2024.
                         </p>
                         
                     </div>
@@ -265,7 +265,7 @@ export default function ADALitigationSupport() {
                             The 3-Step Compliance Roadmap
                         </h2>
                         <p className="font-medium">
-                            In an era of surging ADA website lawsuits, driven by automated scanners and aggressive plaintiffs, achieving true compliance requires more than quick fixes or overlays. Our proven 3-step roadmap guides you from thorough discovery to permanent remediation and formal documentation, ensuring your site meets WCAG 2.1 Level AA standards, eliminates high-risk barriers, and demonstrates good-faith effort that strengthens your defense against claims.
+                            In an era of surging ADA website lawsuits, driven by automated scanners and aggressive plaintiffs, achieving true compliance requires more than quick fixes or overlays. Our proven 3-step roadmap guides you from thorough discovery to permanent remediation and formal documentation, ensuring your site meets WCAG 2.2 Level AA standards, eliminates high-risk barriers, and demonstrates good-faith effort that strengthens your defense against claims.
                         </p>
                     </div>
 
@@ -373,7 +373,7 @@ export default function ADALitigationSupport() {
                                 {[
                                     {
                                         title: 'Eligibility',
-                                        body: 'Gross receipts of $1M or less or less than 30 full-time employees in the preceding year.',
+                                        body: 'Gross receipts of $1M or less or 30 or fewer full-time employees in the preceding year.',
                                     },
                                     {
                                         title: 'The Credit',
