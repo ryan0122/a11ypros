@@ -113,7 +113,15 @@ function checkRateLimit(ip: string): boolean {
   return true; // Within rate limit
 }
 
+// WordPress/PHP vulnerability probes. The site has neither, so answer with a bare 404
+// here instead of letting the request spin up the Next.js server function.
+const PROBE_PATH_PATTERN = /(^|\/)(wp-(admin|content|includes|json)(\/|$)|wp-login\.php|xmlrpc\.php)|\.php$/i;
+
 export function middleware(req: NextRequest) {
+  if (PROBE_PATH_PATTERN.test(req.nextUrl.pathname)) {
+    return new NextResponse(null, { status: 404 });
+  }
+
   const userAgent = req.headers.get("user-agent") || "";
 
   // Temporary logging to identify crawlers
@@ -161,5 +169,9 @@ export function middleware(req: NextRequest) {
 
 // Apply middleware to specific paths if needed
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|html|txt|xml)$).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|html|txt|xml)$).*)",
+    // The pattern above skips static-looking extensions, which probes like wp-includes/wlwmanifest.xml use
+    "/:path*/wp-:dir/:rest*",
+  ],
 };
