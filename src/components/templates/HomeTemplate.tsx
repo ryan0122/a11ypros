@@ -118,9 +118,9 @@ export default async function HomeTemplate({
                                     <span className="text-xs font-bold text-[#0E8168] uppercase tracking-wider block mb-1">
                                         Insights & Best Practices
                                     </span>
-                                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                                    <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                                         Accessibility Articles
-                                    </h3>
+                                    </h2>
                                 </div>
                                 <Link
                                     href="/blog"
@@ -165,7 +165,7 @@ export default async function HomeTemplate({
                                                         })}
                                                     </time>
                                                 </div>
-                                                <h4
+                                                <h3
                                                     className="font-bold text-base text-slate-900 group-hover:text-[#0E8168] transition-colors leading-snug"
                                                     dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                                                 />
