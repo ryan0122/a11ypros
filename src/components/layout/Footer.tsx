@@ -63,7 +63,7 @@ export default function Footer() {
     <>
       {/* Top CTA / Form Section */}
       {!doNotDisplay && (
-        <section id="contactForm" className="w-full bg-slate-50 text-slate-900 border-t border-slate-200 relative">
+        <section id="contactForm" aria-label="Contact A11Y Pros" className="w-full bg-slate-50 text-slate-900 border-t border-slate-200 relative">
           {isContactPage ? (
             <div className="max-w-4xl mx-auto py-12 px-6">
               <ContactPageForm />
@@ -174,7 +174,7 @@ export default function Footer() {
 
             {/* Column 2: Services (3 cols) */}
             <div className="lg:col-span-3 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">Accessibility Services</h4>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Accessibility Services</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/services/wcag-compliance-auditing" className="hover:text-emerald-300 transition-colors">
@@ -206,7 +206,7 @@ export default function Footer() {
 
             {/* Column 3: Tools & Resources (3 cols) */}
             <div className="lg:col-span-3 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">Tools & Resources</h4>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Tools & Resources</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/vpat-estimator" className="hover:text-emerald-300 transition-colors">
@@ -238,7 +238,7 @@ export default function Footer() {
 
             {/* Column 4: Standards (2 cols) */}
             <div className="lg:col-span-2 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">Standards</h4>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Standards</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/compliance/web-content-accessibility-guidelines" className="hover:text-white transition-colors">

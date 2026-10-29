@@ -136,7 +136,8 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     const isPageActive = pathname === pagePath;
     const hasActiveChild = "children" in page && isChildActive(page);
     const isExpanded = "children" in page && expandedMenuId === page.id;
-    const submenuId = `submenu-${page.slug}`;
+    // Desktop and mobile navs are both in the DOM, so prefix the mobile ids to keep them unique
+    const submenuId = `${isMobile ? "mobile-" : ""}submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
     const contactSpecialClasses = isContactPage ? 'contact-link' : '';
 
@@ -185,9 +186,11 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
             </button>
           )}
         </div>
-        {"children" in page && page.children.length > 0 && isExpanded && (
+        {/* Always rendered (hidden when collapsed) so the toggle's aria-controls resolves */}
+        {"children" in page && page.children.length > 0 && (
           <ul
             id={submenuId}
+            hidden={!isExpanded}
             className={`menu sub-menu ${isMobile
               ? 'mt-2 ml-4 border-l-2 border-gray-200 pl-4'
               : 'absolute left-0 mt-2 min-w-80 bg-white shadow-lg rounded-md py-2'}`}

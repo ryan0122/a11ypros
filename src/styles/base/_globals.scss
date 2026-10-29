@@ -9,11 +9,28 @@ a:hover {
 }
 
 a:focus, summary:focus {
-	outline: none; // Remove default outline
+	// Transparent, not none: forced-colors mode drops box-shadow but paints the outline
+	outline: 2px solid transparent;
 	box-shadow:
 	  0 0 0 2px #ffffff,   // Inner white outline
 	  0 0 0 4px #001d2f;   // Outer dark blue outline
   }
+
+// Keep focused elements clear of the sticky header and fixed cookie banner (WCAG 2.4.11).
+// Header and CookieConsent publish their heights to these variables; the extra 0.5rem
+// clears focus rings drawn outside the element with box-shadow.
+html {
+	scroll-padding-top: calc(var(--header-height, 0px) + 0.5rem);
+	scroll-padding-bottom: calc(var(--cookie-banner-height, 0px) + 0.5rem);
+}
+
+// Lets the last footer links scroll above the cookie banner while it is open.
+// A spacer rather than body padding: body is h-full, so its padding sits at viewport height.
+body::after {
+	content: "";
+	display: block;
+	height: var(--cookie-banner-height, 0px);
+}
 
 // from wordpress for formatting
 .has-text-align-center {

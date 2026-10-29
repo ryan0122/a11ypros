@@ -60,9 +60,9 @@ export default async function HomeTemplate({
                 <section className="py-10 bg-slate-50/80 border-b border-slate-200">
                     <div className="max-w-5xl mx-auto px-6">
                         <div className="text-center max-w-xl mx-auto mb-6">
-                            <h3 className="text-sm font-bold text-slate-600 uppercase tracking-widest">
+                            <h2 className="text-sm font-bold text-slate-600 uppercase tracking-widest">
                                 Trusted By
-                            </h3>
+                            </h2>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -118,9 +118,9 @@ export default async function HomeTemplate({
                                     <span className="text-xs font-bold text-[#0E8168] uppercase tracking-wider block mb-1">
                                         Insights & Best Practices
                                     </span>
-                                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                                    <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                                         Accessibility Articles
-                                    </h3>
+                                    </h2>
                                 </div>
                                 <Link
                                     href="/blog"
@@ -135,7 +135,7 @@ export default async function HomeTemplate({
                                     <Link
                                         key={post.id}
                                         href={`/blog/${post.slug}`}
-                                        className="group flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl hover:border-[#0E8168]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden focus-visible:ring-2 focus-visible:ring-[#0E8168] outline-none"
+                                        className="group flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl hover:border-[#0E8168]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden focus-visible:ring-2 focus-visible:ring-[#0E8168] focus-visible:outline-none"
                                     >
                                         <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
                                             {post.featured_image_url ? (
@@ -165,8 +165,8 @@ export default async function HomeTemplate({
                                                         })}
                                                     </time>
                                                 </div>
-                                                <h4
-                                                    className="font-bold text-base text-slate-900 line-clamp-2 group-hover:text-[#0E8168] transition-colors leading-snug"
+                                                <h3
+                                                    className="font-bold text-base text-slate-900 group-hover:text-[#0E8168] transition-colors leading-snug"
                                                     dangerouslySetInnerHTML={{ __html: post.title.rendered }}
                                                 />
                                             </div>

@@ -67,6 +67,21 @@ export default function CookieConsent() {
     return () => window.removeEventListener("open-cookie-settings", handleOpenSettings);
   }, []);
 
+  // Publish the fixed banner's height so html scroll-padding keeps focused elements above it
+  useEffect(() => {
+    const banner = bannerRef.current;
+    if (!isVisible || isPreferencesOpen || !banner) return;
+    const root = document.documentElement;
+    const observer = new ResizeObserver(() => {
+      root.style.setProperty("--cookie-banner-height", `${banner.offsetHeight}px`);
+    });
+    observer.observe(banner);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--cookie-banner-height");
+    };
+  }, [isVisible, isPreferencesOpen]);
+
   // Trap keyboard focus inside preferences modal when open
   useEffect(() => {
     if (isPreferencesOpen && modalRef.current) {
@@ -142,7 +157,7 @@ export default function CookieConsent() {
           role="region"
           aria-labelledby="cookie-banner-title"
           aria-describedby="cookie-banner-desc"
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 bg-[#001d2f] text-white shadow-2xl border-t-4 border-[#0E8168]"
+          className="fixed bottom-0 left-0 right-0 z-50 max-h-[50vh] overflow-y-auto p-4 sm:p-6 bg-[#001d2f] text-white shadow-2xl border-t-4 border-[#0E8168]"
         >
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
             <div className="max-w-3xl">

@@ -13,6 +13,7 @@ input, textarea {
 
 	&:focus, &:active, &:focus-within {
 	   border: 2px solid vars.$primary-color;
+	   outline: 2px solid transparent; // Visible in forced-colors mode, where box-shadow is dropped
 	   box-shadow:
 		 0 0 0 2px #fff,
 		 0 0 0 5px vars.$primary-color;
@@ -32,12 +33,14 @@ textarea[aria-invalid="true"]:focus {
   box-shadow:
     0 0 0 2px #fff,
     0 0 0 5px vars.$error-color;
-  outline: none;
+  outline: 2px solid transparent;
 }
 
 button[type="submit"] {
+	// No border here: submit buttons are borderless, so adding one on focus shifts the layout.
+	// The box-shadow ring (and transparent outline in forced colors) is the indicator.
 	&:focus, &:active, &:focus-within {
-		border: 2px solid vars.$primary-color;
+		outline: 2px solid transparent;
 		box-shadow:
 		  0 0 0 2px #fff,
 		  0 0 0 5px vars.$primary-color;
