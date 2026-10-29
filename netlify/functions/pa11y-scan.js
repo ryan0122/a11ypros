@@ -5,7 +5,7 @@ const pa11y = require('pa11y');
 const generateResultsPrompt = (issueCount) => {
   const issueNumber = Math.min(issueCount, 5); // Cap at 5 issues
   const issueWord = issueNumber === 1 ? 'issue' : 'issues';
-  
+
   return `You are a senior accessibility auditor writing a polished, client-ready report for a non-technical business owner.
 
 CRITICAL FORMATTING RULES — OBEY OR FAIL:
@@ -109,7 +109,6 @@ exports.handler = async (event) => {
     } else {
       const issuesJson = JSON.stringify(results.issues.slice(0, 40), null, 2);
       const dynamicPrompt = generateResultsPrompt(results.issues.length);
-      console.log('GROQ_API_KEY', process.env.GROQ_API_KEY);
 
       const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
@@ -135,7 +134,6 @@ exports.handler = async (event) => {
         aiReport = `Unable to generate AI report (API error: ${groqResponse.status}). Please review the issues below.`;
       } else {
         const data = await groqResponse.json();
-        console.log('Groq response:', data);
         aiReport = data.choices?.[0]?.message?.content?.trim() || 'Report generation failed.';
         aiReport = convertReportToHTML(aiReport);
       }
