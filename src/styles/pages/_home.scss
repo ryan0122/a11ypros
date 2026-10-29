@@ -92,7 +92,7 @@
   }
 
   .articles-list li:focus-within, .articles-list li:hover {
-	outline: none; // Remove default outline
+	outline: 2px solid transparent; // Visible in forced-colors mode, where box-shadow is dropped
 	box-shadow:
 	  0 0 0 2px #ffffff,   // Inner white outline
 	  0 0 0 4px #001d2f;   // Outer dark blue outline

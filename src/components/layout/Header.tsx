@@ -4,13 +4,29 @@ import TopNav from "@/components/layout/TopNav";
 import Link from "next/link";
 import IconLogo from "@/components/icons/IconLogo";
 import MobileNav from "@/components/layout/MobileNav";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Publish the sticky header's height so html scroll-padding keeps focused elements below it
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const root = document.documentElement;
+    const observer = new ResizeObserver(() => {
+      root.style.setProperty("--header-height", `${header.offsetHeight}px`);
+    });
+    observer.observe(header);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--header-height");
+    };
+  }, []);
 
   return (
-    <header className="header flex items-center w-full py-5 px-6 sticky top-0 z-50">
+    <header ref={headerRef} className="header flex items-center w-full py-5 px-6 sticky top-0 z-50">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
       <div className="flex lg:flex-1 gap-10 max-w-6xl mx-auto justify-between">
         <Link href="/" className="logo no-underline hover:no-underline lg:mr-14 w-36 sm:w-56">
@@ -27,7 +43,7 @@ export default function Header() {
         <button
           onClick={() => setMobileMenuOpen((prev) => !prev)}
           type="button"
-          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+          className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           aria-expanded={mobileMenuOpen}
           aria-controls="mobileMenu"
           aria-haspopup="dialog"

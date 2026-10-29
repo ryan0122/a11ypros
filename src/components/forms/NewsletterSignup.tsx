@@ -91,7 +91,7 @@ export default function NewsletterSignup({
 
   if (variant === 'sidebar') {
     return (
-      <div
+      <section
         aria-labelledby={headingId}
         className="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm"
       >
@@ -183,12 +183,12 @@ export default function NewsletterSignup({
             </p>
           </form>
         )}
-      </div>
+      </section>
     )
   }
 
   return (
-    <div
+    <section
       aria-labelledby={headingId}
       className="rounded-2xl border border-slate-800 bg-slate-900/90 p-6 sm:p-8 text-white shadow-lg"
     >
@@ -292,6 +292,6 @@ export default function NewsletterSignup({
           )}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
