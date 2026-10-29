@@ -174,7 +174,7 @@ export default function Footer() {
 
             {/* Column 2: Services (3 cols) */}
             <div className="lg:col-span-3 space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white">Accessibility Services</h3>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Accessibility Services</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/services/wcag-compliance-auditing" className="hover:text-emerald-300 transition-colors">
@@ -206,7 +206,7 @@ export default function Footer() {
 
             {/* Column 3: Tools & Resources (3 cols) */}
             <div className="lg:col-span-3 space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white">Tools & Resources</h3>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Tools & Resources</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/vpat-estimator" className="hover:text-emerald-300 transition-colors">
@@ -238,7 +238,7 @@ export default function Footer() {
 
             {/* Column 4: Standards (2 cols) */}
             <div className="lg:col-span-2 space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-white">Standards</h3>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-white">Standards</h2>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <Link href="/compliance/web-content-accessibility-guidelines" className="hover:text-white transition-colors">
