@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { Settings, X, ShieldCheck } from "lucide-react";
 
@@ -39,6 +39,8 @@ export default function CookieConsent() {
   const bannerRef = useRef<HTMLElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const lastActiveElementRef = useRef<HTMLElement | null>(null);
+  const customizeButtonRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = useRef(false);
 
   useEffect(() => {
     setHasMounted(true);
@@ -82,6 +84,32 @@ export default function CookieConsent() {
     };
   }, [isVisible, isPreferencesOpen]);
 
+  // Restore focus after the modal closes. This runs after render because the Customize
+  // button is unmounted while the modal is open, so the saved trigger may be detached.
+  useEffect(() => {
+    if (isPreferencesOpen || !restoreFocusRef.current) return;
+    restoreFocusRef.current = false;
+    const trigger = lastActiveElementRef.current;
+    if (trigger?.isConnected) {
+      trigger.focus();
+    } else if (isVisible && customizeButtonRef.current) {
+      customizeButtonRef.current.focus();
+    } else {
+      document.getElementById("main-content")?.focus();
+    }
+  }, [isVisible, isPreferencesOpen]);
+
+  const closePreferences = useCallback(() => {
+    restoreFocusRef.current = true;
+    setIsPreferencesOpen(false);
+    // Reopened from the footer after a choice was saved: close fully instead of showing the banner again
+    try {
+      if (localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY)) setIsVisible(false);
+    } catch {
+      // Storage unavailable: fall back to showing the banner
+    }
+  }, []);
+
   // Trap keyboard focus inside preferences modal when open
   useEffect(() => {
     if (isPreferencesOpen && modalRef.current) {
@@ -95,8 +123,7 @@ export default function CookieConsent() {
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
           e.preventDefault();
-          setIsPreferencesOpen(false);
-          lastActiveElementRef.current?.focus();
+          closePreferences();
           return;
         }
 
@@ -117,7 +144,7 @@ export default function CookieConsent() {
       document.addEventListener("keydown", handleKeyDown);
       return () => document.removeEventListener("keydown", handleKeyDown);
     }
-  }, [isPreferencesOpen]);
+  }, [isPreferencesOpen, closePreferences]);
 
   const saveConsent = (analytics: boolean) => {
     const preferences: CookiePreferences = {
@@ -134,12 +161,9 @@ export default function CookieConsent() {
 
     setAnalyticsEnabled(analytics);
     updateGtagConsent(analytics);
+    restoreFocusRef.current = true;
     setIsPreferencesOpen(false);
     setIsVisible(false);
-
-    if (lastActiveElementRef.current) {
-      lastActiveElementRef.current.focus();
-    }
   };
 
   const handleAcceptAll = () => saveConsent(true);
@@ -184,6 +208,7 @@ export default function CookieConsent() {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
               <button
+                ref={customizeButtonRef}
                 type="button"
                 onClick={() => {
                   lastActiveElementRef.current = document.activeElement as HTMLElement;
@@ -233,10 +258,7 @@ export default function CookieConsent() {
               </h2>
               <button
                 type="button"
-                onClick={() => {
-                  setIsPreferencesOpen(false);
-                  lastActiveElementRef.current?.focus();
-                }}
+                onClick={closePreferences}
                 className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#0E8168] focus-visible:outline-offset-2"
                 aria-label="Close cookie preferences dialog"
               >
