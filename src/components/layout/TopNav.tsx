@@ -147,8 +147,30 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
 
     if (page.slug === "home") return null;
 
+    // Escape closes the open submenu and returns focus to its toggle. Stop propagation so
+    // inside the mobile dialog the first Escape closes only the submenu, not the dialog.
+    const handleSubmenuKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
+      if (!isExpanded || event.key !== "Escape") return;
+      event.stopPropagation();
+      setExpandedMenuId(null);
+      event.currentTarget.querySelector<HTMLButtonElement>(`[aria-controls="${submenuId}"]`)?.focus();
+    };
+
+    // The desktop dropdown overlays page content, so close it once focus leaves the item
+    const handleSubmenuBlur = (event: React.FocusEvent<HTMLLIElement>) => {
+      if (isMobile || !isExpanded) return;
+      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+        setExpandedMenuId(null);
+      }
+    };
+
     return (
-      <li key={page.id} className={`relative ${isMobile ? 'py-3' : ''}`}>
+      <li
+        key={page.id}
+        className={`relative ${isMobile ? 'py-3' : ''}`}
+        onKeyDown={handleSubmenuKeyDown}
+        onBlur={handleSubmenuBlur}
+      >
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link
             href={pagePath}
