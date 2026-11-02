@@ -13,6 +13,7 @@ type Errors = { url?: string; email?: string }
 export default function FreeScanForm() {
     const [url, setUrl] = useState('')
     const [email, setEmail] = useState('')
+    const [subscribe, setSubscribe] = useState(false)
     const [errors, setErrors] = useState<Errors>({})
     const [submitError, setSubmitError] = useState('')
     const [submitting, setSubmitting] = useState(false)
@@ -49,13 +50,13 @@ export default function FreeScanForm() {
             const res = await fetch('/api/scan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: checkedUrl.url, email: email.trim(), 'bot-field': honeypot || '' }),
+                body: JSON.stringify({ url: checkedUrl.url, email: email.trim(), subscribe, 'bot-field': honeypot || '' }),
             })
             if (!res.ok) {
                 const body = (await res.json().catch(() => ({}))) as { message?: string }
                 throw new Error(body.message || 'We could not start your check. Please try again in a minute.')
             }
-            recordNetlifySubmission({ 'form-name': 'free-scan', email: email.trim(), url: url.trim() })
+            recordNetlifySubmission({ 'form-name': 'free-scan', email: email.trim(), url: url.trim(), subscribe: subscribe ? 'yes' : 'no' })
             setSubmitted(true)
         } catch (err) {
             setSubmitError(err instanceof Error ? err.message : 'We could not start your check. Please try again in a minute.')
@@ -94,7 +95,7 @@ export default function FreeScanForm() {
                 </label>
             </p>
 
-            <p className="mb-5 mt-0 text-sm text-slate-600">Both fields are required.</p>
+            <p className="mb-5 mt-0 text-sm text-slate-600">Website address and email are required.</p>
 
             <Input
                 ref={urlRef}
@@ -126,6 +127,20 @@ export default function FreeScanForm() {
                 aria-invalid={errors.email ? true : undefined}
                 className="text-slate-900 [&_input]:rounded-lg [&_input]:border [&_input]:border-slate-500 [&_input]:px-4 [&_input]:py-3"
             />
+
+            <div className="mb-5 flex items-start gap-3">
+                <input
+                    id="scan-subscribe"
+                    name="subscribe"
+                    type="checkbox"
+                    checked={subscribe}
+                    onChange={(e) => setSubscribe(e.target.checked)}
+                    className="mt-1 h-5 w-5 shrink-0 accent-[#0E8168]"
+                />
+                <label htmlFor="scan-subscribe" className="text-slate-700">
+                    Send me occasional accessibility tips and updates from A11Y Pros. You can unsubscribe at any time.
+                </label>
+            </div>
 
             {/* Always rendered so screen readers announce a message added to it. */}
             <p role="alert" className="mb-4 text-sm font-medium text-red-700 empty:mb-0">
