@@ -224,7 +224,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/free-accessibility-audit" className="hover:text-white transition-colors">
+                  <Link href="/free-accessibility-scan" className="hover:text-white transition-colors">
                     Free Accessibility Scan
                   </Link>
                 </li>

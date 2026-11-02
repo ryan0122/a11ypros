@@ -16,11 +16,11 @@ export const metadata: Metadata = {
         title,
         description,
         type: 'website',
-        url: `${siteUrl}/free-accessibility-audit`,
+        url: `${siteUrl}/free-accessibility-scan`,
         images: [{ url: `${siteUrl}/og_banner.jpg`, alt: 'A11Y Pros Logo', width: 1200, height: 630 }],
     },
     twitter: { card: 'summary_large_image', title, description },
-    alternates: { canonical: `${siteUrl}/free-accessibility-audit` },
+    alternates: { canonical: `${siteUrl}/free-accessibility-scan` },
 }
 
 const CHECKS = [
