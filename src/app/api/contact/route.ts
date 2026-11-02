@@ -16,6 +16,8 @@ const FIELD_LABELS: Record<string, string> = {
   'resource-url': 'Resource File',
   'post-slug': 'Blog Post',
   'signup-page': 'Signup Page',
+  'source-page': 'Submitted on',
+  'referred-from': 'Came from',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);
@@ -75,7 +77,7 @@ export async function POST(request: NextRequest) {
       from,
       to: inbox.split(',').map((address) => address.trim()),
       replyTo: email,
-      subject: `New ${formName} submission from ${email}`,
+      subject: `New ${formName} submission from ${email}${data['referred-from'] ? ` (via ${data['referred-from']})` : ''}`,
       text,
     });
 

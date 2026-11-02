@@ -32,6 +32,7 @@ export default function FreeScanForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (submitting) return
         setSubmitError('')
 
         const next: Errors = {}
@@ -75,7 +76,7 @@ export default function FreeScanForm() {
                 </p>
                 <p className="mt-4 text-sm text-slate-600">
                     Nothing arrived? Check your spam folder, or{' '}
-                    <Link href="/contact-us"className="font-semibold text-[#0E8168] underline">
+                    <Link href="/contact-us?from=free-accessibility-scan" className="font-semibold text-[#0E8168] underline">
                         contact us
                     </Link>
                     .
@@ -92,6 +93,8 @@ export default function FreeScanForm() {
                     Don’t fill this out if you are human: <input name="bot-field" tabIndex={-1} autoComplete="off" />
                 </label>
             </p>
+
+            <p className="mb-5 text-sm text-slate-600">Both fields are required.</p>
 
             <Input
                 ref={urlRef}
@@ -129,13 +132,17 @@ export default function FreeScanForm() {
                 {submitError}
             </p>
 
+            {/* aria-disabled, not disabled: disabling the focused button drops focus to <body> */}
             <button
                 type="submit"
-                disabled={submitting}
-                className="w-full rounded-lg bg-[#0E8168] px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-[#0a6b57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168] disabled:opacity-60"
+                aria-disabled={submitting || undefined}
+                className="w-full rounded-lg bg-[#0E8168] px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-[#0a6b57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168] aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
             >
                 {submitting ? 'Starting your scan…' : 'Scan my site for free'}
             </button>
+            <p role="status" className="sr-only">
+                {submitting ? 'Starting your scan…' : ''}
+            </p>
             <p className="mt-4 text-sm text-slate-600">
                 We&apos;ll email you a link to confirm before anything is scanned, then send the results. We scan only
                 the address you enter.

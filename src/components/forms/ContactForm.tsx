@@ -159,6 +159,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
             return
         }
 
+        // Record where the lead came from: the page this form is on, plus the ?from= that
+        // links into /contact-us add (e.g. the free scan page). Read from window.location
+        // rather than useSearchParams, which would need a Suspense boundary in the footer.
+        formData.set('source-page', pathname)
+        const from = new URLSearchParams(window.location.search).get('from')
+        if (from && /^[\w/-]{1,100}$/.test(from)) formData.set('referred-from', from)
+
         const fields: Record<string, string> = {}
         formData.forEach((value, key) => {
             if (typeof value === 'string') fields[key] = value

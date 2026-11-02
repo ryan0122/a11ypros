@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <div className={`${className} mb-5 flex flex-col`}>
       <label htmlFor={inputId} className="block mb-2">
-        {label} {required && <span className="text-[#da3940]">*</span>}
+        {label} {required && <span aria-hidden="true" className="text-[#da3940]">*</span>}
       </label>
       <input
         ref={ref}
