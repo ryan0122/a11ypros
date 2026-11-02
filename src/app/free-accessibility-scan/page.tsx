@@ -181,10 +181,13 @@ export default function FreeAccessibilityScanPage() {
                                     key={title}
                                     className="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:w-[calc(50%-0.625rem)] lg:w-[calc((100%-2.5rem)/3)]"
                                 >
-                                    <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#0E8168]/10 text-[#0E8168]">
-                                        <Icon aria-hidden="true" className="h-5 w-5" />
-                                    </span>
-                                    <h3 className="mb-2 font-bold">{title}</h3>
+                                    {/* Icon beside the heading rather than on its own row above it */}
+                                    <div className="mb-2 flex items-center gap-3">
+                                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0E8168]/10 text-[#0E8168]">
+                                            <Icon aria-hidden="true" className="h-5 w-5" />
+                                        </span>
+                                        <h3 className="m-0 font-bold">{title}</h3>
+                                    </div>
                                     <p className="text-sm leading-relaxed text-slate-700">{body}</p>
                                 </li>
                             ))}

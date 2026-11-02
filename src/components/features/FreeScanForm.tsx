@@ -94,7 +94,7 @@ export default function FreeScanForm() {
                 </label>
             </p>
 
-            <p className="mb-5 text-sm text-slate-600">Both fields are required.</p>
+            <p className="mb-5 mt-0 text-sm text-slate-600">Both fields are required.</p>
 
             <Input
                 ref={urlRef}
