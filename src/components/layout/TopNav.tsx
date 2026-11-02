@@ -93,13 +93,14 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
 
   useEffect(() => {
     // Standardize navigation from local static structure (0 network calls)
+    const link = (id: string) => staticLinks.find((l) => l.id === id)!;
     const mergedPages: (PageWithChildren | StaticLink)[] = [
       navStructure[0], // Services
       navStructure[1], // Compliance
-      staticLinks[0],  // Pricing
-      staticLinks[1],  // Articles
+      link("pricing"),
+      link("blog"),
       navStructure[2], // About Us
-      staticLinks[2],  // Contact Us
+      link("contact-us"),
     ];
     setPages(mergedPages);
   }, []);

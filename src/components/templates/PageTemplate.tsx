@@ -4,6 +4,17 @@ import Link from 'next/link';
 import Services from '@/components/features/Services';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import PricingCards from '@/components/ui/PricingCards';
+import FreeScanCta from '@/components/features/FreeScanCta';
+
+// Compliance standard pages get a free scan card in the sidebar.
+const COMPLIANCE_SLUGS = new Set([
+  'web-content-accessibility-guidelines',
+  'the-americans-with-disabilities-act',
+  'section-508',
+  'en-301-549',
+  'the-accessible-canada-act-aca',
+  'aoda',
+]);
 import AdditionalServicesPricing from '@/components/ui/AdditionalServicesPricing';
 import NewsletterSignup from '@/components/forms/NewsletterSignup';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -119,6 +130,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                 <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
               )}
               {isPricing && <AdditionalServicesPricing />}
+              {isPricing && <FreeScanCta variant="banner" headingLevel="h2" />}
               <div
                 className="prose prose-slate prose-lg max-w-none 
                   prose-headings:font-bold prose-headings:text-slate-900 
@@ -147,6 +159,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
 
               {/* Sidebar */}
               <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-8">
+                {COMPLIANCE_SLUGS.has(slug) && <FreeScanCta variant="sidebar" headingLevel="h3" />}
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
                   <h3 className="text-lg font-bold text-slate-900">Explore Our Services</h3>
                   <p className="text-xs text-slate-600 leading-relaxed">

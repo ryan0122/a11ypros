@@ -21,6 +21,8 @@
     <input type="email" name="contact-email" />
     <input type="tel" name="contact-phone" />
     <textarea name="contact-message"></textarea>
+    <input type="text" name="source-page" />
+    <input type="text" name="referred-from" />
   </form>
 
   <!-- VpatEstimatorWidget -->
@@ -36,22 +38,16 @@
   </form>
 
   <!-- Free accessibility audit: manual audit request -->
-  <form name="free-audit" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="free-audit" />
-    <input type="text" name="bot-field" />
-    <input type="email" name="email" />
-    <input type="url" name="url" />
-  </form>
 
   <!-- Free accessibility audit: book a consultation after a scan -->
-  <form name="free-consult" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="free-consult" />
-    <input type="text" name="bot-field" />
-    <input type="email" name="email" />
-    <input type="text" name="scanned-url" />
-  </form>
 
   <!-- Gated resource / template download -->
+  <form name="free-scan" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="free-scan" />
+    <input type="text" name="bot-field" />
+    <input type="email" name="email" />
+    <input type="text" name="url" />
+  </form>
   <form name="resource-download" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="resource-download" />
     <input type="text" name="bot-field" />

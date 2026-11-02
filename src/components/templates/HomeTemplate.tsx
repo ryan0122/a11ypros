@@ -42,10 +42,10 @@ export default async function HomeTemplate({
                                     View Services & Pricing <ArrowRight className="w-5 h-5" />
                                 </Link>
                                 <Link
-                                    href="/contact-us"
+                                    href="/free-accessibility-scan"
                                     className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-base font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
                                 >
-                                    Contact Us
+                                    Free Website Accessibility Check
                                 </Link>
                             </div>
                         </div>
