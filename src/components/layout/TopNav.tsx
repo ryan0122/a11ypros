@@ -83,7 +83,6 @@ const navStructure: PageWithChildren[] = [
 const staticLinks: StaticLink[] = [
   { id: "pricing", slug: "pricing", title: "Pricing" },
   { id: "blog", slug: "blog", title: "Articles" },
-  { id: "free-scan", slug: "free-accessibility-scan", title: "Free Scan" },
   { id: "contact-us", slug: "contact-us", title: "Contact Us" },
 ];
 
@@ -101,7 +100,6 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       link("pricing"),
       link("blog"),
       navStructure[2], // About Us
-      link("free-scan"),
       link("contact-us"),
     ];
     setPages(mergedPages);
@@ -177,7 +175,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link
             href={pagePath}
-            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : 'whitespace-nowrap'} ${contactSpecialClasses}`}
+            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''} ${contactSpecialClasses}`}
             aria-current={isPageActive ? "page" : undefined}
             onClick={handleLinkClick}
           >
@@ -252,7 +250,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     >
       <ul className={isMobile
         ? "flex flex-col space-y-1"
-        : "flex flex-row justify-between items-center gap-6"
+        : "flex flex-row justify-between items-center gap-8"
       }>
         {pages.map(renderPageLink)}
       </ul>
