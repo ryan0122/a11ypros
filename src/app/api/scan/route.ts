@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { checkScanUrl } from '@/lib/utils/scanUrl';
 
 // Proxies free scan requests to the A11Y Pros scan worker (the a11y-engine repo, on Fly.io).
 // The worker validates the URL, rate-limits, emails a confirmation link and runs the scan,
@@ -46,10 +47,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const url = typeof data.url === 'string' ? data.url.trim() : '';
+  const checked = checkScanUrl(typeof data.url === 'string' ? data.url : '');
+  if (!checked.ok) {
+    return NextResponse.json({ message: checked.error }, { status: 400 });
+  }
   const email = typeof data.email === 'string' ? data.email.trim() : '';
-  if (!url || !email) {
-    return NextResponse.json({ message: 'Enter your website address and email.' }, { status: 400 });
+  if (!email) {
+    return NextResponse.json({ message: 'Enter your email address.' }, { status: 400 });
   }
 
   // Netlify sets x-nf-client-connection-ip; x-forwarded-for is the fallback elsewhere.
@@ -62,7 +66,7 @@ export async function POST(request: NextRequest) {
     const res = await fetch(`${worker.url}/scans`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${worker.secret}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: /^https?:\/\//i.test(url) ? url : `https://${url}`, email, ip }),
+      body: JSON.stringify({ url: checked.url, email, ip }),
       signal: AbortSignal.timeout(WORKER_TIMEOUT_MS),
     });
     if (res.ok) return NextResponse.json({ ok: true });

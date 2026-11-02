@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import Input from '@/components/forms/Input'
+import { checkScanUrl } from '@/lib/utils/scanUrl'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -34,10 +35,11 @@ export default function FreeScanForm() {
         setSubmitError('')
 
         const next: Errors = {}
-        if (!url.trim()) next.url = 'Enter your website address, for example example.com.'
+        const checkedUrl = checkScanUrl(url)
+        if (!checkedUrl.ok) next.url = checkedUrl.error
         if (!EMAIL.test(email.trim())) next.email = 'Enter an email address, for example you@company.com.'
         setErrors(next)
-        if (next.url) return urlRef.current?.focus()
+        if (!checkedUrl.ok) return urlRef.current?.focus()
         if (next.email) return emailRef.current?.focus()
 
         const honeypot = new FormData(e.currentTarget).get('bot-field')
@@ -46,7 +48,7 @@ export default function FreeScanForm() {
             const res = await fetch('/api/scan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: url.trim(), email: email.trim(), 'bot-field': honeypot || '' }),
+                body: JSON.stringify({ url: checkedUrl.url, email: email.trim(), 'bot-field': honeypot || '' }),
             })
             if (!res.ok) {
                 const body = (await res.json().catch(() => ({}))) as { message?: string }
@@ -73,7 +75,7 @@ export default function FreeScanForm() {
                 </p>
                 <p className="mt-4 text-sm text-slate-600">
                     Nothing arrived? Check your spam folder, or{' '}
-                    <Link href="/contact" className="font-semibold text-[#0E8168] underline">
+                    <Link href="/contact-us"className="font-semibold text-[#0E8168] underline">
                         contact us
                     </Link>
                     .
@@ -83,7 +85,7 @@ export default function FreeScanForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} noValidate className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <form onSubmit={handleSubmit} noValidate className="rounded-2xl border border-slate-200 border-t-4 border-t-[#0E8168] bg-white p-6 shadow-lg sm:p-8">
             {/* Honeypot for bot detection */}
             <p className="hidden" aria-hidden="true">
                 <label>
