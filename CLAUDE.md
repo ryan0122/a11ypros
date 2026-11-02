@@ -46,7 +46,7 @@ SEO is authored in frontmatter:
 - MDX pages are served by `src/app/[...slug]/page.tsx`, which validates the requested path against the page's `parentSlug`/`slug` and 404s on mismatch, so a page's frontmatter hierarchy must match its URL exactly. The home page is `src/app/page.tsx` reading `home.mdx`.
 - Legacy URLs are permanently redirected (308) in `next.config.ts`: `/pages/*` → `/*` and `/home` → `/`. They used to render duplicates of the canonical pages.
 - Paths under `/sales` and `sitemap.xml` are explicitly `notFound()`-ed in the catch-all so the server/`sitemap.ts` handle them.
-- Hand-coded routes (`/blog`, `/free-accessibility-scan` (the free scan; `/free-accessibility-audit` redirects to it), `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over MDX pages of the same name. A client-component route needs a sibling `layout.tsx` to set its metadata.
+- Hand-coded routes (`/blog`, `/free-accessibility-scan` (the free scan), `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over MDX pages of the same name. A client-component route needs a sibling `layout.tsx` to set its metadata.
 - [src/lib/sitemap.ts](src/lib/sitemap.ts) builds the sitemap from `src/content/` (excluding `home`, `blog`, and thank-you pages); hand-coded routes aren't in it.
 - Content routes set `export const dynamic = 'force-dynamic'`.
 
