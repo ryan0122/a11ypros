@@ -3,6 +3,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # pa11y pulls in puppeteer, which downloads Chrome on install. The site never runs it,
+  # and the download fails builds whenever Google's CDN is slow.
+  PUPPETEER_SKIP_DOWNLOAD = "true"
 
 # Block aggressive crawlers at edge (doesn't count as errors)
 [[headers]]
