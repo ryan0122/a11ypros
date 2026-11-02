@@ -5,6 +5,7 @@ import SharePost from '@/components/ui/SharePost'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import FAQAccordion from '@/components/ui/FaqAccordion'
 import GatedDownloadCard from '@/components/forms/GatedDownloadCard'
+import FreeScanCta from '@/components/features/FreeScanCta'
 import NewsletterSignup from '@/components/forms/NewsletterSignup'
 import { Calendar, User, Clock, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react'
 
@@ -180,6 +181,10 @@ export default function ArticleTemplate({ post, postUrl }: ArticleTemplateProps)
                   <FAQAccordion title="Frequently Asked Questions" faqs={post.faqs} />
                 </div>
               )}
+
+              <div className="mt-12">
+                <FreeScanCta variant="card" headingLevel="h2" />
+              </div>
 
               {/* Versatile Bottom Services & Audit Callout */}
               <div className="mt-12 p-8 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
