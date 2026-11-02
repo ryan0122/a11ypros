@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     const res = await fetch(`${worker.url}/scans`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${worker.secret}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: checked.url, email, ip }),
+      body: JSON.stringify({ url: checked.url, email, ip, subscribe: data.subscribe === true }),
       signal: AbortSignal.timeout(WORKER_TIMEOUT_MS),
     });
     if (res.ok) return NextResponse.json({ ok: true });
