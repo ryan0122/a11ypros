@@ -27,7 +27,7 @@ A11Y Pros does not sell accessibility overlays or widgets; all testing and remed
 ## Tools
 
 - [Audit & VPAT Scope Estimator](https://a11ypros.com/vpat-estimator): Interactive calculator for WCAG 2.1/2.2 AA audit scope, Section 508 requirements, and estimated VPAT/ACR timeline.
-- [Free Manual Teaser Audit](https://a11ypros.com/free-accessibility-audit): Request a free manual review of key keyboard and screen reader flows on your site, delivered as a video breakdown.
+- [Free Accessibility Scan](https://a11ypros.com/free-accessibility-audit): Scan a page against WCAG 2.2 AA at desktop and mobile sizes, with keyboard testing; results by email in minutes.
 
 ## Accessibility Laws and Standards
 

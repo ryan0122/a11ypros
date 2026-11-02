@@ -46,7 +46,7 @@ SEO is authored in frontmatter:
 - MDX pages are served by `src/app/[...slug]/page.tsx`, which validates the requested path against the page's `parentSlug`/`slug` and 404s on mismatch, so a page's frontmatter hierarchy must match its URL exactly. The home page is `src/app/page.tsx` reading `home.mdx`.
 - Legacy URLs are permanently redirected (308) in `next.config.ts`: `/pages/*` → `/*` and `/home` → `/`. They used to render duplicates of the canonical pages.
 - Paths under `/sales` and `sitemap.xml` are explicitly `notFound()`-ed in the catch-all so the server/`sitemap.ts` handle them.
-- Hand-coded routes (`/blog`, `/free-accessibility-audit`, `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over MDX pages of the same name. A client-component route needs a sibling `layout.tsx` to set its metadata.
+- Hand-coded routes (`/blog`, `/free-accessibility-audit` (the free scan), `/free-consultation`, `/services/ada-litigation-support`, `/vpat-estimator`) take precedence over MDX pages of the same name. A client-component route needs a sibling `layout.tsx` to set its metadata.
 - [src/lib/sitemap.ts](src/lib/sitemap.ts) builds the sitemap from `src/content/` (excluding `home`, `blog`, and thank-you pages); hand-coded routes aren't in it.
 - Content routes set `export const dynamic = 'force-dynamic'`.
 
@@ -68,11 +68,11 @@ All forms post to internal API routes that proxy to third parties, so credential
 - Netlify Forms is the storage copy, not the notifier: the same clients also call `recordNetlifySubmission()` (fire-and-forget POST to `/__forms.html`). Netlify only registers forms declared in `public/__forms.html` at build time, so a new form or field must be added there too or its values are dropped.
 - `/api/vtiger` → vtiger webform capture at `sales.a11ypros.com`, with hardcoded `__vtrftk`/`publicid` tokens and an explicit field-name mapping. If vtiger form fields change, that mapping is the thing to update.
 
-`netlify/functions/pa11y-scan.js` runs pa11y + a Groq LLM to produce plain-language audit summaries. Its redirect is **commented out in `netlify.toml`** to reduce Netlify function usage, so `/api/scan` is currently dead — re-enable the redirect if wiring the scanner back up.
+- `/api/scan` → the free scan on `/free-accessibility-audit` (`FreeScanForm`). It forwards `{ url, email, ip }` to the A11Y Pros scan worker (the `a11y-engine` repo, on Fly.io at `SCAN_WORKER_URL`) with `Authorization: Bearer $SCAN_API_SECRET`. The worker does the URL safety checks, rate limits, confirmation email, scan and results email; its 400/429 messages are written for visitors and are passed through. `GET /api/scan` only wakes the worker (it stops when idle and takes a few seconds to start), and the page calls it on load so the submit stays inside the function timeout. The old `netlify/functions/pa11y-scan.js` (pa11y + Groq) is gone.
 
 ### Environment
 
-`.env.local` holds `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `GROQ_API_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`.
+`.env.local` holds `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`, `SCAN_WORKER_URL`, `SCAN_API_SECRET`. The scan secret must match the worker's (`fly secrets set --app a11y-engine SCAN_API_SECRET=…`).
 
 Anything with a `NEXT_PUBLIC_` prefix is inlined into the client bundle. Use an unprefixed var for anything server-only (a WordPress credential once leaked this way).
 

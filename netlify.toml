@@ -1,6 +1,5 @@
 [build]
   command = "npm run build"
-  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -10,9 +9,3 @@
   for = "/*"
   [headers.values]
     X-Robots-Tag = "noai, noimageai"
-
-# Disabled to reduce Netlify function usage
-# [[redirects]]
-#   from = "/api/scan"
-#   to = "/.netlify/functions/pa11y-scan"
-#   status = 200
