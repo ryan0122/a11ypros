@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   const worker = workerConfig();
   if (!worker) {
     console.error('[scan] SCAN_WORKER_URL or SCAN_API_SECRET is not configured');
-    return NextResponse.json({ message: 'The free scan is not available right now.' }, { status: 503 });
+    return NextResponse.json({ message: 'The free accessibility check is not available right now.' }, { status: 503 });
   }
 
   let data: Record<string, unknown>;
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     console.error('[scan] could not reach the scan worker:', error);
   }
   return NextResponse.json(
-    { message: 'We could not start your scan. Please try again in a minute.' },
+    { message: 'We could not start your check. Please try again in a minute.' },
     { status: 502 },
   );
 }

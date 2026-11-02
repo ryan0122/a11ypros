@@ -19,9 +19,9 @@ import FreeScanForm from '@/components/features/FreeScanForm'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 
 const siteUrl = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com'
-const title = 'Free Website Accessibility Scan (WCAG 2.2 AA) - A11Y Pros'
+const title = 'Free Website Accessibility Check (WCAG 2.2 AA) - A11Y Pros'
 const description =
-    'Scan a page of your website against WCAG 2.2 AA at desktop and mobile sizes, with keyboard testing. Results by email in minutes.'
+    'Check a page of your website against WCAG 2.2 AA at desktop and mobile sizes, with keyboard testing. Results by email in minutes.'
 
 export const metadata: Metadata = {
     title,
@@ -47,7 +47,7 @@ const STEPS = [
     {
         step: '02',
         title: 'Confirm by email',
-        body: 'Select the link we email you. Nothing is scanned until you do, and we scan only the address you entered.',
+        body: 'Select the link we email you. Nothing is checked until you do, and we check only the address you entered.',
         Icon: MailCheck,
     },
     {
@@ -113,10 +113,10 @@ export default function FreeAccessibilityScanPage() {
                                         id="scan-heading"
                                         className="mb-4 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl"
                                     >
-                                        Free website accessibility scan
+                                        Free website accessibility check
                                     </h1>
                                     <p className="mb-6 text-lg leading-relaxed text-slate-700">
-                                        Test a page of your website against WCAG 2.2 Level AA. Our scan engine loads it
+                                        Test a page of your website against WCAG 2.2 Level AA. Our testing engine loads it
                                         in a real browser at desktop and mobile sizes, navigates it with only a
                                         keyboard, and emails you a prioritized report.
                                     </p>
@@ -140,7 +140,7 @@ export default function FreeAccessibilityScanPage() {
                 <section aria-labelledby="steps-heading" className="py-16">
                     <div className="mx-auto max-w-6xl px-6">
                         <h2 id="steps-heading" className="mb-8 text-center text-3xl font-bold">
-                            How the free scan works
+                            How the free check works
                         </h2>
                         <ol className="grid gap-6 md:grid-cols-3">
                             {STEPS.map(({ step, title, body, Icon }) => (
@@ -164,11 +164,11 @@ export default function FreeAccessibilityScanPage() {
                     </div>
                 </section>
 
-                {/* ── What the scan checks ── */}
+                {/* ── What the check covers ── */}
                 <section aria-labelledby="checks-heading" className="border-t border-slate-200 bg-slate-50 py-16">
                     <div className="mx-auto max-w-6xl px-6">
                         <h2 id="checks-heading" className="mb-3 text-center text-3xl font-bold">
-                            What the scan checks
+                            What the check covers
                         </h2>
                         <p className="mx-auto mb-10 max-w-2xl text-center text-slate-700">
                             More than a rules check: the engine uses the page the way a keyboard user would, at
@@ -233,7 +233,7 @@ export default function FreeAccessibilityScanPage() {
                         </div>
 
                         <p className="mt-10 text-sm text-slate-600">
-                            The scan is a technical evaluation of one page at the time it runs. It is not legal advice
+                            The check is a technical evaluation of one page at the time it runs. It is not legal advice
                             and does not by itself establish conformance with WCAG or any law. We use your email
                             address to send your results and may follow up about our services.
                         </p>

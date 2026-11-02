@@ -53,12 +53,12 @@ export default function FreeScanForm() {
             })
             if (!res.ok) {
                 const body = (await res.json().catch(() => ({}))) as { message?: string }
-                throw new Error(body.message || 'We could not start your scan. Please try again in a minute.')
+                throw new Error(body.message || 'We could not start your check. Please try again in a minute.')
             }
             recordNetlifySubmission({ 'form-name': 'free-scan', email: email.trim(), url: url.trim() })
             setSubmitted(true)
         } catch (err) {
-            setSubmitError(err instanceof Error ? err.message : 'We could not start your scan. Please try again in a minute.')
+            setSubmitError(err instanceof Error ? err.message : 'We could not start your check. Please try again in a minute.')
         } finally {
             setSubmitting(false)
         }
@@ -68,10 +68,10 @@ export default function FreeScanForm() {
         return (
             <div className="rounded-2xl border border-[#0E8168] bg-[#0E8168]/5 p-8">
                 <h2 ref={confirmationRef} tabIndex={-1} className="mb-3 text-2xl font-bold text-slate-900">
-                    Check your email to start the scan
+                    Confirm your email to start the check
                 </h2>
                 <p className="text-slate-700">
-                    We sent a confirmation link to <strong>{email.trim()}</strong>. Select it and we&apos;ll scan{' '}
+                    We sent a confirmation link to <strong>{email.trim()}</strong>. Select it and we&apos;ll check{' '}
                     <strong>{url.trim()}</strong>. The results arrive by email a few minutes later.
                 </p>
                 <p className="mt-4 text-sm text-slate-600">
@@ -138,13 +138,13 @@ export default function FreeScanForm() {
                 aria-disabled={submitting || undefined}
                 className="w-full rounded-lg bg-[#0E8168] px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-[#0a6b57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0E8168] aria-disabled:cursor-not-allowed aria-disabled:opacity-60"
             >
-                {submitting ? 'Starting your scan…' : 'Scan my site for free'}
+                {submitting ? 'Starting your check…' : 'Start my free check'}
             </button>
             <p role="status" className="sr-only">
-                {submitting ? 'Starting your scan…' : ''}
+                {submitting ? 'Starting your check…' : ''}
             </p>
             <p className="mt-4 text-sm text-slate-600">
-                We&apos;ll email you a link to confirm before anything is scanned, then send the results. We scan only
+                We&apos;ll email you a link to confirm before anything is checked, then send the results. We check only
                 the address you enter.
             </p>
         </form>

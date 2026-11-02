@@ -12,22 +12,22 @@ interface FreeScanCtaProps {
 const COPY: Record<Variant, { heading: string; body: string; button: string }> = {
     card: {
         heading: 'How accessible is your website?',
-        body: 'Run a free scan of any page against WCAG 2.2 AA. We test it at desktop and mobile sizes, navigate it with only a keyboard, and email you a prioritized report in minutes.',
-        button: 'Run a free scan',
+        body: 'Check any page of your website against WCAG 2.2 AA for free. We test it at desktop and mobile sizes, navigate it with only a keyboard, and email you a prioritized report in minutes.',
+        button: 'Free Website Accessibility Check',
     },
     sidebar: {
-        heading: 'Free accessibility scan',
+        heading: 'Free accessibility check',
         body: 'Check one page against WCAG 2.2 AA, including keyboard navigation. Results by email in minutes.',
-        button: 'Scan a page',
+        button: 'Free Website Accessibility Check',
     },
     banner: {
-        heading: 'Not ready for an audit? Start with a free scan',
-        body: 'Scan any page against WCAG 2.2 AA and get a prioritized report by email. A full audit adds the manual and screen reader testing automated tools can’t do.',
-        button: 'Run a free scan',
+        heading: 'Not ready for an audit? Start with a free accessibility check',
+        body: 'Check any page against WCAG 2.2 AA and get a prioritized report by email. A full audit adds the manual and screen reader testing automated tools can’t do.',
+        button: 'Free Website Accessibility Check',
     },
 }
 
-// Points visitors at the free scan (/free-accessibility-scan) from articles, compliance pages and pricing.
+// Points visitors at the free accessibility check (/free-accessibility-scan) from articles, compliance pages and pricing.
 export default function FreeScanCta({ variant = 'card', headingLevel = 'h2' }: FreeScanCtaProps) {
     const Heading = headingLevel
     const { heading, body, button } = COPY[variant]
