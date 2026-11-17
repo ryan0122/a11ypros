@@ -152,18 +152,19 @@ export default async function HomeTemplate({
                             A scan engine that goes further than a code check
                         </h3>
                         <p className="mt-0 mb-6 text-slate-300 max-w-3xl">
-                            We built our own engine to test the things most automated tools skip. It runs real Chrome and Safari browsers and uses your pages like a person would.
+                            We built our own engine to test the things most automated tools skip, across all four WCAG principles. It runs real Chrome and Safari browsers and uses your pages like a person would.
                         </p>
                         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
                             {[
-                                { stat: '8', label: 'conditions per page', body: 'Desktop, 200% and 400% zoom, phone portrait and landscape, high contrast, reduced motion and wider text spacing.' },
-                                { stat: 'Tab', label: 'with the keyboard', body: 'Finds keyboard traps, controls you can’t reach, focus you can’t see and focus hidden behind sticky headers.' },
-                                { stat: 'Open', label: 'menus, dialogs and tabs', body: 'Opens them with the keyboard and checks each state: does focus move in, can Escape close it, does focus come back?' },
-                                { stat: 'Try', label: 'forms with errors', body: 'Submits required fields empty to check error messages are announced and tied to their fields. Nothing is sent to your site.' },
+                                { principle: 'Perceivable', label: '8 conditions per page', criteria: 'WCAG 1.4.4, 1.4.10', body: 'Desktop, 200% and 400% zoom, phone portrait and landscape, high contrast, reduced motion and wider text spacing, to catch text that’s cut off, overlaps or scrolls sideways.' },
+                                { principle: 'Operable', label: 'Keyboard only', criteria: 'WCAG 2.1.1, 2.1.2, 2.4.3, 2.4.7, 2.4.11', body: 'Tabs through each page to find keyboard traps, controls you can’t reach, focus you can’t see and focus hidden behind sticky headers.' },
+                                { principle: 'Understandable', label: 'Form errors', criteria: 'WCAG 3.3.1', body: 'Submits required fields empty to check error messages appear, are tied to their fields and don’t rely on color. Nothing is sent to your site.' },
+                                { principle: 'Robust', label: 'Menus, dialogs and tabs', criteria: 'WCAG 4.1.2', body: 'Opens each one with the keyboard and checks it tells screen readers what it is and whether it’s open or selected.' },
                             ].map((item) => (
-                                <li key={item.label} className="rounded-xl bg-white/5 border border-white/15 p-5">
-                                    <p className="m-0 text-3xl font-extrabold text-emerald-300">{item.stat}</p>
-                                    <p className="mt-0 mb-2 text-sm font-bold uppercase tracking-wider text-white">{item.label}</p>
+                                <li key={item.principle} className="rounded-xl bg-white/5 border border-white/15 p-5">
+                                    <h4 className="m-0 text-2xl font-extrabold text-emerald-300">{item.principle}</h4>
+                                    <p className="mt-1 mb-1 text-sm font-bold uppercase tracking-wider text-white">{item.label}</p>
+                                    <p className="mt-0 mb-3 text-xs font-semibold text-slate-400">{item.criteria}</p>
                                     <p className="m-0 text-sm text-slate-300 leading-relaxed">{item.body}</p>
                                 </li>
                             ))}
