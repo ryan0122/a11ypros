@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import FAQAccordion from '@/components/ui/FaqAccordion'
 import {
     ArrowRight,
     Keyboard,
@@ -90,28 +91,28 @@ const studioFeatures = [
 
 const faqs = [
     {
-        q: 'Does monitoring replace a manual audit?',
-        a: 'No. Automated testing can’t judge everything WCAG asks for, such as whether alt text is accurate or a page makes sense with a screen reader. Monitoring keeps watch between audits and catches new problems as your site changes. Pairing a manual audit with a plan covers both, and Assurance Pro and Partner include hands-on keyboard and screen reader testing.',
+        question: 'Does monitoring replace a manual audit?',
+        answer: 'No. Automated testing can’t judge everything WCAG asks for, such as whether alt text is accurate or a page makes sense with a screen reader. Monitoring keeps watch between audits and catches new problems as your site changes. Pairing a manual audit with a plan covers both, and Assurance Pro and Partner include hands-on keyboard and screen reader testing.',
     },
     {
-        q: 'Does the scan test with a screen reader?',
-        a: 'No. The scan doesn’t run a screen reader such as JAWS, NVDA or VoiceOver. It checks the code screen readers rely on, like labels, roles, states and live regions, but it can’t hear what a screen reader actually says or judge whether that makes sense. That takes an IAAP-certified specialist testing by hand. Assurance Pro includes a screen reader spot-check every quarter and Partner every month, each with video. On any plan, you can book specialist time or a full manual audit.',
+        question: 'Does the scan test with a screen reader?',
+        answer: 'No. The scan doesn’t run a screen reader such as JAWS, NVDA or VoiceOver. It checks the code screen readers rely on, like labels, roles, states and live regions, but it can’t hear what a screen reader actually says or judge whether that makes sense. That takes an IAAP-certified specialist testing by hand. Assurance Pro includes a screen reader spot-check every quarter and Partner every month, each with video. On any plan, you can book specialist time or a full manual audit.',
     },
     {
-        q: 'What are review credits?',
-        a: 'Credits pay for your specialist’s time on your requests. Asking them to check a fix or review a finding uses 1 credit, and a question uses 2. Fixes the scan can verify on its own are free. When credits run out, new requests wait until next month’s credits arrive or you add more. You’re never billed for extra requests automatically.',
+        question: 'What are review credits?',
+        answer: 'Credits pay for your specialist’s time on your requests. Asking them to check a fix or review a finding uses 1 credit, and a question uses 2. Fixes the scan can verify on its own are free. When credits run out, new requests wait until next month’s credits arrive or you add more. You’re never billed for extra requests automatically.',
     },
     {
-        q: 'What do you need from us to start?',
-        a: 'A short call to agree on the site and pages to cover, and written authorization to scan your site. We only scan sites we’re authorized to. Onboarding includes the baseline review that later scans compare against.',
+        question: 'What do you need from us to start?',
+        answer: 'A short call to agree on the site and pages to cover, and written authorization to scan your site. We only scan sites we’re authorized to. Onboarding includes the baseline review that later scans compare against.',
     },
     {
-        q: 'Do you use an overlay or add anything to our site?',
-        a: 'No. Nothing is installed on your site and there’s no overlay or badge. We find the problems and help your team fix them in the code.',
+        question: 'Do you use an overlay or add anything to our site?',
+        answer: 'No. Nothing is installed on your site and there’s no overlay or badge. We find the problems and help your team fix them in the code.',
     },
     {
-        q: 'Can colleges and government agencies pay by invoice?',
-        a: 'Yes. We invoice with PO numbers and net terms, and annual prepayment lowers the monthly price.',
+        question: 'Can colleges and government agencies pay by invoice?',
+        answer: 'Yes. We invoice with PO numbers and net terms, and annual prepayment lowers the monthly price.',
     },
 ]
 
@@ -248,27 +249,10 @@ export default function AccessibilityMonitoring() {
                 </div>
             </div>
 
-            {/* FAQ */}
-            <section aria-labelledby="faq-heading" className="py-16 border-b border-slate-200">
-                <div className="max-w-3xl mx-auto px-6">
-                    <h2 id="faq-heading" className="text-2xl sm:text-3xl font-extrabold mb-8">
-                        Questions
-                    </h2>
-                    <div className="space-y-3">
-                        {faqs.map((f) => (
-                            <details key={f.q} className="group rounded-xl border border-slate-200 bg-white">
-                                <summary className="cursor-pointer list-none my-0 px-5 py-4 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#0E8168]">
-                                    <h3 className="m-0 text-base font-bold text-slate-900 flex justify-between gap-4">
-                                        {f.q}
-                                        <span aria-hidden="true" className="text-[#0E8168] group-open:rotate-45 transition-transform text-xl leading-none">+</span>
-                                    </h3>
-                                </summary>
-                                <p className="mt-0 mb-0 px-5 pt-3 pb-5 text-slate-700 leading-relaxed">{f.a}</p>
-                            </details>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            {/* FAQ: the site-wide accordion, so it matches every other FAQ */}
+            <div className="border-b border-slate-200">
+                <FAQAccordion title="A11Y Studio Monitoring FAQs" faqs={faqs} />
+            </div>
 
             {/* Closing CTA */}
             <section aria-labelledby="cta-heading" className="py-16 bg-[#001d2f] text-white">
