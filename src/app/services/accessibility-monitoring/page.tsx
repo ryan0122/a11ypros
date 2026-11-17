@@ -229,13 +229,13 @@ export default function AccessibilityMonitoring() {
                     <div className="space-y-3">
                         {faqs.map((f) => (
                             <details key={f.q} className="group rounded-xl border border-slate-200 bg-white">
-                                <summary className="cursor-pointer list-none px-5 py-4 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#0E8168]">
-                                    <h3 className="text-base font-bold text-slate-900 flex justify-between gap-4">
+                                <summary className="cursor-pointer list-none my-0 px-5 py-4 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#0E8168]">
+                                    <h3 className="m-0 text-base font-bold text-slate-900 flex justify-between gap-4">
                                         {f.q}
                                         <span aria-hidden="true" className="text-[#0E8168] group-open:rotate-45 transition-transform text-xl leading-none">+</span>
                                     </h3>
                                 </summary>
-                                <p className="px-5 pb-5 text-slate-700 leading-relaxed">{f.a}</p>
+                                <p className="mt-0 px-5 pb-5 text-slate-700 leading-relaxed">{f.a}</p>
                             </details>
                         ))}
                     </div>
