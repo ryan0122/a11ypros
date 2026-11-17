@@ -153,6 +153,30 @@ export default function AccessibilityMonitoring() {
                     <h2 id="how-heading" className="text-2xl sm:text-3xl font-extrabold mb-10 text-center">
                         How it works
                     </h2>
+                    <div className="rounded-2xl border-2 border-[#0E8168] bg-white p-6 sm:p-8 mb-10 grid gap-6 md:grid-cols-3 md:items-center">
+                        <div className="md:col-span-2">
+                            <p className="mt-0 text-sm font-bold uppercase tracking-wider text-[#0a6b57] mb-2">Recommended first step</p>
+                            <h3 className="mt-0 text-xl sm:text-2xl font-bold mb-3">Start with a full manual audit</h3>
+                            <p className="text-slate-700 leading-relaxed">
+                                A manual audit tests what no scan can judge, such as screen reader announcements, alt text and whether pages make sense, and gives your team the full list to fix. Add a VPAT® / ACR if you need one for procurement. Once those fixes are in, monitoring keeps watch as your site changes, so new problems don’t build up until the next audit.
+                            </p>
+                        </div>
+                        <div className="flex flex-col gap-3">
+                            <Link
+                                href="/services/wcag-compliance-auditing"
+                                className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 font-bold text-white hover:bg-slate-800 transition-colors"
+                            >
+                                Manual WCAG audits <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                            </Link>
+                            <Link
+                                href="/services/vpat-acr-authoring"
+                                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50 transition-colors"
+                            >
+                                VPAT® / ACR authoring
+                            </Link>
+                        </div>
+                    </div>
+                    <h3 className="mt-0 text-lg font-bold text-slate-700 text-center mb-6">Then, every week and every month</h3>
                     <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" role="list">
                         {steps.map((step, i) => (
                             <li key={step.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
@@ -162,7 +186,7 @@ export default function AccessibilityMonitoring() {
                                     </span>
                                     <span className="text-sm font-bold text-slate-600">Step {i + 1}</span>
                                 </div>
-                                <h3 className="font-bold text-lg mb-2">{step.title}</h3>
+                                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
                                 <p className="text-sm text-slate-700 leading-relaxed">{step.body}</p>
                             </li>
                         ))}
