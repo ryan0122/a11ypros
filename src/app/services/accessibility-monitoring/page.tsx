@@ -263,7 +263,7 @@ export default function AccessibilityMonitoring() {
                                         <span aria-hidden="true" className="text-[#0E8168] group-open:rotate-45 transition-transform text-xl leading-none">+</span>
                                     </h3>
                                 </summary>
-                                <p className="mt-0 px-5 pb-5 text-slate-700 leading-relaxed">{f.a}</p>
+                                <p className="mt-0 mb-0 px-5 pt-3 pb-5 text-slate-700 leading-relaxed">{f.a}</p>
                             </details>
                         ))}
                     </div>
