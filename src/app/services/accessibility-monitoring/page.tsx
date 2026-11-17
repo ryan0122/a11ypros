@@ -120,8 +120,8 @@ export default function AccessibilityMonitoring() {
     return (
         <main id="main-content" tabIndex={-1} className="font-[family-name:var(--font-inter)] bg-white text-slate-900">
             {/* Hero */}
-            <section aria-labelledby="hero-heading" className="bg-[#001d2f] text-white">
-                <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20 grid gap-10 lg:grid-cols-2 items-center">
+            <section aria-labelledby="hero-heading" className="bg-[#001d2f] text-white overflow-hidden">
+                <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20 grid grid-cols-1 gap-10 lg:grid-cols-2 items-center">
                     <div>
                         <p className="flex items-center gap-3 mb-5">
                             <Image src="/images/a11y-studio-emblem.png" alt="" width={48} height={48} className="w-12 h-12" />
@@ -284,43 +284,111 @@ export default function AccessibilityMonitoring() {
 }
 
 /** An illustration of the Studio overview, built from sample data rather than a real client. */
+/**
+ * A mock-up of the Studio site overview, with sample data. Only shows things Studio really does:
+ * issue counts, severity and status, specialist notes, fixes confirmed by the next scan.
+ */
 function StudioExample() {
+    const stats = [
+        { label: 'To fix', value: '18', accent: 'bg-amber-400', note: '3 critical' },
+        { label: 'New this week', value: '2', accent: 'bg-sky-500', note: 'Since Monday' },
+        { label: 'Fixed', value: '5', accent: 'bg-emerald-500', note: 'Confirmed by scan' },
+    ]
+    const severity: Record<string, string> = {
+        Critical: 'bg-red-100 text-red-800',
+        High: 'bg-orange-100 text-orange-800',
+        Medium: 'bg-yellow-100 text-yellow-900',
+    }
+    const status: Record<string, string> = {
+        New: 'bg-sky-100 text-sky-800',
+        'In progress': 'bg-slate-100 text-slate-700',
+        Fixed: 'bg-emerald-100 text-emerald-800',
+    }
     const issues = [
-        { title: 'Form field has no label', severity: 'High', status: 'New' },
-        { title: 'Focus hidden behind the sticky header', severity: 'Critical', status: 'In progress' },
-        { title: 'Link text contrast too low', severity: 'Medium', status: 'Fixed, confirmed by scan' },
+        { title: 'Focus hidden behind the sticky header', page: 'All pages · header', severity: 'Critical', status: 'In progress' },
+        { title: 'Form field has no label', page: '/apply · newsletter form', severity: 'High', status: 'New' },
+        { title: 'Link text contrast too low', page: '/news · article footer', severity: 'Medium', status: 'Fixed' },
     ]
     return (
-        <figure className="rounded-2xl bg-white text-slate-900 shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between gap-3 bg-slate-100 px-5 py-3 border-b border-slate-200">
-                <span className="font-bold">Example University</span>
-                <span className="text-xs text-slate-600">Last scan: Monday</span>
-            </div>
-            <div className="p-5">
-                <dl className="grid grid-cols-3 gap-3 mb-5">
-                    {[
-                        ['To fix', '18'],
-                        ['New', '2'],
-                        ['Fixed', '5'],
-                    ].map(([label, value]) => (
-                        <div key={label} className="rounded-lg border border-slate-200 p-3">
-                            <dt className="text-xs font-semibold text-slate-600">{label}</dt>
-                            <dd className="text-2xl font-extrabold">{value}</dd>
+        <figure className="relative m-0 min-w-0">
+            {/* Glow behind the window */}
+            <div aria-hidden="true" className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-emerald-400/30 via-sky-400/10 to-transparent blur-2xl" />
+
+            <div className="relative rounded-2xl bg-white text-slate-900 shadow-2xl ring-1 ring-white/10 overflow-hidden">
+                {/* Browser bar */}
+                <div aria-hidden="true" className="flex items-center gap-3 bg-slate-800 px-4 py-2.5">
+                    <span className="flex gap-1.5">
+                        <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                    </span>
+                    <span className="flex-1 min-w-0 truncate rounded-md bg-slate-700 px-3 py-1 text-xs text-slate-300">studio.a11ypros.com</span>
+                </div>
+
+                {/* Site header */}
+                <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#001d2f] text-sm font-extrabold text-emerald-300">EU</span>
+                        <div className="min-w-0">
+                            <p className="m-0 font-bold leading-tight truncate">Example University</p>
+                            <p className="m-0 text-xs text-slate-600">Weekly scan · last run Monday</p>
                         </div>
-                    ))}
-                </dl>
-                <ul className="divide-y divide-slate-200 text-sm" role="list">
-                    {issues.map((issue) => (
-                        <li key={issue.title} className="py-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-                            <span className="font-semibold">{issue.title}</span>
-                            <span className="text-slate-600">
-                                {issue.severity} · {issue.status}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
+                    </div>
+                    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800">
+                        <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-500" /> Monitoring
+                    </span>
+                </div>
+
+                <div className="px-5 pb-5">
+                    <dl className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
+                        {stats.map((s) => (
+                            <div key={s.label} className="relative overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-3">
+                                <span aria-hidden="true" className={`absolute inset-x-0 top-0 h-1 ${s.accent}`} />
+                                <dt className="text-[11px] sm:text-xs font-semibold text-slate-600">{s.label}</dt>
+                                <dd className="m-0 text-2xl sm:text-3xl font-extrabold leading-tight">{s.value}</dd>
+                                <dd className="m-0 hidden sm:block text-[11px] text-slate-600">{s.note}</dd>
+                            </div>
+                        ))}
+                    </dl>
+
+                    <ul className="space-y-2 text-sm" role="list">
+                        {issues.map((issue) => (
+                            <li key={issue.title} className="rounded-xl border border-slate-200 px-3 py-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
+                                <span className="min-w-0">
+                                    <span className="block font-semibold leading-snug">{issue.title}</span>
+                                    <span className="block text-xs text-slate-600">{issue.page}</span>
+                                </span>
+                                <span className="flex gap-1.5">
+                                    <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${severity[issue.severity]}`}>{issue.severity}</span>
+                                    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${status[issue.status]}`}>{issue.status}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Specialist note */}
+                    <div className="mt-4 flex gap-3 rounded-xl bg-[#001d2f] p-3 text-white">
+                        <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-xs font-extrabold text-[#001d2f]">JD</span>
+                        <p className="m-0 text-xs leading-relaxed text-slate-200">
+                            <span className="font-bold text-white">Specialist review: </span>
+                            Confirmed with a keyboard. The sticky header hides focus on every page, so fix this one first.
+                        </p>
+                    </div>
+                </div>
+                <figcaption className="border-t border-slate-200 bg-slate-50 px-5 py-2.5 text-xs text-slate-600">
+                    Example of a site overview in A11Y Studio, with sample data.
+                </figcaption>
             </div>
-            <figcaption className="px-5 pb-4 text-xs text-slate-600">Example of a site overview in A11Y Studio, with sample data.</figcaption>
+
+            {/* Floating badges */}
+            <p aria-hidden="true" className="hidden md:flex absolute right-8 -top-5 m-0 items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-bold text-slate-900 shadow-xl ring-1 ring-slate-200">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white">✓</span>
+                Fix confirmed by scan
+            </p>
+            <p aria-hidden="true" className="hidden md:flex absolute -right-4 -bottom-5 m-0 items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-bold text-slate-900 shadow-xl ring-1 ring-slate-200">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#001d2f] text-emerald-300">✎</span>
+                Monthly report signed
+            </p>
         </figure>
     )
 }
