@@ -134,7 +134,7 @@ export default async function HomeTemplate({
                         <ul className="md:col-span-2 space-y-3" role="list">
                             {[
                                 'Weekly scans with keyboard, zoom, mobile and high contrast testing',
-                                'A certified specialist reviews what the scan finds',
+                                'A certified specialist manually reviews what the scan finds',
                                 'Every issue tracked to a fix, and the next scan confirms the fixes it can check',
                                 'A signed monthly report for leadership and procurement',
                             ].map((point) => (
