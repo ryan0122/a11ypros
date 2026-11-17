@@ -1,52 +1,22 @@
+// Layout for the shared FAQ list (src/components/ui/FaqAccordion.tsx). The cards themselves are
+// styled with Tailwind in the component.
 .faq-accordion {
-	max-width: 64rem; // Equivalent to max-w-4xl
-	margin: 2.5rem auto 5rem; // Equivalent to mt-10 mb-20
+	max-width: 64rem; // max-w-4xl
+	margin: 2.5rem auto 5rem;
 	padding: 0 1rem;
-  
+
 	h2 {
-	  text-align: center;
-	  font-size: 1.875rem; // Equivalent to text-3xl
-	  margin-bottom: 1.25rem; // Equivalent to mb-5
+		text-align: center;
+		font-size: 1.875rem; // text-3xl
+		margin-bottom: 2rem;
 	}
-  
-	details {
-	  border-bottom: 1px solid #d1d5db; // Equivalent to border-gray-300
-	  padding: 1rem;
-  
-	  summary {
-		font-size: 1.125rem; // Equivalent to text-lg
-		font-weight: 600; // Equivalent to font-semibold
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		list-style: none; // Removes default marker
-		padding: 0.5rem;
-		gap: 0.75rem; // Equivalent to gap-3
-		transition: transform 0.3s ease-in-out;
 
-	  &::-webkit-details-marker {
-		display: none; // Ensures Safari and other browsers hide the native marker
-		content: ""; 
-	  }
-  
-		&::before {
-		  content: "▶" / "";
-		  transition: transform 0.3s ease-in-out;
-		}
-	  }
-
-	  &[open] {
-		background-color: #fff;
-	  }
-  
-	  &[open] summary::before {
-		transform: rotate(90deg);
-	  }
-  
-	  div {
-		margin-top: 0.25rem; // Equivalent to mt-1
-		padding-left: 0.5rem; // Equivalent to pl-2
-		color: #374151; // Equivalent to text-gray-700
-	  }
+	// Answers are HTML from frontmatter; keep their paragraphs and lists tight inside the card.
+	.faq-answer {
+		> :first-child { margin-top: 0; }
+		> :last-child { margin-bottom: 0; }
+		p, ul, ol { margin: 0 0 0.75rem; }
+		ul, ol { padding-left: 1.25rem; }
+		a { color: #0a6b57; text-decoration: underline; }
 	}
-  }
+}
