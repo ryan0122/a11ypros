@@ -94,6 +94,10 @@ const faqs = [
         a: 'No. Automated testing can’t judge everything WCAG asks for, such as whether alt text is accurate or a page makes sense with a screen reader. Monitoring keeps watch between audits and catches new problems as your site changes. Pairing a manual audit with a plan covers both, and Assurance Pro and Partner include hands-on keyboard and screen reader testing.',
     },
     {
+        q: 'Does the scan test with a screen reader?',
+        a: 'No. The scan doesn’t run a screen reader such as JAWS, NVDA or VoiceOver. It checks the code screen readers rely on, like labels, roles, states and live regions, but it can’t hear what a screen reader actually says or judge whether that makes sense. That takes an IAAP-certified specialist testing by hand. Assurance Pro includes a screen reader spot-check every quarter and Partner every month, each with video. On any plan, you can book specialist time or a full manual audit.',
+    },
+    {
         q: 'What are review credits?',
         a: 'Credits pay for your specialist’s time on your requests. Asking them to check a fix or review a finding uses 1 credit, and a question uses 2. Fixes the scan can verify on its own are free. When credits run out, new requests wait until next month’s credits arrive or you add more. You’re never billed for extra requests automatically.',
     },
