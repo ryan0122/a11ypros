@@ -16,6 +16,7 @@ const COMPLIANCE_SLUGS = new Set([
   'aoda',
 ]);
 import AdditionalServicesPricing from '@/components/ui/AdditionalServicesPricing';
+import StudioPlans from '@/components/ui/StudioPlans';
 import NewsletterSignup from '@/components/forms/NewsletterSignup';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -130,6 +131,7 @@ export default function PageTemplate({ title, content, featuredImage, slug }: Pa
                 <PricingCards singleTierId={isFigmaAudits ? 'figma-audit' : undefined} />
               )}
               {isPricing && <AdditionalServicesPricing />}
+              {isPricing && <StudioPlans />}
               {isPricing && <FreeScanCta variant="banner" headingLevel="h2" />}
               <div
                 className="prose prose-slate prose-lg max-w-none 

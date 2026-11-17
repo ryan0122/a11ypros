@@ -4,7 +4,7 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Calendar } from 'lucide-react'
+import { ArrowRight, Calendar, CheckCircle2 } from 'lucide-react'
 
 export default async function HomeTemplate({
     title,
@@ -101,6 +101,51 @@ export default async function HomeTemplate({
 
                 {/* Compact Services Grid */}
                 <ServicesCompact />
+
+                {/* A11Y Studio monitoring */}
+                <section aria-labelledby="studio-heading" className="py-14 bg-[#001d2f] text-white">
+                    <div className="max-w-5xl mx-auto px-6 grid gap-10 md:grid-cols-5 items-center">
+                        <div className="md:col-span-3">
+                            <p className="flex items-center gap-3 mb-4">
+                                <Image src="/images/a11y-studio-emblem.png" alt="" width={40} height={40} className="w-10 h-10" />
+                                <span className="text-sm font-bold uppercase tracking-widest text-emerald-300">New: A11Y Studio</span>
+                            </p>
+                            <h2 id="studio-heading" className="text-2xl sm:text-3xl font-extrabold mb-4">
+                                Keep your site accessible between audits
+                            </h2>
+                            <p className="text-lg text-slate-200 leading-relaxed mb-6">
+                                Most accessibility checkers read your code. We use your site the way people with disabilities do, every week, then a certified specialist checks the results. Your team tracks every issue to a fix in A11Y Studio.
+                            </p>
+                            <div className="flex flex-wrap gap-3">
+                                <Link
+                                    href="/services/accessibility-monitoring"
+                                    className="inline-flex items-center gap-2 rounded-xl bg-[#0E8168] px-6 py-3.5 font-bold text-white hover:bg-[#0a6b57] transition-colors"
+                                >
+                                    How A11Y Studio works <ArrowRight className="w-5 h-5" aria-hidden="true" />
+                                </Link>
+                                <Link
+                                    href="/services/accessibility-monitoring#plans"
+                                    className="inline-flex items-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white hover:bg-white/10 transition-colors"
+                                >
+                                    Plans from $499/month
+                                </Link>
+                            </div>
+                        </div>
+                        <ul className="md:col-span-2 space-y-3" role="list">
+                            {[
+                                'Weekly scans with keyboard, zoom, mobile and high contrast testing',
+                                'A certified specialist reviews what the scan finds',
+                                'Every issue tracked to a fix, and the next scan confirms the fixes it can check',
+                                'A signed monthly report for leadership and procurement',
+                            ].map((point) => (
+                                <li key={point} className="flex gap-3 rounded-xl bg-white/5 border border-white/15 p-4 text-slate-100">
+                                    <CheckCircle2 className="w-5 h-5 text-emerald-300 shrink-0 mt-0.5" aria-hidden="true" />
+                                    <span>{point}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
 
                 {/* Compact Compliance Standards Bar */}
                 <CompliancesCompact />

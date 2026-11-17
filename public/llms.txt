@@ -22,7 +22,8 @@ A11Y Pros does not sell accessibility overlays or widgets; all testing and remed
 - [Figma Design & UI/UX Accessibility Audits](https://a11ypros.com/services/figma-design-audits): Design-phase audits of Figma files, component libraries, and design systems to catch color contrast, focus state, and component issues before development.
 - [ADA Website Compliance & Litigation Protection](https://a11ypros.com/services/ada-litigation-support): Audits, code-level remediation, and VPAT/ACR documentation for businesses at risk of, or responding to, ADA Title III website lawsuits and demand letters.
 - [Accessibility Partnerships for Agencies & Dev Teams](https://a11ypros.com/services/accessibility-partnerships-for-agencies-dev-teams): White-label audits and VPATs, subcontracted accessibility work, and team augmentation for agencies and development teams.
-- [Pricing](https://a11ypros.com/pricing): Rates for manual WCAG 2.1/2.2 AA audits, hourly technical consulting, website remediation, and VPAT authoring.
+- [A11Y Studio Monitoring](https://a11ypros.com/services/accessibility-monitoring): Weekly accessibility scans with keyboard, zoom, mobile and high contrast testing, reviewed by a certified specialist and tracked in the A11Y Studio client portal, with a signed monthly report. Plans from $499/month.
+- [Pricing](https://a11ypros.com/pricing): Rates for manual WCAG 2.1/2.2 AA audits, A11Y Studio monitoring plans, hourly technical consulting, website remediation, and VPAT authoring.
 
 ## Tools
 

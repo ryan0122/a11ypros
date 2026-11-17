@@ -50,7 +50,8 @@ const navStructure: PageWithChildren[] = [
       { id: 14, menu_order: 5, parent: 1, slug: "pdf-remediation", title: { rendered: "PDF Remediation" }, children: [] },
       { id: 15, menu_order: 6, parent: 1, slug: "web-accessibility-consulting", title: { rendered: "Web Accessibility Consulting" }, children: [] },
       { id: 16, menu_order: 7, parent: 1, slug: "ada-litigation-support", title: { rendered: "ADA Litigation Support" }, children: [] },
-      { id: 17, menu_order: 8, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
+      { id: 19, menu_order: 8, parent: 1, slug: "accessibility-monitoring", title: { rendered: "A11Y Studio Monitoring" }, children: [] },
+      { id: 17, menu_order: 9, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
     ],
   },
   {

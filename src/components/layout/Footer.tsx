@@ -201,6 +201,11 @@ export default function Footer() {
                     PDF Document Remediation
                   </Link>
                 </li>
+                <li>
+                  <Link href="/services/accessibility-monitoring" className="hover:text-emerald-300 transition-colors">
+                    A11Y Studio Monitoring
+                  </Link>
+                </li>
               </ul>
             </div>
 

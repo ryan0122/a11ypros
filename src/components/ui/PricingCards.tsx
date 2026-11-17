@@ -87,7 +87,7 @@ export default function PricingCards({ singleTierId }: PricingCardsProps = {}) {
     <section className="py-10 bg-slate-50 rounded-3xl mb-12 mt-0 px-6 sm:px-8 border border-slate-200">
       {!isSingle && (
         <div className="max-w-4xl mx-auto text-center mb-10">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0a6b57] text-xs font-bold uppercase tracking-wider mb-3">
             <ShieldCheck className="w-4 h-4" /> Fixed-Rate Packages
           </span>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
