@@ -152,7 +152,7 @@ export default async function HomeTemplate({
                             A scan engine that goes further than a code check
                         </h3>
                         <p className="mt-0 mb-6 text-slate-300 max-w-3xl">
-                            We built our own engine to test the things most automated tools skip, across all four WCAG principles. It runs real Chrome and Safari browsers and uses your pages like a person would.
+                            Our in-house engine tests what static code scanners miss, across all four WCAG principles. It renders each page in Chromium and WebKit, the engines behind Chrome and Safari, and operates it by keyboard across multiple viewports and user settings.
                         </p>
                         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
                             {[
