@@ -158,7 +158,7 @@ export default async function HomeTemplate({
                             {[
                                 { principle: 'Perceivable', label: '8 conditions per page', body: 'Desktop, 200% and 400% zoom, phone portrait and landscape, high contrast, reduced motion and wider text spacing, to catch text that’s cut off, overlaps or scrolls sideways.' },
                                 { principle: 'Operable', label: 'Keyboard only', body: 'Tabs through each page to find keyboard traps, controls you can’t reach, focus you can’t see and focus hidden behind sticky headers.' },
-                                { principle: 'Understandable', label: 'Forms', body: 'Checks every field has a label screen readers can find and the right autocomplete hints, then submits required fields empty to check errors appear, are tied to their fields and don’t rely on color. Nothing is sent to your site.' },
+                                { principle: 'Understandable', label: 'Forms', body: 'Checks every field is labeled for screen readers, then submits required fields empty to check errors appear, are tied to their fields and don’t rely on color. Nothing is sent to your site.' },
                                 { principle: 'Robust', label: 'Menus, dialogs and tabs', body: 'Opens each one with the keyboard and checks it tells screen readers what it is and whether it’s open or selected.' },
                             ].map((item) => (
                                 <li key={item.principle} className="rounded-xl bg-white/5 border border-white/15 p-5">
