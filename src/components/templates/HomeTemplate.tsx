@@ -145,6 +145,30 @@ export default async function HomeTemplate({
                             ))}
                         </ul>
                     </div>
+
+                    {/* The scan engine: claims here must match what a11y-engine actually does (see its README). */}
+                    <div className="max-w-5xl mx-auto px-6 mt-12">
+                        <h3 className="mt-0 mb-2 text-xl sm:text-2xl font-extrabold text-white">
+                            A scan engine that goes further than a code check
+                        </h3>
+                        <p className="mt-0 mb-6 text-slate-300 max-w-3xl">
+                            We built our own engine to test the things most automated tools skip. It runs real Chrome and Safari browsers and uses your pages like a person would.
+                        </p>
+                        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
+                            {[
+                                { stat: '8', label: 'conditions per page', body: 'Desktop, 200% and 400% zoom, phone portrait and landscape, high contrast, reduced motion and wider text spacing.' },
+                                { stat: 'Tab', label: 'with the keyboard', body: 'Finds keyboard traps, controls you can’t reach, focus you can’t see and focus hidden behind sticky headers.' },
+                                { stat: 'Open', label: 'menus, dialogs and tabs', body: 'Opens them with the keyboard and checks each state: does focus move in, can Escape close it, does focus come back?' },
+                                { stat: 'Try', label: 'forms with errors', body: 'Submits required fields empty to check error messages are announced and tied to their fields. Nothing is sent to your site.' },
+                            ].map((item) => (
+                                <li key={item.label} className="rounded-xl bg-white/5 border border-white/15 p-5">
+                                    <p className="m-0 text-3xl font-extrabold text-emerald-300">{item.stat}</p>
+                                    <p className="mt-0 mb-2 text-sm font-bold uppercase tracking-wider text-white">{item.label}</p>
+                                    <p className="m-0 text-sm text-slate-300 leading-relaxed">{item.body}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </section>
 
                 {/* Compact Compliance Standards Bar */}
