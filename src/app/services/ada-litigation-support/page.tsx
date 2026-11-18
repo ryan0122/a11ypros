@@ -13,11 +13,11 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'ADA Website Compliance & Litigation Protection | A11Y Pros',
+    title: 'Technical ADA Litigation Support & Remediation | A11Y Pros',
     description:
-        'Shield your business from rising ADA Title III website lawsuits in 2026. Get expert accessibility audits, code-level remediation, WCAG 2.2 AA conformance, and a formal VPAT/ACR to avoid demand letters and costly settlements.',
+        'Technical ADA litigation support alongside your legal counsel: manual WCAG 2.2 AA audits, code-level remediation, and VPAT/ACR documentation.',
     keywords:
-        'ADA website compliance, ADA Title III lawsuits, WCAG 2.1 AA, WCAG 2.2 AA, website accessibility audit, ADA demand letter defense, VPAT authoring, accessibility remediation, ADA litigation protection, WCAG compliance services, disabled access credit, IRS Form 8826',
+        'ADA website compliance, ADA Title III lawsuits, WCAG 2.1 AA, WCAG 2.2 AA, website accessibility audit, technical ADA litigation support, VPAT authoring, accessibility remediation, ADA demand letter support, WCAG compliance services, disabled access credit, IRS Form 8826',
 }
 
 const roadmapSteps = [
@@ -26,21 +26,21 @@ const roadmapSteps = [
         title: 'Accessibility Audit & Remediation Roadmap',
         icon: <Search className="w-6 h-6" aria-hidden="true" />,
         what: 'We perform deep-dive manual and automated testing on the unique templates and functional states of your site using a combination of browsers, devices and screen readers (Windows, OSX, iPhone, Android, VoiceOver, NVDA, JAWS, TalkBack).',
-        goal: "This audit produces a comprehensive WCAG 2.2 AA conformance report (covering every WCAG 2.1 AA criterion that courts and settlements reference) documenting every accessibility barrier across your site, prioritized by severity and mapped to specific success criteria. The deliverable is a formal Remediation Roadmap your attorney can present as evidence of a good-faith compliance effort.",
+        goal: "This audit produces a comprehensive WCAG 2.2 AA conformance report (covering every WCAG 2.1 AA criterion commonly referenced in accessibility claims) documenting accessibility barriers across the tested scope, prioritized by user impact and WCAG severity. The deliverable is a formal Remediation Roadmap your legal counsel can reference to document good-faith accessibility progress.",
     },
     {
         step: '02',
         title: 'Remediation (The Fix)',
         icon: <Hammer className="w-6 h-6" aria-hidden="true" />,
-        what: 'Based on the audit findings and the detailed remediation roadmap we deliver, we begin fixing your site at the code level. This includes custom component updates for complex templates, structural code changes for deeper issues, and targeted adjustments for content barriers; all prioritized by legal risk and WCAG severity',
-        goal: 'Resolve accessibility barriers efficiently and permanently, focusing budget on the highest-risk issues first. All fixes are implemented directly in the source code (never via overlays or automated patches) to eliminate root causes and provide lasting compliance and defense against ADA claims.',
+        what: 'Based on the audit findings and the detailed remediation roadmap we deliver, we begin fixing your site at the code level. This includes custom component updates for complex templates, structural code changes for deeper issues, and targeted adjustments for content barriers, all prioritized by user impact and WCAG severity.',
+        goal: 'Resolve identified accessibility barriers efficiently and at the source, focusing budget on the highest-impact issues first. All fixes are implemented directly in the source code (never via overlays or automated patches) to address root causes and support ongoing WCAG conformance.',
     },
     {
         step: '03',
         title: 'Verification & Formal VPAT/ACR',
         icon: <FileText className="w-6 h-6" aria-hidden="true" />,
-        what: 'Once fixes are live, we re-test the site to verify they work. We then author and deliver your formal VPAT 2.5Rev / ACR document, detailing conformance to WCAG 2.2 Level AA. This includes comprehensive documentation of any remaining issues, their legal risk, and the steps taken to address them.',
-        goal: "This is your documented record of conformance: an independent report showing how your site meets WCAG 2.2 AA (and therefore 2.1 AA), and strong evidence of good-faith compliance for your legal defense.",
+        what: 'Once fixes are live, we re-test the remediated scope to verify they work. We then author and deliver your formal VPAT 2.5Rev / ACR document detailing point-in-time conformance to WCAG 2.2 Level AA, including clear documentation of any remaining technical barriers and the steps taken to address them.',
+        goal: "This is your documented technical record of conformance at the time of testing: an independent report showing how the audited scope aligns with WCAG 2.2 AA (and therefore 2.1 AA) that your legal counsel can use alongside your ongoing accessibility program.",
     },
 ]
 
@@ -60,25 +60,26 @@ export default function ADALitigationSupport() {
                 <div className="max-w-6xl mx-auto px-6 relative">
                     <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-8 bg-[#0E8168] text-[#fff]">
                         <ShieldAlert size={14} aria-hidden="true" />
-                        Litigation Defense &amp; Remediation
+                        Technical Litigation Support &amp; Remediation
                     </p>
 
                     <h1
                         id="hero-heading"
                         className="text-5xl md:text-7xl font-black tracking-tight mb-8 max-w-4xl leading-[1.1]"
                     >
-                        ADA Website Compliance for Title III Lawsuits.
+                        Technical ADA Support for Title III Website Claims.
                     </h1>
                     <p className="text-xl text-white max-w-2xl mb-4 leading-relaxed">
-                        Small businesses face ADA Title III lawsuits every day, often with
-                        little warning and no clear path forward. A11Y Pros is here to help
-                        you understand your options and get compliant with confidence.
+                        Small businesses face ADA Title III demand letters and lawsuits
+                        every day, often with little warning and no clear technical plan.
+                        A11Y Pros works alongside your legal counsel to identify
+                        accessibility barriers and map out a clear path to remediation.
                     </p>
 
                     <p className="text-xl text-white max-w-2xl mb-12 leading-relaxed">
-                        From accessibility auditing to code-level remediation, we
-                        provide the technical shield your business needs to
-                        survive Title III litigation.
+                        From manual WCAG auditing to code-level remediation and VPAT/ACR
+                        documentation, we handle the technical work so your team and
+                        attorneys can move forward with confidence.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4">
@@ -265,7 +266,7 @@ export default function ADALitigationSupport() {
                             The 3-Step Compliance Roadmap
                         </h2>
                         <p className="font-medium">
-                            In an era of surging ADA website lawsuits, driven by automated scanners and aggressive plaintiffs, achieving true compliance requires more than quick fixes or overlays. Our proven 3-step roadmap guides you from thorough discovery to permanent remediation and formal documentation, ensuring your site meets WCAG 2.2 Level AA standards, eliminates high-risk barriers, and demonstrates good-faith effort that strengthens your defense against claims.
+                            In an era of surging ADA website lawsuits, driven by automated scanners and aggressive plaintiffs, meaningful accessibility requires more than quick fixes or overlays. Our 3-step roadmap guides you from thorough discovery to code-level remediation and formal documentation, helping your team align with WCAG 2.2 Level AA standards, address high-impact barriers, and document good-faith accessibility progress in coordination with your legal counsel.
                         </p>
                     </div>
 
@@ -361,15 +362,16 @@ export default function ADALitigationSupport() {
                             </div>
 
                             <p className="text-lg text-gray-700 mb-10 leading-relaxed">
-                                Small businesses can use federal tax incentives
-                                to subsidize these costs via{' '}
+                                Eligible small businesses may be able to use
+                                federal tax incentives to help offset
+                                accessibility costs via{' '}
                                 <strong>IRS Form 8826</strong>. This credit was
-                                specifically designed to help businesses offset
-                                the expense of making their digital assets
-                                accessible.
+                                designed to help qualifying small businesses
+                                cover eligible expenses associated with
+                                improving access for people with disabilities.
                             </p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                                 {[
                                     {
                                         title: 'Eligibility',
@@ -381,8 +383,8 @@ export default function ADALitigationSupport() {
                                         highlight: '$5,000 per year',
                                     },
                                     {
-                                        title: 'Qualified Costs',
-                                        body: 'Includes accessibility audits, manual testing, and code remediation.',
+                                        title: 'Potential Costs',
+                                        body: 'May include eligible accessibility audits, manual testing, and remediation expenses depending on IRS rules and your business circumstances.',
                                     },
                                 ].map((card) => (
                                     <div
@@ -399,6 +401,16 @@ export default function ADALitigationSupport() {
                                 ))}
                             </div>
 
+                            <p className="text-sm text-gray-700 bg-stone-50 border border-stone-200 rounded-2xl p-5 mb-10 leading-relaxed">
+                                <strong>Tax Disclaimer:</strong> A11Y Pros does
+                                not provide tax or accounting advice.
+                                Eligibility for the IRS Disabled Access Credit
+                                (Form 8826) depends on your specific business
+                                circumstances and current IRS guidance. Please
+                                consult a qualified CPA or tax advisor before
+                                claiming this credit.
+                            </p>
+
                             <div className="flex justify-center">
                                 <a
                                     href="https://www.irs.gov/newsroom/tax-benefits-to-help-offset-the-cost-of-making-businesses-accessible-to-people-with-disabilities"
@@ -413,6 +425,58 @@ export default function ADALitigationSupport() {
                                     </span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Legal Disclaimer ── */}
+            <section
+                aria-labelledby="legal-disclaimer-heading"
+                className="pb-24"
+            >
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="p-8 md:p-10 rounded-3xl bg-[#f9f8f2] border border-stone-300 text-gray-800">
+                        <h2
+                            id="legal-disclaimer-heading"
+                            className="text-xl font-black text-[#001d2f] mb-4 flex items-center gap-2.5"
+                        >
+                            <Scale
+                                size={20}
+                                className="text-[#0E8168] flex-shrink-0"
+                                aria-hidden="true"
+                            />
+                            Important Notice: Technical Consulting, Not Legal Advice
+                        </h2>
+                        <div className="space-y-3 text-sm leading-relaxed">
+                            <p>
+                                <strong>Not a Law Firm:</strong> A11Y Pros is a
+                                digital accessibility consultancy, not a law
+                                firm, and does not have attorneys on staff.
+                                Nothing on this website or in our deliverables
+                                constitutes legal advice, legal representation,
+                                or an opinion on legal liability.
+                            </p>
+                            <p>
+                                <strong>Point-in-Time Technical Scope:</strong>{' '}
+                                Our audits, code remediation, and VPAT/ACR
+                                reports reflect a point-in-time technical
+                                evaluation of the agreed scope against WCAG
+                                standards. Because websites change continuously
+                                and legal interpretations evolve, no technical
+                                audit or remediation service can guarantee
+                                permanent compliance or immunity from ADA demand
+                                letters or lawsuits.
+                            </p>
+                            <p>
+                                <strong>Working With Your Legal Counsel:</strong>{' '}
+                                If you have received an ADA demand letter or
+                                lawsuit, consult a qualified ADA defense
+                                attorney promptly. We regularly coordinate
+                                directly with our clients&apos; legal counsel,
+                                including under attorney-directed engagements
+                                where appropriate.
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ A11Y Pros does not sell accessibility overlays or widgets; all testing and remed
 - [Web Accessibility Consulting](https://a11ypros.com/services/web-accessibility-consulting): Expert guidance on WCAG, EAA, Section 508, and ADA compliance for product, design, and engineering teams.
 - [PDF Remediation](https://a11ypros.com/services/pdf-remediation): Evaluating, fixing, and verifying PDF documents so they are accessible to screen reader users and meet compliance standards.
 - [Figma Design & UI/UX Accessibility Audits](https://a11ypros.com/services/figma-design-audits): Design-phase audits of Figma files, component libraries, and design systems to catch color contrast, focus state, and component issues before development.
-- [ADA Website Compliance & Litigation Protection](https://a11ypros.com/services/ada-litigation-support): Audits, code-level remediation, and VPAT/ACR documentation for businesses at risk of, or responding to, ADA Title III website lawsuits and demand letters.
+- [Technical ADA Litigation Support & Remediation](https://a11ypros.com/services/ada-litigation-support): Technical WCAG 2.2 AA audits, code-level remediation, and point-in-time VPAT/ACR documentation delivered alongside your legal counsel for businesses preparing for or responding to ADA Title III website claims.
 - [Accessibility Partnerships for Agencies & Dev Teams](https://a11ypros.com/services/accessibility-partnerships-for-agencies-dev-teams): White-label audits and VPATs, subcontracted accessibility work, and team augmentation for agencies and development teams.
 - [Pricing](https://a11ypros.com/pricing): Rates for manual WCAG 2.1/2.2 AA audits, hourly technical consulting, website remediation, and VPAT authoring.
 

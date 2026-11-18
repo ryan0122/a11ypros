@@ -83,7 +83,7 @@ export default function Footer() {
                   </h2>
 
                   <p className="text-slate-600 text-base leading-relaxed">
-                    Whether you need a forensic WCAG audit, official VPAT® ACR, website remediation, or ADA litigation defense, our certified team is here to help.
+                    Whether you need a forensic WCAG audit, official VPAT® ACR, website remediation, or technical ADA litigation support, our certified team is here to help.
                   </p>
 
                   <div className="space-y-3 pt-2 text-sm text-slate-700">
@@ -154,7 +154,7 @@ export default function Footer() {
                 <IconLogo color="#fff" />
               </div>
               <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-                Certified web & mobile accessibility auditing, VPAT® / ACR authoring, and ADA litigation defense powered by 100% manual human testing.
+                Certified web & mobile accessibility auditing, VPAT® / ACR authoring, and technical ADA litigation support powered by 100% manual human testing.
               </p>
               <div className="space-y-2.5 pt-2 text-xs sm:text-sm text-slate-300">
                 <div className="flex items-center gap-2.5">
