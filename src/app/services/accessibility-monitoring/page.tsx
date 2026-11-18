@@ -14,6 +14,7 @@ import {
     ClipboardCheck,
     LayoutDashboard,
     FileText,
+    Check,
 } from 'lucide-react'
 import StudioPlans from '@/components/ui/StudioPlans'
 
@@ -28,7 +29,7 @@ const steps = [
     {
         icon: Radar,
         title: 'We scan your site every week',
-        body: 'The scan finds your pages, then tests them the way people do: with a keyboard, zoomed in, on a phone, in high contrast. Each scan is compared with the last one.',
+        body: 'The scan reads your sitemap and follows your links to find your pages, then tests them the way people do: on desktop and mobile, with a keyboard, zoomed in and in high contrast. Each scan is compared with the last one.',
     },
     {
         icon: UserCheck,
@@ -89,6 +90,29 @@ const studioFeatures = [
     'Your logo on your reports',
 ]
 
+const scannerAlone = [
+    {
+        title: 'A certified specialist on every plan',
+        body: 'Anything the scan can’t be sure about is reviewed by an IAAP-certified specialist before it reaches your list, and you can ask them to check a fix or answer a question.',
+    },
+    {
+        title: 'A signed monthly report',
+        body: 'What changed, what’s open and what was fixed, signed by your specialist, for leadership and procurement.',
+    },
+    {
+        title: 'A scan that uses the page',
+        body: 'Keyboard testing, menus and dialogs opened, forms checked for errors, on desktop and mobile, not just a read of the code.',
+    },
+    {
+        title: 'Hands-on screen reader testing',
+        body: 'Assurance Pro and Partner include keyboard and screen reader spot-checks by a specialist, with video.',
+    },
+    {
+        title: 'No overlay, nothing installed',
+        body: 'There’s no widget or badge on your site. We find the problems and help your team fix them in the code.',
+    },
+]
+
 const faqs = [
     {
         question: 'Does monitoring replace a manual audit?',
@@ -101,6 +125,10 @@ const faqs = [
     {
         question: 'What are review credits?',
         answer: 'Credits pay for your specialist’s time on your requests. Asking them to check a fix or review a finding uses 1 credit, and a question uses 2. Fixes the scan can verify on its own are free. When credits run out, new requests wait until next month’s credits arrive or you add more. You’re never billed for extra requests automatically.',
+    },
+    {
+        question: 'How many pages does the scan test?',
+        answer: 'The scan finds up to your plan’s page limit from your sitemap and links, then groups the pages by template, such as article, product or program pages. It runs a full test on one page of each template and on every priority page you name. Pages built from the same template share the same code, so a problem found once is usually on all of them, and that’s how the issue is reported. Testing one page per template in eight conditions goes deeper than testing every page once.',
     },
     {
         question: 'What do you need from us to start?',
@@ -245,6 +273,23 @@ export default function AccessibilityMonitoring() {
             {/* Plans */}
             <div className="py-16 border-b border-slate-200">
                 <div className="max-w-6xl mx-auto px-6">
+                    <section aria-labelledby="scanner-alone-heading" className="mb-14">
+                        <h2 id="scanner-alone-heading" className="text-2xl sm:text-3xl font-extrabold mb-3 text-center">
+                            What you get that a scanner alone doesn’t
+                        </h2>
+                        <p className="text-slate-700 text-lg text-center max-w-3xl mx-auto mb-8">
+                            Every plan pairs the scan with a person who checks its work.
+                        </p>
+                        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5" role="list">
+                            {scannerAlone.map((item) => (
+                                <li key={item.title} className="min-w-0 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                                    <Check className="w-6 h-6 text-[#0E8168] mb-2" aria-hidden="true" />
+                                    <h3 className="mt-0 font-bold text-base mb-2">{item.title}</h3>
+                                    <p className="m-0 text-sm text-slate-700 leading-relaxed">{item.body}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
                     <StudioPlans />
                 </div>
             </div>
