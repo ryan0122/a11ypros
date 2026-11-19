@@ -14,7 +14,7 @@ interface Plan {
 // Monthly monitoring plans for A11Y Studio. Prices and inclusions are set by A11Y Pros (see the
 // engine's PLAN.md and the review credit amounts in Studio); change them here and on the
 // monitoring page's FAQ together.
-const plans: Plan[] = [
+export const plans: Plan[] = [
     {
         id: 'shield',
         name: 'A11y Shield',

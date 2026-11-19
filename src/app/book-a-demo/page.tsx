@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
 import DemoRequestForm from '@/components/forms/DemoRequestForm'
+import { pageStructuredData, toJsonLd } from '@/lib/seo/structuredData'
 
 const BASE_URL = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com'
 const title = 'Book an A11Y Studio Demo | A11Y Pros'
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/book-a-demo`,
         images: [{ url: `${BASE_URL}/og_banner.jpg`, alt: 'A11Y Pros', width: 1200, height: 630 }],
     },
+    twitter: { card: 'summary_large_image', title, description, images: [`${BASE_URL}/og_banner.jpg`] },
 }
 
 const covered = [
@@ -35,6 +37,23 @@ export default async function BookADemoPage({ searchParams }: Props) {
     const { plan } = await searchParams
     return (
         <main id="main-content" tabIndex={-1} className="font-[family-name:var(--font-inter)] bg-[#001d2f] text-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: toJsonLd(
+                        pageStructuredData({
+                            path: '/book-a-demo',
+                            title: 'Book an A11Y Studio demo',
+                            description,
+                            crumbs: [
+                                { name: 'Services', path: '/services' },
+                                { name: 'A11Y Studio Monitoring', path: '/services/accessibility-monitoring' },
+                                { name: 'Book a demo', path: '/book-a-demo' },
+                            ],
+                        }),
+                    ),
+                }}
+            />
             <div className="max-w-6xl mx-auto px-6 py-14 sm:py-20 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_32rem] items-start">
                 <div>
                     <p className="flex items-center gap-3 mb-5">

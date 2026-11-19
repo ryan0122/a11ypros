@@ -36,40 +36,21 @@ interface PageNode {
   url: string;
   path: string;
   title: string;
-  pageId?: number;
   children: PageNode[];
 }
 
-function buildPageHierarchy(pages: Array<{ url: string; path: string; parentId?: number; pageId?: number; slug: string }>): PageNode[] {
-  const pageMap = new Map<number, PageNode>();
+/** Nest pages by URL: /services/pdf-remediation goes under /services when that page exists. */
+function buildPageHierarchy(pages: Array<{ url: string; path: string; slug: string }>): PageNode[] {
+  const byPath = new Map<string, PageNode>();
+  for (const page of pages) {
+    byPath.set(page.path, { url: page.url, path: page.path, title: formatSlugTitle(page.slug), children: [] });
+  }
   const rootPages: PageNode[] = [];
-
-  // First pass: create all nodes
-  pages.forEach((page) => {
-    const node: PageNode = {
-      url: page.url,
-      path: page.path,
-      title: formatSlugTitle(page.slug),
-      pageId: page.pageId,
-      children: []
-    };
-    if (page.pageId) {
-      pageMap.set(page.pageId, node);
-    }
-  });
-
-  // Second pass: build hierarchy
-  pages.forEach((page) => {
-    if (!page.pageId) return;
-    
-    const node = pageMap.get(page.pageId)!;
-    if (page.parentId && pageMap.has(page.parentId)) {
-      const parent = pageMap.get(page.parentId)!;
-      parent.children.push(node);
-    } else {
-      rootPages.push(node);
-    }
-  });
+  for (const node of byPath.values()) {
+    const parent = byPath.get(node.path.replace(/\/[^/]+$/, ''));
+    if (parent && parent !== node) parent.children.push(node);
+    else rootPages.push(node);
+  }
 
   // Sort each level alphabetically
   function sortNodes(nodes: PageNode[]): PageNode[] {
@@ -111,7 +92,7 @@ export default async function SitemapPage() {
 
   // Group URLs by type
   const homePage = urls.find((url) => url.type === 'home');
-  const pages = urls.filter((url) => url.type === 'page');
+  const pages = urls.filter((url) => url.type === 'page' || url.type === 'route');
   const posts = urls.filter((url) => url.type === 'post').sort((a, b) => b.path.localeCompare(a.path));
   
   // Build hierarchical structure for pages
