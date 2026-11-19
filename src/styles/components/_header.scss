@@ -34,14 +34,19 @@
 	}
 }
 
-// A11Y Studio: an outlined button beside Contact Us, so the product stands out from the pages
+// A11Y Studio: an outlined button with its emblem, beside Contact Us, so the product stands out from the pages
 .header a.studio-link {
-	border: 2px solid vars.$accent-color;
-	padding-block: calc(.5rem - 2px);
-	padding-inline: 1rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5rem;
+	border: 2px solid rgba(255, 255, 255, .7);
+	padding-block: calc(.375rem - 2px);
+	padding-inline: .75rem 1rem;
 	border-radius: 5px;
 	&:hover, &.active {
-		background: vars.$accent-color;
+		background: #fff;
+		border-color: #fff;
 		color: vars.$bg-dark;
 	}
 }

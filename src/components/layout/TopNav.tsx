@@ -1,6 +1,7 @@
 "use client";
 import he from "he";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -143,7 +144,8 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     // Desktop and mobile navs are both in the DOM, so prefix the mobile ids to keep them unique
     const submenuId = `${isMobile ? "mobile-" : ""}submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
-    const contactSpecialClasses = isContactPage ? 'contact-link' : page.slug === 'services/accessibility-monitoring' ? 'studio-link' : '';
+    const isStudio = page.slug === 'services/accessibility-monitoring';
+    const contactSpecialClasses = isContactPage ? 'contact-link' : isStudio ? 'studio-link' : '';
 
     const menuTitle =
       customTitles[page.slug] ||
@@ -182,6 +184,9 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
             aria-current={isPageActive ? "page" : undefined}
             onClick={handleLinkClick}
           >
+            {isStudio && (
+              <Image src="/images/a11y-studio-emblem.png" alt="" width={24} height={24} className="h-6 w-6 shrink-0 rounded-full" />
+            )}
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
           </Link>
           {"children" in page && page.children.length > 0 && (
