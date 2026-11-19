@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const covered = [
     'How the weekly scan uses your site with a keyboard and checks it in real-world conditions',
     'How your specialist reviews what the scan can’t be sure about',
-    'Working through issues in A11Y Studio, and sending them to GitHub, Jira or Azure DevOps',
+    'Working through issues in A11Y Studio, and sending them to your team’s issue tracker',
     'Which plan fits your site, and what onboarding looks like',
 ]
 
