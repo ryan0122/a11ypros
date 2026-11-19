@@ -85,6 +85,7 @@ const staticLinks: StaticLink[] = [
   { id: "pricing", slug: "pricing", title: "Pricing" },
   { id: "blog", slug: "blog", title: "Articles" },
   { id: "contact-us", slug: "contact-us", title: "Contact Us" },
+  { id: "studio", slug: "services/accessibility-monitoring", title: "A11Y Studio" },
 ];
 
 export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
@@ -101,6 +102,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       link("pricing"),
       link("blog"),
       navStructure[2], // About Us
+      link("studio"),
       link("contact-us"),
     ];
     setPages(mergedPages);
@@ -141,7 +143,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     // Desktop and mobile navs are both in the DOM, so prefix the mobile ids to keep them unique
     const submenuId = `${isMobile ? "mobile-" : ""}submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
-    const contactSpecialClasses = isContactPage ? 'contact-link' : '';
+    const contactSpecialClasses = isContactPage ? 'contact-link' : page.slug === 'services/accessibility-monitoring' ? 'studio-link' : '';
 
     const menuTitle =
       customTitles[page.slug] ||
@@ -176,7 +178,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link
             href={pagePath}
-            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''} ${contactSpecialClasses}`}
+            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : 'whitespace-nowrap'} ${contactSpecialClasses}`}
             aria-current={isPageActive ? "page" : undefined}
             onClick={handleLinkClick}
           >
@@ -251,7 +253,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     >
       <ul className={isMobile
         ? "flex flex-col space-y-1"
-        : "flex flex-row justify-between items-center gap-8"
+        : "flex flex-row justify-between items-center gap-7"
       }>
         {pages.map(renderPageLink)}
       </ul>
