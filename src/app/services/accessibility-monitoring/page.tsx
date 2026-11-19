@@ -85,6 +85,7 @@ const studioFeatures = [
     'Every issue in one list, filtered by site, severity and what’s new since the last scan',
     'Issues that come back after a fix are flagged, so regressions don’t slip through',
     'Ask your specialist to check a fix, review a finding or answer a question, right from the issue',
+    'Send issues to GitHub, Jira or Azure DevOps with the details, affected pages and a link back, or download any scan as a CSV',
     'Email updates when a scan finds new issues, confirms fixes, or a report is ready, and each person chooses which they get',
     'Your whole team, with owner, member and viewer roles',
     'Your logo on your reports',
