@@ -26,7 +26,7 @@ export default function VpatEstimatorPage() {
         <div className="max-w-5xl mx-auto px-6">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0a6b57] text-xs font-bold uppercase tracking-wider mb-4">
               <ShieldCheck className="w-4 h-4" /> Enterprise & Multi-Product Scope Calculator
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-4">

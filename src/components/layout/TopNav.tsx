@@ -1,6 +1,7 @@
 "use client";
 import he from "he";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -50,7 +51,8 @@ const navStructure: PageWithChildren[] = [
       { id: 14, menu_order: 5, parent: 1, slug: "pdf-remediation", title: { rendered: "PDF Remediation" }, children: [] },
       { id: 15, menu_order: 6, parent: 1, slug: "web-accessibility-consulting", title: { rendered: "Web Accessibility Consulting" }, children: [] },
       { id: 16, menu_order: 7, parent: 1, slug: "ada-litigation-support", title: { rendered: "ADA Litigation Support" }, children: [] },
-      { id: 17, menu_order: 8, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
+      { id: 19, menu_order: 8, parent: 1, slug: "accessibility-monitoring", title: { rendered: "A11Y Studio Monitoring" }, children: [] },
+      { id: 17, menu_order: 9, parent: 1, slug: "accessibility-partnerships-for-agencies-dev-teams", title: { rendered: "Agency Partnerships" }, children: [] },
     ],
   },
   {
@@ -84,6 +86,7 @@ const staticLinks: StaticLink[] = [
   { id: "pricing", slug: "pricing", title: "Pricing" },
   { id: "blog", slug: "blog", title: "Articles" },
   { id: "contact-us", slug: "contact-us", title: "Contact Us" },
+  { id: "studio", slug: "services/accessibility-monitoring", title: "A11Y Studio" },
 ];
 
 export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
@@ -100,6 +103,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
       link("pricing"),
       link("blog"),
       navStructure[2], // About Us
+      link("studio"),
       link("contact-us"),
     ];
     setPages(mergedPages);
@@ -140,7 +144,8 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     // Desktop and mobile navs are both in the DOM, so prefix the mobile ids to keep them unique
     const submenuId = `${isMobile ? "mobile-" : ""}submenu-${page.slug}`;
     const isContactPage = page.slug === 'contact-us';
-    const contactSpecialClasses = isContactPage ? 'contact-link' : '';
+    const isStudio = page.slug === 'services/accessibility-monitoring';
+    const contactSpecialClasses = isContactPage ? 'contact-link' : isStudio ? 'studio-link' : '';
 
     const menuTitle =
       customTitles[page.slug] ||
@@ -175,10 +180,13 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
         <div className={`flex items-center ${isMobile ? 'justify-between' : ''}`}>
           <Link
             href={pagePath}
-            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : ''} ${contactSpecialClasses}`}
+            className={`${isPageActive ? "active" : ""} ${hasActiveChild ? "parent-active" : ""} ${isMobile ? 'text-lg font-medium' : 'whitespace-nowrap'} ${contactSpecialClasses}`}
             aria-current={isPageActive ? "page" : undefined}
             onClick={handleLinkClick}
           >
+            {isStudio && (
+              <Image src="/images/a11y-studio-emblem.png" alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full" />
+            )}
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
           </Link>
           {"children" in page && page.children.length > 0 && (
@@ -250,7 +258,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     >
       <ul className={isMobile
         ? "flex flex-col space-y-1"
-        : "flex flex-row justify-between items-center gap-8"
+        : "flex flex-row justify-between items-center gap-6 2xl:gap-8"
       }>
         {pages.map(renderPageLink)}
       </ul>

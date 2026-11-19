@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { FileSearch, Code, FileText, Users, FileCheck2, ShieldAlert, ArrowRight } from 'lucide-react'
+import { FileSearch, Code, FileText, Users, FileCheck2, ShieldAlert, Radar, ArrowRight } from 'lucide-react'
 
 export default function ServicesCompact() {
   const services = [
@@ -27,6 +27,12 @@ export default function ServicesCompact() {
       desc: 'Expert guidance, forensic audits, and post-fix Letters of Conformance for demand letters & lawsuits.',
       href: '/services/ada-litigation-support',
       icon: ShieldAlert,
+    },
+    {
+      title: 'A11Y Studio Monitoring',
+      desc: 'Weekly scans reviewed by a certified specialist, with every issue tracked to a fix and a signed monthly report.',
+      href: '/services/accessibility-monitoring',
+      icon: Radar,
     },
     {
       title: 'Web Accessibility Consulting',

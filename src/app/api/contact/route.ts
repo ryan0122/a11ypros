@@ -18,6 +18,10 @@ const FIELD_LABELS: Record<string, string> = {
   'signup-page': 'Signup Page',
   'source-page': 'Submitted on',
   'referred-from': 'Came from',
+  'website-url': 'Website to monitor',
+  'site-size': 'Site size',
+  'issue-tracker': 'Issue tracker',
+  'plan-interest': 'Plan interest',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import IconServiceAudit from '@/components/icons/IconServiceAudit';
 import IconServiceRemediation from '@/components/icons/IconServiceRemediation';
@@ -114,6 +115,21 @@ const Services = ({ showHeading }: ServicesProps) => (
 		      <div className="w-4/5 mx-auto">
 		        <IconServicePDF/>
 		      </div>
+		    </div>
+		  </div>
+
+		  {/* A11Y Studio Monitoring */}
+		  <div className="flex flex-col sm:flex-row items-center sm:items-start py-10 sm:py-20 max-w-6xl mx-auto">
+		    <div className="w-full order-2 sm:order-1 sm:w-2/5 text-center sm:text-left">
+		      <div className="w-2/5 mx-auto sm:mx-0">
+		        <Image src="/images/a11y-studio-emblem.png" alt="" width={112} height={112} className="w-full h-auto" />
+		      </div>
+		    </div>
+		    <div className="w-full order-1 sm:order-2 sm:w-3/5 px-10 sm:px-0 sm:pl-16 mb-8 sm:mb-0">
+				<Heading showHeading={showHeading}>
+		        	<Link href="/services/accessibility-monitoring">A11Y Studio Monitoring</Link>
+				</Heading>
+		      <p className="text-center sm:text-left text-xl">Keep your site accessible between audits. We scan it every week the way people with disabilities use it, a certified specialist reviews the results, and your team tracks every issue to a fix in A11Y Studio, with a signed report each month.</p>
 		    </div>
 		  </div>
 

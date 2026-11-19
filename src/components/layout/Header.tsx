@@ -28,18 +28,18 @@ export default function Header() {
   return (
     <header ref={headerRef} className="header flex items-center w-full py-5 px-6 sticky top-0 z-50">
       {/* Mobile: Left-aligned Logo | Large Screens: Logo & Menu Centered */}
-      <div className="flex lg:flex-1 gap-10 max-w-6xl mx-auto justify-between">
-        <Link href="/" className="logo no-underline hover:no-underline lg:mr-14 w-36 sm:w-56">
+      <div className="flex xl:flex-1 items-center gap-10 max-w-7xl mx-auto justify-between">
+        <Link href="/" className="logo no-underline hover:no-underline shrink-0 w-36 sm:w-56 xl:w-48 2xl:w-56">
           <IconLogo />
           <span className="sr-only">Home</span>
         </Link>
-        <div className="hidden lg:flex">
+        <div className="hidden xl:flex">
           <TopNav />
         </div>
       </div>
 
       {/* Right-aligned Mobile Menu Button (Only visible on small screens) */}
-      <div className="flex flex-1 justify-end lg:hidden">
+      <div className="flex flex-1 justify-end xl:hidden">
         <button
           onClick={() => setMobileMenuOpen((prev) => !prev)}
           type="button"

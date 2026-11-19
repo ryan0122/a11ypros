@@ -54,7 +54,7 @@ export default function Footer() {
     }
   }, []);
 
-  const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
+  const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/book-a-demo", "/book-a-demo/thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
 
   const isHomepage = pathname === '/';
   const isContactPage = pathname === '/contact-us';
@@ -170,6 +170,18 @@ export default function Footer() {
                   <span className="text-slate-400">1905 Sherman St, Ste 200 #2042, Denver, CO 80203</span>
                 </div>
               </div>
+              <div className="mt-6 max-w-sm rounded-xl border border-emerald-500/50 bg-slate-900 p-4">
+                <p className="m-0 text-sm font-bold text-white">A11Y Studio monitoring</p>
+                <p className="mb-0 mt-1 text-sm text-slate-400">
+                  Weekly scans, a certified specialist who reviews the results, and one place for your team to fix issues.
+                </p>
+                <Link
+                  href="/services/accessibility-monitoring"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-300 hover:underline"
+                >
+                  Explore A11Y Studio <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              </div>
             </div>
 
             {/* Column 2: Services (3 cols) */}
@@ -199,6 +211,11 @@ export default function Footer() {
                 <li>
                   <Link href="/services/pdf-remediation" className="hover:text-emerald-300 transition-colors">
                     PDF Document Remediation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services/accessibility-monitoring" className="hover:text-emerald-300 transition-colors">
+                    A11Y Studio Monitoring
                   </Link>
                 </li>
               </ul>

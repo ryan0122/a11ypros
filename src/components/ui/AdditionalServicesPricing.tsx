@@ -75,7 +75,7 @@ export default function AdditionalServicesPricing() {
   return (
     <section className="py-10 my-10 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm">
       <div className="max-w-4xl mx-auto text-center mb-10">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0E8168] text-xs font-bold uppercase tracking-wider mb-3">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E8168]/10 text-[#0a6b57] text-xs font-bold uppercase tracking-wider mb-3">
           <ShieldCheck className="w-4 h-4" /> Itemized & Technical Services
         </span>
         <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
