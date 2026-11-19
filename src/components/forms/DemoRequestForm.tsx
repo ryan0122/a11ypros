@@ -21,7 +21,7 @@ type Required = 'contact-first-name' | 'contact-last-name' | 'contact-email' | '
 const REQUIRED_ORDER: Required[] = ['contact-first-name', 'contact-last-name', 'contact-email', 'organization-name', 'website-url']
 
 const selectClass =
-    'w-full rounded-md border-2 border-[#001d2f] bg-white p-2 text-base font-medium text-slate-800 focus:border-[#0E8168] focus:outline-2 focus:outline-transparent focus:shadow-[0_0_0_2px_#fff,0_0_0_5px_#0E8168]'
+    'w-full rounded-md border-2 border-[#001d2f] bg-white p-2 text-base font-medium text-slate-800 focus:border-[#0E8168] focus:outline focus:outline-2 focus:outline-transparent focus:shadow-[0_0_0_2px_#fff,0_0_0_5px_#0E8168]'
 
 function validate(data: FormData): Partial<Record<Required, string>> {
     const errors: Partial<Record<Required, string>> = {}
