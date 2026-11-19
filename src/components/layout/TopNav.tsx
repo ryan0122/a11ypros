@@ -185,7 +185,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
             onClick={handleLinkClick}
           >
             {isStudio && (
-              <Image src="/images/a11y-studio-emblem.png" alt="" width={24} height={24} className="h-6 w-6 shrink-0 rounded-full" />
+              <Image src="/images/a11y-studio-emblem.png" alt="" width={32} height={32} className="h-8 w-8 shrink-0 rounded-full" />
             )}
             {typeof menuTitle === 'string' ? menuTitle : he.decode(menuTitle)}
           </Link>
@@ -258,7 +258,7 @@ export default function TopNav({ isMobile = false, onLinkClick }: TopNavProps) {
     >
       <ul className={isMobile
         ? "flex flex-col space-y-1"
-        : "flex flex-row justify-between items-center gap-7"
+        : "flex flex-row justify-between items-center gap-6 2xl:gap-8"
       }>
         {pages.map(renderPageLink)}
       </ul>
