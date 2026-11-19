@@ -170,10 +170,10 @@ export default function AccessibilityMonitoring() {
                                 See plans and pricing <ArrowRight className="w-5 h-5" aria-hidden="true" />
                             </Link>
                             <Link
-                                href="/contact-us?from=studio-page"
+                                href="/book-a-demo?from=studio-page"
                                 className="inline-flex items-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white hover:bg-white/10 transition-colors"
                             >
-                                Talk to us about monitoring
+                                Book a demo
                             </Link>
                         </div>
                     </div>
@@ -307,7 +307,7 @@ export default function AccessibilityMonitoring() {
                         Not sure where your site stands?
                     </h2>
                     <p className="text-lg text-slate-200 mb-8">
-                        Start with a free check of one page, or talk to us about monitoring your whole site.
+                        Start with a free check of one page, or book a demo to see how A11Y Studio monitors your whole site.
                     </p>
                     <div className="flex flex-wrap justify-center gap-3">
                         <Link
@@ -317,10 +317,10 @@ export default function AccessibilityMonitoring() {
                             Free accessibility check <ArrowRight className="w-5 h-5" aria-hidden="true" />
                         </Link>
                         <Link
-                            href="/contact-us?from=studio-page"
+                            href="/book-a-demo?from=studio-page"
                             className="inline-flex items-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white hover:bg-white/10 transition-colors"
                         >
-                            Talk to us about monitoring
+                            Book a demo
                         </Link>
                     </div>
                 </div>

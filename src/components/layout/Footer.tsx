@@ -54,7 +54,7 @@ export default function Footer() {
     }
   }, []);
 
-  const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
+  const doNotDisplay = ["/sitemap", "/free-accessibility-test", "/free-consultation", "/contact-us-thank-you", "/book-a-demo", "/book-a-demo/thank-you", "/accessibility-statement", "/privacy-policy"].includes(pathname) || is404 || pathname === "";
 
   const isHomepage = pathname === '/';
   const isContactPage = pathname === '/contact-us';

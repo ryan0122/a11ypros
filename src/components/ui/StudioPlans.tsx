@@ -116,12 +116,12 @@ export default function StudioPlans({ headingLevel = 'h2' }: StudioPlansProps) {
                             ))}
                         </ul>
                         <Link
-                            href={`/contact-us?from=studio-${plan.id}`}
+                            href={`/book-a-demo?plan=${plan.id}&from=studio-${plan.id}`}
                             className={`mt-auto w-full py-3.5 px-6 rounded-xl font-bold text-center transition-colors ${
                                 plan.popular ? 'bg-[#0E8168] text-white hover:bg-[#0a6b57] shadow-md' : 'bg-slate-900 text-white hover:bg-slate-800'
                             }`}
                         >
-                            Request monitoring<span className="sr-only">: {plan.name}</span>
+                            Book a demo<span className="sr-only">: {plan.name}</span>
                         </Link>
                     </li>
                 ))}
