@@ -87,16 +87,68 @@ export function pageStructuredData({
   title,
   description,
   crumbs = [],
+  faqs = [],
+  extra = [],
 }: {
   path: string
   title: string
   description: string
   crumbs?: Crumb[]
+  /** Questions and answers shown on the page, as an FAQPage. */
+  faqs?: { question: string; answer: string }[]
+  /** More nodes for this page, such as serviceNode(). */
+  extra?: object[]
 }) {
   const url = absolute(path)
   const graph: object[] = [organization, website, webPage(url, title, description, crumbs.length > 0)]
   if (crumbs.length > 0) graph.push(breadcrumbList(url, crumbs))
+  if (faqs.length > 0) graph.push(faqPage(url, faqs))
+  graph.push(...extra)
   return { '@context': 'https://schema.org', '@graph': graph }
+}
+
+/** A service A11Y Pros provides, with monthly plans as offers. Prices are in US dollars. */
+export function serviceNode({
+  path,
+  name,
+  description,
+  serviceType,
+  plans = [],
+}: {
+  path: string
+  name: string
+  description: string
+  serviceType: string
+  plans?: { name: string; monthlyPrice: number }[]
+}) {
+  const url = absolute(path)
+  return {
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name,
+    description,
+    serviceType,
+    url,
+    provider: { '@id': ORGANIZATION_ID },
+    areaServed: 'Worldwide',
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+    ...(plans.length > 0 && {
+      offers: plans.map((plan) => ({
+        '@type': 'Offer',
+        name: plan.name,
+        price: plan.monthlyPrice,
+        priceCurrency: 'USD',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: plan.monthlyPrice,
+          priceCurrency: 'USD',
+          unitCode: 'MON',
+          referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
+        },
+        url: `${url}#plans`,
+      })),
+    }),
+  }
 }
 
 /** Strip tags and decode entities so schema text is plain text. */

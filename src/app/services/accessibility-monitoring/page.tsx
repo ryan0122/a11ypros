@@ -16,13 +16,26 @@ import {
     FileText,
     Check,
 } from 'lucide-react'
-import StudioPlans from '@/components/ui/StudioPlans'
+import StudioPlans, { plans } from '@/components/ui/StudioPlans'
+import { pageStructuredData, serviceNode, SITE_URL, toJsonLd } from '@/lib/seo/structuredData'
+
+const PATH = '/services/accessibility-monitoring'
+const TITLE = 'A11Y Studio: Accessibility Monitoring with Specialist Review | A11Y Pros'
+const DESCRIPTION =
+    'Weekly accessibility scans that use your site like a keyboard user would, reviewed by a certified specialist, tracked in A11Y Studio. Plans from $499/month.'
 
 export const metadata: Metadata = {
-    title: 'A11Y Studio: Accessibility Monitoring with Specialist Review | A11Y Pros',
-    description:
-        'Weekly accessibility scans that use your site like a keyboard user would, reviewed by a certified specialist, tracked in A11Y Studio. Plans from $499/month.',
-    alternates: { canonical: '/services/accessibility-monitoring' },
+    title: TITLE,
+    description: DESCRIPTION,
+    alternates: { canonical: `${SITE_URL}${PATH}` },
+    openGraph: {
+        title: TITLE,
+        description: DESCRIPTION,
+        url: `${SITE_URL}${PATH}`,
+        type: 'website',
+        images: [{ url: `${SITE_URL}/og_banner.jpg`, alt: 'A11Y Pros', width: 1200, height: 630 }],
+    },
+    twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: [`${SITE_URL}/og_banner.jpg`] },
 }
 
 const steps = [
@@ -148,6 +161,33 @@ const faqs = [
 export default function AccessibilityMonitoring() {
     return (
         <main id="main-content" tabIndex={-1} className="font-[family-name:var(--font-inter)] bg-white text-slate-900">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: toJsonLd(
+                        pageStructuredData({
+                            path: PATH,
+                            title: 'A11Y Studio Monitoring',
+                            description: DESCRIPTION,
+                            crumbs: [
+                                { name: 'Services', path: '/services' },
+                                { name: 'A11Y Studio Monitoring', path: PATH },
+                            ],
+                            faqs,
+                            extra: [
+                                serviceNode({
+                                    path: PATH,
+                                    name: 'A11Y Studio accessibility monitoring',
+                                    description:
+                                        'Weekly automated accessibility scans with keyboard, zoom, mobile and high contrast testing, reviewed by an IAAP-certified specialist and tracked in the A11Y Studio client portal, with a signed monthly report.',
+                                    serviceType: 'Website accessibility monitoring',
+                                    plans: plans.map((plan) => ({ name: plan.name, monthlyPrice: Number(plan.price.replace(/[^\d.]/g, '')) })),
+                                }),
+                            ],
+                        }),
+                    ),
+                }}
+            />
             {/* Hero */}
             <section aria-labelledby="hero-heading" className="bg-[#001d2f] text-white overflow-hidden">
                 <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20 grid grid-cols-1 gap-10 lg:grid-cols-2 items-center">

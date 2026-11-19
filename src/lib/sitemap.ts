@@ -6,10 +6,23 @@ import { getPosts } from '@/lib/api/posts/dataApi'
 const BASE_URL = process.env.NEXT_PUBLIC_URL || 'https://a11ypros.com'
 const PAGES_DIR = path.join(process.cwd(), 'src', 'content', 'pages')
 
+// Public pages built in code under src/app, which the MDX scan below can't see. Leave out
+// thank-you pages, test pages and anything marked noindex.
+const CODE_ROUTES = [
+  '/services/accessibility-monitoring',
+  '/services/ada-litigation-support',
+  '/book-a-demo',
+  '/free-accessibility-scan',
+  '/free-consultation',
+  '/vpat-estimator',
+  '/blog',
+]
+
 export interface SitemapUrl {
   url: string
   path: string
-  type: 'page' | 'post' | 'home'
+  /** 'route' is a page built in code under src/app rather than from an MDX file. */
+  type: 'page' | 'post' | 'home' | 'route'
   slug: string
 }
 
@@ -49,6 +62,12 @@ export async function getSitemapUrls(): Promise<SitemapUrl[]> {
           slug,
         })
       }
+    }
+
+    const known = new Set(sitemapUrls.map((item) => item.path))
+    for (const route of CODE_ROUTES) {
+      if (known.has(route)) continue
+      sitemapUrls.push({ url: `${BASE_URL}${route}`, path: route, type: 'route', slug: route.split('/').pop() || '' })
     }
 
     // Include blog posts
