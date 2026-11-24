@@ -4,7 +4,7 @@ import CompliancesCompact from '@/components/features/CompliancesCompact'
 import IconHomeHero from '@/components/icons/IconHomeHero'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Calendar, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, Calendar, CheckCircle2, ScanSearch } from 'lucide-react'
 
 export default async function HomeTemplate({
     title,
@@ -30,29 +30,30 @@ export default async function HomeTemplate({
                                     Web Accessibility Compliance Consultants
                                 </span>
                             </h1>
-                            <p className="text-slate-600 text-lg mb-6 leading-relaxed">
+                            <p className="text-slate-600 text-lg leading-relaxed">
                                 Expert manual auditing, VPAT® / ACR authoring, website remediation, and ADA litigation support by certified accessibility engineers.
                             </p>
-
-                            <div className="flex flex-wrap items-center gap-3">
-                                <Link
-                                    href="/pricing"
-                                    className="inline-flex items-center gap-2 rounded-xl bg-[#0E8168] px-6 py-3.5 text-base font-bold text-white shadow-md hover:bg-[#0a6b57] transition-colors"
-                                >
-                                    View Services & Pricing <ArrowRight className="w-5 h-5" />
-                                </Link>
-                                <Link
-                                    href="/free-accessibility-scan"
-                                    className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-base font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
-                                >
-                                    Free Website Accessibility Check
-                                </Link>
-                            </div>
                         </div>
 
                         <div className="flex justify-center md:w-2/5 w-full">
                             <IconHomeHero aria-hidden="true" />
                         </div>
+                    </div>
+
+                    <div className="mx-auto mt-8 flex max-w-5xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+                        <Link
+                            href="/pricing"
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[#0E8168] px-6 py-3.5 text-base font-bold text-white shadow-md hover:bg-[#0a6b57] transition-colors"
+                        >
+                            View Services & Pricing <ArrowRight className="w-5 h-5" />
+                        </Link>
+                        <Link
+                            href="/free-accessibility-scan"
+                            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl border-2 border-[#0E8168] bg-white px-6 py-3 text-base font-bold text-[#0a6b57] shadow-md hover:bg-emerald-50 transition-colors"
+                        >
+                            <ScanSearch className="w-5 h-5" aria-hidden="true" />
+                            Free Website Accessibility Check
+                        </Link>
                     </div>
                 </div>
 
