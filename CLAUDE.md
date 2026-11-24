@@ -64,7 +64,7 @@ SEO is authored in frontmatter:
 
 All forms post to internal API routes that proxy to third parties, so credentials/tokens stay off the client:
 
-- `/api/contact` → emails the submission to `LEAD_INBOX` via Resend (`RESEND_API_KEY`, `RESEND_FROM` — must be on the Resend-verified a11ypros.com domain) and saves the submitter's email to Resend Contacts (`resend.contacts.create`, optionally tagged to `RESEND_SEGMENT_ID`) for marketing broadcasts. Used by `ContactForm`, `GatedDownloadCard`, the free-audit page, and `VpatEstimatorWidget`; each sends a `form-name` that ends up in the email subject. Returns a non-2xx on failure and the clients surface it — never report success without checking `res.ok`. WordPress CF7 is no longer used.
+- `/api/contact` → emails the submission to `LEAD_INBOX` via Resend (`RESEND_API_KEY`, `RESEND_FROM` — must be on the Resend-verified a11ypros.com domain) and saves the submitter's email to Resend Contacts (`resend.contacts.create`). Only `newsletter-signup` submissions, and other forms sent with `newsletter-opt-in=yes` (an unchecked-by-default box on the contact, gated download and VPAT estimator forms), are added to the `RESEND_NEWSLETTER_SEGMENT_ID` segment ("Newsletter" in Resend), including contacts that already exist. Used by `ContactForm`, `GatedDownloadCard`, the free-audit page, and `VpatEstimatorWidget`; each sends a `form-name` that ends up in the email subject. Returns a non-2xx on failure and the clients surface it — never report success without checking `res.ok`. WordPress CF7 is no longer used.
 - Netlify Forms is the storage copy, not the notifier: the same clients also call `recordNetlifySubmission()` (fire-and-forget POST to `/__forms.html`). Netlify only registers forms declared in `public/__forms.html` at build time, so a new form or field must be added there too or its values are dropped.
 - `/api/vtiger` → vtiger webform capture at `sales.a11ypros.com`, with hardcoded `__vtrftk`/`publicid` tokens and an explicit field-name mapping. If vtiger form fields change, that mapping is the thing to update.
 
@@ -72,7 +72,7 @@ All forms post to internal API routes that proxy to third parties, so credential
 
 ### Environment
 
-`.env.local` holds `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`, `SCAN_WORKER_URL`, `SCAN_API_SECRET`. The scan secret must match the worker's (`fly secrets set --app a11y-engine SCAN_API_SECRET=…`).
+`.env.local` holds `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_COMING_SOON`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RESEND_API_KEY`, `LEAD_INBOX`, `RESEND_FROM`, `NEXT_PUBLIC_HS_PORTAL_ID`, `NEXT_PUBLIC_HS_FORM_GUID`, `SCAN_WORKER_URL`, `SCAN_API_SECRET`, `RESEND_NEWSLETTER_SEGMENT_ID`. The scan secret must match the worker's (`fly secrets set --app a11y-engine SCAN_API_SECRET=…`).
 
 Anything with a `NEXT_PUBLIC_` prefix is inlined into the client bundle. Use an unprefixed var for anything server-only (a WordPress credential once leaked this way).
 
