@@ -23,6 +23,9 @@ const FIELD_LABELS: Record<string, string> = {
   'issue-tracker': 'Issue tracker',
   'plan-interest': 'Plan interest',
   'newsletter-opt-in': 'Newsletter opt-in',
+  'landing-referrer': 'Came to the site from',
+  'landing-utm': 'UTM tags',
+  'landing-page': 'First page viewed',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);

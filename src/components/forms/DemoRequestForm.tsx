@@ -6,6 +6,7 @@ import Input from '@/components/forms/Input'
 import TextArea from '@/components/forms/TextArea'
 import Button from '@/components/forms/Button'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
+import { getLeadSourceFields } from '@/utils/leadSource'
 
 /** The A11Y Studio plans someone can say they're interested in. Keep in step with StudioPlans. */
 export const DEMO_PLANS: Record<string, string> = {
@@ -78,6 +79,7 @@ export default function DemoRequestForm({ plan, privacyNoticeId }: { plan?: stri
         data.set('source-page', window.location.pathname)
         const from = new URLSearchParams(window.location.search).get('from')
         if (from && /^[\w/-]{1,100}$/.test(from)) data.set('referred-from', from)
+        Object.entries(getLeadSourceFields()).forEach(([key, value]) => data.set(key, value))
 
         const fields: Record<string, string> = {}
         data.forEach((value, key) => {

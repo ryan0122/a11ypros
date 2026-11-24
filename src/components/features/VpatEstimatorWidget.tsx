@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { CheckCircle2, ShieldCheck, FileText, ArrowRight, Sparkles, Building2, Laptop, Clock, AlertTriangle } from 'lucide-react'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
+import { getLeadSourceFields } from '@/utils/leadSource'
 
 interface EstimatorData {
   goal: string
@@ -103,6 +104,7 @@ Timeline: ${formData.timeline}
 Website/App URL: ${formData.websiteUrl || 'Not provided'}
 Additional Notes: ${formData.notes || 'None'}`,
       'newsletter-opt-in': optIn ? 'yes' : 'no',
+      ...getLeadSourceFields(),
     }
     recordNetlifySubmission(fields)
 

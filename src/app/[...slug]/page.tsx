@@ -7,6 +7,7 @@ import FAQAccordion from '@/components/ui/FaqAccordion'
 import PricingCards from '@/components/ui/PricingCards'
 import { pageStructuredData, toJsonLd } from '@/lib/seo/structuredData'
 import { getSitemapUrls } from '@/lib/sitemap'
+import { metaTitle } from '@/lib/seo/metaTitle'
 
 type FAQ = {
     question: string
@@ -69,15 +70,15 @@ export async function generateMetadata({
         }
     }
 
-    const decodedTitle = he.decode(page.title.rendered)
+    const title = metaTitle(seoData?.rankMathMeta, page.title.rendered)
 
     return {
-        title: `${decodedTitle} - A11Y Pros`,
+        title,
         description:
             seoData?.description ||
             'A11Y Pros provides trusted accessibility services.',
         openGraph: {
-            title: `${decodedTitle} - A11Y Pros`,
+            title,
             description: seoData?.description,
             url: `${process.env.NEXT_PUBLIC_URL}/${fullSlug}`,
             type: 'website',
@@ -92,7 +93,7 @@ export async function generateMetadata({
         },
         twitter: {
             card: 'summary_large_image',
-            title: `${decodedTitle} - A11Y Pros`,
+            title,
             description: seoData?.description,
             images: [`${process.env.NEXT_PUBLIC_URL}/og_banner.jpg`],
         },

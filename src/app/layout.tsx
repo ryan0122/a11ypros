@@ -5,6 +5,7 @@ import ConditionalHeader from "@/components/layout/ConditionalHeader";
 import Footer from "@/components/layout/Footer";
 import FocusManager from "@/components/layout/FocusManager";
 import CookieConsent from "@/components/layout/CookieConsent";
+import LeadSourceCapture from "@/components/layout/LeadSourceCapture";
 import "@/styles/main.scss";
 import type { Metadata } from "next";
 
@@ -74,6 +75,7 @@ export default function RootLayout({
         
         <div className="min-h-full">
           <FocusManager />
+          <LeadSourceCapture />
           <ConditionalHeader />
           {children}
           <Footer />

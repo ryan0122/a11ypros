@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Mail, CheckCircle2, ArrowRight } from 'lucide-react'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
+import { getLeadSourceFields } from '@/utils/leadSource'
 
 const NEWSLETTER_TOPICS = [
   'ADA & Regulatory Updates',
@@ -61,6 +62,7 @@ export default function NewsletterSignup({
       'bot-field': botField,
       email: trimmedEmail,
       'signup-page': pathname || '/',
+      ...getLeadSourceFields(),
     }
 
     recordNetlifySubmission(fields)

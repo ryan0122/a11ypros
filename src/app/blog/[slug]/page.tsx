@@ -2,8 +2,8 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { getPostBySlug, getPosts } from "@/lib/api/posts/dataApi"
 import ArticleTemplate from "@/components/templates/ArticleTemplate"
-import he from "he"
 import { articleStructuredData, toJsonLd } from "@/lib/seo/structuredData"
+import { metaTitle } from "@/lib/seo/metaTitle"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -27,16 +27,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
-  const decodedTitle = he.decode(post.title.rendered)
+  const title = metaTitle(post.rankMathMeta, post.title.rendered)
   const siteUrl = process.env.NEXT_PUBLIC_URL || "https://a11ypros.com"
   const postUrl = `${siteUrl}/blog/${resolvedParams.slug}`
 
   return {
-    title: `${decodedTitle} - A11Y Pros`,
+    title,
     description: post.seoDescription || post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim(),
     openGraph: {
       authors: post.author_name || "A11Y Pros",
-      title: `${decodedTitle} - A11Y Pros`,
+      title,
       description: post.seoDescription || post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim(),
       url: postUrl,
       type: "article",
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${decodedTitle} - A11Y Pros`,
+      title,
       description: post.seoDescription || post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim(),
       images: post.featured_image_url ? [post.featured_image_url] : `${siteUrl}/og_banner.jpg`,
     },

@@ -24,6 +24,8 @@ export interface SitemapUrl {
   /** 'route' is a page built in code under src/app rather than from an MDX file. */
   type: 'page' | 'post' | 'home' | 'route'
   slug: string
+  /** Publication date for posts. Pages have no reliable date, so they leave it out. */
+  lastModified?: string
 }
 
 export async function getSitemapUrls(): Promise<SitemapUrl[]> {
@@ -77,6 +79,7 @@ export async function getSitemapUrls(): Promise<SitemapUrl[]> {
         path: `/blog/${post.slug}`,
         type: 'post',
         slug: post.slug,
+        ...(post.date ? { lastModified: post.date } : {}),
       })
     })
 
