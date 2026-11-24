@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import FieldSet from '@/components/forms/FieldSet'
 import Input from '@/components/forms/Input'
 import TextArea from '@/components/forms/TextArea'
@@ -37,6 +37,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
     const router = useRouter()
     const pathname = usePathname()
     const formRef = useRef<HTMLFormElement>(null)
+    // The form can appear more than once on a page, so the checkbox id must be unique.
+    const optInId = `${useId()}-newsletter-opt-in`
 
     const inputRefs = {
         'contact-first-name': useRef<HTMLInputElement>(null),
@@ -343,6 +345,19 @@ const ContactForm: React.FC<ContactFormProps> = ({
                                         : 'Tell us how we can help you.'
                                 }
                             />
+                        </div>
+                        <div className="mb-6 flex items-start gap-3">
+                            <input
+                                id={optInId}
+                                name="newsletter-opt-in"
+                                type="checkbox"
+                                value="yes"
+                                disabled={isSubmitting}
+                                className="mt-1 h-5 w-5 shrink-0 accent-[#0E8168]"
+                            />
+                            <label htmlFor={optInId} className="text-sm text-slate-700">
+                                Send me occasional accessibility tips and updates from A11Y Pros. You can unsubscribe at any time.
+                            </label>
                         </div>
                         <Button
                             className={`w-full rounded-xl border-none px-6 py-4 text-center text-base font-bold text-white shadow-md transition-all ${isSubmitting

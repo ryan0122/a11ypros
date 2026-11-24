@@ -22,6 +22,7 @@ export default function GatedDownloadCard({
 }: GatedDownloadProps) {
   const [email, setEmail] = useState('')
   const [botField, setBotField] = useState('')
+  const [optIn, setOptIn] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [unlocked, setUnlocked] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -31,6 +32,7 @@ export default function GatedDownloadCard({
   const hintId = `${baseId}-hint`
   const errorId = `${baseId}-error`
   const headingId = `${baseId}-heading`
+  const optInId = `${baseId}-newsletter-opt-in`
 
   const downloadLinkRef = useRef<HTMLAnchorElement>(null)
 
@@ -53,6 +55,7 @@ export default function GatedDownloadCard({
       'resource-title': title,
       'resource-url': fileUrl,
       'post-slug': postSlug,
+      'newsletter-opt-in': optIn ? 'yes' : 'no',
     }
 
     recordNetlifySubmission(fields)
@@ -184,7 +187,7 @@ export default function GatedDownloadCard({
                 </button>
               </div>
               <p id={hintId} className="mt-2 text-xs text-slate-600 leading-relaxed">
-                We&apos;ll send you a backup link to this file and occasional digital accessibility tips and resources from A11Y Pros. You can unsubscribe anytime. View our{' '}
+                We&apos;ll also email you a backup link to this file. View our{' '}
                 <Link
                   href="/privacy-policy"
                   className="font-semibold text-[#084A3B] underline hover:text-[#06382C]"
@@ -193,6 +196,20 @@ export default function GatedDownloadCard({
                 </Link>
                 .
               </p>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <input
+                id={optInId}
+                name="newsletter-opt-in"
+                type="checkbox"
+                checked={optIn}
+                onChange={(e) => setOptIn(e.target.checked)}
+                className="mt-0.5 h-5 w-5 shrink-0 accent-[#084A3B]"
+              />
+              <label htmlFor={optInId} className="text-sm text-slate-700">
+                Send me occasional accessibility tips and resources from A11Y Pros. You can unsubscribe at any time.
+              </label>
             </div>
 
             <p

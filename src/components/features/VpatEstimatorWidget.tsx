@@ -22,6 +22,7 @@ export default function VpatEstimatorWidget() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [optIn, setOptIn] = useState(false)
   const [formData, setFormData] = useState<EstimatorData>({
     goal: 'vpat',
     assetType: 'saas',
@@ -101,6 +102,7 @@ Asset Type: ${formData.assetType}
 Timeline: ${formData.timeline}
 Website/App URL: ${formData.websiteUrl || 'Not provided'}
 Additional Notes: ${formData.notes || 'None'}`,
+      'newsletter-opt-in': optIn ? 'yes' : 'no',
     }
     recordNetlifySubmission(fields)
 
@@ -407,6 +409,20 @@ Additional Notes: ${formData.notes || 'None'}`,
                   className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0E8168]"
                   placeholder="https://example.com"
                 />
+              </div>
+
+              <div className="flex items-start gap-3">
+                <input
+                  id="vpat-newsletter-opt-in"
+                  name="newsletter-opt-in"
+                  type="checkbox"
+                  checked={optIn}
+                  onChange={(e) => setOptIn(e.target.checked)}
+                  className="mt-0.5 h-5 w-5 shrink-0 accent-[#0E8168]"
+                />
+                <label htmlFor="vpat-newsletter-opt-in" className="text-sm text-slate-300">
+                  Send me occasional accessibility tips and updates from A11Y Pros. You can unsubscribe at any time.
+                </label>
               </div>
 
               <div role="alert" className="text-sm font-medium text-red-300">

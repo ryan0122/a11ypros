@@ -22,6 +22,7 @@ const FIELD_LABELS: Record<string, string> = {
   'site-size': 'Site size',
   'issue-tracker': 'Issue tracker',
   'plan-interest': 'Plan interest',
+  'newsletter-opt-in': 'Newsletter opt-in',
 };
 
 const IGNORED_FIELDS = new Set(['form-name', 'bot-field']);
@@ -90,23 +91,39 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Form submission failed' }, { status: 502 });
     }
 
-    // Add the email to Resend Contacts (for Broadcasts / marketing emails) using the existing RESEND_API_KEY.
-    // Optional RESEND_SEGMENT_ID (or legacy RESEND_AUDIENCE_ID) assigns the contact to a specific segment.
-    const segmentId = (process.env.RESEND_SEGMENT_ID || process.env.RESEND_AUDIENCE_ID || '').trim();
+    // Every form adds the email to Resend Contacts. Only newsletter sign-ups and people who
+    // tick the opt-in box on other forms also join the RESEND_NEWSLETTER_SEGMENT_ID segment,
+    // which Broadcasts are sent to.
+    const contactEmail = email.toLowerCase();
+    const wantsNewsletter = formName === 'newsletter-signup' || data['newsletter-opt-in'] === 'yes';
+    const segmentId = wantsNewsletter ? (process.env.RESEND_NEWSLETTER_SEGMENT_ID || '').trim() : '';
+    if (wantsNewsletter && !segmentId) {
+      console.warn('[contact] RESEND_NEWSLETTER_SEGMENT_ID is not set; subscriber not added to a segment');
+    }
     const firstName = (data['contact-first-name'] || '').trim() || undefined;
     const lastName = (data['contact-last-name'] || '').trim() || undefined;
 
-    await resend.contacts
-      .create({
-        email: email.toLowerCase(),
+    try {
+      // The SDK returns errors instead of throwing, so check `error` explicitly.
+      const { error: contactError } = await resend.contacts.create({
+        email: contactEmail,
         ...(firstName ? { firstName } : {}),
         ...(lastName ? { lastName } : {}),
         unsubscribed: false,
         ...(segmentId ? { segments: [{ id: segmentId }] } : {}),
-      })
-      .catch((err) => {
-        console.warn('[contact] Could not add contact to Resend Contacts:', err);
       });
+      if (contactError) {
+        // Usually the contact already exists (an earlier form). Create doesn't touch existing
+        // contacts, so add the segment separately.
+        console.warn('[contact] Resend did not create the contact:', contactError);
+        if (segmentId) {
+          const { error: segmentError } = await resend.contacts.segments.add({ email: contactEmail, segmentId });
+          if (segmentError) console.warn('[contact] Could not add contact to segment:', segmentError);
+        }
+      }
+    } catch (err) {
+      console.warn('[contact] Could not add contact to Resend Contacts:', err);
+    }
 
     // If this is a gated resource download, also email a copy of the download link to the requester.
     if (formName === 'resource-download' && data['resource-url']) {
