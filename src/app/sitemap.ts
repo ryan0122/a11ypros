@@ -6,7 +6,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return sitemapUrls.map((item) => ({
     url: item.url,
-    lastModified: new Date(),
+    // Stamping every URL with today's date teaches Google to ignore lastmod, so only
+    // posts, which have a real date, carry one.
+    ...(item.lastModified ? { lastModified: new Date(item.lastModified) } : {}),
     changeFrequency: 'weekly' as const,
     priority: item.type === 'home' ? 1.0 : 0.8,
   }));

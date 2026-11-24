@@ -4,6 +4,7 @@ import React, { useState, useRef, useId } from 'react'
 import Link from 'next/link'
 import { Download, CheckCircle2, FileText } from 'lucide-react'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
+import { getLeadSourceFields } from '@/utils/leadSource'
 
 export interface GatedDownloadProps {
   title: string
@@ -56,6 +57,7 @@ export default function GatedDownloadCard({
       'resource-url': fileUrl,
       'post-slug': postSlug,
       'newsletter-opt-in': optIn ? 'yes' : 'no',
+      ...getLeadSourceFields(),
     }
 
     recordNetlifySubmission(fields)

@@ -9,6 +9,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import cx from 'clsx'
 import { submitToVtiger } from '@/utils/submitToVtiger'
 import { recordNetlifySubmission } from '@/utils/recordNetlifySubmission'
+import { getLeadSourceFields } from '@/utils/leadSource'
 
 interface ContactFormProps {
     isMainContactForm?: boolean
@@ -167,6 +168,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         formData.set('source-page', pathname)
         const from = new URLSearchParams(window.location.search).get('from')
         if (from && /^[\w/-]{1,100}$/.test(from)) formData.set('referred-from', from)
+        Object.entries(getLeadSourceFields()).forEach(([key, value]) => formData.set(key, value))
 
         const fields: Record<string, string> = {}
         formData.forEach((value, key) => {
